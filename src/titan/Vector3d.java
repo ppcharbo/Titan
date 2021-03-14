@@ -8,11 +8,11 @@ public class Vector3d implements Vector3dInterface{
 
 	public double getX() {
 		return 0;
-		//
+		// jdisojv
 	}
 
 	public void setX(double x) {
-		//
+		// testAlex s
 	}
 
 	public double getY() {
