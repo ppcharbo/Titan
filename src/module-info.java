@@ -1,0 +1,3 @@
+module titan {
+	requires junit;
+}
