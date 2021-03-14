@@ -10,7 +10,7 @@ public class Vector3d implements Vector3dInterface
     public double getX()
     {
 		return 0;
-        //
+        //test
     }
     public void setX(double x)
     {
