@@ -1,4 +1,5 @@
-import titan.Vector3dInterface;
+
+package titan;
 
 public class Vector3d implements Vector3dInterface
 {
@@ -8,6 +9,7 @@ public class Vector3d implements Vector3dInterface
     }
     public double getX()
     {
+		return 0;
         //
     }
     public void setX(double x)
@@ -16,6 +18,7 @@ public class Vector3d implements Vector3dInterface
     }
     public double getY()
     {
+		return 0;
         //
     }
     public void setY(double y)
@@ -24,6 +27,7 @@ public class Vector3d implements Vector3dInterface
     }
     public double getZ()
     {
+		return 0;
         //
     }
     public void setZ(double z)
@@ -32,14 +36,17 @@ public class Vector3d implements Vector3dInterface
     }
     public Vector3dInterface add(Vector3dInterface other)
     {
+		return other;
 
     }
     public Vector3dInterface sub(Vector3dInterface other)
     {
+		return other;
 
     }
     public Vector3dInterface mul(double scalar)
     {
+		return null;
 
     }
 
@@ -83,6 +90,7 @@ public class Vector3d implements Vector3dInterface
     */
     public double norm()
     {
+		return 0;
         //
     }
     
@@ -91,6 +99,7 @@ public class Vector3d implements Vector3dInterface
      */
     public double dist(Vector3dInterface other)
     {
+		return 0;
 
     }
     
@@ -100,6 +109,7 @@ public class Vector3d implements Vector3dInterface
     */
     public String toString()
     {
+		return null;
 
     }
 }
