@@ -50,9 +50,6 @@ public class Vector3d implements Vector3dInterface
 
     }
 
-
-
-
     /**
      * Scalar x vector multiplication, followed by an addition
      * 

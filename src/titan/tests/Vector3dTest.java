@@ -1,8 +1,12 @@
 package titan.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
+
+import titan.Vector3d;
 
 public class Vector3dTest {
 
@@ -56,9 +60,19 @@ public class Vector3dTest {
 		fail("Not yet implemented");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testAddMul() {
-		fail("Not yet implemented");
+		Vector3d a = new Vector3d();
+		a.setX(1);
+		a.setY(2);
+		a.setZ(3);
+		Double h = (double) 2;
+		Vector3d b = new Vector3d();
+		Vector3d ahb = (Vector3d) a.addMul(h, b);
+		assertEquals(2,ahb.getX());
+		assertEquals(4,ahb.getY());
+		assertEquals(6,ahb.getZ());
 	}
 
 	@Test
