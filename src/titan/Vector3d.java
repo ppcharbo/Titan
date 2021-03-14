@@ -83,8 +83,9 @@ public class Vector3d implements Vector3dInterface{
 	 * @return the Euclidean norm of a vector
 	 */
 	public double norm() {
-		return 0;
-		//
+	
+		return Math.sqrt(this.getX() * this.getX() + this.getY() * this.getY() + this.getZ() * this.getZ());
+		
 	}
 
 	/**
