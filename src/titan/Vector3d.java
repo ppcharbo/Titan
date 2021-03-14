@@ -88,9 +88,7 @@ public class Vector3d implements Vector3dInterface{
 	 * @return the Euclidean norm of a vector
 	 */
 	public double norm() {
-	
 		return Math.sqrt(this.getX() * this.getX() + this.getY() * this.getY() + this.getZ() * this.getZ());
-		
 	}
 
 	/**
@@ -119,8 +117,7 @@ public class Vector3d implements Vector3dInterface{
 	 *         (-1.0,2.0,-3.0)
 	 */
 	public String toString() {
-		return null;
-
+		return "("+x+","+y+","+z+")";
 	}
 }
-//test1
+
