@@ -33,11 +33,13 @@ jobs:
        # Runs a set of commands using the runners shell
       - name: Compile Titan Project
         run: |
+          mkdir bin
           cd src
           javac    titan/*.java  -d ../bin
           javac   -cp ../lib/org.junit_4.13.0.v20200204-1500.jar:../lib/org.hamcrest.core_1.3.0.v20180420-1519.jar       titan/tests/*.java -d ../bin
 
       - name: Run Titan Test Suite 
         run: |
-            java -cp ../lib/org.junit_4.13.0.v20200204-1500.jar:../lib/org.hamcrest.core_1.3.0.v20180420-1519.jar:. titan/tests/TestSuiteRunner 
+          cd bin
+          java -cp ../lib/org.junit_4.13.0.v20200204-1500.jar:../lib/org.hamcrest.core_1.3.0.v20180420-1519.jar:. titan/tests/TestSuiteRunner 
 
