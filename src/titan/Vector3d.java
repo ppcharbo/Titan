@@ -5,6 +5,7 @@ public class Vector3d implements Vector3dInterface{
 	public Vector3d(){
 		// MAYBE ADD CONSTRUCTOR VARIABLES test
 		// this is not in the interface tho, so the variables might be just set using objectName.setVariable(number);
+		//
 	}
 
 	public double getX() {
