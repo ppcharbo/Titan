@@ -34,7 +34,7 @@ jobs:
       - name: Compile GraphExplorer
         run: |
           cd src
-          javac   titan/*.java  titan/tests -d ../bin
+          javac    *.java titan/*.java  titan/tests -d ../bin
 
   #    - name: Run Test Suite 
   #      run: |
