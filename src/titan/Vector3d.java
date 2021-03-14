@@ -70,18 +70,7 @@ public class Vector3d implements Vector3dInterface{
 	 *         a+h*b
 	 */
 	public Vector3dInterface addMul(double scalar, Vector3dInterface other) {
-		// we could also use the add and multiple methods that are just above the
-		// javadoc here^^^
-
-		double xOtherNew = scalar * (other.getX());
-		double yOtherNew = scalar * (other.getY());
-		double zOtherNew = scalar * (other.getZ());
-
-		this.setX(this.getX() + xOtherNew);
-		this.setY(this.getY() + yOtherNew);
-		this.setZ(this.getZ() + zOtherNew);
-
-		return this;
+		return this.add(other.mul(scalar));
 	}
 
 	/**
