@@ -5,7 +5,7 @@ public class Vector3d implements Vector3dInterface
 {
     public Vector3d()
     {
-        //MAYBE ADD CONSTRUCTOR VARIABLES
+        //MAYBE ADD CONSTRUCTOR VARIABLES test 
     }
     public double getX()
     {
