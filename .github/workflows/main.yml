@@ -42,6 +42,7 @@ jobs:
         run: |
           cd bin
           java -cp ../lib/org.junit_4.13.0.v20200204-1500.jar:../lib/org.hamcrest.core_1.3.0.v20180420-1519.jar:. titan/tests/TestSuiteRunner 
-      - name: Report jUnit Annotations as Github Actions Annotations
-        uses: shyim/junit-report-annotations-action@0.2.0
-
+      - uses: ashley-taylor/junit-report-annotations-action@master
+        with:
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+        if: always()
