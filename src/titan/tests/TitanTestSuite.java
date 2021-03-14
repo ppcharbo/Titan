@@ -6,6 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ Vector3dTest.class })
-public class JUnitTestSuite {
+public class TitanTestSuite {
 	 
 }
