@@ -95,21 +95,7 @@ public class Vector3d implements Vector3dInterface{
 	 * @return the Euclidean distance between two vectors
 	 */
 	public double dist(Vector3dInterface other) {
-		
-		Vector3dInterface anotherVector = new Vector3d();
-
-        double x1 = other.getX();
-        double y1 = other.getY();
-        double z1 = other.getZ();
-
-        double x2 = anotherVector.getX();
-        double y2 = anotherVector.getY();
-        double z2 = anotherVector.getZ();
-
-        double euclidDistance = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) + (z2-z1)*(z2-z1));
-        return euclidDistance;
-	
-
+        return this.sub(other).norm();
 	}
 
 	/**
