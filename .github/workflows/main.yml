@@ -39,5 +39,6 @@ jobs:
 
       - name: Run Titan Test Suite 
         run: |
-           java java -cp ../lib/org.junit_4.13.0.v20200204-1500.jar:../lib/org.hamcrest.core_1.3.0.v20180420-1519.jar:. TestSuiteRunner 
+           cd bin
+           java java -cp ../lib/org.junit_4.13.0.v20200204-1500.jar:../lib/org.hamcrest.core_1.3.0.v20180420-1519.jar:. titan/tests/TestSuiteRunner 
 
