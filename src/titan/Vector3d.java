@@ -44,18 +44,15 @@ public class Vector3d implements Vector3dInterface{
 	}
 
 	public Vector3dInterface add(Vector3dInterface other) {
-		return other;
-
+		return new Vector3d(this.getX() + other.getX(), this.getY() + other.getY(), this.getZ() + other.getZ());
 	}
 
 	public Vector3dInterface sub(Vector3dInterface other) {
-		return other;
-
+		return new Vector3d(this.getX() - other.getX(), this.getY() - other.getY(), this.getZ() - other.getZ());
 	}
 
 	public Vector3dInterface mul(double scalar) {
-		return null;
-
+		return new Vector3d(this.getX() * scalar, this.getY() * scalar, this.getZ() * scalar);
 	}
 
 	/**
