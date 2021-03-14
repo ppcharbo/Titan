@@ -2,37 +2,45 @@
 package titan;
 
 public class Vector3d implements Vector3dInterface{
+
+	private double x;
+	private double y;
+	private double z;
+
 	public Vector3d(){
-		// MAYBE ADD CONSTRUCTOR VARIABLES test
-		// this is not in the interface tho, so the variables might be just set using objectName.setVariable(number);
-		//
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
+	}
+
+	public Vector3d(double x, double y, double z){
+		this.x = x;
+		this.y = y;
+		this.z = z;
 	}
 
 	public double getX() {
-		return 0;
-		// jdisojv
+		return x;
 	}
 
 	public void setX(double x) {
-		// testAlex s
+		this.x = x;
 	}
 
 	public double getY() {
-		return 0;
-		//
+		return y;
 	}
 
 	public void setY(double y) {
-		//
+		this.y = y;
 	}
 
 	public double getZ() {
-		return 0;
-		//
+		return z;
 	}
 
 	public void setZ(double z) {
-		//
+		this.z = z;
 	}
 
 	public Vector3dInterface add(Vector3dInterface other) {
