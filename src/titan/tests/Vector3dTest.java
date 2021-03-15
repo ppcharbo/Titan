@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import titan.Vector3d;
+import titan.Vector3dInterface;
 
 public class Vector3dTest {
 
@@ -17,7 +18,7 @@ public class Vector3dTest {
 
 	@Test
 	public void testGetX() {
-		
+
 		Vector3d a = new Vector3d();
 		a.setX(1);
 		a.getX();
@@ -26,17 +27,16 @@ public class Vector3dTest {
 
 	@Test
 	public void testSetX() {
-		
+
 		Vector3d a = new Vector3d();
 		a.setX(1);
 		assertEquals(1, a.getX(), 0);
-		
-		
+
 	}
 
 	@Test
 	public void testGetY() {
-		
+
 		Vector3d a = new Vector3d();
 		a.setY(1);
 		a.getY();
@@ -45,7 +45,7 @@ public class Vector3dTest {
 
 	@Test
 	public void testSetY() {
-		
+
 		Vector3d a = new Vector3d();
 		a.setY(2);
 		assertEquals(2, a.getY(), 0);
@@ -53,7 +53,7 @@ public class Vector3dTest {
 
 	@Test
 	public void testGetZ() {
-		
+
 		Vector3d a = new Vector3d();
 		a.setZ(1);
 		a.getZ();
@@ -62,7 +62,7 @@ public class Vector3dTest {
 
 	@Test
 	public void testSetZ() {
-		
+
 		Vector3d a = new Vector3d();
 		a.setZ(3);
 		assertEquals(3, a.getZ(), 0);
@@ -75,7 +75,20 @@ public class Vector3dTest {
 
 	@Test
 	public void testSub() {
-		fail("Not yet implemented");
+		Vector3d a = new Vector3d();
+		a.setX(1);
+		a.setY(2);
+		a.setZ(3);
+
+		Vector3d b = new Vector3d();
+		b.setX(1);
+		b.setY(1);
+		b.setZ(1);
+		Vector3d newVector = (Vector3d) a.sub(b);
+		assertEquals(0, newVector.getX(),0);
+		assertEquals(1, newVector.getY(),0);
+		assertEquals(2, newVector.getZ(),0);
+		
 	}
 
 	@Test
