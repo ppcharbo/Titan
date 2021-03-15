@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import titan.Vector3d;
+import titan.Vector3dInterface;
 
 public class Vector3dTest {
 
@@ -67,7 +68,21 @@ public class Vector3dTest {
 
 	@Test
 	public void testAdd() {
-		fail("Not yet implemented");
+		Vector3d a = new Vector3d();
+		a.setX(1);
+		a.setY(2);
+		a.setZ(3);
+		Double h = (double) 2;
+		Vector3d b = new Vector3d();
+		b.setX(1);
+		b.setY(1);
+		b.setZ(1);
+		Vector3d newVector =(Vector3d) a.add(b);
+		assertEquals(2, newVector.getX(),0);
+		assertEquals(3,newVector.getY(),0);
+		assertEquals(4,newVector.getZ(),0);
+		
+		
 	}
 
 	@Test
