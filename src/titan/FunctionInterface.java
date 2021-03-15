@@ -7,8 +7,6 @@
 
 package titan;
 
-import titan.Vector3dInterface;
-
 public interface FunctionInterface {
 
     /*
