@@ -20,7 +20,6 @@ public class Vector3dTest {
 		
 		Vector3d a = new Vector3d();
 		a.setX(1);
-		a.getX();
 		assertEquals(1, a.getX(), 0);
 	}
 
@@ -39,7 +38,6 @@ public class Vector3dTest {
 		
 		Vector3d a = new Vector3d();
 		a.setY(1);
-		a.getY();
 		assertEquals(1, a.getY(), 0);
 	}
 
@@ -56,7 +54,6 @@ public class Vector3dTest {
 		
 		Vector3d a = new Vector3d();
 		a.setZ(1);
-		a.getZ();
 		assertEquals(1, a.getZ(), 0);
 	}
 
