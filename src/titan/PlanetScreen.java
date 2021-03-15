@@ -18,8 +18,11 @@ public class PlanetScreen {
 	    panel.setBackground(new Color(0, 0, 0));
 	    
 	    SunComponent component = new SunComponent();
+	    PlanetComponent planet1 = new PlanetComponent();
 	    
 	    planetFrame.add(component);
+	    planetFrame.add(planet1);
+	    
 	    planetFrame.setVisible(true);
 	    
 	}
