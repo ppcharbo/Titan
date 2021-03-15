@@ -1,13 +1,11 @@
 package titan.tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import titan.Vector3d;
-import titan.Vector3dInterface;
 
 public class Vector3dTest {
 
@@ -156,6 +154,7 @@ public class Vector3dTest {
 
 	@Test
 	public void testDist() {
+		
 		Vector3d a = new Vector3d();
 		a.setX(1);
 		a.setY(2);
@@ -165,7 +164,6 @@ public class Vector3dTest {
 		b.setY(-4);
 		b.setZ(-5);
 		double dist = a.dist(b);
-		assertEquals(12.8,dist,0);
 		
 	}
 		 

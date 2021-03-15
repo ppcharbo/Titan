@@ -7,9 +7,6 @@
 
 package titan;
 
-import titan.Vector3dInterface;
-import titan.FunctionInterface;
-
 public interface SolverInterface {
     
     /*
