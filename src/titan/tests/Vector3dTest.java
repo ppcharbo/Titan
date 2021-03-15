@@ -99,7 +99,7 @@ public class Vector3dTest {
 		assertEquals(0, newVector.getX(),0);
 		assertEquals(1, newVector.getY(),0);
 		assertEquals(2, newVector.getZ(),0);
-		
+
 	}
 
 	@Test
