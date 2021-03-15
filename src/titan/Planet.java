@@ -27,7 +27,7 @@ public class Planet {
 	}
 
 	public void draw(Graphics2D g2) {
-		g2.setColor(new Color(255, 0, 0));
-		g2.fillOval(x, y, 120, 120);
+		g2.setColor(new Color(r, g, b));
+		g2.fillOval(x, y, width, height);
 	}
 }

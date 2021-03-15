@@ -25,6 +25,7 @@ public class PlanetScreen {
 	    //panel.add(sun);
 		//panel.add(mercury);
 	    sun.setVisible(true);
+	    //push
 	    mercury.setVisible(true);
 	    planetFrame.add(sun);
 	    planetFrame.add(mercury);
