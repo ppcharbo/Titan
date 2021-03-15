@@ -1,13 +1,11 @@
 package titan.tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import titan.Vector3d;
-import titan.Vector3dInterface;
 
 public class Vector3dTest {
 
@@ -68,7 +66,6 @@ public class Vector3dTest {
 		a.setX(1);
 		a.setY(2);
 		a.setZ(3);
-		Double h = (double) 2;
 		Vector3d b = new Vector3d();
 		b.setX(1);
 		b.setY(1);
@@ -157,8 +154,20 @@ public class Vector3dTest {
 
 	@Test
 	public void testDist() {
-		fail("Not yet implemented");
+		
+		Vector3d a = new Vector3d();
+		a.setX(1);
+		a.setY(1);
+		a.setZ(2);
+		Vector3d b = new Vector3d();
+		b.setX(-1);
+		b.setY(3);
+		b.setZ(0);
+		double dist = a.dist(b);
+		assertEquals(6,dist,0);
+		
 	}
+		 
 
 	@Test
 	public void testToString() {
