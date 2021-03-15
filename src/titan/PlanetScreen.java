@@ -11,7 +11,7 @@ public class PlanetScreen {
 	
 	public PlanetScreen() {
 		JFrame planetFrame  = new JFrame();
-		planetFrame.setSize(1600, 900);
+		planetFrame.setSize(1600, 1600);
 		planetFrame.setTitle("Journey to Titan");
 		planetFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
