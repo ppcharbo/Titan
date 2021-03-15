@@ -18,7 +18,7 @@ public class GUI {
 
 	public GUI() {
 		JFrame welcomeFrame = new JFrame();
-		welcomeFrame.setSize(800, 600);
+		welcomeFrame.setSize(800, 800);
 		welcomeFrame.setTitle("Journey to Titan");
 		welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -46,7 +46,7 @@ public class GUI {
 
 		JLabel initialSpeedLabel = new JLabel("Please enter the intial speed: ");
 		JTextField initialSpeedInput = new JTextField();
-		initialSpeedInput.setSize(100, 50);
+		initialSpeedInput.setSize(100, 100);
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		panel.add(initialSpeedLabel, gbc);
