@@ -45,6 +45,7 @@ public interface Vector3dInterface {
     /**
      * @return the Euclidean distance between two vectors
      */
+    
     public double dist(Vector3dInterface other);
     
     /**

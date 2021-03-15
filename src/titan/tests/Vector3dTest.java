@@ -142,7 +142,16 @@ public class Vector3dTest {
 
 	@Test
 	public void testNorm() {
-		fail("Not yet implemented");
+		/**
+	     * @return the Euclidean distance between two vectors
+	     */
+		Vector3d a = new Vector3d();
+		a.setX(1);
+		a.setY(2);
+		a.setZ(3);
+	
+		double norm = a.norm();
+		assertEquals(Math.sqrt(14), norm,0);
 	}
 
 	@Test
