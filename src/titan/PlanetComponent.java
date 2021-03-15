@@ -3,8 +3,13 @@ package titan;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JComponent;
+//import titan.Planet;
 
-import titan.Planet;
+public class PlanetComponent extends JComponent {
+	private int x;
+	private int y;
+	private int width;
+	private int height;
 	
 	public class PlanetComponent extends JComponent {
 			
@@ -14,3 +19,4 @@ import titan.Planet;
 	        planet.draw(g2);
 	    }
 	}
+}
