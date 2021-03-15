@@ -157,15 +157,15 @@ public class Vector3dTest {
 		
 		Vector3d a = new Vector3d();
 		a.setX(1);
-		a.setY(2);
-		a.setZ(3);
+		a.setY(1);
+		a.setZ(1);
 		Vector3d b = new Vector3d();
-		b.setX(-7);
-		b.setY(-4);
-		b.setZ(-5);
+		b.setX(2);
+		b.setY(3);
+		b.setZ(2);
 		double dist = a.dist(b);
-		
-	}
+		assertEquals(Math.sqrt(6),dist,0);
+			}
 		 
 
 }
