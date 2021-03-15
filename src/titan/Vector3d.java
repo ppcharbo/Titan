@@ -91,7 +91,7 @@ public class Vector3d implements Vector3dInterface {
 	 */
 	public double dist(Vector3dInterface other) {
 		
-		return this.add(other).norm();
+		return this.sub(other).norm();
 	}
 
 	/**
