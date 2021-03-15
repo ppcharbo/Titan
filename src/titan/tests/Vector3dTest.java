@@ -11,10 +11,7 @@ import titan.Vector3dInterface;
 
 public class Vector3dTest {
 
-	@Test
-	public void testVector3d() {
-		fail("Not yet implemented");
-	}
+	
 
 	@Test
 	public void testGetX() {
@@ -99,7 +96,7 @@ public class Vector3dTest {
 		assertEquals(0, newVector.getX(),0);
 		assertEquals(1, newVector.getY(),0);
 		assertEquals(2, newVector.getZ(),0);
-		
+
 	}
 
 	@Test
@@ -146,7 +143,16 @@ public class Vector3dTest {
 
 	@Test
 	public void testNorm() {
-		fail("Not yet implemented");
+		/**
+	     * @return the Euclidean distance between two vectors
+	     */
+		Vector3d a = new Vector3d();
+		a.setX(1);
+		a.setY(2);
+		a.setZ(3);
+	
+		double norm = a.norm();
+		assertEquals(Math.sqrt(14), norm,0);
 	}
 
 	@Test
