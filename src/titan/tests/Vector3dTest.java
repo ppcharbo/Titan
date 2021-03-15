@@ -11,10 +11,7 @@ import titan.Vector3dInterface;
 
 public class Vector3dTest {
 
-	@Test
-	public void testVector3d() {
-		fail("Not yet implemented");
-	}
+	
 
 	@Test
 	public void testGetX() {
