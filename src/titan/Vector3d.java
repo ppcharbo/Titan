@@ -24,6 +24,7 @@ public class Vector3d implements Vector3dInterface {
 	}
 
 	public void setX(double x) {
+		//return the para
 		this.x = x;
 	}
 

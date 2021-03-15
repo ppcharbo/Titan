@@ -17,32 +17,55 @@ public class Vector3dTest {
 
 	@Test
 	public void testGetX() {
-		fail("Not yet implemented");
+		
+		Vector3d a = new Vector3d();
+		a.setX(1);
+		a.getX();
+		assertEquals(1, a.getX(), 0);
 	}
 
 	@Test
 	public void testSetX() {
-		fail("Not yet implemented");
+		
+		Vector3d a = new Vector3d();
+		a.setX(1);
+		assertEquals(1, a.getX(), 0);
+		
+		
 	}
 
 	@Test
 	public void testGetY() {
-		fail("Not yet implemented");
+		
+		Vector3d a = new Vector3d();
+		a.setY(1);
+		a.getY();
+		assertEquals(1, a.getY(), 0);
 	}
 
 	@Test
 	public void testSetY() {
-		fail("Not yet implemented");
+		
+		Vector3d a = new Vector3d();
+		a.setY(2);
+		assertEquals(2, a.getY(), 0);
 	}
 
 	@Test
 	public void testGetZ() {
-		fail("Not yet implemented");
+		
+		Vector3d a = new Vector3d();
+		a.setZ(1);
+		a.getZ();
+		assertEquals(1, a.getZ(), 0);
 	}
 
 	@Test
 	public void testSetZ() {
-		fail("Not yet implemented");
+		
+		Vector3d a = new Vector3d();
+		a.setZ(3);
+		assertEquals(3, a.getZ(), 0);
 	}
 
 	@Test
