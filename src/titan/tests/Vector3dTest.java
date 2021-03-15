@@ -158,21 +158,16 @@ public class Vector3dTest {
 	public void testDist() {
 		Vector3d a = new Vector3d();
 		a.setX(1);
-		a.setY(1);
-		a.setZ(2);
+		a.setY(2);
+		a.setZ(3);
 		Vector3d b = new Vector3d();
-		b.setX(-1);
-		b.setY(3);
-		b.setZ(0);
+		b.setX(-7);
+		b.setY(-4);
+		b.setZ(-5);
 		double dist = a.dist(b);
-		assertEquals(6,dist,0);
+		assertEquals(12.8,dist,0);
 		
 	}
 		 
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
 
 }
