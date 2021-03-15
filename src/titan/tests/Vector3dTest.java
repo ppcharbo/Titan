@@ -104,7 +104,16 @@ public class Vector3dTest {
 
 	@Test
 	public void testMul() {
-		fail("Not yet implemented");
+		Vector3d a = new Vector3d();
+		a.setX(1);
+		a.setY(2);
+		a.setZ(3);
+		Vector3d newVector =(Vector3d) a.mul(2);
+		assertEquals(2.0,newVector.getX(),0);
+		assertEquals(4.0,newVector.getY(),0);
+		assertEquals(6.0,newVector.getZ(),0);
+		
+		
 	}
 
 	@Test
