@@ -13,7 +13,7 @@ public class Planet {
 		this.y = yLT;
 	}
 	public void draw(Graphics2D g2) {
-		g2.setColor(new Color(255,204,0));
-		g2.fillOval(x, y, 50, 50);
+		g2.setColor(new Color(255, 0, 0));
+		g2.fillOval(x, y, 120, 120);
 	}
 }

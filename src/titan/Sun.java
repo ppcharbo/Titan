@@ -13,7 +13,7 @@ public class Sun {
 		this.y = yLT;
 	}
 	void draw(Graphics2D g2) {
-		g2.setColor(new Color(255, 165, 0));
+		g2.setColor(new Color(255, 0, 0));
 		g2.fillOval(x, y, 100, 100);
 	}
 }

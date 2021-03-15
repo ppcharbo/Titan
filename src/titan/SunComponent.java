@@ -9,7 +9,8 @@ import javax.swing.JComponent;
 public class SunComponent extends JComponent {
 	public void paintComponent (Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        Sun sunny = new Sun(800, 450);
+        Sun sunny = new Sun(800, 850);
         sunny.draw(g2);
+       
     }
 }

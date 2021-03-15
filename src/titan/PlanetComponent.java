@@ -10,7 +10,7 @@ import titan.Planet;
 			
 			public void paintComponent (Graphics g) {
 	        Graphics2D g2 = (Graphics2D) g;
-	        Planet planet = new Planet(800, 600);
+	        Planet planet = new Planet(200, 300);
 	        planet.draw(g2);
 	    }
 	}
