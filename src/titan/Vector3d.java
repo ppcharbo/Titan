@@ -1,4 +1,5 @@
 
+
 package titan;
 
 public class Vector3d implements Vector3dInterface {
@@ -82,7 +83,7 @@ public class Vector3d implements Vector3dInterface {
 	 */
 	public double norm() {
 		
-		return Math.sqrt(this.getX() * this.getX() + this.getY() * this.getY() + this.getZ() * this.getZ());
+		return Math.sqrt((this.getX() * this.getX()) +( this.getY() * this.getY()) + (this.getZ() * this.getZ()));
 	}
 
 	/**
@@ -90,7 +91,7 @@ public class Vector3d implements Vector3dInterface {
 	 */
 	public double dist(Vector3dInterface other) {
 		
-		return this.sub(other).norm();
+		return this.add(other).norm();
 	}
 
 	/**
