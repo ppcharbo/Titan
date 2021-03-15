@@ -1,19 +1,19 @@
 
 package titan;
 
-public class Vector3d implements Vector3dInterface{
+public class Vector3d implements Vector3dInterface {
 
 	private double x;
 	private double y;
 	private double z;
 
-	public Vector3d(){
+	public Vector3d() {
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
 	}
 
-	public Vector3d(double x, double y, double z){
+	public Vector3d(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -70,6 +70,9 @@ public class Vector3d implements Vector3dInterface{
 	 *         a+h*b
 	 */
 	public Vector3dInterface addMul(double scalar, Vector3dInterface other) {
+		
+		
+		
 		return this.add(other.mul(scalar));
 	}
 
@@ -77,6 +80,7 @@ public class Vector3d implements Vector3dInterface{
 	 * @return the Euclidean norm of a vector
 	 */
 	public double norm() {
+		
 		return Math.sqrt(this.getX() * this.getX() + this.getY() * this.getY() + this.getZ() * this.getZ());
 	}
 
@@ -84,7 +88,8 @@ public class Vector3d implements Vector3dInterface{
 	 * @return the Euclidean distance between two vectors
 	 */
 	public double dist(Vector3dInterface other) {
-        return this.sub(other).norm();
+		
+		return this.sub(other).norm();
 	}
 
 	/**
@@ -92,7 +97,7 @@ public class Vector3d implements Vector3dInterface{
 	 *         (-1.0,2.0,-3.0)
 	 */
 	public String toString() {
-		return "("+x+","+y+","+z+")";
+		
+		return "(" + x + "," + y + "," + z + ")";
 	}
 }
-
