@@ -28,6 +28,7 @@ public class Planet {
 
 	public void draw(Graphics2D g2) {
 		g2.setColor(new Color(r, g, b));
+		
 		g2.fillOval(x, y, width, height);
 	}
 }
