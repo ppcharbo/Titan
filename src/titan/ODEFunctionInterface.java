@@ -20,7 +20,7 @@ public interface ODEFunctionInterface {
      *   dy[0]/dt = y[1];  dy[1]/dt=cos(t)-sin(y[0])
      * Then this function would be
      *   f(t,y) = (y[1],cos(t)-sin(y[0])).
-     *
+     *S
      * @param   t   the time at which to evaluate the function
      * @param   y   the state at which to evaluate the function
      * @return  The average rate-of-change over the time-step. Has dimensions of [state]/[time].
