@@ -1,15 +1,12 @@
 package titan.tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import titan.Vector3d;
 
 public class Vector3dTest {
-
-	
 
 	@Test
 	public void testGetX() {
@@ -70,12 +67,11 @@ public class Vector3dTest {
 		b.setX(1);
 		b.setY(1);
 		b.setZ(1);
-		Vector3d newVector =(Vector3d) a.add(b);
-		assertEquals(2, newVector.getX(),0);
-		assertEquals(3,newVector.getY(),0);
-		assertEquals(4,newVector.getZ(),0);
-		
-		
+		Vector3d newVector = (Vector3d) a.add(b);
+		assertEquals(2, newVector.getX(), 0);
+		assertEquals(3, newVector.getY(), 0);
+		assertEquals(4, newVector.getZ(), 0);
+
 	}
 
 	@Test
@@ -90,9 +86,9 @@ public class Vector3dTest {
 		b.setY(1);
 		b.setZ(1);
 		Vector3d newVector = (Vector3d) a.sub(b);
-		assertEquals(0, newVector.getX(),0);
-		assertEquals(1, newVector.getY(),0);
-		assertEquals(2, newVector.getZ(),0);
+		assertEquals(0, newVector.getX(), 0);
+		assertEquals(1, newVector.getY(), 0);
+		assertEquals(2, newVector.getZ(), 0);
 
 	}
 
@@ -102,12 +98,11 @@ public class Vector3dTest {
 		a.setX(1);
 		a.setY(2);
 		a.setZ(3);
-		Vector3d newVector =(Vector3d) a.mul(2);
-		assertEquals(2.0,newVector.getX(),0);
-		assertEquals(4.0,newVector.getY(),0);
-		assertEquals(6.0,newVector.getZ(),0);
-		
-		
+		Vector3d newVector = (Vector3d) a.mul(2);
+		assertEquals(2.0, newVector.getX(), 0);
+		assertEquals(4.0, newVector.getY(), 0);
+		assertEquals(6.0, newVector.getZ(), 0);
+
 	}
 
 	@Test
@@ -141,20 +136,20 @@ public class Vector3dTest {
 	@Test
 	public void testNorm() {
 		/**
-	     * @return the Euclidean distance between two vectors
-	     */
+		 * @return the Euclidean distance between two vectors
+		 */
 		Vector3d a = new Vector3d();
 		a.setX(1);
 		a.setY(2);
 		a.setZ(3);
-	
+
 		double norm = a.norm();
-		assertEquals(Math.sqrt(14), norm,0);
+		assertEquals(Math.sqrt(14), norm, 0);
 	}
 
 	@Test
 	public void testDist() {
-		
+
 		Vector3d a = new Vector3d();
 		a.setX(1);
 		a.setY(1);
@@ -164,8 +159,7 @@ public class Vector3dTest {
 		b.setY(3);
 		b.setZ(2);
 		double dist = a.dist(b);
-		assertEquals(Math.sqrt(6),dist,0);
-			}
-		 
+		assertEquals(Math.sqrt(6), dist, 0);
+	}
 
 }
