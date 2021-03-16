@@ -14,7 +14,7 @@ import javax.swing.JComponent;
 public class SolarSystem extends JComponent {
 
 	private Image img;
-	/**
+	/** 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
