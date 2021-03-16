@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 public class Planet {
 	//fields
-	private Color colour;
+	
 	private double x;
 	private double y;
 	private double d;
@@ -20,8 +20,9 @@ public class Planet {
 	private double vy;
 	private double mass;
 	private boolean visability;
-	private int[][] orbitDots = new int[1000][2]; //this
-	private int counter = 0; //this
+	public int[][] orbitDots = new int[1000][2]; //this
+	public int counter = 0; //this
+	public Color colour;
 	
 	
 	//code here for every planet + sun as an object
