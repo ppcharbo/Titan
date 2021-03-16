@@ -1,21 +1,11 @@
-package titan;
+package GUI;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-public class GUI {
-	public GUI() {
+public class GUIWelcome {
+	public GUIWelcome() {
 
 		JFrame welcomeFrame = new JFrame();
 		welcomeFrame.setSize(800, 800);
@@ -61,10 +51,11 @@ public class GUI {
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new PlanetScreen();
+				// new Object to open Frame with everything
+				// e.g. new PlanetScreen();
+				//new SystemPlanet();
 				welcomeFrame.dispose();
 			}
 		});
 	}
-
 }
