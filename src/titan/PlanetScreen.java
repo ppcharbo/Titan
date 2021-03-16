@@ -1,7 +1,8 @@
 package titan;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class PlanetScreen {
 
@@ -28,6 +29,7 @@ public class PlanetScreen {
 		
 		SolarSystem solarSystem = new SolarSystem();
 		
+
 		//planetFrame.getContentPane().add(new JLabel(new ImageIcon("background.jpg")));
 		//planetFrame.getContentPane().add(solarSystem);
 
@@ -37,8 +39,22 @@ public class PlanetScreen {
 		
 	
 	//	planetFrame.getContentPane().add(new JPanelWithBackGround("background.jpg");
-		planetFrame.setVisible(true);
 
+	
+		solarSystem.addPlanet(50, 450, 100, 100, 255, 165, 0);
+		solarSystem.addPlanet(150, 450, 50, 50, 169, 169, 169);
+		//solarSystem. (new JLabel(new ImageIcon("background.jpg")));
+		planetFrame.getContentPane().add(solarSystem);
+
+		planetFrame.setVisible(true);
+		planetFrame.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				
+				 
+				solarSystem.repaint();
+			}
+		});
 	}
 
 }
