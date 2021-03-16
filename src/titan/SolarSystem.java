@@ -31,7 +31,8 @@ public class SolarSystem extends JComponent {
 	public void paintComponent(Graphics g1) {
 		Graphics2D g2 = (Graphics2D) g1;
 		
-		g2.drawImage(img, 0, 0, this);
+		g2.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+		
 		for (Planet planet : solarSystem) {
 			planet.draw(g2);	
 		}
