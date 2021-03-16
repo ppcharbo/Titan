@@ -2,6 +2,7 @@ package titan;
 
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,7 +38,7 @@ public class SolarSystem extends JComponent {
 
 	}
 	public void paintComponent(Graphics g1) {
-		Graphics g2 =  g1;
+		Graphics2D g2 = (Graphics2D) g1;
 
 		 
 	
