@@ -67,7 +67,7 @@ public class SystemPlanet {
 
 	public void changeTime(double tf, double h) {
 
-	//	trajectoryGeneric(earthInitialPosition, earthActualPosition, tf, h, sunPosition, mercuryPosition, tf, h);
+		trajectoryGeneric(earthInitialPosition, earthActualPosition, tf, h, sunPosition, mercuryPosition, tf, h);
 
 	}
 
