@@ -19,7 +19,7 @@ public class SystemPlanet {
 	public Vector3dInterface earthActualPosition = new Vector3d(-1.471922101663588e+11, -2.860995816266412e+10, 8.278183193596080e+06);
 	public Vector3dInterface mercuryActualPosition = new Vector3d(-1.471922101663588e+11, -2.860995816266412e+10, 8.278183193596080e+06);
 
-	public Vector3dInterface[] trajectoryGeneric(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, Vector3dInterface centerposition, Vector3dInterface positionMoving, double massCerter, double massMoving) {
+	public Vector3dInterface[] trajectoryGeneric(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, Vector3dInterface centerposition, Vector3dInterface positionMoving, double massCenter, double massMoving) {
 		double time = 0;
 		int i = 0;
 		Vector3dInterface vitesse = new Vector3d();
@@ -34,7 +34,7 @@ public class SystemPlanet {
 			i++;
 			time = time + h;
 
-			forceMagnietude = (G * massMoving * massCerter) / Math.pow((positionMoving.sub(centerposition).norm()), 2);
+			forceMagnietude = (G * massMoving * massCenter) / Math.pow((positionMoving.sub(centerposition).norm()), 2);
 			force = (centerposition.sub(positionMoving));
 			force = force.mul(forceMagnietude / force.norm());
 			acce = force.mul(1 / massMoving);
