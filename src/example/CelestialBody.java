@@ -1,6 +1,7 @@
 package example;
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 
 public class CelestialBody
 {

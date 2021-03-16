@@ -3,21 +3,11 @@ package titan;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
 import java.awt.Image;
-import java.awt.Toolkit;
-
 import java.util.ArrayList;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-//import titan.Planet;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class SolarSystem extends JComponent {
 

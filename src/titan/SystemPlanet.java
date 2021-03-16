@@ -66,20 +66,16 @@ public class SystemPlanet {
 	}
 
 	public void changeTime(double tf, double h) {
-
-	trajectoryGeneric(earthInitialPosition, vitesse, tf, h, sunPosition, earthActualPosition, solarMass, earthMass);
-	trajectoryGeneric(mercuryInitialPosition,vitesse,tf, h, sunPosition, mercuryActualPosition, solarMass, mercuryMass);
-	trajectoryGeneric(venusInitialPosition,vitesse,tf, h, sunPosition, venusActualPosition, solarMass, venusMass);
-	trajectoryGeneric(moonInitialPosition,vitesse,tf, h, earthActualPosition, moonActualPosition, earthMass, moonMass);
-	trajectoryGeneric(marsInitialPosition,vitesse,tf, h, sunPosition, marsActualPosition, solarMass, marsMass);
-	trajectoryGeneric(jupiterInitialPosition,vitesse,tf, h, sunPosition, jupiterActualPosition, solarMass, jupiterMass);
-	trajectoryGeneric(saturnInitialPosition,vitesse,tf, h, sunPosition, saturnActualPosition, solarMass, saturnMass);
-	trajectoryGeneric(titanInitialPosition,vitesse,tf, h, saturnActualPosition, titanActualPosition, solarMass, titanMass);
-	trajectoryGeneric(uranusInitialPosition,vitesse,tf, h, sunPosition, uranusActualPosition, solarMass, uranusMass);
-	trajectoryGeneric(mercuryInitialPosition,vitesse,tf, h, sunPosition, mercuryActualPosition, solarMass, mercuryMass);
-	trajectoryGeneric(neptuneInitialPosition,vitesse,tf, h, sunPosition, neptuneActualPosition, solarMass, neptuneMass);
-
-
+	earthActualPosition = trajectoryGeneric(earthInitialPosition, vitesse, tf, h, sunPosition, earthActualPosition, solarMass, earthMass);
+	mercuryActualPosition = trajectoryGeneric(mercuryInitialPosition,vitesse,tf, h, sunPosition, mercuryActualPosition, solarMass, mercuryMass);	trajectoryGeneric(venusInitialPosition,vitesse,tf, h, sunPosition, venusActualPosition, solarMass, venusMass);
+	moonActualPosition = trajectoryGeneric(moonInitialPosition,vitesse,tf, h, earthActualPosition, moonActualPosition, earthMass, moonMass);
+	marsActualPosition = trajectoryGeneric(marsInitialPosition,vitesse,tf, h, sunPosition, marsActualPosition, solarMass, marsMass);
+	jupiterActualPosition = trajectoryGeneric(jupiterInitialPosition,vitesse,tf, h, sunPosition, jupiterActualPosition, solarMass, jupiterMass);
+	saturnActualPosition = trajectoryGeneric(saturnInitialPosition,vitesse,tf, h, sunPosition, saturnActualPosition, solarMass, saturnMass);
+	titanActualPosition = trajectoryGeneric(titanInitialPosition,vitesse,tf, h, saturnActualPosition, titanActualPosition, solarMass, titanMass);
+	uranusActualPosition = trajectoryGeneric(uranusInitialPosition,vitesse,tf, h, sunPosition, uranusActualPosition, solarMass, uranusMass);
+	venusActualPosition = trajectoryGeneric(venusInitialPosition,vitesse,tf, h, sunPosition, venusActualPosition, solarMass, venusMass);
+	neptuneActualPosition = trajectoryGeneric(neptuneInitialPosition,vitesse,tf, h, sunPosition, neptuneActualPosition, solarMass, neptuneMass);
 
 
 

@@ -9,7 +9,7 @@ public class Planet {
 	
 	private double x;
 	private double y;
-	private double d;
+	private double dia;
 	private double a = 0; //this
 	private double distance = 0; //this
 	private double initial = 1000; //this
@@ -33,7 +33,7 @@ public class Planet {
 		//physical properties of a planet
 		this.x = xCoordinate;
 		this.y = yCoordinate;
-		this.d = diameter;
+		this.dia = diameter;
 		
 		//properties of speed of a planet
 		this.vx = vx;
@@ -60,8 +60,8 @@ public class Planet {
 		return this.mass;
 	}
 	
-	public double getD() {
-		return this.d;
+	public double getDiameter() {
+		return this.dia;
 	}
 	
 	public boolean isVisible() {
@@ -69,7 +69,7 @@ public class Planet {
 	}
 	
 	public boolean collision(int x, int y, double scale) {
-		if(x>600 + (getX() - this.d - 600)*scale && x < 600 + (getX() + this.d-600) *scale && y>400+(getY()-this.d-400)*scale && y<400+(getY() + this.d -400)*scale) {
+		if(x>600 + (getX() - getDiameter() - 600)*scale && x < 600 + (getX() + getDiameter()-600) *scale && y>400+(getY()-getDiameter()-400)*scale && y<400+(getY() + getDiameter() -400)*scale) {
 			return true;
 		}
 		else {
@@ -90,9 +90,9 @@ public class Planet {
 	public void drawPlanet(Graphics g, double size) {
 		g.setColor(colour);
 		//this
-		int xLT = (int) (888+(this.x-this.d/2-888)*size);
-		int yLT = (int) (888+(this.y-this.d/2-888)*size);
-		int widthAndHeight = (int) (this.d*size);
+		int xLT = (int) (888+(this.x-getDiameter()/2-888)*size);
+		int yLT = (int) (888+(this.y-getDiameter()/2-888)*size);
+		int widthAndHeight = (int) (getDiameter()*size);
 		g.fillOval(xLT, yLT, widthAndHeight, widthAndHeight);
 	}
 	
@@ -138,8 +138,8 @@ public class Planet {
 			g.setColor(Color.BLUE);
 			
 			String arg0 = (Math.round(this.distance*100.0)/100.0) * 1000000 + " km";
-			int arg1 = (int) (this.d+600+(this.x-this.d/2-600)*scale);
-			int arg2 = (int) ((16+400+(this.y-this.d/2-400)*scale)+this.d);
+			int arg1 = (int) (getDiameter()+600+(this.x-getDiameter()/2-600)*scale);
+			int arg2 = (int) ((16+400+(this.y-getDiameter()/2-400)*scale)+getDiameter());
 			g.drawString(arg0, arg1, arg2);
 		}
 	}
