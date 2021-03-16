@@ -19,22 +19,28 @@ public class PlanetScreen {
 		
 		
 		
+		
 		// works but does not display planets
 		//JLabel background = new JLabel(new ImageIcon(this.getClass().getResource("background.jpg"))); //source: https://www.pexels.com/photo/stars-1257860/
 		//background.setBounds(0, 0, WIDTH, HEIGHT);
 		//planetFrame.add(background);
 		
 		
-
-		
 		SolarSystem solarSystem = new SolarSystem();
+		
+		//planetFrame.getContentPane().add(new JLabel(new ImageIcon("background.jpg")));
+		//planetFrame.getContentPane().add(solarSystem);
+
 		
 		solarSystem.addPlanet(50, 450, 100, 100, 255, 165, 0);
 		solarSystem.addPlanet(150, 450, 50, 50, 169, 169, 169);
-		//planetFrame.getContentPane().add(new JLabel(new ImageIcon("background.jpg")));
-		planetFrame.getContentPane().add(solarSystem);
+		
+	
+	//	planetFrame.getContentPane().add(new JPanelWithBackGround("background.jpg");
 		planetFrame.setVisible(true);
 
 	}
 
 }
+
+	

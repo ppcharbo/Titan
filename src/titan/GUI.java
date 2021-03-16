@@ -15,8 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class GUI {
-
 	public GUI() {
+	
+	
+
+	
 		JFrame welcomeFrame = new JFrame();
 		welcomeFrame.setSize(800, 800);
 		welcomeFrame.setTitle("Journey to Titan");
@@ -66,5 +69,6 @@ public class GUI {
 			}
 		});
 	}
+	
 
 }
