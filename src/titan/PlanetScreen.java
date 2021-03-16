@@ -30,20 +30,12 @@ public class PlanetScreen {
 		SolarSystem solarSystem = new SolarSystem();
 		
 
-		//planetFrame.getContentPane().add(new JLabel(new ImageIcon("background.jpg")));
-		//planetFrame.getContentPane().add(solarSystem);
-
+		
 		
 		solarSystem.addPlanet(50, 450, 100, 100, 255, 165, 0);
 		solarSystem.addPlanet(150, 450, 50, 50, 169, 169, 169);
-		
-	
-	//	planetFrame.getContentPane().add(new JPanelWithBackGround("background.jpg");
-
-	
-		solarSystem.addPlanet(50, 450, 100, 100, 255, 165, 0);
-		solarSystem.addPlanet(150, 450, 50, 50, 169, 169, 169);
-		//solarSystem. (new JLabel(new ImageIcon("background.jpg")));
+		//solarSystem.addPlanet(50, 450, 100, 100, 255, 165, 0);
+		//solarSystem.addPlanet(150, 450, 50, 50, 169, 169, 169);
 		planetFrame.getContentPane().add(solarSystem);
 
 		planetFrame.setVisible(true);
