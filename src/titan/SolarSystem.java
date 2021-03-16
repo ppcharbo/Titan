@@ -20,8 +20,9 @@ public class SolarSystem extends JComponent {
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Planet> solarSystem=new ArrayList<>();
 	public SolarSystem() {
-		 
-		ImageIcon icon = new ImageIcon(this.getClass().getResource("background.jpg"));
+		
+		//source: https://www.pexels.com/photo/stars-1257860/
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("backgroundtest-fullsize.jpg")); 
 
 		        // extract the image out of it
 
