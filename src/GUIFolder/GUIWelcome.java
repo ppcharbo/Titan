@@ -1,10 +1,25 @@
 package GUIFolder;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class GUIWelcome {
+
+	public static void main(String[] args) {
+		new GUIWelcome();
+	}
+
 	public GUIWelcome() {
 
 		JFrame welcomeFrame = new JFrame();
@@ -53,8 +68,8 @@ public class GUIWelcome {
 			public void actionPerformed(ActionEvent e) {
 				// new Object to open Frame with everything
 				// e.g. new PlanetScreen();
-				//new SystemPlanet();
-				welcomeFrame.dispose();
+				welcomeFrame.setContentPane(new SystemPlanetMain());
+				
 			}
 		});
 	}
