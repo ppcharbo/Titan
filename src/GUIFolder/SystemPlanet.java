@@ -22,15 +22,16 @@ public class SystemPlanet extends JPanel {
 
 		img = icon.getImage();
 
-		celestialBodies[0] = new Planet(128, 128, 128, 600, 450, 8, -4.7, 0, 9);
-		celestialBodies[1] = new Planet(207, 153, 52, 752, 400, 12, 0, 2.5, 900);
-		celestialBodies[2] = new Planet(0, 0, 255, 600, 150, 11, 1.8, 0, 900);
-		celestialBodies[3] = new Planet(255, 0, 0, 650, -50, 7, 1.2, 0, 900);
-		celestialBodies[4] = new Planet(255, 140, 0, 600, -100, 20, 1.2, 0, 900);
-		celestialBodies[5] = new Planet(112, 128, 144, 600, -150, 15, 1.2, 0, 900);
-		celestialBodies[6] = new Planet(196, 233, 238, 600, -175, 15, 1.2, 0, 900);
-		celestialBodies[7] = new Planet(66, 98, 243, 0, 400, 13, 0, -1.2, 900);
-		celestialBodies[8] = new Planet(255, 140, 0, 600, 400, 30, .1, 0, 1000);
+		celestialBodies[0] = new Planet(128, 128, 128, 0, 0, 8, -4.7, 0, 9);
+//		celestialBodies[0] = new Planet(128, 128, 128, 600, 450, 8, -4.7, 0, 9);
+//		celestialBodies[1] = new Planet(207, 153, 52, 752, 400, 12, 0, 2.5, 900);
+//		celestialBodies[2] = new Planet(0, 0, 255, 600, 150, 11, 1.8, 0, 900);
+//		celestialBodies[3] = new Planet(255, 0, 0, 650, -50, 7, 1.2, 0, 900);
+//		celestialBodies[4] = new Planet(255, 140, 0, 600, -100, 20, 1.2, 0, 900);
+//		celestialBodies[5] = new Planet(112, 128, 144, 600, -150, 15, 1.2, 0, 900);
+//		celestialBodies[6] = new Planet(196, 233, 238, 600, -175, 15, 1.2, 0, 900);
+//		celestialBodies[7] = new Planet(66, 98, 243, 0, 400, 13, 0, -1.2, 900);
+//		celestialBodies[8] = new Planet(255, 140, 0, 600, 400, 30, .1, 0, 1000);
 
 		//setBackground(Color.BLACK);
 
