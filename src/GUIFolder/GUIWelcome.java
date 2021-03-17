@@ -69,6 +69,7 @@ public class GUIWelcome {
 				// new Object to open Frame with everything
 				// e.g. new PlanetScreen();
 				welcomeFrame.setContentPane(new SystemPlanetMain());
+				welcomeFrame.setSize(800, 801);
 				
 			}
 		});
