@@ -12,14 +12,18 @@ public class SystemPlanet extends JPanel {
 	ArrayList<Planet> celestialBodies = new ArrayList<Planet>();
 	private Image img;
 
-	final static int DELAY = 5;
+	public static int delay = 25;
 	double size = 1;
 
 	boolean stop = false;
 	int clicked = -1;
+	
+	
+	int width;
+	int height;
 
 	public SystemPlanet() {
-		ImageIcon icon = new ImageIcon(this.getClass().getResource("background.jpg")); //https://www.pexels.com/photo/starry-sky-998641/
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("background.jpg")); // https://www.pexels.com/photo/starry-sky-998641/
 
 		img = icon.getImage();
 
@@ -82,11 +86,40 @@ public class SystemPlanet extends JPanel {
 			repaint();
 
 			try {
-				Thread.sleep(DELAY);
+				Thread.sleep(delay);
 			} catch (InterruptedException ex) {
+				//
 			}
 		}
-
 	}
+	
+	/*
+	PLEASE, DO NOT DELETE THIS, WORK IN PROGRESS!
+	
+	public void resetToMiddle() {
+		int width2 = getWidth();
+		int height2 = getHeight();
+		//System.out.println("width  " + width2 + " height  " + height2);
+		
+		setWidth(width2);
+		setHeight(height2);
+		
+		for(Planet body : systemOfPlanets) {
+			body.setXPosition(body.getXPosition()+ getWidth()/2);
+		}
+		for(Planet body : systemOfPlanets) {
+			body.setYPosition(body.getYPosition()+ getHeight()/2);
+		}
+		
+	}
+	
+	public void setWidth(int w) {
+		width = w;
+	}
+	public void setHeight(int h) {
+		height = h;
+	}
+	
+	*/
 
 }
