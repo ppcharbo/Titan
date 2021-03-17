@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -63,14 +65,22 @@ public class GUIWelcome {
 
 		welcomeFrame.add(panel);
 		welcomeFrame.setVisible(true);
+		SystemPlanet systemPlanet = new SystemPlanet();
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// new Object to open Frame with everything
 				// e.g. new PlanetScreen();
-				welcomeFrame.setContentPane(new SystemPlanet());
+				welcomeFrame.setContentPane(systemPlanet);
 				welcomeFrame.setSize(800, 801);
-				
+
+			}
+		});
+		welcomeFrame.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+
+				systemPlanet.repaint();
 			}
 		});
 	}
