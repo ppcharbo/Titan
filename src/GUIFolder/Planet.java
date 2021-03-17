@@ -3,6 +3,8 @@ package GUIFolder;
 import java.awt.*;
 import java.util.*;
 
+import javax.swing.JPanel;
+
 public class Planet {
 
 	private int mass = 0;
@@ -11,7 +13,7 @@ public class Planet {
 	private double yLoc = 0;
 	private double velX = 0;
 	private double velY = 0;
-	// private double speed = 0;
+	//private double speed = 0;
 	Color color;
 	private double acceleration = 0;
 	private double dirX = 0;
@@ -20,13 +22,13 @@ public class Planet {
 	private double initial = 1000;
 	private double max = 0;
 	boolean visible;
+	private String label;
+	private JPanel parent;
 
-	/**
-	 * Constructor for objects of class Planet
-	 */
-	public Planet(int r, int g, int b, double xCoordinate, double yCoordinate, int diameter, double vx, double vy,
-			int mass) {
+	public Planet(JPanel parent, String label, int r, int g, int b, double xCoordinate, double yCoordinate, int diameter, double vx, double vy, int mass) {
 
+		this.parent = parent;
+		this.label = label;
 		color = new Color(r, g, b);
 		xLoc = xCoordinate;
 		yLoc = yCoordinate;
@@ -38,25 +40,23 @@ public class Planet {
 	}
 
 	/*
-	 * public Planet(double x, double y, double xVelocity, double yVelocity, int
-	 * bodyMass, int bodyDiameter, Color bodyColor) { xLoc = x; yLoc = y; velX =
-	 * xVelocity; velY = yVelocity; mass = bodyMass; diameter = bodyDiameter; color
-	 * = bodyColor; }
-	 */
+	public Planet(double x, double y, double xVelocity, double yVelocity, int bodyMass, int bodyDiameter, Color bodyColor)
+	{
+	   xLoc = x;
+	   yLoc = y;
+	   velX = xVelocity;
+	   velY = yVelocity;
+	   	mass = bodyMass;
+	    diameter = bodyDiameter;
+	   color = bodyColor;
+	}
+	*/
 	public double getXPosition() {
 		return xLoc;
 	}
 
 	public double getYPosition() {
 		return yLoc;
-	}
-
-	public void setXPosition(double x) {
-		xLoc = x; 
-	}
-
-	public void setYPosition(double y) {
-		yLoc = y;
 	}
 
 	public int getMass() {
@@ -88,9 +88,23 @@ public class Planet {
 
 	}
 
+	@Deprecated
 	public void draw(Graphics g, double size) {
 		g.setColor(color);
-		g.fillOval((int) (650 + (xLoc - diameter / 2 - 650) * size), (int) (500 + (yLoc - diameter / 2 - 500) * size),
-				(int) (diameter * size), (int) (diameter * size));
+
+		g.fillOval((int) (650 + (xLoc - diameter / 2 - 650) * size), (int) (500 + (yLoc - diameter / 2 - 500) * size), (int) (diameter * size), (int) (diameter * size));
 	}
+
+	public void draw(Graphics g, double size, int windth, int height) {
+		g.setColor(color);
+ 
+			int x = (int) (windth + (xLoc - diameter / 2 - windth) * size);
+			int y = (int) (height + (yLoc - diameter / 2 - height) * size);
+
+			System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
+			g.fillOval(x, y, (int) (diameter * size), (int) (diameter * size));
+	
+		
+	}
+
 }
