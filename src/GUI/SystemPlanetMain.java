@@ -1,15 +1,23 @@
 package GUI;
 
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
-import example.CelestialBody;
-
-import java.awt.image.*;
-import javax.imageio.ImageIO;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class SystemPlanetMain extends JPanel {
 	Model model;
@@ -42,7 +50,7 @@ public class SystemPlanetMain extends JPanel {
 		Planet[6] = new Planet(196, 233, 238, 600, -175, 15, 1.2, 0, 900);
 		Planet[7] = new Planet(66, 98, 243, 600, -175, 13, -1.2, 0, 900);
 		Planet[8] = new Planet(255, 140, 0, 600, 400, 30, .1, 0, 1000);
-		
+
 		/* becomes
 		 * 128, 128, 128, 600, 450, 8, -4.7, 0, 9 //Mecury
 		 * 207, 153, 52, 752, 400, 12, 0, 2.5, 900 //Venus
@@ -57,19 +65,19 @@ public class SystemPlanetMain extends JPanel {
 		 * Planet(int r, int g, int b, double xCoordinate, double yCoordinate, double diameter, double vx, double vy, double mass)
 		 * CelestialBody(double x, double y, double xVelocity, double yVelocity, int bodyMass, int bodyDiameter, Color bodyColor, double bodySpeed)
 		 *  celestialBodies[0] = new CelestialBody(600, 450, -4.7, 0, 9, 8, Color.GRAY, 1000); //Mercury
-            celestialBodies[1] = new CelestialBody(752, 400, 0, 2.5, 900, 12, new Color(207,153,52), 1000); //Venus
-            celestialBodies[2] = new CelestialBody(600, 150, 1.8, 0, 900, 11, Color.BLUE, 2000); //Earth
-            celestialBodies[3] = new CelestialBody(650, -50, 1.2, 0, 900, 7, Color.RED, 2000); //Mars
-            celestialBodies[4] = new CelestialBody(600, -100, 1.2, 0, 900, 20, new Color(255,140,0), 2000); //Jupiter
-            celestialBodies[5] = new CelestialBody(600, -150, 1.2, 0, 900, 15, new Color(112,128,144), 2000); //Saturn
-            celestialBodies[6] = new CelestialBody(600, -175, 1.2, 0, 900, 15, new Color(196,233,238), 2000); //Uranus
-            celestialBodies[7] = new CelestialBody(0, 400, 0, -1.2, 900, 13, new Color(66, 98, 243), 2000);//Neptune
-            
-            celestialBodies[8] = new CelestialBody(600, 400, .1, 0, 1000, 30, Color.ORANGE, 0);//Sun
+		    celestialBodies[1] = new CelestialBody(752, 400, 0, 2.5, 900, 12, new Color(207,153,52), 1000); //Venus
+		    celestialBodies[2] = new CelestialBody(600, 150, 1.8, 0, 900, 11, Color.BLUE, 2000); //Earth
+		    celestialBodies[3] = new CelestialBody(650, -50, 1.2, 0, 900, 7, Color.RED, 2000); //Mars
+		    celestialBodies[4] = new CelestialBody(600, -100, 1.2, 0, 900, 20, new Color(255,140,0), 2000); //Jupiter
+		    celestialBodies[5] = new CelestialBody(600, -150, 1.2, 0, 900, 15, new Color(112,128,144), 2000); //Saturn
+		    celestialBodies[6] = new CelestialBody(600, -175, 1.2, 0, 900, 15, new Color(196,233,238), 2000); //Uranus
+		    celestialBodies[7] = new CelestialBody(0, 400, 0, -1.2, 900, 13, new Color(66, 98, 243), 2000);//Neptune
+		    
+		    celestialBodies[8] = new CelestialBody(600, 400, .1, 0, 1000, 30, Color.ORANGE, 0);//Sun
 		 */
 
 		setBackground(Color.BLACK);
-		
+
 		/*
 		imgs[0] = getImage(""); // stackOverflow
 		imgs[1] = getImage("");
@@ -81,7 +89,7 @@ public class SystemPlanetMain extends JPanel {
 		imgs[7] = getImage("");
 		imgs[8] = getImage("");
 		*/
-		
+
 		Thread thread = new Thread() {
 
 			@Override
@@ -132,7 +140,7 @@ public class SystemPlanetMain extends JPanel {
 
 		public void paintComponent(Graphics g) {
 
-			Graphics2D g2 = (Graphics2D) g;
+			//Graphics2D g2 = (Graphics2D) g;
 			//g2.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 
 			for (Planet body : Planet)
