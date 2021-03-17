@@ -20,4 +20,5 @@ package titan;
  * dispatching to the addMul method taking a Vector2d.
  */
 public interface RateInterface {
+
 }
