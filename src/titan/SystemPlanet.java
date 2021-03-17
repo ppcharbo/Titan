@@ -98,27 +98,27 @@ public class SystemPlanet {
 		Vector3dInterface positions[];
 
 		positions = trajectoryGeneric(earthInitialPosition, vitesse, tf, h, sunPosition, earthActualPosition, solarMass, earthMass);
-		Collections.addAll(earthInitialPosition, positions);
+		Collections.addAll(earthActualPosition, positions);
 		positions = trajectoryGeneric(mercuryInitialPosition, vitesse, tf, h, sunPosition, mercuryActualPosition, solarMass, mercuryMass);
-		Collections.addAll(mercuryInitialPosition, positions);
+		Collections.addAll(mercuryActualPosition, positions);
 		positions = trajectoryGeneric(venusInitialPosition, vitesse, tf, h, sunPosition, venusActualPosition, solarMass, venusMass);
-		Collections.addAll(venusInitialPosition, positions);
+		Collections.addAll(venusActualPosition, positions);
 		positions = trajectoryGeneric(moonInitialPosition, vitesse, tf, h, earthActualPosition, moonActualPosition, earthMass, moonMass);
-		Collections.addAll(moonInitialPosition, positions);
+		Collections.addAll(moonActualPosition, positions);
 		positions = trajectoryGeneric(marsInitialPosition, vitesse, tf, h, sunPosition, marsActualPosition, solarMass, marsMass);
-		Collections.addAll(marsInitialPosition, positions);
+		Collections.addAll(marsActualPosition, positions);
 		positions = trajectoryGeneric(jupiterInitialPosition, vitesse, tf, h, sunPosition, jupiterActualPosition, solarMass, jupiterMass);
-		Collections.addAll(jupiterInitialPosition, positions);
+		Collections.addAll(jupiterActualPosition, positions);
 		positions = trajectoryGeneric(saturnInitialPosition, vitesse, tf, h, sunPosition, saturnActualPosition, solarMass, saturnMass);
-		Collections.addAll(saturnInitialPosition, positions);
+		Collections.addAll(saturnActualPosition, positions);
 		positions = trajectoryGeneric(titanInitialPosition, vitesse, tf, h, saturnActualPosition, titanActualPosition, solarMass, titanMass);
-		Collections.addAll(titanInitialPosition, positions);
+		Collections.addAll(titanActualPosition, positions);
 		positions = trajectoryGeneric(uranusInitialPosition, vitesse, tf, h, sunPosition, uranusActualPosition, solarMass, uranusMass);
-		Collections.addAll(uranusInitialPosition, positions);
+		Collections.addAll(uranusActualPosition, positions);
 		positions = trajectoryGeneric(venusInitialPosition, vitesse, tf, h, sunPosition, venusActualPosition, solarMass, venusMass);
-		Collections.addAll(venusInitialPosition, positions);
+		Collections.addAll(venusActualPosition, positions);
 		positions = trajectoryGeneric(neptuneInitialPosition, vitesse, tf, h, sunPosition, neptuneActualPosition, solarMass, neptuneMass);
-		Collections.addAll(neptuneInitialPosition, positions);
+		Collections.addAll(neptuneActualPosition, positions);
 
 	}
 
