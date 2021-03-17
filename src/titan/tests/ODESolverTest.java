@@ -7,12 +7,13 @@ import org.junit.Test;
 public class ODESolverTest {
 
 	@Test
-	public void testSolveODEFunctionInterfaceStateInterfaceDoubleArray() {
-		fail("Not yet implemented");
+	public void testSolveDynamicStepSize() {
+		//....
+
 	}
 
 	@Test
-	public void testSolveODEFunctionInterfaceStateInterfaceDoubleDouble() {
+	public void testSolveFixedStepSize() {
 		fail("Not yet implemented");
 	}
 
