@@ -30,6 +30,26 @@ public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterf
 	public Vector3dInterface neptuneActualPosition = new Vector3d(4.382692942729203e+12, -9.093501655486243e+11, -8.227728929479486e+10);
 
 	
+	private double earthForceMagnitude = 0;
+	private double mercuryForceMagnitude = 0;
+	private double venusForceMagnitude = 0;
+	private double moonForceMagnitude = 0;
+	private double marsForceMagnitude = 0;
+	private double jupiterForceMagnitude = 0;
+	private double saturnForceMagnitude = 0;
+	private double titanForceMagnitude = 0;
+	private double uranusForceMagnitude = 0;
+	private double neptuneForceMagnitude = 0;
+	private Vector3dInterface earthForce = new Vector3d();
+	private Vector3dInterface mercuryForce = new Vector3d();
+	private Vector3dInterface venusForce = new Vector3d();
+	private Vector3dInterface moonForce = new Vector3d();
+	private Vector3dInterface marsForce = new Vector3d();
+	private Vector3dInterface jupiterForce = new Vector3d();
+	private Vector3dInterface saturnForce = new Vector3d();
+	private Vector3dInterface titanForce = new Vector3d();
+	private Vector3dInterface uranusForce = new Vector3d();
+	private Vector3dInterface neptuneForce = new Vector3d();
 
 	/*
 	* Simulate the solar system, including a probe fired from Earth at 00:00h on 1 April 2020.
@@ -42,6 +62,7 @@ public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterf
 	*/
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double[] ts) {
+		Vector3dInterface force = new Vector3d();
 		int time = 0;
 		int i = 0;
 		Vector3dInterface vitesse = new Vector3d();
@@ -49,83 +70,66 @@ public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterf
 		Vector3dInterface[] positions = new Vector3dInterface[ts.length];
 		Vector3dInterface position = new Vector3d();
 		position = p0;
-		Vector3dInterface earthForce = new Vector3d();
-		Vector3dInterface mercuryForce = new Vector3d();
-		Vector3dInterface venusForce = new Vector3d();
-		Vector3dInterface moonForce = new Vector3d();
-		Vector3dInterface marsForce = new Vector3d();
-		Vector3dInterface jupiterForce = new Vector3d();
-		Vector3dInterface saturnForce = new Vector3d();
-		Vector3dInterface titanForce = new Vector3d();
-		Vector3dInterface uranusForce = new Vector3d();
-		Vector3dInterface neptuneForce = new Vector3d();
-		Vector3dInterface force = new Vector3d();
+		
 		
 		Vector3dInterface acce = new Vector3d();
 		
-		double earthForceMagnitude = 0;
-		double mercuryForceMagnitude = 0;
-		double venusForceMagnitude = 0;
-		double moonForceMagnitude = 0;
-		double marsForceMagnitude = 0;
-		double jupiterForceMagnitude = 0;
-		double saturnForceMagnitude = 0;
-		double titanForceMagnitude = 0;
-		double uranusForceMagnitude = 0;
-		double neptuneForceMagnitude = 0;
+		
 		//double force = 0;
 		while (time < ts[ts.length - 1]) {
 			i++;
 
+			
+		
 			//force of the earth on the probe
-			earthForceMagnitude = (G * earthMass * probeMass) / Math.pow((earthActualPosition.sub(sunPosition).norm()), 2);
-			earthForce = (sunPosition.sub(earthActualPosition));
+			earthForceMagnitude = (G * earthMass * probeMass) / Math.pow((earthActualPosition.sub(probeActualPosition).norm()), 2);
+			earthForce = (probeActualPosition.sub(earthActualPosition));
 			earthForce  = earthForce .mul(earthForceMagnitude / earthForce .norm());
 			
 			//force of mercury on the probe
-			mercuryForceMagnitude = (G * mercuryMass * probeMass) / Math.pow((mercuryActualPosition.sub(sunPosition).norm()), 2);
-			mercuryForce  = (sunPosition.sub(mercuryActualPosition));
+			mercuryForceMagnitude = (G * mercuryMass * probeMass) / Math.pow((mercuryActualPosition.sub(probeActualPosition).norm()), 2);
+			mercuryForce  = (probeActualPosition.sub(mercuryActualPosition));
 			mercuryForce = mercuryForce.mul(mercuryForceMagnitude / mercuryForce.norm());
 			
 			
 			//force of venus on the probe
-			venusForceMagnitude = (G * venusMass * probeMass) / Math.pow((venusActualPosition.sub(sunPosition).norm()), 2);
-			venusForce = (sunPosition.sub(venusActualPosition));
+			venusForceMagnitude = (G * venusMass * probeMass) / Math.pow((venusActualPosition.sub(probeActualPosition).norm()), 2);
+			venusForce = (probeActualPosition.sub(venusActualPosition));
 			venusForce = venusForce.mul(venusForceMagnitude / venusForce.norm());
 			
 			//force of the moon on the probe
-			moonForceMagnitude = (G * moonMass * probeMass) / Math.pow((moonActualPosition.sub(sunPosition).norm()), 2);
-			moonForce = (sunPosition.sub(moonActualPosition));
+			moonForceMagnitude = (G * moonMass * probeMass) / Math.pow((moonActualPosition.sub(probeActualPosition).norm()), 2);
+			moonForce = (probeActualPosition.sub(moonActualPosition));
 			moonForce = moonForce.mul(moonForceMagnitude / moonForce.norm());
 			
 			//force of mars on the probe
-			marsForceMagnitude = (G * marsMass * probeMass) / Math.pow((marsActualPosition.sub(sunPosition).norm()), 2);
-			marsForce = (sunPosition.sub(marsActualPosition));
+			marsForceMagnitude = (G * marsMass * probeMass) / Math.pow((marsActualPosition.sub(probeActualPosition).norm()), 2);
+			marsForce = (probeActualPosition.sub(marsActualPosition));
 			marsForce = marsForce.mul(marsForceMagnitude / marsForce.norm());
 			
 			//force of jupiter on the probe
-			jupiterForceMagnitude = (G * jupiterMass * probeMass) / Math.pow((jupiterActualPosition.sub(sunPosition).norm()), 2);
-			jupiterForce = (sunPosition.sub(jupiterActualPosition));
+			jupiterForceMagnitude = (G * jupiterMass * probeMass) / Math.pow((jupiterActualPosition.sub(probeActualPosition).norm()), 2);
+			jupiterForce = (probeActualPosition.sub(jupiterActualPosition));
 			jupiterForce = jupiterForce.mul(jupiterForceMagnitude / jupiterForce.norm());
 			
 			//force of saturn on the probe
-			saturnForceMagnitude = (G * saturnMass * probeMass) / Math.pow((saturnActualPosition.sub(sunPosition).norm()), 2);
-			saturnForce = (sunPosition.sub(saturnActualPosition));
+			saturnForceMagnitude = (G * saturnMass * probeMass) / Math.pow((saturnActualPosition.sub(probeActualPosition).norm()), 2);
+			saturnForce = (probeActualPosition.sub(saturnActualPosition));
 			saturnForce = saturnForce.mul(saturnForceMagnitude / saturnForce.norm());
 			
 			//force of titan on the probe
-			titanForceMagnitude = (G * titanMass * probeMass) / Math.pow((titanActualPosition.sub(sunPosition).norm()), 2);
-			titanForce = (sunPosition.sub(titanActualPosition));
+			titanForceMagnitude = (G * titanMass * probeMass) / Math.pow((titanActualPosition.sub(probeActualPosition).norm()), 2);
+			titanForce = (probeActualPosition.sub(titanActualPosition));
 			titanForce = titanForce.mul(titanForceMagnitude / titanForce.norm());
 			
 			//force of uranus on the probe
-			uranusForceMagnitude = (G * uranusMass * probeMass) / Math.pow((uranusActualPosition.sub(sunPosition).norm()), 2);
-			uranusForce = (sunPosition.sub(uranusActualPosition));
+			uranusForceMagnitude = (G * uranusMass * probeMass) / Math.pow((uranusActualPosition.sub(probeActualPosition).norm()), 2);
+			uranusForce = (probeActualPosition.sub(uranusActualPosition));
 			uranusForce = uranusForce.mul(uranusForceMagnitude / uranusForce.norm());
 			
 			//force of neptune on the probe
-			neptuneForceMagnitude = (G * neptuneMass * probeMass) / Math.pow((neptuneActualPosition.sub(sunPosition).norm()), 2);
-			neptuneForce = (sunPosition.sub(neptuneActualPosition));
+			neptuneForceMagnitude = (G * neptuneMass * probeMass) / Math.pow((neptuneActualPosition.sub(probeActualPosition).norm()), 2);
+			neptuneForce = (probeActualPosition.sub(neptuneActualPosition));
 			neptuneForce = neptuneForce.mul(neptuneForceMagnitude / neptuneForce.norm());
 			
 			force = earthForce.add(mercuryForce).add(venusForce).add(moonForce).add(marsForce).add(jupiterForce).add(saturnForce).add(titanForce).add(uranusForce).add(neptuneForce);
@@ -138,7 +142,7 @@ public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterf
 		}
 
 		return positions;
-	}
+	}	
 	/*
 	* Simulate the solar system with steps of an equal size.
 	* The final step may have a smaller size, if the step-size does not exactly divide the solution time range.
@@ -147,8 +151,8 @@ public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterf
 	* @param   h       the size of step to be taken
 	* @return  an array of size round(tf/h)+1 giving the position of the probe at each time stated, 
 	*          taken relative to the Solar System barycentre
+	*          // le temps homogene entre tf et h
 	*/
-// le temps homogene entre tf et h
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 
@@ -161,16 +165,65 @@ public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterf
 		position = p0;
 		Vector3dInterface force = new Vector3d();
 		Vector3dInterface acce = new Vector3d();
-		double forceMagnietude = 0;
+		
 		while (time < tf) {
 			i++;
 			time = time + h;
 
-			forceMagnietude = (G * earthMass * solarMass) / Math.pow((earthActualPosition.sub(sunPosition).norm()), 2);
-			force = (sunPosition.sub(earthActualPosition));
-			force = force.mul(forceMagnietude / force.norm());
-			acce = force.mul(1 / earthMass);
-
+			//force of the earth on the probe
+			earthForceMagnitude = (G * earthMass * probeMass) / Math.pow((earthActualPosition.sub(probeActualPosition).norm()), 2);
+			earthForce = (probeActualPosition.sub(earthActualPosition));
+			earthForce  = earthForce .mul(earthForceMagnitude / earthForce .norm());
+			
+			//force of mercury on the probe
+			mercuryForceMagnitude = (G * mercuryMass * probeMass) / Math.pow((mercuryActualPosition.sub(probeActualPosition).norm()), 2);
+			mercuryForce  = (probeActualPosition.sub(mercuryActualPosition));
+			mercuryForce = mercuryForce.mul(mercuryForceMagnitude / mercuryForce.norm());
+			
+			
+			//force of venus on the probe
+			venusForceMagnitude = (G * venusMass * probeMass) / Math.pow((venusActualPosition.sub(probeActualPosition).norm()), 2);
+			venusForce = (probeActualPosition.sub(venusActualPosition));
+			venusForce = venusForce.mul(venusForceMagnitude / venusForce.norm());
+			
+			//force of the moon on the probe
+			moonForceMagnitude = (G * moonMass * probeMass) / Math.pow((moonActualPosition.sub(probeActualPosition).norm()), 2);
+			moonForce = (probeActualPosition.sub(moonActualPosition));
+			moonForce = moonForce.mul(moonForceMagnitude / moonForce.norm());
+			
+			//force of mars on the probe
+			marsForceMagnitude = (G * marsMass * probeMass) / Math.pow((marsActualPosition.sub(probeActualPosition).norm()), 2);
+			marsForce = (probeActualPosition.sub(marsActualPosition));
+			marsForce = marsForce.mul(marsForceMagnitude / marsForce.norm());
+			
+			//force of jupiter on the probe
+			jupiterForceMagnitude = (G * jupiterMass * probeMass) / Math.pow((jupiterActualPosition.sub(probeActualPosition).norm()), 2);
+			jupiterForce = (probeActualPosition.sub(jupiterActualPosition));
+			jupiterForce = jupiterForce.mul(jupiterForceMagnitude / jupiterForce.norm());
+			
+			//force of saturn on the probe
+			saturnForceMagnitude = (G * saturnMass * probeMass) / Math.pow((saturnActualPosition.sub(probeActualPosition).norm()), 2);
+			saturnForce = (probeActualPosition.sub(saturnActualPosition));
+			saturnForce = saturnForce.mul(saturnForceMagnitude / saturnForce.norm());
+			
+			//force of titan on the probe
+			titanForceMagnitude = (G * titanMass * probeMass) / Math.pow((titanActualPosition.sub(probeActualPosition).norm()), 2);
+			titanForce = (probeActualPosition.sub(titanActualPosition));
+			titanForce = titanForce.mul(titanForceMagnitude / titanForce.norm());
+			
+			//force of uranus on the probe
+			uranusForceMagnitude = (G * uranusMass * probeMass) / Math.pow((uranusActualPosition.sub(probeActualPosition).norm()), 2);
+			uranusForce = (probeActualPosition.sub(uranusActualPosition));
+			uranusForce = uranusForce.mul(uranusForceMagnitude / uranusForce.norm());
+			
+			//force of neptune on the probe
+			neptuneForceMagnitude = (G * neptuneMass * probeMass) / Math.pow((neptuneActualPosition.sub(probeActualPosition).norm()), 2);
+			neptuneForce = (probeActualPosition.sub(neptuneActualPosition));
+			neptuneForce = neptuneForce.mul(neptuneForceMagnitude / neptuneForce.norm());
+			
+			
+			force = earthForce.add(mercuryForce).add(venusForce).add(moonForce).add(marsForce).add(jupiterForce).add(saturnForce).add(titanForce).add(uranusForce).add(neptuneForce);
+			acce = force.mul(1 / probeMass);
 			vitesse = acce.mul(h).add(vitesse);
 			position = acce.mul(Math.pow(h, 2) / 2).add(vitesse.mul(h)).add(position);
 			positions[i - 1] = position;
