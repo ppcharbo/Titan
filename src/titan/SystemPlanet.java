@@ -122,9 +122,9 @@ public class SystemPlanet {
 
 	}
 
-	private Vector3dInterface[] trajectoryGeneric(ArrayList<Vector3dInterface> list, Vector3dInterface vitesse2, double tf, double h, ArrayList<Vector3dInterface> list2, ArrayList<Vector3dInterface> list3, double solarMass2, double mercuryMass2) {
+	private Vector3dInterface[] trajectoryGeneric(ArrayList<Vector3dInterface> list, Vector3dInterface vitesse2, double tf, double h, ArrayList<Vector3dInterface> list2, ArrayList<Vector3dInterface> list3, double solarMass2, double planetMass2) {
 
-		return trajectoryGeneric(getLastElement(list), vitesse2, tf, h, getLastElement(list2), getLastElement(list3), solarMass2, mercuryMass2);
+		return trajectoryGeneric(getLastElement(list), vitesse2, tf, h, getLastElement(list2), getLastElement(list3), solarMass2, planetMass2);
 	}
 
 	private Vector3dInterface getLastElement(ArrayList<Vector3dInterface> list) {
