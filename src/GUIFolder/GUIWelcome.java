@@ -13,8 +13,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 public class GUIWelcome {
 
@@ -73,6 +75,16 @@ public class GUIWelcome {
 				// e.g. new PlanetScreen();
 				welcomeFrame.setContentPane(systemPlanet);
 				welcomeFrame.setSize(800, 801);
+				JToolBar toolbar = new JToolBar("Tools");
+				
+				JButton speedDecrease = new JButton("decrease");
+				speedDecrease.addActionListener(new ActionListener() {
+		            public void actionPerformed(ActionEvent e) {
+		                //decrease the speed
+		            }
+		        });
+				toolbar.add(speedDecrease);
+				welcomeFrame.add(toolbar);
 
 			}
 		});
