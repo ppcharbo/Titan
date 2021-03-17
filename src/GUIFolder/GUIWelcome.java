@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -76,23 +77,66 @@ public class GUIWelcome {
 				welcomeFrame.setContentPane(systemPlanet);
 				welcomeFrame.setSize(800, 801);
 				JToolBar toolbar = new JToolBar("Tools");
-				
+
+				// Buttons in toolbar
 				JButton speedDecrease = new JButton("decrease");
 				speedDecrease.addActionListener(new ActionListener() {
-		            public void actionPerformed(ActionEvent e) {
-		                //decrease the speed
-		            }
-		        });
+					public void actionPerformed(ActionEvent e) {
+						systemPlanet.delay = systemPlanet.delay + 5;
+					}
+				});
+				JButton speedIncrease = new JButton("increase");
+				speedIncrease.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (systemPlanet.delay - 10 <= 0) {
+							// systemPlanet.delay is very small
+							systemPlanet.delay = 1;
+						} else {
+							systemPlanet.delay = systemPlanet.delay - 10;
+						}
+
+					}
+				});
+
+				JButton pauseStart = new JButton("pause/start");
+				pauseStart.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						systemPlanet.stop = !(systemPlanet.stop);
+					}
+				});
+
+				JButton zoomOut = new JButton("zoom out");
+				zoomOut.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						systemPlanet.size = systemPlanet.size - 0.1;
+					}
+				});
+
+				JButton zoomIn = new JButton("zoom in");
+				zoomIn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						systemPlanet.size = systemPlanet.size + 0.1;
+					}
+				});
+
+				// buttons to toolbar to frame
 				toolbar.add(speedDecrease);
+				toolbar.add(speedIncrease);
+				toolbar.add(pauseStart);
+				toolbar.add(zoomOut);
+				toolbar.add(zoomIn);
 				welcomeFrame.add(toolbar);
 
 			}
 		});
+
 		welcomeFrame.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
 
 				systemPlanet.repaint();
+				//DO NOT DELETE THIS, WORK IN PROGRESS!
+				//systemPlanet.resetToMiddle();
 			}
 		});
 	}
