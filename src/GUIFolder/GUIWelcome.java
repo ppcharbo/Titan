@@ -1,4 +1,4 @@
-package GUI;
+package GUIFolder;
 
 import java.awt.*;
 import java.awt.event.*;
