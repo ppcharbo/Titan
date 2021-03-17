@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import titan.Vector3d;
+import titan.Vector3dInterface;
 
 public class Vector3dTest {
 
@@ -121,7 +122,7 @@ public class Vector3dTest {
 		a.setY(2);
 		a.setZ(3);
 		Double h = (double) 2;
-		Vector3d b = new Vector3d();
+		Vector3dInterface b = new Vector3d();
 		b.setX(1);
 		b.setY(1);
 		b.setZ(1);

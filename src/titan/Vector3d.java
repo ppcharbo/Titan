@@ -1,6 +1,6 @@
 package titan;
 
-public class Vector3d implements Vector3dInterface {
+public class Vector3d implements Vector3dInterface, StateInterface, RateInterface {
 
 	private double x;
 	private double y;
@@ -72,6 +72,11 @@ public class Vector3d implements Vector3dInterface {
 	public Vector3dInterface addMul(double scalar, Vector3dInterface other) {
 
 		return this.add(other.mul(scalar));
+	}
+
+	public StateInterface addMul(double scalar, RateInterface other) {
+
+		return (Vector3d)this.add(((Vector3d)other).mul(scalar));
 	}
 
 	/**
