@@ -2,11 +2,9 @@ package titan;
 
 public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterface  {
 	public double G = 6.66667e-11;// Gravity universally 
-	public double probeMass = 0;
-	public double earthMass = 5.97219e24;
-	public double solarMass = 1.988500e30;
-	public Vector3dInterface probeInitialPositon = new Vector3d(0,0,0);
-	public Vector3dInterface probeActualPosition = new Vector3d(0,0,0);
+	public double probeMass = 15000;
+	public Vector3dInterface probeInitialPositon = new Vector3d(-1.471922101663588e+11,(-2.860995816266412e+10) +6371, 8.278183193596080e+06);
+	public Vector3dInterface probeActualPosition = new Vector3d(-1.471922101663588e+11,(-2.860995816266412e+10) +6371, 8.278183193596080e+06);
 	public Vector3dInterface sunPosition = new Vector3d(-6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06);
 	public Vector3dInterface earthInitialPosition = new Vector3d(-1.471922101663588e+11, -2.860995816266412e+10, 8.278183193596080e+06);
 	public Vector3dInterface earthActualPosition = new Vector3d(-1.471922101663588e+11, -2.860995816266412e+10, 8.278183193596080e+06);
