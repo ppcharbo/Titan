@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class SystemPlanetMain extends JPanel {
+public class SystemPlanet extends JPanel {
 	Model model;
 	Planet[] celestialBodies = new Planet[9];
 
@@ -15,7 +15,7 @@ public class SystemPlanetMain extends JPanel {
 	boolean stop = false;
 	int clicked = -1;
 
-	public SystemPlanetMain() {
+	public SystemPlanet() {
 		//source: https://www.pexels.com/photo/stars-1257860/
 		//ImageIcon icon = new ImageIcon(this.getClass().getResource("backgroundtest-fullsize.jpg"));
 

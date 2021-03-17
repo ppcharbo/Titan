@@ -68,7 +68,7 @@ public class GUIWelcome {
 			public void actionPerformed(ActionEvent e) {
 				// new Object to open Frame with everything
 				// e.g. new PlanetScreen();
-				welcomeFrame.setContentPane(new SystemPlanetMain());
+				welcomeFrame.setContentPane(new SystemPlanet());
 				welcomeFrame.setSize(800, 801);
 				
 			}
