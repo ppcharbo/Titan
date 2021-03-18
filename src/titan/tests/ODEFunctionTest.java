@@ -14,15 +14,24 @@ public class ODEFunctionTest {
 	public void testCall() {
 		
 		ODEFunction odeFunction = new ODEFunction();
-		
-
 		System.out.println("Eath Position  "+Planet.EARTH.getPosition());
 		//after 1 hours
 		for (int time = 0; time < 3600*24*365.25; time++) {
-		odeFunction.call(time, Planet.EARTH);
+		RateInterface call = odeFunction.call(time, Planet.EARTH);
 		}
-		
 		System.out.println("Eath Position  "+Planet.EARTH.getPosition());
+		
+	}
+
+	@Test
+	public void testCallAll() {
+		
+		ODEFunction odeFunction = new ODEFunction();
+		
+		
+		for (int time = 0; time < 3600*24*365.25; time++) {
+		Planet[] call = odeFunction.callForAllPlanets(time,Planet.values());
+		}
 		
 		
 	}
