@@ -3,6 +3,9 @@ package titan;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import titan.planets.Celestial;
+import titan.planets.Solar;
+
 public class Planet {
 	//coordinates
 	private int x;
@@ -30,5 +33,6 @@ public class Planet {
 		g2.setColor(new Color(r, g, b));
 		
 		g2.fillOval(x, y, width, height);
+		
 	}
 }
