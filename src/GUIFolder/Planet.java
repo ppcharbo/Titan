@@ -29,10 +29,13 @@ public class Planet
         color = new Color(r, g, b);
         xLoc = xCoordinate;
         yLoc = yCoordinate;
+        
         this.diameter = diameter;
+        this.mass = mass;
+        
         velX = vx;
         velY = vy;
-        this.mass = mass;
+        
 
 
     }
