@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
 
-
-public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterface  {
-
+public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterface {
 
 	/*
 	 * Simulate the solar system, including a probe fired from Earth at 00:00h on 1
@@ -64,11 +62,16 @@ public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterf
 	 */
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
+		double[] tsMe = new double[(int) (tf / h) + 1];
+		tsMe[0] = 0;
+		for (int i = 1; i < tsMe.length; i++) {
+			tsMe[i] = tsMe[i - 1] + h;
+		}
+		if (tsMe[tsMe.length - 1] != tf) {
+			tsMe[tsMe.length - 1] = tf;
+		}
 
-
-
-		Vector3dInterface[] positions = null;
-		return positions;
+		return trajectory(p0, v0, tsMe);
 
 	}
 }
