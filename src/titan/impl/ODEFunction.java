@@ -69,10 +69,5 @@ public class ODEFunction implements ODEFunctionInterface {
 		return null;
 	}
 
-	public double gravF() {
-		Vector3dInterface force = new Vector3d();
-
-		return (Double) null;
-
-	}
+	
 }
