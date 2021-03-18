@@ -80,12 +80,7 @@ public enum Planet implements StateInterface,RateInterface {
 		return accVector;
 	}
 
-	public static void main(String[] args) {
 
-		Vector3dInterface velocity2 = Planet.JUPITER.previousVelocity;
-		Vector3dInterface position = Planet.JUPITER.previousPosition;
-
-	}
 
 	void addPosition(Vector3dInterface newPosition) {
 		previousPosition = position;

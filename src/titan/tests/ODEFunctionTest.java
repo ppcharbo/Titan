@@ -23,17 +23,6 @@ public class ODEFunctionTest {
 		
 	}
 
-	@Test
-	public void testCallAll() {
-		
-		ODEFunction odeFunction = new ODEFunction();
-		
-		
-		for (int time = 0; time < 3600*24*365.25; time++) {
-		Planet[] call = odeFunction.callForAllPlanets(time,Planet.values());
-		}
-		
-		
-	}
+	
 
 }
