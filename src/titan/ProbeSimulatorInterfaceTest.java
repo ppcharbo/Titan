@@ -15,12 +15,13 @@ public class ProbeSimulatorInterfaceTest {
 		ProbeSimulatorInterface probeSimulator = new ProbeSimulator();
 		
 		double[] ts = {100D,200D};
-		probeSimulator.trajectory(Planet.SHIP.getPosition(), Planet.SHIP.getPosition(),ts );
+		Vector3dInterface[] positions = probeSimulator.trajectory(Planet.SHIP.getPosition(), Planet.SHIP.getPosition(),ts );
+		
+		for (Vector3dInterface vector3dInterface : positions) {
+			System.out.println("posistion "+vector3dInterface);
+		}
 	}
 
-	@Test
-	public void testTrajectoryVector3dInterfaceVector3dInterfaceDoubleDouble() {
-		fail("Not yet implemented");
-	}
+ 
 
 }
