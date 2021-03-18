@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import titan.Vector3d;
 import titan.Vector3dInterface;
+import titan.impl.Vector3d;
 
 public class Vector3dTest {
 

@@ -1,6 +1,5 @@
-package titan.planets;
+package titan.impl;
 
-import titan.Vector3d;
 import titan.Vector3dInterface;
 
 public enum Planet {

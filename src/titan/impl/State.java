@@ -1,4 +1,7 @@
-package titan;
+package titan.impl;
+
+import titan.RateInterface;
+import titan.StateInterface;
 
 public class State implements StateInterface {
 

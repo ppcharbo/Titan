@@ -1,4 +1,7 @@
-package titan;
+package titan.impl;
+
+import titan.ProbeSimulatorInterface;
+import titan.Vector3dInterface;
 
 public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterface  {
 	public double G = 6.66667e-11;// Gravity universally 

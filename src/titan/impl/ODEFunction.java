@@ -1,4 +1,9 @@
-package titan;
+package titan.impl;
+
+import titan.ODEFunctionInterface;
+import titan.RateInterface;
+import titan.StateInterface;
+import titan.Vector3dInterface;
 
 public class ODEFunction implements ODEFunctionInterface {
 

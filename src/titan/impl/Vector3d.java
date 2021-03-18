@@ -1,4 +1,6 @@
-package titan;
+package titan.impl;
+
+import titan.Vector3dInterface;
 
 public class Vector3d implements Vector3dInterface {
 
