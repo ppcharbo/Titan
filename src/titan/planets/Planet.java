@@ -1,5 +1,8 @@
 package titan.planets;
 
+import titan.Vector3d;
+import titan.Vector3dInterface;
+
 public enum Planet {
 	SUN(1.988500e30, 6.96e8, -6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06, -1.420511669610689e+01, -4.954714716629277e+00, 3.994237625449041e-01),
 	MOON(7.349e22, 3e8, -1.472343904597218e+11, -2.822578361503422e+10, 1.052790970065631e+07, 4.433121605215677e+03, -2.948453614110320e+04, 8.896598225322805e+01),
@@ -21,6 +24,11 @@ public enum Planet {
 	public final double vx;
 	public final double vy;
 	public final double vz;
+	private Vector3d pos;
+	private Vector3d speed;
+	// universal gravitational constant  (m3 kg-1 s-2)
+	public static final double G = 6.67300E-11;
+
 
 	Planet(double mass, double radius, double x, double y, double z, double vx, double vy, double vz) {
 		this.mass = mass;
@@ -31,26 +39,27 @@ public enum Planet {
 		this.vx = vx;
 		this.vy = vy;
 		this.vz = vz;
+		pos= new Vector3d(x, y, z);
+		speed=new Vector3d(vx, vy, vz);
 
 	}
 
-	// universal gravitational constant  (m3 kg-1 s-2)
-	public static final double G = 6.67300E-11;
-
-	double surfaceGravity(double distance, Planet p) {
-		return G * p.mass * mass / (distance * distance);
-	}
-
-	double surfaceGravityAll(double distance) {
-		double result=0;
+	Vector3dInterface gravitationalForce( ) {
+		Vector3dInterface result=new Vector3d();
+		
 		for (Planet p : Planet.values()) 
-			if(p!=this)
-				result+=surfaceGravityAll(distance);
+			 if(p!=this)
+			 {
+				 Vector3dInterface N= this.pos.sub(p.pos);
+				 double GMM=G *this.mass*p.mass;
+				 double GMMdivNorm=GMM/Math.pow(N.norm(),3);
+				 result.add(N.addMul(GMMdivNorm, N));
+				 
+			 }
 		return result;
 	}
 
 	public static void main(String[] args) {
-		Planet.EARTH.surfaceGravity(0, JUPITER);
-		Planet.EARTH.surfaceGravityAll(10);
+	 
 	}
 }
