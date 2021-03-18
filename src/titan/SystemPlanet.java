@@ -37,6 +37,8 @@ public class SystemPlanet {
 	public ArrayList<Vector3dInterface> uranusActualPosition = new ArrayList<Vector3dInterface>();
 	public ArrayList<Vector3dInterface> neptuneInitialPosition = new ArrayList<Vector3dInterface>();
 	public ArrayList<Vector3dInterface> neptuneActualPosition = new ArrayList<Vector3dInterface>();
+	
+	public ArrayList<ArrayList<Vector3dInterface>> totalList = new ArrayList<Vector3dInterface>();
 
 	public SystemPlanet() {
 		sunPosition.add(new Vector3d(-6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06));
@@ -130,6 +132,9 @@ public class SystemPlanet {
 	private Vector3dInterface getLastElement(ArrayList<Vector3dInterface> list) {
 
 		return list.get(list.size() - 1);
+	}
+	public Vector3dInterface getPosition() {
+		
 	}
 
 }
