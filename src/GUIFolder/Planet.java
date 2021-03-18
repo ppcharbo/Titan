@@ -14,8 +14,8 @@ public class Planet {
 	private double vx = 0;
 	private double vy = 0;
 	private double a = 0;
-	private double dirX = 0;
-	private double dirY = 0;
+	private double dX = 0;
+	private double dY = 0;
 	private double distance = 0;
 	private double initial = 1000;
 	private double max = 0;
@@ -37,6 +37,7 @@ public class Planet {
 		this.vx = vx;
 		this.vy = vy;
 		this.mass = mass;
+		this.label = label;
 
 	}
 
@@ -68,11 +69,11 @@ public class Planet {
 
 		a = mass / distance / distance;
 
-		dirX = (xNew - x) / distance;
-		dirY = (yNew - y) / distance;
+		dX = (xNew - x) / distance;
+		dY = (yNew - y) / distance;
 
-		vx = vx +(dirX*a);
-		vy = vy +(dirY*a);
+		vx = vx +(dX*a);
+		vy = vy +(dY*a);
 		updateLocation();
 	}
 
@@ -98,7 +99,14 @@ public class Planet {
 		int y = (int) (height + (this.y - dia / 2 - height) * size);
 
 		System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
-		g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
+		if(label.equals("rocket")) {
+			//draw box
+			g.fillRect(x, y, (int) (dia * size), (int) (dia * size));
+		}
+		else {
+			g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
+		}
+		
 
 	}
 
