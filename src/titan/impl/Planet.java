@@ -6,7 +6,7 @@ import titan.RateInterface;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
-public enum Planet implements StateInterface {
+public enum Planet implements StateInterface,RateInterface {
 	SHIP(15000, 0, -6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06, -1.420511669610689e+01, -4.954714716629277e+00, 3.994237625449041e-01),
 	SUN(1.988500e30, 6.96e8, -6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06, -1.420511669610689e+01, -4.954714716629277e+00, 3.994237625449041e-01),
 	MOON(7.349e22, 3e8, -1.472343904597218e+11, -2.822578361503422e+10, 1.052790970065631e+07, 4.433121605215677e+03, -2.948453614110320e+04, 8.896598225322805e+01),
@@ -80,12 +80,7 @@ public enum Planet implements StateInterface {
 		return accVector;
 	}
 
-	public static void main(String[] args) {
 
-		Vector3dInterface velocity2 = Planet.JUPITER.previousVelocity;
-		Vector3dInterface position = Planet.JUPITER.previousPosition;
-
-	}
 
 	void addPosition(Vector3dInterface newPosition) {
 		previousPosition = position;
