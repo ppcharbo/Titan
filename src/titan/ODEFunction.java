@@ -51,17 +51,18 @@ public class ODEFunction implements ODEFunctionInterface {
 		int i = 0;
 		double time = 0;
 		double forceMagnietude = 0;
-		//for each planet (not same) --> Fg
-		while (time < tf) { //tEnd
-			i++;
-			time = time + h; //step
-
-			forceMagnietude = (G * m1 * m2) / Math.pow((positionMoving.sub(centerposition).norm()), 2);
-			force = (centerposition.sub(positionMoving));
-			force = force.mul(forceMagnietude / force.norm());
-		}
-
-	}
+//		//for each planet (not same) --> Fg
+//		while (time < tf) { //tEnd
+//			i++;
+//			time = time + h; //step
+//
+//			forceMagnietude = (G * m1 * m2) / Math.pow((positionMoving.sub(centerposition).norm()), 2);
+//			force = (centerposition.sub(positionMoving));
+//			force = force.mul(forceMagnietude / force.norm());
+//		}
+//
+//	}
+		return (Double) null;
 	
 	
-}
+}}
