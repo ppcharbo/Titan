@@ -48,17 +48,25 @@ public class ODEFunction implements ODEFunctionInterface {
 
 	public double gravF() {
 		Vector3dInterface force = new Vector3d();
-		int i = 0;
-		double time = 0;
-		double forceMagnietude = 0;
+		for() {
+			if() {
+			double  magnitudeForce = 0;
+			forceMagnitude = (G);
+			}
+		
+		
+		
+		}
 //		//for each planet (not same) --> Fg
 //		while (time < tf) { //tEnd
 //			i++;
 //			time = time + h; //step
 //
-//			forceMagnietude = (G * m1 * m2) / Math.pow((positionMoving.sub(centerposition).norm()), 2);
+//			
+		//forceMagnietude = (G * m1 * m2) / Math.pow((positionMoving.sub(centerposition).norm()), 2);
 //			force = (centerposition.sub(positionMoving));
 //			force = force.mul(forceMagnietude / force.norm());
+//			acce = force/mass
 //		}
 //
 //	}

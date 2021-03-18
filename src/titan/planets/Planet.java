@@ -37,17 +37,15 @@ public enum Planet {
 	// universal gravitational constant  (m3 kg-1 s-2)
 	public static final double G = 6.67300E-11;
 
-	double surfaceGravity() {
-		return G * mass / (radius * radius);
-	}
-	double surfaceWeight(double otherMass) {
-		return otherMass * surfaceGravity();
+	double surfaceGravity(double distance, Planet p) {
+		return G * p.mass * mass / (distance * distance);
 	}
 
-	
 	public static void main(String[] args) {
-		for (Planet p : Planet.values()) {
-			p.surfaceGravity();
-		}
+		Planet.EARTH.surfaceGravity(0, JUPITER);
+		
+//		for (Planet p : Planet.values()) {
+//			p.surfaceGravity(10.4,Planet.EARTH);
+//		}
 	}
 }
