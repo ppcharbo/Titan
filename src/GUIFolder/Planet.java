@@ -13,7 +13,7 @@ public class Planet {
 	private double yLoc = 0;
 	private double velX = 0;
 	private double velY = 0;
-	//private double speed = 0;
+	// private double speed = 0;
 	Color color;
 	private double acceleration = 0;
 	private double dirX = 0;
@@ -25,7 +25,8 @@ public class Planet {
 	private String label;
 	private JPanel parent;
 
-	public Planet(JPanel parent, String label, int r, int g, int b, double xCoordinate, double yCoordinate, int diameter, double vx, double vy, int mass) {
+	public Planet(JPanel parent, String label, int r, int g, int b, double xCoordinate, double yCoordinate,
+			int diameter, double vx, double vy, int mass) {
 
 		this.parent = parent;
 		this.label = label;
@@ -39,18 +40,6 @@ public class Planet {
 
 	}
 
-	/*
-	public Planet(double x, double y, double xVelocity, double yVelocity, int bodyMass, int bodyDiameter, Color bodyColor)
-	{
-	   xLoc = x;
-	   yLoc = y;
-	   velX = xVelocity;
-	   velY = yVelocity;
-	   	mass = bodyMass;
-	    diameter = bodyDiameter;
-	   color = bodyColor;
-	}
-	*/
 	public double getXPosition() {
 		return xLoc;
 	}
@@ -85,7 +74,14 @@ public class Planet {
 		velX += dirX * acceleration;
 		velY += dirY * acceleration;
 		move();
+	}
 
+	public void setX(int x) {
+		xLoc = x;
+	}
+
+	public void setY(int y) {
+		yLoc = y;
 	}
 
 //	@Deprecated
@@ -97,14 +93,13 @@ public class Planet {
 
 	public void draw(Graphics g, double size, int windth, int height) {
 		g.setColor(color);
- 
-			int x = (int) (windth + (xLoc - diameter / 2 - windth) * size);
-			int y = (int) (height + (yLoc - diameter / 2 - height) * size);
 
-			System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
-			g.fillOval(x, y, (int) (diameter * size), (int) (diameter * size));
-	
-		
+		int x = (int) (windth + (xLoc - diameter / 2 - windth) * size);
+		int y = (int) (height + (yLoc - diameter / 2 - height) * size);
+
+		System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
+		g.fillOval(x, y, (int) (diameter * size), (int) (diameter * size));
+
 	}
 
 }

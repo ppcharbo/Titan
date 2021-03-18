@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class SystemPlanet extends JPanel {
-	ArrayList<Planet> celestialBodies = new ArrayList<Planet>();
+	ArrayList<Planet> allPlanets = new ArrayList<Planet>();
 	private Image img;
 
 	public static int delay = 25;
@@ -17,28 +17,29 @@ public class SystemPlanet extends JPanel {
 
 	boolean stop = false;
 	int clicked = -1;
-	
-	
+
 	int width;
 	int height;
 
 	public SystemPlanet() {
-		ImageIcon icon = new ImageIcon(this.getClass().getResource("background.jpg")); // https://www.pexels.com/photo/starry-sky-998641/
-
+		// Source of image: https://www.pexels.com/photo/starry-sky-998641/
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("background.jpg"));
 		img = icon.getImage();
 
- 
-		celestialBodies.add(new Planet(this,"",128, 128, 128, 600, 450, 8, -4.7, 0, 9));
-		celestialBodies.add(new Planet(this,"",207, 153, 52, 752, 400, 12, 0, 2.5, 900));
-		celestialBodies.add(new Planet(this,"",0, 0, 255, 600, 150, 11, 1.8, 0, 900));
-		celestialBodies.add(new Planet(this,"",255, 0, 0, 650, -50, 7, 1.2, 0, 900));
-		celestialBodies.add(new Planet(this,"",255, 140, 0, 600, -100, 20, 1.2, 0, 900));
-		celestialBodies.add(new Planet(this,"",112, 128, 144, 600, -150, 15, 1.2, 0, 900));
-		celestialBodies.add(new Planet(this,"",196, 233, 238, 600, -175, 15, 1.2, 0, 900));
-		celestialBodies.add(new Planet(this,"",66, 98, 243, 0, 400, 13, 0, -1.2, 900));
-		celestialBodies.add(new Planet(this,"sun",255, 140, 0, 600, 400, 30, .1, 0, 1000));
- 
-		//setBackground(Color.BLACK);
+		// frame is 1600 by 900 default
+		// sun needs to move from 600 to 1600/2 = 800, DELTA = 800-600 = 200 --> so
+		// everything 200 to the right!
+		// sun needs to move from 400 to 450/2 = 450, DELTA = 450-400 = 050 --> so
+		// everything 050 to the right!
+		allPlanets.add(new Planet(this, "", 128, 128, 128, 800, 500, 8, -4.7, 0, 9));
+		allPlanets.add(new Planet(this, "", 207, 153, 52, 952, 450, 12, 0, 2.5, 900));
+		allPlanets.add(new Planet(this, "", 0, 0, 255, 800, 200, 11, 1.8, 0, 900));
+		allPlanets.add(new Planet(this, "", 255, 0, 0, 850, 0, 7, 1.2, 0, 900));
+		allPlanets.add(new Planet(this, "", 255, 140, 0, 800, -50, 20, 1.2, 0, 900));
+		allPlanets.add(new Planet(this, "", 112, 128, 144, 800, -75, 15, 1.2, 0, 900));
+		allPlanets.add(new Planet(this, "", 196, 233, 238, 800, -125, 15, 1.2, 0, 900));
+		allPlanets.add(new Planet(this, "", 66, 98, 243, 0, 650, 13, 0, -1.2, 900));
+		allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, .1, 0, 1000));
 
 		Thread thread = new Thread() {
 
@@ -56,31 +57,25 @@ public class SystemPlanet extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		int width2 = getWidth();
 		int height2 = getHeight();
-	//	System.out.println("width  " + width2 + " height  " + height2);
+		// System.out.println("width " + width2 + " height " + height2);
 
 		g2.drawImage(img, 0, 0, width2, height2, this);
 
-		for (Planet body : celestialBodies)
-		//	body.draw(g, size);
-			body.draw(g, size,getWidth(),getHeight());
+		for (Planet body : allPlanets)
+			// body.draw(g, size);
+			body.draw(g, size, getWidth(), getHeight());
 	}
 
 	private void gameLoop() {
 
 		while (true) {
 			if (!stop) {
-				// original
-				/*
-				for (int i = 0; i < celestialBodies.length - 1; i++) {
-					celestialBodies[i].update(celestialBodies[8].getXPosition(), celestialBodies[8].getYPosition(), celestialBodies[8].getMass());
-				}
-				*/
-				// this is the SUN 
-				//we must update relative to the sun position
-				Planet sun = celestialBodies.get(celestialBodies.size() - 1);
-				for (Planet planet : celestialBodies) {
-					if(planet!=sun)
-					planet.update(sun.getXPosition(), sun.getYPosition(), sun.getMass());
+				// this is the SUN
+				// we must update relative to the sun position
+				Planet sun = allPlanets.get(allPlanets.size() - 1);
+				for (Planet planet : allPlanets) {
+					if (planet != sun)
+						planet.update(sun.getXPosition(), sun.getYPosition(), sun.getMass());
 				}
 			}
 			repaint();
@@ -92,34 +87,25 @@ public class SystemPlanet extends JPanel {
 			}
 		}
 	}
-	
+
 	/*
-	PLEASE, DO NOT DELETE THIS, WORK IN PROGRESS!
-	
-	public void resetToMiddle() {
-		int width2 = getWidth();
-		int height2 = getHeight();
-		//System.out.println("width  " + width2 + " height  " + height2);
-		
-		setWidth(width2);
-		setHeight(height2);
-		
-		for(Planet body : systemOfPlanets) {
-			body.setXPosition(body.getXPosition()+ getWidth()/2);
-		}
-		for(Planet body : systemOfPlanets) {
-			body.setYPosition(body.getYPosition()+ getHeight()/2);
-		}
-		
-	}
-	
-	public void setWidth(int w) {
-		width = w;
-	}
-	public void setHeight(int h) {
-		height = h;
-	}
-	
-	*/
+	 * PLEASE, DO NOT DELETE THIS, WORK IN PROGRESS!
+	 * 
+	 * public void resetToMiddle() { int width2 = getWidth(); int height2 =
+	 * getHeight(); //System.out.println("width  " + width2 + " height  " +
+	 * height2);
+	 * 
+	 * setWidth(width2); setHeight(height2);
+	 * 
+	 * for(Planet body : systemOfPlanets) { body.setXPosition(body.getXPosition()+
+	 * getWidth()/2); } for(Planet body : systemOfPlanets) {
+	 * body.setYPosition(body.getYPosition()+ getHeight()/2); }
+	 * 
+	 * }
+	 * 
+	 * public void setWidth(int w) { width = w; } public void setHeight(int h) {
+	 * height = h; }
+	 * 
+	 */
 
 }
