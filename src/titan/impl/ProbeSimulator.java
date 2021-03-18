@@ -68,19 +68,20 @@ public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterf
 
 		 Vector3dInterface [] positions= new Vector3d [ts.length];
 		
-		Planet p=Planet.SHIP;
+		Planet ship=Planet.SHIP;
 		int i=0;
 		for (double d : ts) {
 			
-			Vector3dInterface accelerationForce = p.accelerationForce();
-			Vector3dInterface lastPosition = p.getPosition();
-			Vector3dInterface velocity = p.getVelocity();
+			Vector3dInterface accelerationForce = ship.accelerationForce();
+			Vector3dInterface lastPosition = ship.getPosition();
+			Vector3dInterface velocity = ship.getVelocity();
 			Vector3dInterface newPosition = lastPosition.add(velocity.mul(d));
 			Vector3dInterface newVelocity = velocity.add(accelerationForce.mul(d));
-			p.addPosition(newPosition);
-			p.addVelocity(newVelocity);
+			ship.addPosition(newPosition);
+			ship.addVelocity(newVelocity);
 			
 			positions[i++]=newPosition;
+			
 		}
 		
 		return   positions;
