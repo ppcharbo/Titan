@@ -1,8 +1,10 @@
 package titan.impl;
 
+import titan.RateInterface;
+import titan.StateInterface;
 import titan.Vector3dInterface;
 
-public enum Planet {
+public enum Planet implements StateInterface {
 	SUN(1.988500e30, 6.96e8, -6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06, -1.420511669610689e+01, -4.954714716629277e+00, 3.994237625449041e-01),
 	MOON(7.349e22, 3e8, -1.472343904597218e+11, -2.822578361503422e+10, 1.052790970065631e+07, 4.433121605215677e+03, -2.948453614110320e+04, 8.896598225322805e+01),
 	MERCURY(3.303e+23, 2.4397e6, 6.047855986424127e+06, -6.801800047868888e+10, -5.702742359714534e+09, 3.892585189044652e+04, 2.978342247012996e+03, -3.327964151414740e+03),
@@ -23,8 +25,8 @@ public enum Planet {
 	public final double vx;
 	public final double vy;
 	public final double vz;
-	private Vector3d pos;
-	private Vector3d speed;
+	public     Vector3d position;
+	public     Vector3d velocity;
 	// universal gravitational constant  (m3 kg-1 s-2)
 	public static final double G = 6.67300E-11;
 
@@ -38,8 +40,8 @@ public enum Planet {
 		this.vx = vx;
 		this.vy = vy;
 		this.vz = vz;
-		pos= new Vector3d(x, y, z);
-		speed=new Vector3d(vx, vy, vz);
+		position= new Vector3d(x, y, z);
+		velocity=new Vector3d(vx, vy, vz);
 
 	}
 
@@ -49,7 +51,7 @@ public enum Planet {
 		for (Planet p : Planet.values()) 
 			 if(p!=this)
 			 {
-				 Vector3dInterface N= this.pos.sub(p.pos);
+				 Vector3dInterface N= this.position.sub(p.position);
 				 double GMM=G *this.mass*p.mass;
 				 double GMMdivNorm=GMM/Math.pow(N.norm(),3);
 				 result.add(N.addMul(GMMdivNorm, N));
@@ -58,9 +60,35 @@ public enum Planet {
 		return result;
 	}
 
+	
+
+	@Override
+	public StateInterface addMul(double step, RateInterface rate) {
+		Rate arate = (Rate) rate;
+		position = (Vector3d) position.addMul(step,arate.speedy());
+		return this;
+	}
+	
+	
 	public static void main(String[] args) {
 		
-	 
-		Planet.EARTH.gravitationalForce();
+		 Vector3d velocity2 = Planet.JUPITER.velocity;
+		 Vector3d position = Planet.JUPITER.position;
+		 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
