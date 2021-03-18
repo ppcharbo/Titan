@@ -68,7 +68,7 @@ public class ODEFunction implements ODEFunctionInterface {
 		
 		//we are stuck here
 		for( Planet p : Planet.values()) {
-			if(((State) (y.position)).equals(p.getPosition())) {
+			if(((((Planet) y).getPosition())).equals(p.getPosition())) {
 				return (RateInterface) p.accelerationForce();
 			}
 		}
