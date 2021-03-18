@@ -1,7 +1,9 @@
-package titan;
+package titan.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import titan.Vector3dInterface;
 
 public class SystemPlanet {
 	public double G = 6.66667 * Math.pow(10, -11);// Gravity universally 

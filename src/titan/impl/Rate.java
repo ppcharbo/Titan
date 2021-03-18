@@ -1,4 +1,6 @@
-package titan;
+package titan.impl;
+
+import titan.RateInterface;
 
 public class Rate implements RateInterface {
 	private Vector3d speed;

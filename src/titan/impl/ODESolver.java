@@ -1,4 +1,8 @@
-package titan;
+package titan.impl;
+
+import titan.ODEFunctionInterface;
+import titan.ODESolverInterface;
+import titan.StateInterface;
 
 public class ODESolver implements ODESolverInterface {
 
