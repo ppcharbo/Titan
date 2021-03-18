@@ -20,6 +20,10 @@ public class Vector3d implements Vector3dInterface {
 		this.z = z;
 	}
 
+	public Vector3d(Planet p) {
+		this(p.x,p.y,p.z);
+	}
+
 	public double getX() {
 		return x;
 	}

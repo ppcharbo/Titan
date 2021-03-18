@@ -1,5 +1,9 @@
 package titan.impl;
 
+import java.util.ArrayList;
+
+import com.sun.source.util.DocSourcePositions;
+
 import titan.RateInterface;
 import titan.StateInterface;
 import titan.Vector3dInterface;
@@ -25,12 +29,14 @@ public enum Planet implements StateInterface {
 	public final double vx;
 	public final double vy;
 	public final double vz;
-	public     Vector3d position;
-	public     Vector3d velocity;
+	public Vector3d initialPosition;
+	public Vector3d initialVelocity;
 	// universal gravitational constant  (m3 kg-1 s-2)
 	public static final double G = 6.67300E-11;
-
-
+	public ArrayList<Vector3dInterface> positions ;
+	ArrayList<Vector3dInterface> velocities ;
+	ArrayList<Double> times ;
+	
 	Planet(double mass, double radius, double x, double y, double z, double vx, double vy, double vz) {
 		this.mass = mass;
 		this.radius = radius;
@@ -40,55 +46,65 @@ public enum Planet implements StateInterface {
 		this.vx = vx;
 		this.vy = vy;
 		this.vz = vz;
-		position= new Vector3d(x, y, z);
-		velocity=new Vector3d(vx, vy, vz);
+		initialPosition = new Vector3d(x, y, z);
+		initialVelocity = new Vector3d(vx, vy, vz);
+		 positions = new ArrayList<Vector3dInterface>();
+		 velocities = new ArrayList<Vector3dInterface>();
+	    times = new ArrayList<Double>();
 
 	}
 
-	public Vector3dInterface gravitationalForce( ) {
-		Vector3dInterface result=new Vector3d();
-		
-		for (Planet p : Planet.values()) 
-			 if(p!=this)
-			 {
-				 Vector3dInterface N= this.position.sub(p.position);
-				 double GMM=G *this.mass*p.mass;
-				 double GMMdivNorm=GMM/Math.pow(N.norm(),3);
-				 result.add(N.addMul(GMMdivNorm, N));
-				 
-			 }
+	public Vector3dInterface gravitationalForce() {
+		Vector3dInterface result = new Vector3d();
+
+		for (Planet p : Planet.values())
+			if (p != this) {
+				Vector3dInterface N = this.initialPosition.sub(p.initialPosition);
+				double GMM = G * this.mass * p.mass;
+				double GMMdivNorm = GMM / Math.pow(N.norm(), 3);
+				result.add(N.addMul(GMMdivNorm, N));
+
+			}
 		return result;
 	}
-
-	
 
 	@Override
 	public StateInterface addMul(double step, RateInterface rate) {
 		Rate arate = (Rate) rate;
-		position = (Vector3d) position.addMul(step,arate.speedy());
+		initialPosition = (Vector3d) initialPosition.addMul(step, arate.speedy());
 		return this;
 	}
-	
-	
-	public static void main(String[] args) {
-		
-		 Vector3d velocity2 = Planet.JUPITER.velocity;
-		 Vector3d position = Planet.JUPITER.position;
-		 
+
+	public Vector3dInterface accelerationForce() {
+		Vector3dInterface accVector = gravitationalForce();
+		accVector.mul(1 / mass);
+		return accVector;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public static void main(String[] args) {
+
+		Vector3d velocity2 = Planet.JUPITER.initialVelocity;
+		Vector3d position = Planet.JUPITER.initialPosition;
+
+	}
+
+	public Vector3dInterface getLastPosition() {
+		 return positions.get(positions.size()-1);
+	}
+
+	Vector3dInterface getLastVelocity() {
+		 
+		return velocities.get(velocities.size()-1);
+	}
+
+	void addPosition(Vector3dInterface newPosition) {
+		positions.add(newPosition);
+		
+	}
+
+	void addVelocity(Vector3dInterface newVelocity) {
+		velocities.add(newVelocity);
+		
+	}
+
 }
