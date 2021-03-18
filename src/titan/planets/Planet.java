@@ -44,7 +44,7 @@ public enum Planet {
 
 	}
 
-	Vector3dInterface gravitationalForce( ) {
+	public Vector3dInterface gravitationalForce( ) {
 		Vector3dInterface result=new Vector3d();
 		
 		for (Planet p : Planet.values()) 
@@ -62,5 +62,6 @@ public enum Planet {
 	public static void main(String[] args) {
 		
 	 
+		Planet.EARTH.gravitationalForce();
 	}
 }
