@@ -52,6 +52,5 @@ public enum Planet {
 	public static void main(String[] args) {
 		Planet.EARTH.surfaceGravity(0, JUPITER);
 		Planet.EARTH.surfaceGravityAll(10);
-
 	}
 }
