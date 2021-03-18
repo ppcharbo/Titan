@@ -1,6 +1,6 @@
 package titan;
 
-public class Vector3d implements Vector3dInterface, StateInterface, RateInterface {
+public class Vector3d implements Vector3dInterface {
 
 	private double x;
 	private double y;
@@ -74,11 +74,6 @@ public class Vector3d implements Vector3dInterface, StateInterface, RateInterfac
 		return this.add(other.mul(scalar));
 	}
 
-	public StateInterface addMul(double scalar, RateInterface other) {
-
-		return (Vector3d)this.add(((Vector3d)other).mul(scalar));
-	}
-
 	/**
 	 * @return the Euclidean norm of a vector
 	 */
@@ -92,9 +87,7 @@ public class Vector3d implements Vector3dInterface, StateInterface, RateInterfac
 	 */
 	public double dist(Vector3dInterface other) {
 
-		
 		return this.sub(other).norm();
-
 
 	}
 
@@ -106,4 +99,5 @@ public class Vector3d implements Vector3dInterface, StateInterface, RateInterfac
 
 		return "(" + x + "," + y + "," + z + ")";
 	}
+
 }
