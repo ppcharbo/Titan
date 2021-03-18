@@ -16,13 +16,13 @@ public class ODEFunctionTest {
 		ODEFunction odeFunction = new ODEFunction();
 		
 
-		System.out.println("Eath Position  "+Planet.EARTH.getLastPosition());
+		System.out.println("Eath Position  "+Planet.EARTH.getPosition());
 		//after 1 hours
 		for (int time = 0; time < 3600*24*365.25; time++) {
 		odeFunction.call(time, Planet.EARTH);
 		}
 		
-		System.out.println("Eath Position  "+Planet.EARTH.getLastPosition());
+		System.out.println("Eath Position  "+Planet.EARTH.getPosition());
 		
 		
 	}
