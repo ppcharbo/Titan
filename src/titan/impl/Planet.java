@@ -59,6 +59,7 @@ public enum Planet {
 	}
 
 	public static void main(String[] args) {
+		
 	 
 		Planet.EARTH.gravitationalForce();
 	}
