@@ -52,7 +52,8 @@ public class SystemPlanet {
 	public ArrayList<Vector3dInterface> neptuneInitialPosition = new ArrayList<Vector3dInterface>();
 	public ArrayList<Vector3dInterface> neptuneActualPosition = new ArrayList<Vector3dInterface>();
 	public double[] generalMass = { 1.988500e30, 3.302e23, 4.8685e24, 5.97219e24, 7.349e22, 6.4171e23, 1.89813e27, 5.6834e26, 1.34553e23, 8.6813e25, 1.02413e26 };
-	
+	public Vector3dInterface position = new Vector3d();
+
 	//public Vector3dInterface[] generalPosition = { 1.988500e30, 3.302e23, 4.8685e24, 5.97219e24, 7.349e22, 6.4171e23, 1.89813e27, 5.6834e26, 1.34553e23, 8.6813e25, 1.02413e26 };
 
 	public SystemPlanet() {
@@ -87,7 +88,6 @@ public class SystemPlanet {
 		int i = 0;
 		vitesse = v0;
 		Vector3dInterface[] positions = new Vector3dInterface[(int) (tf / h) + 1];
-		Vector3dInterface position = new Vector3d();
 		position = p0;
 		Vector3dInterface force = new Vector3d();
 		Vector3dInterface acce = new Vector3d();
@@ -114,46 +114,47 @@ public class SystemPlanet {
 
 		return (Double) null;
 	}
-	//	public void changeTime(double tf, double h) {
-	//
-	//		Vector3dInterface positions[];
-	//
-	//		positions = trajectoryGeneric(earthInitialPosition, vitesse, tf, h, sunPosition, earthActualPosition, solarMass, earthMass);
-	//		Collections.addAll(earthActualPosition, positions);
-	//		positions = trajectoryGeneric(mercuryInitialPosition, vitesse, tf, h, sunPosition, mercuryActualPosition, solarMass, mercuryMass);
-	//		Collections.addAll(mercuryActualPosition, positions);
-	//		positions = trajectoryGeneric(venusInitialPosition, vitesse, tf, h, sunPosition, venusActualPosition, solarMass, venusMass);
-	//		Collections.addAll(venusActualPosition, positions);
-	//		positions = trajectoryGeneric(moonInitialPosition, vitesse, tf, h, earthActualPosition, moonActualPosition, earthMass, moonMass);
-	//		Collections.addAll(moonActualPosition, positions);
-	//		positions = trajectoryGeneric(marsInitialPosition, vitesse, tf, h, sunPosition, marsActualPosition, solarMass, marsMass);
-	//		Collections.addAll(marsActualPosition, positions);
-	//		positions = trajectoryGeneric(jupiterInitialPosition, vitesse, tf, h, sunPosition, jupiterActualPosition, solarMass, jupiterMass);
-	//		Collections.addAll(jupiterActualPosition, positions);
-	//		positions = trajectoryGeneric(saturnInitialPosition, vitesse, tf, h, sunPosition, saturnActualPosition, solarMass, saturnMass);
-	//		Collections.addAll(saturnActualPosition, positions);
-	//		positions = trajectoryGeneric(titanInitialPosition, vitesse, tf, h, saturnActualPosition, titanActualPosition, solarMass, titanMass);
-	//		Collections.addAll(titanActualPosition, positions);
-	//		positions = trajectoryGeneric(uranusInitialPosition, vitesse, tf, h, sunPosition, uranusActualPosition, solarMass, uranusMass);
-	//		Collections.addAll(uranusActualPosition, positions);
-	//		positions = trajectoryGeneric(venusInitialPosition, vitesse, tf, h, sunPosition, venusActualPosition, solarMass, venusMass);
-	//		Collections.addAll(venusActualPosition, positions);
-	//		positions = trajectoryGeneric(neptuneInitialPosition, vitesse, tf, h, sunPosition, neptuneActualPosition, solarMass, neptuneMass);
-	//		Collections.addAll(neptuneActualPosition, positions);
-	//
-	//	}
-	//
-	//	private Vector3dInterface[] trajectoryGeneric(ArrayList<Vector3dInterface> list, Vector3dInterface vitesse2, double tf, double h, ArrayList<Vector3dInterface> list2, ArrayList<Vector3dInterface> list3, double solarMass2, double planetMass2) {
-	//
-	//		return trajectoryGeneric(getLastElement(list), vitesse2, tf, h, getLastElement(list2), getLastElement(list3), solarMass2, planetMass2);
-	//	}
-	//
-	//	private Vector3dInterface getLastElement(ArrayList<Vector3dInterface> list) {
-	//
-	//		return list.get(list.size() - 1);
-	//	}
-	//	public Vector3dInterface getPosition() {
-	//		
-	//	}
+		public void changeTime(double tf, double h) {
+	
+		Vector3dInterface positions[];
+	
+			positions = trajectoryGeneric(earthInitialPosition, vitesse, tf, h, sunPosition, earthActualPosition, solarMass, earthMass);
+			Collections.addAll(earthActualPosition, positions);
+			positions = trajectoryGeneric(mercuryInitialPosition, vitesse, tf, h, sunPosition, mercuryActualPosition, solarMass, mercuryMass);
+			Collections.addAll(mercuryActualPosition, positions);
+			positions = trajectoryGeneric(venusInitialPosition, vitesse, tf, h, sunPosition, venusActualPosition, solarMass, venusMass);
+			Collections.addAll(venusActualPosition, positions);
+			positions = trajectoryGeneric(moonInitialPosition, vitesse, tf, h, earthActualPosition, moonActualPosition, earthMass, moonMass);
+			Collections.addAll(moonActualPosition, positions);
+			positions = trajectoryGeneric(marsInitialPosition, vitesse, tf, h, sunPosition, marsActualPosition, solarMass, marsMass);
+			Collections.addAll(marsActualPosition, positions);
+			positions = trajectoryGeneric(jupiterInitialPosition, vitesse, tf, h, sunPosition, jupiterActualPosition, solarMass, jupiterMass);
+			Collections.addAll(jupiterActualPosition, positions);
+			positions = trajectoryGeneric(saturnInitialPosition, vitesse, tf, h, sunPosition, saturnActualPosition, solarMass, saturnMass);
+			Collections.addAll(saturnActualPosition, positions);
+			positions = trajectoryGeneric(titanInitialPosition, vitesse, tf, h, saturnActualPosition, titanActualPosition, solarMass, titanMass);
+			Collections.addAll(titanActualPosition, positions);
+			positions = trajectoryGeneric(uranusInitialPosition, vitesse, tf, h, sunPosition, uranusActualPosition, solarMass, uranusMass);
+			Collections.addAll(uranusActualPosition, positions);
+			positions = trajectoryGeneric(venusInitialPosition, vitesse, tf, h, sunPosition, venusActualPosition, solarMass, venusMass);
+			Collections.addAll(venusActualPosition, positions);
+			positions = trajectoryGeneric(neptuneInitialPosition, vitesse, tf, h, sunPosition, neptuneActualPosition, solarMass, neptuneMass);
+			Collections.addAll(neptuneActualPosition, positions);
+	
+		}
+	
+		private Vector3dInterface[] trajectoryGeneric(ArrayList<Vector3dInterface> list, Vector3dInterface vitesse2, double tf, double h, ArrayList<Vector3dInterface> list2, ArrayList<Vector3dInterface> list3, double solarMass2, double planetMass2) {
+	
+			return trajectoryGeneric(getLastElement(list), vitesse2, tf, h, getLastElement(list2), getLastElement(list3), solarMass2, planetMass2);
+		}
+	
+		private Vector3dInterface getLastElement(ArrayList<Vector3dInterface> list) {
+	
+			return list.get(list.size() - 1);
+		}
+		public Vector3dInterface getPosition() {
+			return position;
+			
+		}
 
 }
