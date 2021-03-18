@@ -25,6 +25,7 @@ public class GUIWelcome {
 		new GUIWelcome();
 	}
 
+	
 	public GUIWelcome() {
 
 		JFrame welcomeFrame = new JFrame();
@@ -75,7 +76,7 @@ public class GUIWelcome {
 				// new Object to open Frame with everything
 				// e.g. new PlanetScreen();
 				welcomeFrame.setContentPane(systemPlanet);
-				welcomeFrame.setSize(800, 801);
+				welcomeFrame.setSize(1600, 900);
 				JToolBar toolbar = new JToolBar("Tools");
 
 				// Buttons in toolbar
@@ -109,13 +110,15 @@ public class GUIWelcome {
 				zoomOut.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						systemPlanet.size = systemPlanet.size - 0.1;
-					}
+						//systemPlanet.repaint();					
+						}
 				});
 
 				JButton zoomIn = new JButton("zoom in");
 				zoomIn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						systemPlanet.size = systemPlanet.size + 0.1;
+						//systemPlanet.repaint();	
 					}
 				});
 
@@ -135,8 +138,20 @@ public class GUIWelcome {
 			public void componentResized(ComponentEvent e) {
 
 				systemPlanet.repaint();
-				//DO NOT DELETE THIS, WORK IN PROGRESS!
-				//systemPlanet.resetToMiddle();
+				// DO NOT DELETE THIS, WORK IN PROGRESS!
+				// Planet sun = systemPlanet.allPlanets.get(systemPlanet.allPlanets.size() - 1);
+				// sun.setX((int) (welcomeFrame.getWidth() * 0.5));
+				// sun.setY((int) (welcomeFrame.getHeight() * 0.5));
+				// systemPlanet.repaint();
+
+				// Planet sun = systemPlanet.allPlanets.get(systemPlanet.allPlanets.size() - 1);
+				// for (Planet planet : systemPlanet.allPlanets) {
+				// if(planet != sun)
+				// planet.update(sun.getX(), sun.getY(), sun.getMass());
+				// }
+				systemPlanet.repaint();
+
+				// systemPlanet.resetToMiddle();
 			}
 		});
 	}
