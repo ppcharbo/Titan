@@ -7,7 +7,6 @@ import titan.Vector3dInterface;
 
 public class ODEFunction implements ODEFunctionInterface {
 
-	
 	/*
 	 * This is an interface for the function f that represents the differential
 	 * equation dy/dt = f(t,y). You need to implement this function to represent to
@@ -33,8 +32,8 @@ public class ODEFunction implements ODEFunctionInterface {
 	 * y(t) is an n-dimensional vector describing the state of the system at time t0
 	 * t1 (1h) earth [
 	 * (1.471922101663588e+11,-2.860995816266412e+10,8.278183193596080e+06
-	 * ),(1.471922101663588e+11 + δt f (t, y) ,-2.860995816266412e+10 + δt f (t, y)
-	 * ,8.278183193596080e+06 + δt f (t, y) ) ]
+	 * ),(1.471922101663588e+11 + δt f (t, y) ,-2.860995816266412e+10 + δt f (t,
+	 * y) ,8.278183193596080e+06 + δt f (t, y) ) ]
 	 *
 	 * earth= 1.471922101663588e+11 + δt f (t, y) f (t, y) ???? F Gi ----> f (t, y)
 	 */

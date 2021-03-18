@@ -1,7 +1,5 @@
 package titan.impl;
 
-import java.util.ArrayList;
-
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
 
@@ -57,8 +55,7 @@ public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterf
 	 * @param h the size of step to be taken
 	 * 
 	 * @return an array of size round(tf/h)+1 giving the position of the probe at
-	 * each time stated, taken relative to the Solar System barycentre // le temps
-	 * homogene entre tf et h
+	 * each time stated, taken relative to the Solar System barycentre
 	 */
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {

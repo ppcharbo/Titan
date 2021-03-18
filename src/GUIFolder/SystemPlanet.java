@@ -9,6 +9,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class SystemPlanet extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ArrayList<Planet> allPlanets = new ArrayList<Planet>();
 	private Image img;
 

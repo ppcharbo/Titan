@@ -17,7 +17,11 @@ import javax.swing.SwingUtilities;
 
 public class SolarSystemMain extends JPanel
 {
-    Model model;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Model model;
     CelestialBody[] celestialBodies = new CelestialBody[9];
     boolean[] descriptionSeen = new boolean[9];
     
@@ -160,7 +164,12 @@ public class SolarSystemMain extends JPanel
     
 
     class Model extends JPanel implements KeyListener, MouseListener {
-      public Model() {
+      /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+	public Model() {
 
          setFocusable(true); //wasn't working, went to stackOverflow for query
          requestFocus();

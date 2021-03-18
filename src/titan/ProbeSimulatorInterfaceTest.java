@@ -1,9 +1,6 @@
 package titan;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import titan.impl.Planet;
 import titan.impl.ProbeSimulator;
 
