@@ -3,8 +3,6 @@ package titan;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import titan.planets.Celestial;
-import titan.planets.Solar;
 
 public class Planet {
 	//coordinates
