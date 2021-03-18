@@ -41,11 +41,17 @@ public enum Planet {
 		return G * p.mass * mass / (distance * distance);
 	}
 
+	double surfaceGravityAll(double distance) {
+		double result=0;
+		for (Planet p : Planet.values()) 
+			if(p!=this)
+				result+=surfaceGravityAll(distance);
+		return result;
+	}
+
 	public static void main(String[] args) {
 		Planet.EARTH.surfaceGravity(0, JUPITER);
-		
-//		for (Planet p : Planet.values()) {
-//			p.surfaceGravity(10.4,Planet.EARTH);
-//		}
+		Planet.EARTH.surfaceGravityAll(10);
+
 	}
 }
