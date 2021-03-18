@@ -147,7 +147,7 @@ public class GUIWelcome {
 				// Planet sun = systemPlanet.allPlanets.get(systemPlanet.allPlanets.size() - 1);
 				// for (Planet planet : systemPlanet.allPlanets) {
 				// if(planet != sun)
-				// planet.update(sun.getXPosition(), sun.getYPosition(), sun.getMass());
+				// planet.update(sun.getX(), sun.getY(), sun.getMass());
 				// }
 				systemPlanet.repaint();
 

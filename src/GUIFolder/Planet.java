@@ -8,22 +8,22 @@ import javax.swing.JPanel;
 public class Planet {
 
 	private int mass = 0;
-	private int diameter = 0;
+	private int dia = 0;
 	private double x = 0;
 	private double y = 0;
 	private double vx = 0;
 	private double vy = 0;
-	// private double speed = 0;
-	Color color;
 	private double a = 0;
 	private double dirX = 0;
 	private double dirY = 0;
 	private double distance = 0;
 	private double initial = 1000;
 	private double max = 0;
-	boolean visible;
 	private String label;
 	private JPanel parent;
+	
+	boolean visible;
+	Color color;
 
 	public Planet(JPanel parent, String label, int r, int g, int b, double xCoordinate, double yCoordinate,
 			int diameter, double vx, double vy, int mass) {
@@ -33,18 +33,18 @@ public class Planet {
 		color = new Color(r, g, b);
 		x = xCoordinate;
 		y = yCoordinate;
-		this.diameter = diameter;
+		this.dia = diameter;
 		this.vx = vx;
 		this.vy = vy;
 		this.mass = mass;
 
 	}
 
-	public double getXPosition() {
+	public double getX() {
 		return x;
 	}
 
-	public double getYPosition() {
+	public double getY() {
 		return y;
 	}
 
@@ -53,27 +53,27 @@ public class Planet {
 	}
 
 	public int getDiameter() {
-		return diameter;
+		return dia;
 	}
 
-	public void move() {
+	public void updateLocation() {
 		x = x + vx;
 		y = y + vy;
 	}
 
-	public void update(double StarX, double StarY, int StarMass) {
-		distance = Math.sqrt((StarX - x) * (StarX - x) + (StarY - y) * (StarY - y));
+	public void update(double xNew, double yNew, int mass) {
+		distance = Math.sqrt((xNew - x) * (xNew - x) + (yNew - y) * (yNew - y));
 		initial = Math.min(distance, initial);
 		max = Math.max(distance, max);
 
-		a = StarMass / distance / distance;
+		a = mass / distance / distance;
 
-		dirX = (StarX - x) / distance;
-		dirY = (StarY - y) / distance;
+		dirX = (xNew - x) / distance;
+		dirY = (yNew - y) / distance;
 
 		vx = vx +(dirX*a);
 		vy = vy +(dirY*a);
-		move();
+		updateLocation();
 	}
 
 	public void setX(int x) {
@@ -94,11 +94,11 @@ public class Planet {
 	public void draw(Graphics g, double size, int windth, int height) {
 		g.setColor(color);
 
-		int x = (int) (windth + (this.x - diameter / 2 - windth) * size);
-		int y = (int) (height + (this.y - diameter / 2 - height) * size);
+		int x = (int) (windth + (this.x - dia / 2 - windth) * size);
+		int y = (int) (height + (this.y - dia / 2 - height) * size);
 
 		System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
-		g.fillOval(x, y, (int) (diameter * size), (int) (diameter * size));
+		g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
 
 	}
 

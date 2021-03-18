@@ -75,7 +75,7 @@ public class SystemPlanet extends JPanel {
 				Planet sun = allPlanets.get(allPlanets.size() - 1);
 				for (Planet planet : allPlanets) {
 					if (planet != sun)
-						planet.update(sun.getXPosition(), sun.getYPosition(), sun.getMass());
+						planet.update(sun.getX(), sun.getY(), sun.getMass());
 				}
 			}
 			repaint();
