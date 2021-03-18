@@ -7,21 +7,7 @@ import titan.Vector3dInterface;
 
 public class ODEFunction implements ODEFunctionInterface {
 
-	// masses
-	public double earthMass = 5.97219e24;
-	public double solarMass = 1.988500e30;
-	public double mercuryMass = 3.302e23;
-	public double venusMass = 4.8685e24;
-	public double moonMass = 7.349e22;
-	public double marsMass = 6.4171e23;
-	public double jupiterMass = 1.89813e27;
-	public double saturnMass = 5.6834e26;
-	public double titanMass = 1.34553e23;
-	public double uranusMass = 8.6813e25;
-	public double neptuneMass = 1.02413e26;
-
-	public double G = 6.66667 * Math.pow(10, -11);// Gravity universally
-
+	
 	/*
 	 * This is an interface for the function f that represents the differential
 	 * equation dy/dt = f(t,y). You need to implement this function to represent to
