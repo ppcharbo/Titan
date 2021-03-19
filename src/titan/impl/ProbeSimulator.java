@@ -3,7 +3,7 @@ package titan.impl;
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
 
-public class ProbeSimulator extends SystemPlanet implements ProbeSimulatorInterface {
+public class ProbeSimulator implements ProbeSimulatorInterface {
 
 	/*
 	 * Simulate the solar system, including a probe fired from Earth at 00:00h on 1

@@ -4,7 +4,13 @@ import titan.RateInterface;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
-public enum Planet implements StateInterface,RateInterface {
+public enum Planet implements StateInterface, RateInterface {
+
+	/*
+	 * all the information about the planets the planet are those enum.
+	 * This class has been created to access to those information.
+	 * but not only , we are also creating the methods for the gravitation force, the acceleration force , addPosition, addVelocity.
+	 */
 	SHIP(15000, 0, -6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06, -1.420511669610689e+01, -4.954714716629277e+00, 3.994237625449041e-01),
 	SUN(1.988500e30, 6.96e8, -6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06, -1.420511669610689e+01, -4.954714716629277e+00, 3.994237625449041e-01),
 	MOON(7.349e22, 3e8, -1.472343904597218e+11, -2.822578361503422e+10, 1.052790970065631e+07, 4.433121605215677e+03, -2.948453614110320e+04, 8.896598225322805e+01),
@@ -51,6 +57,9 @@ public enum Planet implements StateInterface,RateInterface {
 
 	}
 
+	/*
+	 * This formula consist of the (G*m1*m2 )*(xi-xj/||xi-xj||^3)
+	 */
 	public Vector3dInterface gravitationalForce() {
 		Vector3dInterface result = new Vector3d();
 
@@ -72,13 +81,14 @@ public enum Planet implements StateInterface,RateInterface {
 		return this;
 	}
 
+	/*
+	 * we divide by the mass to get the acceleration 
+	 */
 	public Vector3dInterface accelerationForce() {
 		Vector3dInterface accVector = gravitationalForce();
 		accVector.mul(1 / mass);
 		return accVector;
 	}
-
-
 
 	void addPosition(Vector3dInterface newPosition) {
 		previousPosition = position;
@@ -90,7 +100,6 @@ public enum Planet implements StateInterface,RateInterface {
 		previousVelocity = velocity;
 		velocity = newVelocity;
 	}
-
 
 	public Vector3dInterface getPosition() {
 		return position;

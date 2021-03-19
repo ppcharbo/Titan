@@ -37,6 +37,12 @@ public class ODEFunction implements ODEFunctionInterface {
 	 *
 	 * earth= 1.471922101663588e+11 + δt f (t, y) f (t, y) ???? F Gi ----> f (t, y)
 	 */
+	/*
+	 * We are creating the acceleration force and the last position and the velocity .
+	 * Then we are creating with the Euler method the newPosition & new velocity.
+	 * @ return The average rate-of-change over the time-step. Has dimensions of
+	 * [state]/[time]. 
+	 */
 	@Override
 	public RateInterface call(double t, StateInterface y) {
 
@@ -53,6 +59,7 @@ public class ODEFunction implements ODEFunctionInterface {
 		return p;
 	}
 
+	// return for all the planet 
 	public void callAll(double t) {
 
 		for (Planet p : Planet.values()) {
