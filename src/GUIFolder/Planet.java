@@ -1,7 +1,7 @@
 package GUIFolder;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
@@ -21,7 +21,7 @@ public class Planet {
 	private double max = 0;
 	private String label;
 	private JPanel parent;
-	
+
 	boolean visible;
 	Color color;
 
@@ -72,8 +72,8 @@ public class Planet {
 		dX = (xNew - x) / distance;
 		dY = (yNew - y) / distance;
 
-		vx = vx +(dX*a);
-		vy = vy +(dY*a);
+		vx = vx + (dX * a);
+		vy = vy + (dY * a);
 		updateLocation();
 	}
 
@@ -99,14 +99,12 @@ public class Planet {
 		int y = (int) (height + (this.y - dia / 2 - height) * size);
 
 		System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
-		if(label.equals("rocket")) {
-			//draw box
+		if (label.equals("rocket")) {
+			// draw box
 			g.fillRect(x, y, (int) (dia * size), (int) (dia * size));
-		}
-		else {
+		} else {
 			g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
 		}
-		
 
 	}
 

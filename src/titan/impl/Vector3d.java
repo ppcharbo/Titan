@@ -21,7 +21,7 @@ public class Vector3d implements Vector3dInterface {
 	}
 
 	public Vector3d(Planet p) {
-		this(p.x,p.y,p.z);
+		this(p.x, p.y, p.z);
 	}
 
 	public double getX() {
@@ -29,7 +29,7 @@ public class Vector3d implements Vector3dInterface {
 	}
 
 	public void setX(double x) {
-		//return the para
+		// return the para
 		this.x = x;
 	}
 
