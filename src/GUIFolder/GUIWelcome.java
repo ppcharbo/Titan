@@ -35,6 +35,7 @@ public class GUIWelcome {
 
 		GridBagConstraints gbc = new GridBagConstraints();
 
+		//source of imgIcon: https://tenor.com/view/cosmic-stairway-space-bright-lights-espacio-gif-11884832
 		Icon imgIcon = new ImageIcon(this.getClass().getResource("cosmic.gif"));
 		JLabel label = new JLabel(imgIcon);
 		label.setSize(480, 270);

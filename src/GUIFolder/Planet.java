@@ -85,13 +85,6 @@ public class Planet {
 		this.y = y;
 	}
 
-//	@Deprecated
-//	public void draw(Graphics g, double size) {
-//		g.setColor(color);
-//
-//		g.fillOval((int) (650 + (xLoc - diameter / 2 - 650) * size), (int) (500 + (yLoc - diameter / 2 - 500) * size), (int) (diameter * size), (int) (diameter * size));
-//	}
-
 	public void draw(Graphics g, double size, int windth, int height) {
 		g.setColor(color);
 
