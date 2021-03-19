@@ -4,9 +4,8 @@ Project 1-2: (a) project week: In week 6 of period 1.4 project groups will work 
 There is a source file with 4 folder:
 - GUIFolder: that is the folder containing the GUI.
 - titan : that contains the interfaces that were provided.
-- titan.impl : The implementation of the interfaces + 2 files(Planet.java & SystemPlanet.java).
+- titan.impl : The implementation of the interfaces + one files(Planet.java ).
 Planet.java contains the information about the planets.
-SystemPlanet.java contains the information about the positions of the planets .
 - titan.tests : is a folder containing few testcases.
 
 You might also finde 3 other folder : documents , lib , resources.
