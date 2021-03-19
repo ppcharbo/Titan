@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -79,17 +80,17 @@ public class GUIWelcome {
 				JButton speedDecrease = new JButton("decrease");
 				speedDecrease.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						systemPlanet.delay = systemPlanet.delay + 5;
+						SystemPlanet.delay = SystemPlanet.delay + 5;
 					}
 				});
 				JButton speedIncrease = new JButton("increase");
 				speedIncrease.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (systemPlanet.delay - 10 <= 0) {
+						if (SystemPlanet.delay - 10 <= 0) {
 							// systemPlanet.delay is very small
-							systemPlanet.delay = 1;
+							SystemPlanet.delay = 1;
 						} else {
-							systemPlanet.delay = systemPlanet.delay - 10;
+							SystemPlanet.delay = SystemPlanet.delay - 10;
 						}
 
 					}
