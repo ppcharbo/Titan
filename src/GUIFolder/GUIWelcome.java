@@ -55,7 +55,12 @@ public class GUIWelcome {
 
 		JLabel initialSpeedLabel = new JLabel("Please enter the intial speed: ");
 		JTextField initialSpeedInput = new JTextField();
-		int speed = Integer.parseInt(initialSpeedInput.getText());
+		
+		int speed = -1;
+		while(speed == -1 && initialSpeedInput.getText().equals(null)) {
+			speed = Integer.parseInt(initialSpeedInput.getText());
+		}
+		
 		//int speed = (int) (initialSpeedInput.getText());
 		initialSpeedInput.setSize(100, 100);
 		gbc.gridx = 0;

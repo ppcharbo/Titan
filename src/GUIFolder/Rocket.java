@@ -3,6 +3,8 @@ package GUIFolder;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.JPanel;
+
 public class Rocket {
 	
 	public final double ROCKET_MASS = 15000; //kilograms
@@ -16,16 +18,18 @@ public class Rocket {
 	private double distance = 0;
 	private double initial;
 	private double max = 0;
+	private JPanel parent;
 	
 	Color color = new Color(255, 0, 0);
 	
-	public Rocket(/*int r, int g, int b,*/double initial, double rocket_Diameter, double xLaunch, double yLaunch) {
+	public Rocket(/*int r, int g, int b,*/JPanel parent, double initial, double rocket_Diameter, double xLaunch, double yLaunch) {
 		
 		//this.color = new Color(r, g, b);
 		this.xLaunch = xLaunch;
 		this.yLaunch = yLaunch;
 		this.rocket_Diameter = rocket_Diameter;
 		this.initial = initial;
+		this.parent = parent;
 		
 		
 	}

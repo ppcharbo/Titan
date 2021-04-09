@@ -39,15 +39,15 @@ public class SystemPlanet extends JPanel {
 		// everything 050 to the right!
 		allPlanets.add(new Planet(this, "", 128, 128, 128, 800, 500, 8, -4.7, 0, 9));
 		allPlanets.add(new Planet(this, "", 207, 153, 52, 952, 450, 12, 0, 2.5, 900));
-		allPlanets.add(new Planet(this, "", 0, 0, 255, 800, 200, 11, 1.8, 0, 900));
+		allPlanets.add(new Planet(this, "", 0, 0, 255, 800, 200, 11, 1.8, 0, 900)); //earth
 		allPlanets.add(new Planet(this, "", 255, 0, 0, 850, 0, 7, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 255, 140, 0, 800, -50, 20, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 112, 128, 144, 800, -75, 15, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 196, 233, 238, 800, -125, 15, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 66, 98, 243, 0, 650, 13, 0, -1.2, 900));
-		allPlanets.add(new Planet(this, "rocket", 255, 255, 255, 800, 200, 5, 1.8, 0, 900)); //PASS THE SPEED HERE
+		//allPlanets.add(new Planet(this, "", 40, 137, 234, 800, 200, 5, 1.8, 0, 900)); //earth imposter
 		allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, .1, 0, 1000));
-		greatRocket.add(new Rocket(speed, 5, 800, 200));
+		greatRocket.add(new Rocket(this, speed, 20, 800, 200));
 
 		Thread thread = new Thread() {
 
@@ -72,6 +72,9 @@ public class SystemPlanet extends JPanel {
 		for (Planet body : allPlanets)
 			// body.draw(g, size);
 			body.draw(g, size, getWidth(), getHeight());
+		for(Rocket rocketo : greatRocket) {
+			rocketo.drawRocket(g, 5);
+		}
 	}
 
 	private void gameLoop() {

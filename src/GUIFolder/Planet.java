@@ -37,7 +37,7 @@ public class Planet {
 		this.vx = vx;
 		this.vy = vy;
 		this.mass = mass;
-		this.label = label;
+		//this.label = label;
 
 	}
 
