@@ -18,22 +18,24 @@ public class Rocket {
 	private double initial = 1000;
 	private double max = 0;
 	
-	public Color color;
+	Color color = new Color(255, 0, 0);
 	
-	public Rocket(int r, int g, int b, double rocket_Velocity, double rocket_Diameter, double xLaunch, double yLaunch) {
+	public Rocket(/*int r, int g, int b,*/double initial, double rocket_Velocity, double rocket_Diameter, double xLaunch, double yLaunch) {
 		
-		this.color = new Color(r, g, b);
+		//this.color = new Color(r, g, b);
 		this.rocket_Velocity = rocket_Velocity;
 		this.xLaunch = xLaunch;
 		this.yLaunch = yLaunch;
 		this.rocket_Diameter = rocket_Diameter;
+		this.initial = initial;
 		
+		//initial = initialSpeedInput.getText.parseInt();
 	}
 	
-
+	/*
 	public Color getColour() {
 		return this.color;
-	}
+	}*/
 
 	public double getX() {
 		return this.xLaunch;
@@ -67,7 +69,7 @@ public class Rocket {
 		int xLT = (int) (888 + (this.xLaunch - getDiameter() / 2 - 888) * size);
 		int yLT = (int) (888 + (this.yLaunch - getDiameter() / 2 - 888) * size);
 		int widthAndHeight = (int) (getDiameter() * size);
-		g.fillOval(xLT, yLT, widthAndHeight, widthAndHeight);
+		g.fillRect(xLT, yLT, widthAndHeight, widthAndHeight);
 	}
 	
 	public void rocketMotion(double xNew, double yNew) {
