@@ -13,8 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 public class GUIWelcome {
@@ -53,24 +53,30 @@ public class GUIWelcome {
 		gbc.gridy = 2;
 		panel.add(startButton, gbc);
 
-		JLabel initialSpeedLabel = new JLabel("Please enter the intial speed: ");
-		JTextField initialSpeedInput = new JTextField();
+		//JLabel initialSpeedLabel = new JLabel("Please enter the intial speed: ");
+		//JTextField initialSpeedInput = new JTextField();
 		
-		int speed = -1;
+		//W
+		/*int speed = -1;
 		while(speed == -1 && initialSpeedInput.getText().equals(null)) {
-			speed = Integer.parseInt(initialSpeedInput.getText());
+			speed = (int) Integer.parseInt(initialSpeedInput.getText());
+			System.out.println("I am here?");
 		}
+		*/
+		
+        String input = JOptionPane.showInputDialog("Please, enter your speed.");
+        double speed = Double.parseDouble(input);
 		
 		//int speed = (int) (initialSpeedInput.getText());
-		initialSpeedInput.setSize(100, 100);
-		gbc.gridx = 0;
-		gbc.gridy = 3;
-		panel.add(initialSpeedLabel, gbc);
+		//initialSpeedInput.setSize(100, 100);
+		//gbc.gridx = 0;
+		//gbc.gridy = 3;
+		//panel.add(initialSpeedLabel, gbc);
 
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		initialSpeedInput.setColumns(5);
-		panel.add(initialSpeedInput, gbc);
+		//gbc.gridx = 0;
+		//gbc.gridy = 4;
+		//initialSpeedInput.setColumns(5);
+		//panel.add(initialSpeedInput, gbc);
 
 		welcomeFrame.add(panel);
 		welcomeFrame.setVisible(true);
