@@ -55,6 +55,8 @@ public class GUIWelcome {
 
 		JLabel initialSpeedLabel = new JLabel("Please enter the intial speed: ");
 		JTextField initialSpeedInput = new JTextField();
+		int speed = Integer.parseInt(initialSpeedInput.getText());
+		//int speed = (int) (initialSpeedInput.getText());
 		initialSpeedInput.setSize(100, 100);
 		gbc.gridx = 0;
 		gbc.gridy = 3;
@@ -67,7 +69,7 @@ public class GUIWelcome {
 
 		welcomeFrame.add(panel);
 		welcomeFrame.setVisible(true);
-		SystemPlanet systemPlanet = new SystemPlanet();
+		SystemPlanet systemPlanet = new SystemPlanet(speed);
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

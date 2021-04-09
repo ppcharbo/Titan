@@ -24,11 +24,15 @@ public class SystemPlanet extends JPanel {
 
 	int width;
 	int height;
+	
+	int rocketSpeed;
 
-	public SystemPlanet() {
+	public SystemPlanet(int speed) {
 		// Source of image: https://www.pexels.com/photo/starry-sky-998641/
 		ImageIcon icon = new ImageIcon(this.getClass().getResource("background.jpg"));
 		img = icon.getImage();
+		
+		this.rocketSpeed = speed;
 
 		// frame is 1600 by 900 default
 		// sun needs to move from 600 to 1600/2 = 800, DELTA = 800-600 = 200 --> so
@@ -43,7 +47,7 @@ public class SystemPlanet extends JPanel {
 		allPlanets.add(new Planet(this, "", 112, 128, 144, 800, -75, 15, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 196, 233, 238, 800, -125, 15, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 66, 98, 243, 0, 650, 13, 0, -1.2, 900));
-		allPlanets.add(new Planet(this, "rocket", 255, 255, 255, 800, 200, 5, 1.8, 0, 900));
+		allPlanets.add(new Planet(this, "rocket", 255, 255, 255, 800, 200, 5, 1.8, 0, 900)); //PASS THE SPEED HERE
 		allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, .1, 0, 1000));
 		
 
