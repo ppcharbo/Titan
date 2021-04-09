@@ -2,12 +2,11 @@ package GUIFolder;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
 import javax.swing.JPanel;
 
 public class Rocket {
-	
-	public final double ROCKET_MASS = 15000; //kilograms
+
+	public double rocketMass = 15000; // kilograms
 	public double rocket_Diameter;
 	public double xLaunch;
 	public double yLaunch;
@@ -16,28 +15,26 @@ public class Rocket {
 	private double dirX = 0;
 	private double dirY = 0;
 	private double distance = 0;
-	private double initial;
+	private double initial = 1000; // TEST CONSTANT
+	private double vx = 0;
+	private double vy = 0;
 	private double max = 0;
 	private JPanel parent;
-	
-	Color color = new Color(255, 0, 0);
-	
-	public Rocket(/*int r, int g, int b,*/JPanel parent, double initial, double rocket_Diameter, double xLaunch, double yLaunch) {
-		
-		//this.color = new Color(r, g, b);
+	private Color color = new Color(255, 0, 0);
+
+	public Rocket(JPanel parent, double initialSpeed, double rocket_Diameter, double xLaunch, double yLaunch) {
+
 		this.xLaunch = xLaunch;
 		this.yLaunch = yLaunch;
 		this.rocket_Diameter = rocket_Diameter;
-		this.initial = initial;
+		// this.initial = initial;
 		this.parent = parent;
-		
-		
+
+		// TEST THIS CONSTANT
+		this.vx = initialSpeed * 0.0001;
+		this.vy = initialSpeed * 0.0001;
+
 	}
-	
-	/*
-	public Color getColour() {
-		return this.color;
-	}*/
 
 	public double getX() {
 		return this.xLaunch;
@@ -46,48 +43,48 @@ public class Rocket {
 	public double getY() {
 		return this.yLaunch;
 	}
-	
+
 	public boolean isVisible() {
 		return this.visability;
 	}
-	
+
 	public double getDiameter() {
 		return this.rocket_Diameter;
 	}
-	
+
 	public void visibalityChange(boolean set) {
 		this.visability = set;
 	}
 
 	public void changeLocationWithSpeed() {
-		this.xLaunch = this.xLaunch + initial;  // vx
-		this.yLaunch = this.yLaunch + initial;  // vy
+		xLaunch = xLaunch + vx; // vx
+		yLaunch = yLaunch + vy; // vy
 	}
-	
-	public void drawRocket(Graphics g, double size) {
-		
+
+	public void draw(Graphics g, double size) {
+
 		g.setColor(color);
-		// this
 		int xLT = (int) (888 + (this.xLaunch - getDiameter() / 2 - 888) * size);
 		int yLT = (int) (888 + (this.yLaunch - getDiameter() / 2 - 888) * size);
 		int widthAndHeight = (int) (getDiameter() * size);
 		g.fillRect(xLT, yLT, widthAndHeight, widthAndHeight);
 	}
-	
+
 	public void rocketMotion(double xNew, double yNew) {
-		
+
 		distance = Math.sqrt((xNew - xLaunch) * (xNew - xLaunch) + (yNew - yLaunch) * (yNew - yLaunch));
 		initial = Math.min(distance, initial);
 		max = Math.max(distance, max);
 
-		acceleration = ROCKET_MASS / distance / distance;
-
+		acceleration = rocketMass / distance / distance;
+		acceleration = acceleration / 2;
 		dirX = (xNew - xLaunch) / distance;
 		dirY = (yNew - yLaunch) / distance;
 
-		initial += dirX * acceleration + dirY * acceleration;  // not sure if this is physically correct
-		
+		vx = vx + (dirX * acceleration);
+		vy = vy + (dirY * acceleration);
+
 		changeLocationWithSpeed();
 	}
-	
+
 }
