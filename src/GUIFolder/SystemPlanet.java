@@ -14,6 +14,7 @@ public class SystemPlanet extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	ArrayList<Planet> allPlanets = new ArrayList<Planet>();
+	ArrayList<Rocket> greatRocket = new ArrayList<Rocket>();
 	private Image img;
 
 	public static int delay = 25;
@@ -24,15 +25,12 @@ public class SystemPlanet extends JPanel {
 
 	int width;
 	int height;
-	
-	int rocketSpeed;
 
 	public SystemPlanet(int speed) {
 		// Source of image: https://www.pexels.com/photo/starry-sky-998641/
 		ImageIcon icon = new ImageIcon(this.getClass().getResource("background.jpg"));
 		img = icon.getImage();
 		
-		this.rocketSpeed = speed;
 
 		// frame is 1600 by 900 default
 		// sun needs to move from 600 to 1600/2 = 800, DELTA = 800-600 = 200 --> so
@@ -49,7 +47,7 @@ public class SystemPlanet extends JPanel {
 		allPlanets.add(new Planet(this, "", 66, 98, 243, 0, 650, 13, 0, -1.2, 900));
 		allPlanets.add(new Planet(this, "rocket", 255, 255, 255, 800, 200, 5, 1.8, 0, 900)); //PASS THE SPEED HERE
 		allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, .1, 0, 1000));
-		
+		greatRocket.add(new Rocket(speed, 5, 800, 200));
 
 		Thread thread = new Thread() {
 
@@ -87,6 +85,8 @@ public class SystemPlanet extends JPanel {
 					if (planet != sun)
 						planet.update(sun.getX(), sun.getY(), sun.getMass());
 				}
+				for(Rocket rocket : greatRocket)
+						rocket.rocketMotion(sun.getX(), sun.getY());
 			}
 			repaint();
 
