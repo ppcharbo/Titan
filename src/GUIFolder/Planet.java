@@ -37,7 +37,6 @@ public class Planet {
 		this.vx = vx;
 		this.vy = vy;
 		this.mass = mass;
-		//this.label = label;
 
 	}
 
@@ -92,12 +91,13 @@ public class Planet {
 		int y = (int) (height + (this.y - dia / 2 - height) * size);
 
 		System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
-		if (label.equals("rocket")) {
-			// draw box
-			g.fillRect(x, y, (int) (dia * size), (int) (dia * size));
-		} else {
-			g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
-		}
+		// DON'T DELETE THIS IF-ELSE STATEMENT, THIS IS FOR TESTING PURPOSES!
+		// if (label.equals("rocket")) {
+		// draw box
+		// g.fillRect(x, y, (int) (dia * size), (int) (dia * size));
+		// } else {
+		g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
+		// }
 
 	}
 
