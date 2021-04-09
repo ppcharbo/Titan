@@ -9,9 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class SystemPlanet extends JPanel {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	ArrayList<Planet> allPlanets = new ArrayList<Planet>();
 	ArrayList<Rocket> greatRocket = new ArrayList<Rocket>();
@@ -26,11 +24,11 @@ public class SystemPlanet extends JPanel {
 	int width;
 	int height;
 
-	public SystemPlanet(int speed) {
+	public SystemPlanet(double speed) {
+		// pick a black background to solve the feedback
 		// Source of image: https://www.pexels.com/photo/starry-sky-998641/
 		ImageIcon icon = new ImageIcon(this.getClass().getResource("background.jpg"));
 		img = icon.getImage();
-		
 
 		// frame is 1600 by 900 default
 		// sun needs to move from 600 to 1600/2 = 800, DELTA = 800-600 = 200 --> so
@@ -39,13 +37,12 @@ public class SystemPlanet extends JPanel {
 		// everything 050 to the right!
 		allPlanets.add(new Planet(this, "", 128, 128, 128, 800, 500, 8, -4.7, 0, 9));
 		allPlanets.add(new Planet(this, "", 207, 153, 52, 952, 450, 12, 0, 2.5, 900));
-		allPlanets.add(new Planet(this, "", 0, 0, 255, 800, 200, 11, 1.8, 0, 900)); //earth
+		allPlanets.add(new Planet(this, "", 0, 0, 255, 800, 200, 11, 1.8, 0, 900));
 		allPlanets.add(new Planet(this, "", 255, 0, 0, 850, 0, 7, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 255, 140, 0, 800, -50, 20, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 112, 128, 144, 800, -75, 15, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 196, 233, 238, 800, -125, 15, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 66, 98, 243, 0, 650, 13, 0, -1.2, 900));
-		//allPlanets.add(new Planet(this, "", 40, 137, 234, 800, 200, 5, 1.8, 0, 900)); //earth imposter
 		allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, .1, 0, 1000));
 		greatRocket.add(new Rocket(this, speed, 20, 800, 200));
 
@@ -69,11 +66,11 @@ public class SystemPlanet extends JPanel {
 
 		g2.drawImage(img, 0, 0, width2, height2, this);
 
-		for (Planet body : allPlanets)
-			// body.draw(g, size);
+		for (Planet body : allPlanets) {
 			body.draw(g, size, getWidth(), getHeight());
-		for(Rocket rocketo : greatRocket) {
-			rocketo.drawRocket(g, 5);
+		}
+		for (Rocket rocketo : greatRocket) {
+			rocketo.draw(g, 5);
 		}
 	}
 
@@ -88,8 +85,8 @@ public class SystemPlanet extends JPanel {
 					if (planet != sun)
 						planet.update(sun.getX(), sun.getY(), sun.getMass());
 				}
-				for(Rocket rocket : greatRocket)
-						rocket.rocketMotion(sun.getX(), sun.getY());
+				for (Rocket rocket : greatRocket)
+					rocket.rocketMotion(sun.getX(), sun.getY());
 			}
 			repaint();
 
@@ -105,20 +102,19 @@ public class SystemPlanet extends JPanel {
 	 * PLEASE, DO NOT DELETE THIS, WORK IN PROGRESS!
 	 * 
 	 * public void resetToMiddle() { int width2 = getWidth(); int height2 =
-	 * getHeight(); //System.out.println("width  " + width2 + " height  " +
-	 * height2);
+	 * getHeight(); // System.out.println("width " + width2 + " height " + height2);
 	 * 
 	 * setWidth(width2); setHeight(height2);
 	 * 
-	 * for(Planet body : systemOfPlanets) { body.setXPosition(body.getXPosition()+
-	 * getWidth()/2); } for(Planet body : systemOfPlanets) {
-	 * body.setYPosition(body.getYPosition()+ getHeight()/2); }
+	 * for (Planet body : allPlanets) { body.setXPosition(body.getXPosition() +
+	 * getWidth() / 2); } for (Planet body : systemOfPlanets) {
+	 * body.setYPosition(body.getYPosition() + getHeight() / 2); }
 	 * 
 	 * }
 	 * 
-	 * public void setWidth(int w) { width = w; } public void setHeight(int h) {
-	 * height = h; }
+	 * public void setWidth(int w) { width = w; }
 	 * 
+	 * public void setHeight(int h) { height = h; }
 	 */
 
 }
