@@ -90,7 +90,7 @@ public class Planet {
 		int x = (int) (windth + (this.x - dia / 2 - windth) * size);
 		int y = (int) (height + (this.y - dia / 2 - height) * size);
 
-		System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
+		//System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
 		// DON'T DELETE THIS IF-ELSE STATEMENT, THIS IS FOR TESTING PURPOSES!
 		// if (label.equals("rocket")) {
 		// draw box

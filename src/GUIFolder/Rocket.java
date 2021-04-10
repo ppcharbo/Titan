@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 public class Rocket {
 
-	public double rocketMass = 15000; // kilograms
+	public double rocketMass = 15; // kilograms
 	public double rocket_Diameter;
 	public double xLaunch;
 	public double yLaunch;
@@ -15,7 +15,7 @@ public class Rocket {
 	private double dirX = 0;
 	private double dirY = 0;
 	private double distance = 0;
-	private double initial = 1000; // TEST CONSTANT
+	private double initial = 500000; // TEST CONSTANT
 	private double vx = 0;
 	private double vy = 0;
 	private double max = 0;
@@ -30,9 +30,9 @@ public class Rocket {
 		// this.initial = initial;
 		this.parent = parent;
 
-		// TEST THIS CONSTANT
-		this.vx = initialSpeed * 0.0001;
-		this.vy = initialSpeed * 0.0001;
+		// TEST THIS CONSTANT *0.001
+		this.vx = initialSpeed;
+		this.vy = initialSpeed;
 
 	}
 
@@ -67,6 +67,8 @@ public class Rocket {
 		int xLT = (int) (888 + (this.xLaunch - getDiameter() / 2 - 888) * size);
 		int yLT = (int) (888 + (this.yLaunch - getDiameter() / 2 - 888) * size);
 		int widthAndHeight = (int) (getDiameter() * size);
+		
+		System.out.println(" x = " + xLT + " y= " + yLT);
 		g.fillRect(xLT, yLT, widthAndHeight, widthAndHeight);
 	}
 
