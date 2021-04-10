@@ -27,7 +27,7 @@ public class SystemPlanet extends JPanel {
 	public SystemPlanet(double speed) {
 		// pick a black background to solve the feedback
 		// Source of image: https://www.pexels.com/photo/starry-sky-998641/
-		ImageIcon icon = new ImageIcon(this.getClass().getResource("background.jpg"));
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("InkedBlackBackground_LI.jpg"));
 		img = icon.getImage();
 
 		// frame is 1600 by 900 default

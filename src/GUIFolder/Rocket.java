@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 public class Rocket {
 
-	public double rocketMass = 15000; // kilograms
+	public double rocketMass = 10; // kilograms
 	public double rocket_Diameter;
 	public double xLaunch;
 	public double yLaunch;
