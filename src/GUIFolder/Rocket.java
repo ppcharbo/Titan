@@ -68,7 +68,7 @@ public class Rocket {
 		int yLT = (int) (888 + (this.yLaunch - getDiameter() / 2 - 888) * size);
 		int widthAndHeight = (int) (getDiameter() * size);
 		
-		System.out.println(" x = " + xLT + " y= " + yLT);
+		//System.out.println(" x = " + xLT + " y= " + yLT);
 		g.fillRect(xLT, yLT, widthAndHeight, widthAndHeight);
 	}
 

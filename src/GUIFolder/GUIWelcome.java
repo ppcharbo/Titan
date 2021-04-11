@@ -56,7 +56,6 @@ public class GUIWelcome {
 		//JLabel initialSpeedLabel = new JLabel("Please enter the intial speed: ");
 		//JTextField initialSpeedInput = new JTextField();
 		
-		//W
 		/*int speed = -1;
 		while(speed == -1 && initialSpeedInput.getText().equals(null)) {
 			speed = (int) Integer.parseInt(initialSpeedInput.getText());
@@ -88,6 +87,7 @@ public class GUIWelcome {
 				// e.g. new PlanetScreen();
 				welcomeFrame.setContentPane(systemPlanet);
 				welcomeFrame.setSize(1600, 900);
+				
 				JToolBar toolbar = new JToolBar("Tools");
 
 				// Buttons in toolbar
@@ -149,6 +149,8 @@ public class GUIWelcome {
 			public void componentResized(ComponentEvent e) {
 
 				systemPlanet.repaint();
+				//systemPlanet.resetToMiddle();
+				
 				// DO NOT DELETE THIS, WORK IN PROGRESS!
 				// Planet sun = systemPlanet.allPlanets.get(systemPlanet.allPlanets.size() - 1);
 				// sun.setX((int) (welcomeFrame.getWidth() * 0.5));
@@ -160,7 +162,7 @@ public class GUIWelcome {
 				// if(planet != sun)
 				// planet.update(sun.getX(), sun.getY(), sun.getMass());
 				// }
-				systemPlanet.repaint();
+				//systemPlanet.repaint();
 
 				// systemPlanet.resetToMiddle();
 			}

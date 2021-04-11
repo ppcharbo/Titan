@@ -3,6 +3,8 @@ package GUIFolder;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -62,7 +64,7 @@ public class SystemPlanet extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		int width2 = getWidth();
 		int height2 = getHeight();
-		// System.out.println("width " + width2 + " height " + height2);
+		//System.out.println("width " + width2 + " height " + height2);
 
 		g2.drawImage(img, 0, 0, width2, height2, this);
 
@@ -99,22 +101,26 @@ public class SystemPlanet extends JPanel {
 	}
 
 	/*
-	 * PLEASE, DO NOT DELETE THIS, WORK IN PROGRESS!
-	 * 
-	 * public void resetToMiddle() { int width2 = getWidth(); int height2 =
-	 * getHeight(); // System.out.println("width " + width2 + " height " + height2);
-	 * 
-	 * setWidth(width2); setHeight(height2);
-	 * 
-	 * for (Planet body : allPlanets) { body.setXPosition(body.getXPosition() +
-	 * getWidth() / 2); } for (Planet body : systemOfPlanets) {
-	 * body.setYPosition(body.getYPosition() + getHeight() / 2); }
-	 * 
-	 * }
-	 * 
-	 * public void setWidth(int w) { width = w; }
-	 * 
-	 * public void setHeight(int h) { height = h; }
-	 */
+	// PLEASE, DO NOT DELETE THIS, WORK IN PROGRESS!
+	public void resetToMiddle() {
+		int width2 = getWidth();
+		int height2 = getHeight();
+		System.out.println("width " + width2 + " height " + height2);
+
+		for (Planet body : allPlanets) {
+			body.setX((int) (body.getX() + (width - getWidth() )));
+			body.setY((int) (body.getY() + (height - getHeight() )));
+		}
+		repaint();
+
+	}
+	public void setHeight() {
+		height = getHeight();
+	}
+	public void setWidth() {
+		width = getWidth();
+	}
+	*/
+	
 
 }
