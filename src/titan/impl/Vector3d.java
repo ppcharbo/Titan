@@ -9,22 +9,27 @@ public class Vector3d implements Vector3dInterface {
 	private double z;
 
 	public Vector3d() {
+		
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
 	}
 
 	public Vector3d(double x, double y, double z) {
+		
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 
+	// TODO To be removed 
 	public Vector3d(Planet p) {
-		this(p.x, p.y, p.z);
+		
+		this(p.position.getX(), p.position.getY(), p.position.getZ());
 	}
 
 	public double getX() {
+		
 		return x;
 	}
 
@@ -34,30 +39,37 @@ public class Vector3d implements Vector3dInterface {
 	}
 
 	public double getY() {
+		
 		return y;
 	}
 
 	public void setY(double y) {
+		
 		this.y = y;
 	}
 
 	public double getZ() {
+
 		return z;
 	}
 
 	public void setZ(double z) {
+		
 		this.z = z;
 	}
 
 	public Vector3dInterface add(Vector3dInterface other) {
+		
 		return new Vector3d(this.getX() + other.getX(), this.getY() + other.getY(), this.getZ() + other.getZ());
 	}
 
 	public Vector3dInterface sub(Vector3dInterface other) {
+		
 		return new Vector3d(this.getX() - other.getX(), this.getY() - other.getY(), this.getZ() - other.getZ());
 	}
 
 	public Vector3dInterface mul(double scalar) {
+		
 		return new Vector3d(this.getX() * scalar, this.getY() * scalar, this.getZ() * scalar);
 	}
 
@@ -94,7 +106,6 @@ public class Vector3d implements Vector3dInterface {
 	public double dist(Vector3dInterface other) {
 
 		return this.sub(other).norm();
-
 	}
 
 	/**
@@ -105,5 +116,4 @@ public class Vector3d implements Vector3dInterface {
 
 		return "(" + x + "," + y + "," + z + ")";
 	}
-
 }
