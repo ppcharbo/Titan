@@ -41,8 +41,11 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 		public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 			
 			Rate k1 = (Rate) f.call(t, y);
+			Rate k2 = (Rate) f.call(t+h/2, y.addMul(h/2, k1));
+			Rate k3 = (Rate) f.call(t+h/2, y.addMul(h/2, k2));
+			Rate k4 = (Rate) f.call(t+h, y.addMul(h, k3));
 			
-			return null;
+			return y.addMul(h/6, Rate.addRates(k1, k2, k3, k4));
 		}
 	}
 
