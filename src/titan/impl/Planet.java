@@ -4,7 +4,7 @@ import titan.RateInterface;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
-public enum Planet implements StateInterface, RateInterface {
+public enum Planet implements StateInterface {
 
 	/*
 	 * all the information about the planets the planet are those enum.
@@ -28,17 +28,17 @@ public enum Planet implements StateInterface, RateInterface {
 	public final double radius; // in meters
 
 	public Vector3dInterface position;
-	public Vector3dInterface velocity;
+	public Vector3dInterface speed;
 
 	// universal gravitational constant  (m3 kg-1 s-2)
 	public static final double G = 6.67300E-11;
 
-	Planet(double mass, double radius, double xPosition, double yPosition, double zPosition, double xVelocity, double yVelocity, double zVelocity) {
+	Planet(double mass, double radius, double xPosition, double yPosition, double zPosition, double xSpeed, double ySpeed, double zSpeed) {
 		
 		this.mass = mass;
 		this.radius = radius;
 		position = new Vector3d(xPosition, yPosition, zPosition);
-		velocity = new Vector3d(xVelocity, yVelocity, zVelocity);
+		speed = new Vector3d(xSpeed, ySpeed, zSpeed);
 	}
 
 	/*
@@ -64,7 +64,9 @@ public enum Planet implements StateInterface, RateInterface {
 	public StateInterface addMul(double step, RateInterface rate) {
 		
 		Rate arate = (Rate) rate;
-		position = (Vector3d) position.addMul(step, arate.speedy());
+		position = (Vector3d) position.addMul(step, arate.position());
+		speed = (Vector3d) speed.addMul(step, arate.speed());
+		
 		return this;
 	}
 
@@ -82,8 +84,8 @@ public enum Planet implements StateInterface, RateInterface {
 		position = newPosition;
 	}
 
-	void addVelocity(Vector3dInterface newVelocity) {
-		velocity = newVelocity;
+	void addSpeed(Vector3dInterface newSpeed) {
+		speed = newSpeed;
 	}
 
 	public Vector3dInterface getPosition() {
@@ -91,8 +93,8 @@ public enum Planet implements StateInterface, RateInterface {
 		return position;
 	}
 
-	public Vector3dInterface getVelocity() {
+	public Vector3dInterface getSpeed() {
 		
-		return velocity;
+		return speed;
 	}
 }

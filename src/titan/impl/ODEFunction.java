@@ -50,13 +50,13 @@ public class ODEFunction implements ODEFunctionInterface {
 
 		Vector3dInterface accelerationForce = p.accelerationForce();
 		Vector3dInterface lastPosition = p.getPosition();
-		Vector3dInterface velocity = p.getVelocity();
-		Vector3dInterface newPosition = lastPosition.add(velocity.mul(t));
-		Vector3dInterface newVelocity = velocity.add(accelerationForce.mul(t));
+		Vector3dInterface speed = p.getSpeed();
+		Vector3dInterface newPosition = lastPosition.add(speed.mul(t));
+		Vector3dInterface newSpeed = speed.add(accelerationForce.mul(t));
 		p.addPosition(newPosition);
-		p.addVelocity(newVelocity);
-
-		return p;
+		p.addSpeed(newSpeed);
+		//TODO !!!!
+		return null;
 	}
 
 	// return for all the planet 

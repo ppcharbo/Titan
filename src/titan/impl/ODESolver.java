@@ -20,6 +20,7 @@ public class ODESolver implements ODESolverInterface {
 
 	@Override
 	public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
+		
 		StateInterface[] arr = new StateInterface[(int) Math.round((tf / h) + 1)];
 		arr[0] = y0;
 		double stepSize = h;
@@ -39,7 +40,5 @@ public class ODESolver implements ODESolverInterface {
 	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 
 		return y.addMul(h, f.call(t, y));
-
 	}
-
 }

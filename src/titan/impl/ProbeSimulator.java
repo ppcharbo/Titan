@@ -32,11 +32,11 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 
 			Vector3dInterface accelerationForce = ship.accelerationForce();
 			Vector3dInterface lastPosition = ship.getPosition();
-			Vector3dInterface velocity = ship.getVelocity();
-			Vector3dInterface newPosition = lastPosition.add(velocity.mul(d));
-			Vector3dInterface newVelocity = velocity.add(accelerationForce.mul(d));
+			Vector3dInterface speed = ship.getSpeed();
+			Vector3dInterface newPosition = lastPosition.add(speed.mul(d));
+			Vector3dInterface newSpeed = speed.add(accelerationForce.mul(d));
 			ship.addPosition(newPosition);
-			ship.addVelocity(newVelocity);
+			ship.addSpeed(newSpeed);
 
 			positions[i++] = newPosition;
 
@@ -59,6 +59,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	 */
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
+		
 		double[] tsMe = new double[(int) (tf / h) + 1];
 		tsMe[0] = 0;
 		for (int i = 1; i < tsMe.length; i++) {
@@ -69,6 +70,5 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		}
 
 		return trajectory(p0, v0, tsMe);
-
 	}
 }
