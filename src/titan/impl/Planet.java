@@ -26,14 +26,6 @@ public enum Planet implements StateInterface, RateInterface {
 
 	public final double mass; // in kilograms
 	public final double radius; // in meters
-	public final double x;
-	public final double y;
-	public final double z;
-	public final double vx;
-	public final double vy;
-	public final double vz;
-	public Vector3dInterface previousPosition;
-	public Vector3dInterface previousVelocity;
 
 	public Vector3dInterface position;
 	public Vector3dInterface velocity;
@@ -41,31 +33,25 @@ public enum Planet implements StateInterface, RateInterface {
 	// universal gravitational constant  (m3 kg-1 s-2)
 	public static final double G = 6.67300E-11;
 
-	Planet(double mass, double radius, double x, double y, double z, double vx, double vy, double vz) {
+	Planet(double mass, double radius, double xPosition, double yPosition, double zPosition, double xVelocity, double yVelocity, double zVelocity) {
+		
 		this.mass = mass;
 		this.radius = radius;
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.vx = vx;
-		this.vy = vy;
-		this.vz = vz;
-		previousPosition = new Vector3d(x, y, z);
-		previousVelocity = new Vector3d(vx, vy, vz);
-		position = previousPosition;
-		velocity = previousVelocity;
-
+		position = new Vector3d(xPosition, yPosition, zPosition);
+		velocity = new Vector3d(xVelocity, yVelocity, zVelocity);
 	}
 
 	/*
 	 * This formula consist of the (G*m1*m2 )*(xi-xj/||xi-xj||^3)
 	 */
 	public Vector3dInterface gravitationalForce() {
+		
 		Vector3dInterface result = new Vector3d();
-
+		//Calculate force of all the surrounding planets except that same planet
 		for (Planet p : Planet.values())
+			//Do not consider the current planet
 			if (p != this) {
-				Vector3dInterface N = this.previousPosition.sub(p.previousPosition);
+				Vector3dInterface N = this.position.sub(p.position);
 				double GMM = G * this.mass * p.mass;
 				double GMMdivNorm = GMM / Math.pow(N.norm(), 3);
 				result.add(N.addMul(GMMdivNorm, N));
@@ -76,8 +62,9 @@ public enum Planet implements StateInterface, RateInterface {
 
 	@Override
 	public StateInterface addMul(double step, RateInterface rate) {
+		
 		Rate arate = (Rate) rate;
-		previousPosition = (Vector3d) previousPosition.addMul(step, arate.speedy());
+		position = (Vector3d) position.addMul(step, arate.speedy());
 		return this;
 	}
 
@@ -85,27 +72,27 @@ public enum Planet implements StateInterface, RateInterface {
 	 * we divide by the mass to get the acceleration 
 	 */
 	public Vector3dInterface accelerationForce() {
+		
 		Vector3dInterface accVector = gravitationalForce();
 		accVector.mul(1 / mass);
 		return accVector;
 	}
 
 	void addPosition(Vector3dInterface newPosition) {
-		previousPosition = position;
 		position = newPosition;
-
 	}
 
 	void addVelocity(Vector3dInterface newVelocity) {
-		previousVelocity = velocity;
 		velocity = newVelocity;
 	}
 
 	public Vector3dInterface getPosition() {
+		
 		return position;
 	}
 
 	public Vector3dInterface getVelocity() {
+		
 		return velocity;
 	}
 }
