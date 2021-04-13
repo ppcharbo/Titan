@@ -47,16 +47,13 @@ public class ODEFunction implements ODEFunctionInterface {
 	public RateInterface call(double t, StateInterface y) {
 
 		Planet p = (Planet) y;
-
-		Vector3dInterface accelerationForce = p.accelerationForce();
-		Vector3dInterface lastPosition = p.getPosition();
-		Vector3dInterface speed = p.getSpeed();
-		Vector3dInterface newPosition = lastPosition.add(speed.mul(t));
-		Vector3dInterface newSpeed = speed.add(accelerationForce.mul(t));
-		p.addPosition(newPosition);
-		p.addSpeed(newSpeed);
-		//TODO !!!!
-		return null;
+	
+		Vector3d positionRate = (Vector3d) p.getSpeed();
+		Vector3d speedRate = (Vector3d) p.accelerationForce();
+		
+		Rate rate = new Rate(positionRate, speedRate);
+ 
+		return rate;
 	}
 
 	// return for all the planet 
