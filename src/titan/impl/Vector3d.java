@@ -22,7 +22,7 @@ public class Vector3d implements Vector3dInterface {
 		this.z = z;
 	}
 
-	// TODO To be removed 
+	// TODO To be removed?
 	public Vector3d(Planet p) {
 		
 		this(p.position.getX(), p.position.getY(), p.position.getZ());
@@ -34,7 +34,7 @@ public class Vector3d implements Vector3dInterface {
 	}
 
 	public void setX(double x) {
-		// return the para
+		
 		this.x = x;
 	}
 

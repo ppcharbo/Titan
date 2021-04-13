@@ -11,7 +11,9 @@ public class ODESolver implements ODESolverInterface {
 		StateInterface[] arr = new StateInterface[ts.length];
 		arr[0] = y0;
 		double stepSize;
+		
 		for (int i = 1; i < arr.length; i++) {
+			
 			stepSize = ts[i] - ts[i - 1];
 			arr[i] = step(f, ts[i], arr[i - 1], stepSize);
 		}
@@ -25,7 +27,9 @@ public class ODESolver implements ODESolverInterface {
 		arr[0] = y0;
 		double stepSize = h;
 		double currentTime = 0;
+		
 		for (int i = 1; i < arr.length; i++) {
+			
 			if (i == arr.length - 1) {
 				// we are in last step and have to check our remaining step size
 				stepSize = Math.IEEEremainder(tf, h);

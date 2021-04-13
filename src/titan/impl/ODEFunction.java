@@ -60,9 +60,8 @@ public class ODEFunction implements ODEFunctionInterface {
 	public void callAll(double t) {
 
 		for (Planet p : Planet.values()) {
+			
 			call(t, p);
 		}
-
 	}
-
 }

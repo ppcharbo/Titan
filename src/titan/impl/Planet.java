@@ -51,11 +51,11 @@ public enum Planet implements StateInterface {
 		for (Planet p : Planet.values())
 			//Do not consider the current planet
 			if (p != this) {
+				
 				Vector3dInterface N = this.position.sub(p.position);
 				double GMM = G * this.mass * p.mass;
 				double GMMdivNorm = GMM / Math.pow(N.norm(), 3);
 				result.add(N.addMul(GMMdivNorm, N));
-
 			}
 		return result;
 	}
@@ -64,6 +64,7 @@ public enum Planet implements StateInterface {
 	public StateInterface addMul(double step, RateInterface rate) {
 		
 		Rate arate = (Rate) rate;
+		
 		position = (Vector3d) position.addMul(step, arate.position());
 		speed = (Vector3d) speed.addMul(step, arate.speed());
 		
@@ -77,14 +78,17 @@ public enum Planet implements StateInterface {
 		
 		Vector3dInterface accVector = gravitationalForce();
 		accVector.mul(1 / mass);
+		
 		return accVector;
 	}
 
 	void addPosition(Vector3dInterface newPosition) {
+		
 		position = newPosition;
 	}
 
 	void addSpeed(Vector3dInterface newSpeed) {
+		
 		speed = newSpeed;
 	}
 

@@ -28,6 +28,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 
 		Planet ship = Planet.SHIP;
 		int i = 0;
+		
 		for (double d : ts) {
 
 			Vector3dInterface accelerationForce = ship.accelerationForce();
@@ -39,9 +40,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 			ship.addSpeed(newSpeed);
 
 			positions[i++] = newPosition;
-
 		}
-
 		return positions;
 	}
 
@@ -62,13 +61,16 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		
 		double[] tsMe = new double[(int) (tf / h) + 1];
 		tsMe[0] = 0;
+		
 		for (int i = 1; i < tsMe.length; i++) {
+			
 			tsMe[i] = tsMe[i - 1] + h;
 		}
+		
 		if (tsMe[tsMe.length - 1] != tf) {
+			
 			tsMe[tsMe.length - 1] = tf;
 		}
-
 		return trajectory(p0, v0, tsMe);
 	}
 }

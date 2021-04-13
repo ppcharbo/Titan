@@ -7,6 +7,7 @@ public class Rate implements RateInterface {
 	/*
 	 * creating this class rate that implements the rateInterface that is empty.. , we are just return the vector speed
 	 */
+	
 	private Vector3d position;
 	private Vector3d speed;
 
