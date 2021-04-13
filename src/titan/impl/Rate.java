@@ -10,10 +10,10 @@ public class Rate implements RateInterface {
 	private Vector3d position;
 	private Vector3d speed;
 
-	public Rate(Vector3d position, Vector3d speed) {
+	public Rate(Vector3d ratePosition, Vector3d rateSpeed) {
 		
-		this.position = position; 
-		this.speed = speed;
+		this.position = ratePosition; 
+		this.speed = rateSpeed;
 	}
 
 	public Rate(double xPosition, double yPosition, double zPosition, double xSpeed, double ySpeed, double zSpeed) {
