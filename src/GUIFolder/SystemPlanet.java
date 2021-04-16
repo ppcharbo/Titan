@@ -3,12 +3,15 @@ package GUIFolder;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class SystemPlanet extends JPanel {
 
@@ -25,18 +28,35 @@ public class SystemPlanet extends JPanel {
 
 	int width;
 	int height;
+	Point imageCorner;
+	Point prevPt;
+	ImageIcon icon;
 
 	public SystemPlanet(double speed) {
 		// pick a black background to solve the feedback
 		// Source of image: https://www.pexels.com/photo/starry-sky-998641/
-		ImageIcon icon = new ImageIcon(this.getClass().getResource("InkedBlackBackground_LI.jpg"));
+		icon = new ImageIcon(this.getClass().getResource("InkedBlackBackground_LI.jpg"));
 		img = icon.getImage();
+		
+		
+		final int WIDTH = icon.getIconWidth();
+		final int HEIGHT = icon.getIconHeight();
+		imageCorner = new Point(0, 0);
+		ClickListener clickListener = new ClickListener();
+		DragListener dragListener = new DragListener();
+		this.addMouseListener(clickListener);
+		this.addMouseMotionListener(dragListener);
+		
+		
 
 		// frame is 1600 by 900 default
 		// sun needs to move from 600 to 1600/2 = 800, DELTA = 800-600 = 200 --> so
 		// everything 200 to the right!
 		// sun needs to move from 400 to 450/2 = 450, DELTA = 450-400 = 050 --> so
-		// everything 050 to the right!
+		// everything 050 to the right!	
+		
+		JPanel insidePanel = new JPanel();
+		
 		allPlanets.add(new Planet(this, "", 128, 128, 128, 800, 500, 8, -4.7, 0, 9));
 		allPlanets.add(new Planet(this, "", 207, 153, 52, 952, 450, 12, 0, 2.5, 900));
 		allPlanets.add(new Planet(this, "", 0, 0, 255, 800, 200, 11, 1.8, 0, 900));
@@ -47,7 +67,8 @@ public class SystemPlanet extends JPanel {
 		allPlanets.add(new Planet(this, "", 66, 98, 243, 0, 650, 13, 0, -1.2, 900));
 		allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, .1, 0, 1000));
 		greatRocket.add(new Rocket(this, speed, 20, 800, 200));
-
+		
+		
 		Thread thread = new Thread() {
 
 			@Override
@@ -61,19 +82,25 @@ public class SystemPlanet extends JPanel {
 
 	public void paintComponent(Graphics g) {
 
-		Graphics2D g2 = (Graphics2D) g;
-		int width2 = getWidth();
-		int height2 = getHeight();
+		//Graphics2D g2 = (Graphics2D) g;
+		//int width2 = getWidth();
+		//int height2 = getHeight();
 		//System.out.println("width " + width2 + " height " + height2);
 
-		g2.drawImage(img, 0, 0, width2, height2, this);
+		//g2.drawImage(img, 0, 0, width2, height2, this);
 
+		super.paintComponent(g);
+		icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
+		
 		for (Planet body : allPlanets) {
 			body.draw(g, size, getWidth(), getHeight());
 		}
 		for (Rocket rocketo : greatRocket) {
 			rocketo.draw(g, 5);
 		}
+		
+		//super.paintComponent(g);
+		//icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
 	}
 
 	private void gameLoop() {
@@ -122,5 +149,28 @@ public class SystemPlanet extends JPanel {
 	}
 	*/
 	
+	private class ClickListener extends MouseAdapter {
+
+		public void mousePressed(MouseEvent e) {
+			prevPt = e.getPoint();
+		}
+	}
+	
+	private class DragListener extends MouseMotionAdapter {
+
+		public void mouseDragged(MouseEvent e) {
+
+			Point currentPt = e.getPoint();
+
+			imageCorner.translate(
+
+					(int) (currentPt.getX() - prevPt.getX()), (int) (currentPt.getY() - prevPt.getY()));
+			prevPt = currentPt;
+			repaint();
+		}
+	}
+	
 
 }
+
+

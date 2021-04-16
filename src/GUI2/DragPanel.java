@@ -23,6 +23,7 @@ public class DragPanel extends JPanel {
 		DragListener dragListener = new DragListener();
 		this.addMouseListener(clickListener);
 		this.addMouseMotionListener(dragListener);
+		
 	}
 
 	public void paintComponent(Graphics g) {
