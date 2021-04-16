@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-class zoom extends javax.swing.JPanel {
+class zoom extends JPanel {
 
     private static int prevN = 0;
     private Dimension preferredSize = new Dimension(400,400);
