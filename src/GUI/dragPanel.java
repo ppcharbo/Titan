@@ -3,10 +3,11 @@ package GUI;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-class DragPanel extends JPanel {
+public class DragPanel extends JPanel {
 
-	private static final long serialVersionUID = 1L;
 	ImageIcon image = new ImageIcon("background.jpg");
 	final int WIDTH = image.getIconWidth();
 	final int HEIGHT = image.getIconHeight();
