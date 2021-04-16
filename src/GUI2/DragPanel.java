@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class DragPanel extends JPanel {
 
-	ImageIcon image = new ImageIcon("background.jpg");
+	ImageIcon image = new ImageIcon(this.getClass().getResource("background.jpg"));
 	final int WIDTH = image.getIconWidth();
 	final int HEIGHT = image.getIconHeight();
 	Point imageCorner;
