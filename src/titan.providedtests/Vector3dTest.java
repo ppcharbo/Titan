@@ -1,12 +1,8 @@
-package titan.provided.tests;
-
 import titan.Vector3dInterface;
 import titan.impl.Vector3d;
 
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
 
 class Vector3dTest {
 

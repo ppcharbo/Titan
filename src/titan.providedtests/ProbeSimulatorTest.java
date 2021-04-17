@@ -1,14 +1,12 @@
-package titan.provided.tests;
+
 
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
 import titan.impl.ProbeSimulator;
 import titan.impl.Vector3d;
 
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
 
 import java.io.FileWriter;
 import java.io.IOException;
