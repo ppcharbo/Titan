@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
 public class GUIWelcome {
@@ -86,6 +87,7 @@ public class GUIWelcome {
 				// new Object to open Frame with everything
 				// e.g. new PlanetScreen();
 				welcomeFrame.setContentPane(systemPlanet);
+				//welcomeFrame.add(new JScrollPane(systemPlanet));
 				welcomeFrame.setSize(1600, 900);
 				
 				JToolBar toolbar = new JToolBar("Tools");

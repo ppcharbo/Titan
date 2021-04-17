@@ -1,5 +1,6 @@
 package GUIFolder;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,6 +13,9 @@ import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.geom.Rectangle2D;
 
 public class SystemPlanet extends JPanel {
 
@@ -31,12 +35,63 @@ public class SystemPlanet extends JPanel {
 	Point imageCorner;
 	Point prevPt;
 	ImageIcon icon;
+	
+    private static int prevN = 0;
+    private Dimension preferredSize = new Dimension(400,400);
+    private Rectangle2D[] rects = new Rectangle2D[50];
 
 	public SystemPlanet(double speed) {
 		// pick a black background to solve the feedback
 		// Source of image: https://www.pexels.com/photo/starry-sky-998641/
 		icon = new ImageIcon(this.getClass().getResource("InkedBlackBackground_LI.jpg"));
 		img = icon.getImage();
+		
+	    class zoom extends SystemPlanet{
+	    	zoom(){
+	    		// generate rectangles with pseudo-random coords
+		        for (int i=0; i<rects.length; i++) {
+		            rects[i] = new Rectangle2D.Double(
+		                    Math.random()*.8, Math.random()*.8,
+		                    Math.random()*.2, Math.random()*.2);
+		        }
+
+		        addMouseWheelListener(new MouseWheelListener() {
+		            @Override
+		            public void mouseWheelMoved(MouseWheelEvent e) {
+		                updatePreferredSize(e.getWheelRotation(), e.getPoint());
+		            }
+		        });
+	    	}
+	        private void updatePreferredSize(int n, Point p) {
+
+	            if(n == 0)              // ideally getWheelRotation() should never return 0.
+	                n = -1 * prevN;     // but sometimes it returns 0 during changing of zoom
+	            // direction. so if we get 0 just reverse the direction.
+
+	            double d = (double) n * 1.08;
+	            d = (n > 0) ? 1 / d : -d;
+
+	            int w = (int) (getWidth() * d);
+	            int h = (int) (getHeight() * d);
+	            preferredSize.setSize(w, h);
+
+	            int offX = (int)(p.x * d) - p.x;
+	            int offY = (int)(p.y * d) - p.y;
+	            getParent().setLocation(getParent().getLocation().x-offX,getParent().getLocation().y-offY);
+	            //in the original code, zoomPanel is being shifted. here we are shifting containerPanel
+
+	            getParent().doLayout();             // do the layout for containerPanel
+	            getParent().getParent().doLayout(); // do the layout for jf (JFrame)
+
+	            prevN = n;
+	        }
+	        public Dimension getPreferredSize() {
+	            return preferredSize;
+	        }
+	        
+	    }
+		zoom zoomPanel = new zoom();
+        add(zoomPanel);
 		
 		
 		final int WIDTH = icon.getIconWidth();
@@ -54,8 +109,6 @@ public class SystemPlanet extends JPanel {
 		// everything 200 to the right!
 		// sun needs to move from 400 to 450/2 = 450, DELTA = 450-400 = 050 --> so
 		// everything 050 to the right!	
-		
-		JPanel insidePanel = new JPanel();
 		
 		allPlanets.add(new Planet(this, "", 128, 128, 128, 800, 500, 8, -4.7, 0, 9));
 		allPlanets.add(new Planet(this, "", 207, 153, 52, 952, 450, 12, 0, 2.5, 900));

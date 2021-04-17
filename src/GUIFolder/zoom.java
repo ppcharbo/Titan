@@ -1,4 +1,4 @@
-package GUI2;
+package GUIFolder;
 
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
