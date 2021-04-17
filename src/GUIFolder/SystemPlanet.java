@@ -102,9 +102,6 @@ public class SystemPlanet extends JPanel {
 		for (Rocket rocketo : greatRocket) {
 			rocketo.draw(g, 5);
 		}
-
-		// super.paintComponent(g);
-		// icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
 	}
 
 	private void gameLoop() {
