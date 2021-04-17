@@ -40,11 +40,27 @@ public class SystemPlanet extends JPanel {
     private Dimension preferredSize = new Dimension(400,400);
     private Rectangle2D[] rects = new Rectangle2D[50];
 
+    public SystemPlanet() {
+    	//nothing :)
+    }
+    
 	public SystemPlanet(double speed) {
 		// pick a black background to solve the feedback
 		// Source of image: https://www.pexels.com/photo/starry-sky-998641/
+		
+
+		
 		icon = new ImageIcon(this.getClass().getResource("InkedBlackBackground_LI.jpg"));
 		img = icon.getImage();
+		
+		//final int WIDTH = icon.getIconWidth();
+		//final int HEIGHT = icon.getIconHeight();
+		
+		imageCorner = new Point(0, 0);
+		ClickListener clickListener = new ClickListener();
+		DragListener dragListener = new DragListener();
+		this.addMouseListener(clickListener);
+		this.addMouseMotionListener(dragListener);
 		
 	    class zoom extends SystemPlanet{
 	    	zoom(){
@@ -94,13 +110,7 @@ public class SystemPlanet extends JPanel {
         add(zoomPanel);
 		
 		
-		final int WIDTH = icon.getIconWidth();
-		final int HEIGHT = icon.getIconHeight();
-		imageCorner = new Point(0, 0);
-		ClickListener clickListener = new ClickListener();
-		DragListener dragListener = new DragListener();
-		this.addMouseListener(clickListener);
-		this.addMouseMotionListener(dragListener);
+
 		
 		
 
