@@ -1,4 +1,4 @@
-
+package titan.tests;
 
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;

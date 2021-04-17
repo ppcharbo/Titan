@@ -1,3 +1,5 @@
+package titan.tests;
+
 import titan.Vector3dInterface;
 import titan.impl.Vector3d;
 
