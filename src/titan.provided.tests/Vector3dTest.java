@@ -1,4 +1,4 @@
-package ProvidedTestCases;
+package titan.provided.tests;
 
 import titan.Vector3dInterface;
 import titan.impl.Vector3d;

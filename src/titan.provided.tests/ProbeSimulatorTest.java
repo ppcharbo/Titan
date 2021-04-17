@@ -1,4 +1,4 @@
-package ProvidedTestCases;
+package titan.provided.tests;
 
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
