@@ -1,4 +1,4 @@
-package GUIFolder;
+package GUIAttempt;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -22,13 +22,13 @@ public class Rocket {
 	private JPanel parent;
 	private Color color = new Color(255, 0, 0);
 
-	public Rocket(JPanel parent, double initialSpeed, double rocket_Diameter, double xLaunch, double yLaunch) {
+	public Rocket(JPanel parento, double initialSpeed, double rocket_Diameter, double xLaunch, double yLaunch) {
 
 		this.xLaunch = xLaunch;
 		this.yLaunch = yLaunch;
 		this.rocket_Diameter = rocket_Diameter;
 		// this.initial = initial;
-		this.parent = parent;
+		this.parent = parento;
 
 		// TEST THIS CONSTANT *0.001
 		this.vx = initialSpeed;

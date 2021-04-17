@@ -1,4 +1,4 @@
-package GUIFolder;
+package GUIAttempt;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,16 +19,16 @@ public class Planet {
 	private double distance = 0;
 	private double initial = 1000;
 	private double max = 0;
-	private String label;
+	public String label;
 	private JPanel parent;
 
 	boolean visible;
 	Color color;
 
-	public Planet(JPanel parent, String label, int r, int g, int b, double xCoordinate, double yCoordinate,
+	public Planet(JPanel parento, String label, int r, int g, int b, double xCoordinate, double yCoordinate,
 			int diameter, double vx, double vy, int mass) {
 
-		this.parent = parent;
+		this.parent = parento;
 		this.label = label;
 		color = new Color(r, g, b);
 		x = xCoordinate;
