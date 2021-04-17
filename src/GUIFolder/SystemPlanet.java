@@ -1,12 +1,11 @@
 package GUIFolder;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -15,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.geom.Rectangle2D;
 
 public class SystemPlanet extends JPanel {
 
@@ -35,91 +33,37 @@ public class SystemPlanet extends JPanel {
 	Point imageCorner;
 	Point prevPt;
 	ImageIcon icon;
-	
-    private static int prevN = 0;
-    private Dimension preferredSize = new Dimension(400,400);
-    private Rectangle2D[] rects = new Rectangle2D[50];
 
-    public SystemPlanet() {
-    	//nothing :)
-    }
-    
+	private static int prevN = 0;
+	private Dimension preferredSize = new Dimension(400, 400);
+
 	public SystemPlanet(double speed) {
-		// pick a black background to solve the feedback
-		// Source of image: https://www.pexels.com/photo/starry-sky-998641/
 		
+		
+		// TODO
+		// Source of image: 
+		// setBackground(new Color(0, 0, 0));
 
-		
 		icon = new ImageIcon(this.getClass().getResource("InkedBlackBackground_LI.jpg"));
 		img = icon.getImage();
-		
-		//final int WIDTH = icon.getIconWidth();
-		//final int HEIGHT = icon.getIconHeight();
-		
+
+
 		imageCorner = new Point(0, 0);
 		ClickListener clickListener = new ClickListener();
 		DragListener dragListener = new DragListener();
+
 		this.addMouseListener(clickListener);
 		this.addMouseMotionListener(dragListener);
-		
-	    class zoom extends SystemPlanet{
-	    	zoom(){
-	    		// generate rectangles with pseudo-random coords
-		        for (int i=0; i<rects.length; i++) {
-		            rects[i] = new Rectangle2D.Double(
-		                    Math.random()*.8, Math.random()*.8,
-		                    Math.random()*.2, Math.random()*.2);
-		        }
 
-		        addMouseWheelListener(new MouseWheelListener() {
-		            @Override
-		            public void mouseWheelMoved(MouseWheelEvent e) {
-		                updatePreferredSize(e.getWheelRotation(), e.getPoint());
-		            }
-		        });
-	    	}
-	        private void updatePreferredSize(int n, Point p) {
-
-	            if(n == 0)              // ideally getWheelRotation() should never return 0.
-	                n = -1 * prevN;     // but sometimes it returns 0 during changing of zoom
-	            // direction. so if we get 0 just reverse the direction.
-
-	            double d = (double) n * 1.08;
-	            d = (n > 0) ? 1 / d : -d;
-
-	            int w = (int) (getWidth() * d);
-	            int h = (int) (getHeight() * d);
-	            preferredSize.setSize(w, h);
-
-	            int offX = (int)(p.x * d) - p.x;
-	            int offY = (int)(p.y * d) - p.y;
-	            getParent().setLocation(getParent().getLocation().x-offX,getParent().getLocation().y-offY);
-	            //in the original code, zoomPanel is being shifted. here we are shifting containerPanel
-
-	            getParent().doLayout();             // do the layout for containerPanel
-	            getParent().getParent().doLayout(); // do the layout for jf (JFrame)
-
-	            prevN = n;
-	        }
-	        public Dimension getPreferredSize() {
-	            return preferredSize;
-	        }
-	        
-	    }
-		zoom zoomPanel = new zoom();
-        add(zoomPanel);
-		
-		
-
-		
-		
+		// mousWheely
+		this.addMouseWheelListener(clickListener);
 
 		// frame is 1600 by 900 default
 		// sun needs to move from 600 to 1600/2 = 800, DELTA = 800-600 = 200 --> so
 		// everything 200 to the right!
 		// sun needs to move from 400 to 450/2 = 450, DELTA = 450-400 = 050 --> so
-		// everything 050 to the right!	
-		
+		// everything 050 to the right!
+
 		allPlanets.add(new Planet(this, "", 128, 128, 128, 800, 500, 8, -4.7, 0, 9));
 		allPlanets.add(new Planet(this, "", 207, 153, 52, 952, 450, 12, 0, 2.5, 900));
 		allPlanets.add(new Planet(this, "", 0, 0, 255, 800, 200, 11, 1.8, 0, 900));
@@ -130,8 +74,7 @@ public class SystemPlanet extends JPanel {
 		allPlanets.add(new Planet(this, "", 66, 98, 243, 0, 650, 13, 0, -1.2, 900));
 		allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, .1, 0, 1000));
 		greatRocket.add(new Rocket(this, speed, 20, 800, 200));
-		
-		
+
 		Thread thread = new Thread() {
 
 			@Override
@@ -146,24 +89,22 @@ public class SystemPlanet extends JPanel {
 	public void paintComponent(Graphics g) {
 
 		//Graphics2D g2 = (Graphics2D) g;
-		//int width2 = getWidth();
-		//int height2 = getHeight();
-		//System.out.println("width " + width2 + " height " + height2);
+		//System.out.println("width " + getWidth() + " height " + getHeight());
 
-		//g2.drawImage(img, 0, 0, width2, height2, this);
+		//g2.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 
 		super.paintComponent(g);
 		icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
-		
+
 		for (Planet body : allPlanets) {
 			body.draw(g, size, getWidth(), getHeight());
 		}
 		for (Rocket rocketo : greatRocket) {
 			rocketo.draw(g, 5);
 		}
-		
-		//super.paintComponent(g);
-		//icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
+
+		// super.paintComponent(g);
+		// icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
 	}
 
 	private void gameLoop() {
@@ -191,36 +132,32 @@ public class SystemPlanet extends JPanel {
 	}
 
 	/*
-	// PLEASE, DO NOT DELETE THIS, WORK IN PROGRESS!
-	public void resetToMiddle() {
-		int width2 = getWidth();
-		int height2 = getHeight();
-		System.out.println("width " + width2 + " height " + height2);
+	 * // PLEASE, DO NOT DELETE THIS, WORK IN PROGRESS! public void resetToMiddle()
+	 * { int width2 = getWidth(); int height2 = getHeight();
+	 * System.out.println("width " + width2 + " height " + height2);
+	 * 
+	 * for (Planet body : allPlanets) { body.setX((int) (body.getX() + (width -
+	 * getWidth() ))); body.setY((int) (body.getY() + (height - getHeight() ))); }
+	 * repaint();
+	 * 
+	 * } public void setHeight() { height = getHeight(); } public void setWidth() {
+	 * width = getWidth(); }
+	 */
 
-		for (Planet body : allPlanets) {
-			body.setX((int) (body.getX() + (width - getWidth() )));
-			body.setY((int) (body.getY() + (height - getHeight() )));
-		}
-		repaint();
-
-	}
-	public void setHeight() {
-		height = getHeight();
-	}
-	public void setWidth() {
-		width = getWidth();
-	}
-	*/
-	
 	private class ClickListener extends MouseAdapter {
 
 		public void mousePressed(MouseEvent e) {
 			prevPt = e.getPoint();
 		}
-	}
-	
-	private class DragListener extends MouseMotionAdapter {
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			
+			updatePreferredSize(e.getWheelRotation(), e.getPoint());
+		}
 
+	}
+
+	private class DragListener extends MouseMotionAdapter {
+		
 		public void mouseDragged(MouseEvent e) {
 
 			Point currentPt = e.getPoint();
@@ -231,9 +168,39 @@ public class SystemPlanet extends JPanel {
 			prevPt = currentPt;
 			repaint();
 		}
+
 	}
-	
+
+	public void updatePreferredSize(int n, Point p) {
+
+		if (n == 0) // ideally getWheelRotation() should never return 0.
+			n = -1 * prevN; // but sometimes it returns 0 during changing of zoom
+		// direction. so if we get 0 just reverse the direction.
+
+		double d = (double) n * 1.08;
+		d = (n > 0) ? 1 / d : -d;
+
+		int w = (int) (getWidth() * d);
+		int h = (int) (getHeight() * d);
+		this.preferredSize.setSize(w, h);
+
+		int offX = (int) (p.x * d) - p.x;
+		int offY = (int) (p.y * d) - p.y;
+		this.getParent().setLocation(getParent().getLocation().x - offX, getParent().getLocation().y - offY);
+		// in the original code, zoomPanel is being shifted. here we are shifting
+		// containerPanel
+
+		this.getParent().doLayout(); // do the layout for containerPanel
+		this.getParent().getParent().doLayout(); // do the layout for jf (JFrame)
+
+		prevN = n;
+		
+		repaint();
+		
+	}
+
+	public Dimension getPreferredSize() {
+		return preferredSize;
+	}
 
 }
-
-
