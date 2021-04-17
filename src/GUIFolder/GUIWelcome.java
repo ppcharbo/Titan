@@ -53,6 +53,7 @@ public class GUIWelcome {
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		panel.add(startButton, gbc);
+		
 
 		//JLabel initialSpeedLabel = new JLabel("Please enter the intial speed: ");
 		//JTextField initialSpeedInput = new JTextField();
