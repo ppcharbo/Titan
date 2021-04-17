@@ -18,7 +18,8 @@ class ProbeSimulatorTest {
 
     static final double ACCURACY = 1; // 1 meter (might need to tweak that)
 
-    @Test void testTrajectoryOneDayX() {
+    @Test
+    void testTrajectoryOneDayX() {
 
         Vector3dInterface[] trajectory = simulateOneDay();
         double x1 = -1.4218092965609787E11; // reference implementation
@@ -26,7 +27,8 @@ class ProbeSimulatorTest {
 
     }
 
-    @Test void testTrajectoryOneDayY() {
+    @Test
+    void testTrajectoryOneDayY() {
 
         Vector3dInterface[] trajectory = simulateOneDay();
         double y1 = -3.3475191084301098E10; // reference implementation
@@ -34,7 +36,8 @@ class ProbeSimulatorTest {
 
     }
 
-    @Test void testTrajectoryOneDayZ() {
+    @Test
+    void testTrajectoryOneDayZ() {
 
         Vector3dInterface[] trajectory = simulateOneDay();
         double z1 = 8334994.892882561; // reference implementation
@@ -42,7 +45,8 @@ class ProbeSimulatorTest {
 
     }
 
-    @Test void testTrajectoryOneYearX() {
+    @Test
+    void testTrajectoryOneYearX() {
 
         Vector3dInterface[] trajectory = simulateOneYear();
         double x366 = -2.4951517995514418E13; // reference implementation
@@ -50,7 +54,8 @@ class ProbeSimulatorTest {
 
     }
 
-    @Test void testTrajectoryOneYearY() {
+    @Test
+    void testTrajectoryOneYearY() {
 
         Vector3dInterface[] trajectory = simulateOneYear();
         double y366 = -1.794349344879982E12; // reference implementation
@@ -58,7 +63,8 @@ class ProbeSimulatorTest {
 
     }
 
-    @Test void testTrajectoryOneYearZ() {
+    @Test
+    void testTrajectoryOneYearZ() {
 
         Vector3dInterface[] trajectory = simulateOneYear();
         double z366 = 2.901591968932223E7; // reference implementation
@@ -66,7 +72,8 @@ class ProbeSimulatorTest {
 
     }
 
-    @Test void testTrajectoryLength() {
+    @Test
+    void testTrajectoryLength() {
 
         Vector3dInterface[] trajectory = simulateOneYear();
         try {
