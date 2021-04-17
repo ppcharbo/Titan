@@ -4,7 +4,7 @@ import titan.impl.Vector3d;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-class Vector3dTest {
+class Vector3dTestProvided {
 
     @Test void testGetX() {
         Vector3dInterface v = new Vector3d(-1.1, 0.1, 1.1);

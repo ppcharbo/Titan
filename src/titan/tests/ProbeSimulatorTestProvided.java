@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.System;
 
-class ProbeSimulatorTest {
+class ProbeSimulatorTestProvided {
 
     static final double ACCURACY = 1; // 1 meter (might need to tweak that)
 
