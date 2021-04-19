@@ -12,8 +12,8 @@ public enum Planet implements StateInterface {
 	 * creating the methods for the gravitation force, the acceleration force ,
 	 * addPosition, addVelocity. 
 	 */
-	SHIP(15000,0, -1.47188983107687310e+11,-0.286154513998541e+11,0.000082693228546e+11 , -1.420511669610689e+01, 
-			-4.954714716629277e+00,3.994237625449041e-01),
+	SHIP(15000, 0, -1.47188983107687310e+11, -0.286154513998541e+11, 0.000082693228546e+11, 3.039138601308728e+04, 
+			-5.173351615093083e+04, -0.008344378289015e+04),
 			 
 	SUN(1.988500e30, 6.96e8, -6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06,
 			-1.420511669610689e+01, -4.954714716629277e+00, 3.994237625449041e-01),
@@ -70,7 +70,8 @@ public enum Planet implements StateInterface {
 				Vector3dInterface N = this.position.sub(p.position);
 				double GMM =G * this.mass * p.mass;
 				double GMMdivNorm = GMM / Math.pow(N.norm(), 3);
-				result.add(N.mul(GMMdivNorm));
+				//result.add(N.mul(GMMdivNorm));
+				result.addMul(GMMdivNorm, N);
 			}   
 		return result;
 	}
