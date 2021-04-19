@@ -10,7 +10,7 @@ public enum Planet implements StateInterface {
 	 * all the information about the planets the planet are those enum. This class
 	 * has been created to access to those information. but not only , we are also
 	 * creating the methods for the gravitation force, the acceleration force ,
-	 * addPosition, addVelocity.
+	 * addPosition, addVelocity. 
 	 */
 	SHIP(15000,0, -1.47188983107687310e+11,-0.286154513998541e+11,0.000082693228546e+11 , -1.420511669610689e+01, 
 			-4.954714716629277e+00,3.994237625449041e-01),
