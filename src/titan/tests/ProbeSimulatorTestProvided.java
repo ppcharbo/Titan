@@ -12,12 +12,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.System;
 
-class ProbeSimulatorTestProvided {
+public class ProbeSimulatorTestProvided {
 
     static final double ACCURACY = 1; // 1 meter (might need to tweak that)
 
     @Test
-    void testTrajectoryOneDayX() {
+    public void testTrajectoryOneDayX() {
 
         Vector3dInterface[] trajectory = simulateOneDay();
         double x1 = -1.4218092965609787E11; // reference implementation
@@ -26,7 +26,7 @@ class ProbeSimulatorTestProvided {
     }
 
     @Test
-    void testTrajectoryOneDayY() {
+    public void testTrajectoryOneDayY() {
 
         Vector3dInterface[] trajectory = simulateOneDay();
         double y1 = -3.3475191084301098E10; // reference implementation
@@ -35,7 +35,7 @@ class ProbeSimulatorTestProvided {
     }
 
     @Test
-    void testTrajectoryOneDayZ() {
+    public void testTrajectoryOneDayZ() {
 
         Vector3dInterface[] trajectory = simulateOneDay();
         double z1 = 8334994.892882561; // reference implementation
@@ -44,7 +44,7 @@ class ProbeSimulatorTestProvided {
     }
 
     @Test
-    void testTrajectoryOneYearX() {
+    public void testTrajectoryOneYearX() {
 
         Vector3dInterface[] trajectory = simulateOneYear();
         double x366 = -2.4951517995514418E13; // reference implementation
@@ -53,7 +53,7 @@ class ProbeSimulatorTestProvided {
     }
 
     @Test
-    void testTrajectoryOneYearY() {
+    public void testTrajectoryOneYearY() {
 
         Vector3dInterface[] trajectory = simulateOneYear();
         double y366 = -1.794349344879982E12; // reference implementation
@@ -62,7 +62,7 @@ class ProbeSimulatorTestProvided {
     }
 
     @Test
-    void testTrajectoryOneYearZ() {
+    public void testTrajectoryOneYearZ() {
 
         Vector3dInterface[] trajectory = simulateOneYear();
         double z366 = 2.901591968932223E7; // reference implementation
@@ -71,7 +71,7 @@ class ProbeSimulatorTestProvided {
     }
 
     @Test
-    void testTrajectoryLength() {
+    public void testTrajectoryLength() {
 
         Vector3dInterface[] trajectory = simulateOneYear();
         try {
@@ -93,7 +93,7 @@ class ProbeSimulatorTestProvided {
         assertEquals(367, trajectory.length);
 
     }
-
+  
     public static Vector3dInterface[] simulateOneDay() {
 
       Vector3dInterface probe_relative_position = new Vector3d(6371e3,0,0);
@@ -104,7 +104,7 @@ class ProbeSimulatorTestProvided {
       return trajectory;
 
     }
-
+   
     public static Vector3dInterface[] simulateOneYear() {
 
       Vector3dInterface probe_relative_position = new Vector3d(6371e3,0,0);
