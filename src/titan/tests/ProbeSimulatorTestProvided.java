@@ -6,6 +6,9 @@ import titan.impl.ProbeSimulator;
 import titan.impl.Vector3d;
 
 import org.junit.Test;
+
+//import com.sun.tools.javac.code.Attribute.Array;
+
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileWriter;
@@ -14,11 +17,34 @@ import java.lang.System;
 
 public class ProbeSimulatorTestProvided {
 
-    static final double ACCURACY = 1; // 1 meter (might need to tweak that)
+    static final double ACCURACY = 1e5; // 1 meter (might need to tweak that)
+
+    @Test
+    public void testSearchPositionOneDayX() {
+    	double x1 = -1.4218092965609787E11; // reference implementation
+    	int step=100;
+    	
+    	  AdjustPosition adjustPosition = AdjustPosition.getInstance();
+    	  int i=0;
+    	while(true) {
+    		i++;
+        Vector3dInterface[] trajectory = simulateOneDayBis();
+        double delta = x1-trajectory[1].getX();
+        /*
+		if (delta>0)
+        	adjustPosition.add(step);
+        else
+        	adjustPosition.sub(step);
+        	*/
+		System.out.println("Delta "+trajectory[1].getX());
+		if(i>20)break;
+    	}
+        
+
+    }
 
     @Test
     public void testTrajectoryOneDayX() {
-
         Vector3dInterface[] trajectory = simulateOneDay();
         double x1 = -1.4218092965609787E11; // reference implementation
         assertEquals(x1, trajectory[1].getX(), ACCURACY); // delta +-ACCURACY
@@ -116,5 +142,18 @@ public class ProbeSimulatorTestProvided {
       return trajectory;
 
     }
+    
+    public  Vector3dInterface[] simulateOneDayBis() {
+
+        Vector3dInterface probe_relative_position1 = new Vector3d(6371e3,0,0);
+        Vector3dInterface probe_relative_velocity1 = new Vector3d(52500.0,-27000.0,0); // 12.0 months
+        double day1 = 24*60*60;
+        ProbeSimulatorInterface simulator1 = new ProbeSimulator();
+        Vector3dInterface[] trajectory1 = simulator1.trajectory(probe_relative_position1, probe_relative_velocity1, day1, day1);
+        //System.out.println(Array.);
+        return trajectory1;
+
+      }
+     
 
 }

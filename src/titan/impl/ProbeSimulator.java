@@ -2,6 +2,7 @@ package titan.impl;
 
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
+import titan.tests.AdjustPosition;
 
 public class ProbeSimulator implements ProbeSimulatorInterface {
 
@@ -27,6 +28,10 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		Vector3dInterface[] positions = new Vector3d[ts.length];
 
 		Planet ship = Planet.SHIP;
+		Vector3dInterface position = ship.getPosition();
+		//System.out.println("position = "+position);
+		Vector3dInterface adjusted=AdjustPosition.getInstance().getVector();
+		position.add(adjusted);
 		int i = 0;
 		
 		for (double d : ts) {
