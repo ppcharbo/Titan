@@ -71,7 +71,7 @@ public enum Planet implements StateInterface {
 			if (p != this) {
 
 				Vector3dInterface N = p.position.sub(this.position); //Vector form our planet towards the other planet (attractive force)
-				double GMM = 0 * G * this.mass * p.mass;
+				double GMM = G * this.mass * p.mass;
 				double GMMdivNorm = GMM / Math.pow(N.norm(), 3);
 				//result.add(N.mul(GMMdivNorm));
 				force.addMul(GMMdivNorm, N);
@@ -111,7 +111,7 @@ public enum Planet implements StateInterface {
 	 */
 	public Vector3dInterface accelerationForce() {
 
-		Vector3dInterface accVector = gravitationalForce().mul(1/this.mass);
+		Vector3dInterface accVector = this.gravitationalForce().mul(1/this.mass);
 
 		return accVector;
 	}
