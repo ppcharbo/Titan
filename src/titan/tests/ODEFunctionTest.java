@@ -12,15 +12,16 @@ public class ODEFunctionTest {
 	public void testCall() {
 		
 		ODEFunction odeFunction = new ODEFunction();
-		System.out.println("Eath Position  "+Planet.EARTH.getPosition());
-		//after 1 hours
-		for (int time = 0; time < 3600*24*365.25; time++) {
-		RateInterface call = odeFunction.call(time, Planet.EARTH);
-		}
-		System.out.println("Eath Position  "+Planet.EARTH.getPosition());
 		
-	}
-
+		Planet planet = Planet.EARTH;
+		double deltaT = 1;
+		System.out.println("Earth Position  "+planet.getPosition());
 	
-
+		//checking new planet position after every seconds (over a year)
+		for (int time = 0; time < 365.25*24*3600; time++) {
+			RateInterface call = odeFunction.call(time, planet);
+			planet = (Planet) planet.addMul(deltaT, call);
+		}
+		System.out.println("Earth Position  "+planet.getPosition());
+	}
 }
