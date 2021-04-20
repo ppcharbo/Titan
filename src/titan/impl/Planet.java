@@ -64,19 +64,20 @@ public enum Planet implements StateInterface {
 	 */
 	public Vector3dInterface gravitationalForce() {
 
-		Vector3dInterface result = new Vector3d();
+		Vector3dInterface force = new Vector3d();
 		// Calculate force of all the surrounding planets except that same planet
-		for (Planet p : Planet.values())
+		for (Planet p : Planet.values()) {
 			// Do not consider the current planet
 			if (p != this) {
 
 				Vector3dInterface N = this.position.sub(p.position);
-				double GMM =G * this.mass * p.mass;
+				double GMM = G * this.mass * p.mass;
 				double GMMdivNorm = GMM / Math.pow(N.norm(), 3);
 				//result.add(N.mul(GMMdivNorm));
-				result.addMul(GMMdivNorm, N);
-			}   
-		return result;
+				force.addMul(GMMdivNorm, N);
+			}
+		}
+		return force;
 	}
 
 	//TODO
