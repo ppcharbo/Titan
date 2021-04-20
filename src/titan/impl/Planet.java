@@ -70,8 +70,8 @@ public enum Planet implements StateInterface {
 			// Do not consider the current planet
 			if (p != this) {
 
-				Vector3dInterface N = this.position.sub(p.position);
-				double GMM = G * this.mass * p.mass;
+				Vector3dInterface N = p.position.sub(this.position); //Vector form our planet towards the other planet (attractive force)
+				double GMM = 0 * G * this.mass * p.mass;
 				double GMMdivNorm = GMM / Math.pow(N.norm(), 3);
 				//result.add(N.mul(GMMdivNorm));
 				force.addMul(GMMdivNorm, N);
