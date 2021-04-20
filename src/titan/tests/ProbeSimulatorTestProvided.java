@@ -21,7 +21,8 @@ public class ProbeSimulatorTestProvided {
 
         Vector3dInterface[] trajectory = simulateOneDay();
         double x1 = -1.4218092965609787E11; // reference implementation
-        assertEquals(x1, trajectory[1].getX(), ACCURACY); // delta +-ACCURACY
+        double x = trajectory[1].getX();
+		assertEquals(x1, x, ACCURACY); // delta +-ACCURACY
 
     }
 
@@ -30,7 +31,8 @@ public class ProbeSimulatorTestProvided {
 
         Vector3dInterface[] trajectory = simulateOneDay();
         double y1 = -3.3475191084301098E10; // reference implementation
-        assertEquals(y1, trajectory[1].getY(), ACCURACY); // delta +-ACCURACY
+        double y = trajectory[1].getY();
+		assertEquals(y1, y, ACCURACY); // delta +-ACCURACY
 
     }
 
