@@ -27,6 +27,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		Vector3dInterface[] positions = new Vector3d[ts.length];
 
 		Planet ship = Planet.SHIP;
+		
 		int i = 0;
 		
 		for (double d : ts) {

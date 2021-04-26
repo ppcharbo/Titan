@@ -10,16 +10,16 @@ public class State implements StateInterface {
  */
 	
 	Vector3d position = new Vector3d();
-	Vector3d speed = new Vector3d();
+	Vector3d velocity = new Vector3d();
 	
-	public State(double xPosition, double yPosition, double zPosition, double xSpeed, double ySpeed, double zSpeed) {
+	public State(double xPosition, double yPosition, double zPosition, double xVelocity, double yVelocity, double zVelocity) {
 		
 		position.setX(xPosition);
 		position.setY(yPosition);
 		position.setZ(zPosition);
-		speed.setX(xSpeed);
-		speed.setY(ySpeed);
-		speed.setZ(zSpeed);
+		velocity.setX(xVelocity);
+		velocity.setY(yVelocity);
+		velocity.setZ(zVelocity);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class State implements StateInterface {
 		Rate arate = (Rate) rate;
 		
 		position = (Vector3d) position.addMul(step, arate.position());
-		speed = (Vector3d) speed.addMul(step, arate.speed());
+		velocity = (Vector3d) velocity.addMul(step, arate.speed());
 		
 		return this;
 	}
