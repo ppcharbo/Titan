@@ -2,7 +2,7 @@ package titan.impl;
 
 import titan.ODEFunctionInterface;
 import titan.RateInterface;
-import titan.StateInterface;
+import titan.StateInterface; 
 
 public class ODEFunction implements ODEFunctionInterface {
 
