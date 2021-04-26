@@ -1,6 +1,7 @@
 package titan.impl;
 
 import titan.RateInterface;
+import titan.Vector3dInterface;
 
 public class Rate implements RateInterface {
 	
@@ -15,6 +16,11 @@ public class Rate implements RateInterface {
 		
 		this.position = ratePosition; 
 		this.speed = rateSpeed;
+	}
+	
+	public Rate(Vector3dInterface velocity) {
+		
+		this.speed = (Vector3d) velocity;
 	}
 
 	public Rate(double xPosition, double yPosition, double zPosition, double xSpeed, double ySpeed, double zSpeed) {

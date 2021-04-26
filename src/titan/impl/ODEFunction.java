@@ -1,8 +1,11 @@
 package titan.impl;
 
+import java.util.ArrayList;
+
 import titan.ODEFunctionInterface;
 import titan.RateInterface;
-import titan.StateInterface; 
+import titan.StateInterface;
+import titan.Vector3dInterface; 
 
 public class ODEFunction implements ODEFunctionInterface {
 
@@ -42,10 +45,23 @@ public class ODEFunction implements ODEFunctionInterface {
 	 * @ return The average rate-of-change over the time-step. Has dimensions of
 	 * [state]/[time]. 
 	 */
+	
+	public Vector3d speed;
+	
+	public ODEFunction() {
+		//nothing;
+	}
+	public ODEFunction(Vector3dInterface v0) {
+		this.speed = (Vector3d) v0;
+	}
+	
 	@Override
 	public RateInterface call(double t, StateInterface y) {
 
+		//p is null ????
 		Planet p = (Planet) y;
+		
+		
 	
 		Vector3d positionRate = (Vector3d) p.getSpeed();
 		Vector3d speedRate = (Vector3d) p.accelerationForce();
@@ -53,6 +69,59 @@ public class ODEFunction implements ODEFunctionInterface {
 		Rate rate = new Rate(positionRate, speedRate);
  
 		return rate;
+		
+		
+	}
+	
+
+	public RateInterface call2(double t, StateInterface y) {
+
+		/*
+		double[] planet;
+		
+		ArrayList planets = ((State) y).getList();
+		for(int i = 0; i < planets.size(); i++) {
+			double[] array = (double[]) planets.get(i);
+			if(array[0] == ((State) y).position.getX()) {
+				//then we know we have found the planet
+				System.out.println("Found ya");
+				planet = (double[]) planets.get(i);
+				break;
+			}
+		}
+		*/
+		
+		//Vector3d velocity = new Vector3d(planet[blah], planet[blah2], planet[blah3]);
+		
+		
+		Planet x = null;
+		
+		Vector3d blah = ((State) y).position;
+		for(Planet p: Planet.values()) {
+			if(p.getPosition().equals(blah)) { //this condition is never true, so x = null causing a null exception
+				//we found the planet
+				System.out.println("Hello there");
+				x = p;
+			}
+			else {
+				System.out.println("hey??");
+			}
+		}
+		
+		
+		
+		Vector3d velocityP = (Vector3d) x.getSpeed();
+		
+		
+		
+		Vector3d acceleration = (Vector3d) x.accelerationForce();
+		
+		//return new speed:
+		//p.addSpeed(velocity.addMul(t, acceleration));
+ 
+		return new Rate(velocityP.addMul(t, acceleration)); //returns the new velocity
+		
+		
 	}
 
 	// return for all the planet 

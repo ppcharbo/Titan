@@ -1,9 +1,13 @@
 package titan.impl;
 
+import titan.ODEFunctionInterface;
 import titan.ProbeSimulatorInterface;
+import titan.StateInterface;
 import titan.Vector3dInterface;
 
 public class ProbeSimulator implements ProbeSimulatorInterface {
+
+	public final double H = 60 * 60;
 
 	/*
 	 * Simulate the solar system, including a probe fired from Earth at 00:00h on 1
@@ -24,12 +28,12 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double[] ts) {
 
-		Vector3dInterface[] positions = new Vector3d[ts.length];
+		Vector3dInterface[] positions = new Vector3d[ts.length + 1];
 
 		Planet ship = Planet.SHIP;
-		
+
 		int i = 0;
-		
+
 		for (double d : ts) {
 
 			Vector3dInterface accelerationForce = ship.accelerationForce();
@@ -57,21 +61,34 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	 * @return an array of size round(tf/h)+1 giving the position of the probe at
 	 * each time stated, taken relative to the Solar System barycentre
 	 */
+
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
-		
-		double[] tsMe = new double[(int) (tf / h) + 1];
-		tsMe[0] = 0;
-		
-		for (int i = 1; i < tsMe.length; i++) {
-			
-			tsMe[i] = tsMe[i - 1] + h;
+
+		//Planet ship = Planet.SHIP;
+
+		// StateInterface state = new StateInterface(..)
+		// tf = next time step we want to have
+		// h = the step to get to the next time
+		// y0 = current position/current state/current velocity
+		// f = ODEFunction
+		// Then we want to get the last output of the solver because that contains it at
+		// the new time step h.
+
+		Vector3dInterface[] positions = new Vector3d[((int) Math.round(tf / h) + 1) + 1];
+		int i = 0;
+		positions[i] = p0;
+		State passMe = new State(p0.getX(), p0.getY(), p0.getZ(), v0.getX(), v0.getY(), v0.getZ());
+		i = 1; // lock the position[0] position to be the intial position
+
+		ODESolver solvy = new ODESolver();
+		State[] arr = (State[]) solvy.solve(new ODEFunction(v0), passMe, tf, h);
+		for (State px : arr) {
+			positions[i] = (Vector3d) px.position;
+			i++; // update the i'th position
 		}
-		
-		if (tsMe[tsMe.length - 1] != tf) {
-			
-			tsMe[tsMe.length - 1] = tf;
-		}
-		return trajectory(p0, v0, tsMe);
+
+		return positions;
+
 	}
 }
