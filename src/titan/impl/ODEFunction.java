@@ -55,8 +55,8 @@ public class ODEFunction implements ODEFunctionInterface {
 		this.speed = (Vector3d) v0;
 	}
 	
-	@Override
-	public RateInterface call(double t, StateInterface y) {
+	
+	public RateInterface callORG(double t, StateInterface y) {
 
 		//p is null ????
 		Planet p = (Planet) y;
@@ -73,8 +73,8 @@ public class ODEFunction implements ODEFunctionInterface {
 		
 	}
 	
-
-	public RateInterface call2(double t, StateInterface y) {
+	@Override
+	public RateInterface call(double t, StateInterface y) {
 
 		/*
 		double[] planet;
