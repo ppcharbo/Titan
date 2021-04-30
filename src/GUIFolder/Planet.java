@@ -28,7 +28,7 @@ public class Planet {
 	public Planet(JPanel parento, String label, int r, int g, int b, double xCoordinate, double yCoordinate,
 			int diameter, double vx, double vy, int mass) {
 
-		this.parent = parento;
+		this.setParent(parento);
 		this.label = label;
 		color = new Color(r, g, b);
 		x = xCoordinate;
@@ -99,6 +99,14 @@ public class Planet {
 		g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
 		// }
 
+	}
+
+	public JPanel getParent() {
+		return parent;
+	}
+
+	public void setParent(JPanel parent) {
+		this.parent = parent;
 	}
 
 }

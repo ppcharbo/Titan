@@ -28,7 +28,7 @@ public class Rocket {
 		this.yLaunch = yLaunch;
 		this.rocket_Diameter = rocket_Diameter;
 		// this.initial = initial;
-		this.parent = parento;
+		this.setParent(parento);
 
 		// TEST THIS CONSTANT *0.001
 		this.vx = initialSpeed;
@@ -87,6 +87,14 @@ public class Rocket {
 		vy = vy + (dirY * acceleration);
 
 		changeLocationWithSpeed();
+	}
+
+	public JPanel getParent() {
+		return parent;
+	}
+
+	public void setParent(JPanel parent) {
+		this.parent = parent;
 	}
 
 }

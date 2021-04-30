@@ -4,6 +4,10 @@ import javax.swing.JFrame;
 
 public class MyFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	DragPanel dragPanel = new DragPanel();
 
 	MyFrame() {

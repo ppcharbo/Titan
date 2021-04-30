@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 
 public class DragPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ImageIcon image = new ImageIcon(this.getClass().getResource("background.jpg"));
 	final int WIDTH = image.getIconWidth();
 	final int HEIGHT = image.getIconHeight();

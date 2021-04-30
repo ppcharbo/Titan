@@ -1,8 +1,6 @@
 package titan.impl;
 
-import titan.ODEFunctionInterface;
 import titan.ProbeSimulatorInterface;
-import titan.StateInterface;
 import titan.Vector3dInterface;
 
 public class ProbeSimulator implements ProbeSimulatorInterface {

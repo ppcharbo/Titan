@@ -1,17 +1,16 @@
 package titan.tests;
 
-import titan.ProbeSimulatorInterface;
-import titan.Vector3dInterface;
-import titan.impl.ProbeSimulator;
-import titan.impl.Vector3d;
-
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.System;
-import java.util.Iterator;
+
+import org.junit.Test;
+
+import titan.ProbeSimulatorInterface;
+import titan.Vector3dInterface;
+import titan.impl.ProbeSimulator;
+import titan.impl.Vector3d;
 
 public class ProbeSimulatorTestProvided {
 
