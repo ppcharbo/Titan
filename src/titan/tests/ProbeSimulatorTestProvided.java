@@ -38,7 +38,8 @@ public class ProbeSimulatorTestProvided {
 
     @Test
     public void testTrajectoryOneDayZ() {
-
+    	
+    	System.out.println("PB");
         Vector3dInterface[] trajectory = simulateOneDay();
         double z1 = 8334994.892882561; // reference implementation
         System.out.println(trajectory[1].getZ());

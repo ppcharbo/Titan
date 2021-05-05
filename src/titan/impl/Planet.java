@@ -129,4 +129,12 @@ public enum Planet implements StateInterface {
 
 		return speed;
 	}
+	
+	public void setPosition(Vector3dInterface position) {
+		this.position = position;
+	}
+	
+	public void setSpeed(Vector3dInterface speed) {
+		this.speed = speed;
+	}
 }

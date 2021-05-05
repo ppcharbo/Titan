@@ -9,51 +9,36 @@ public class ODESolver implements ODESolverInterface {
 
 	@Override
 	public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double[] ts) {
-		StateInterface[] arr = new StateInterface[ts.length];
-		arr[0] = y0;
+		
+		StateInterface[] states = new StateInterface[ts.length];
+		
+		states[0] = y0;
 
-		for (int i = 1; i < arr.length; i++) {
+		for (int i = 1; i < states.length; i++) {
 
 			double stepSize = ts[i] - ts[i - 1];
-			arr[i] = step(f, ts[i-1], arr[i - 1], stepSize);
+			states[i] = step(f, ts[i-1], states[i - 1], stepSize);
 		}
-		return arr;
+		return states;
 	}
-
+	
+	@Override
 	public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 		
-		StateInterface[] arr = new StateInterface[(int) Math.round((tf / h) + 1)];
-		int i = 0;
-		arr[i] = y0;
-		i = 1;
+		StateInterface[] states = new StateInterface[(int) Math.round((tf / h) + 1)];
 		
+		states[0] = y0;
 		
-		//double stepSize = h;
 		double currentTime = 0;
 		
-		
-		//w(i+1) = w(i) + h*f(t,y)
-		//y_next = y_current + h*v
-		
+		int i = 0;
 		while(currentTime < tf) {
-			//operations
-			//w(i+1) = w(i) + h*f(t,y)
-			arr[i] = step(f, currentTime, arr[i-1], h);
+			
+			states[++i] = step(f, currentTime, states[i-1], h);
 			
 			currentTime = currentTime + h;
 		}
-		/*
-		for (int i = 1; i < arr.length; i++) {
-			
-			if (i == arr.length - 1) {
-				// we are in last step and have to check our remaining step size
-				stepSize = Math.IEEEremainder(tf, h);
-			}
-			arr[i] = step(f, currentTime, arr[i - 1], stepSize);
-			currentTime += stepSize;
-		}
-		*/
-		return arr;
+		return states;
 	}
 
 	@Override
