@@ -25,17 +25,16 @@ public class ODESolver implements ODESolverInterface {
 	@Override
 	public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 		
-		StateInterface[] states = new StateInterface[(int) Math.round((tf / h) + 1)];
+		StateInterface[] states = new StateInterface[(int) Math.round((tf / h) + 1)]; //according to StateInterface description
 		
 		states[0] = y0;
 		
 		double currentTime = 0;
 		
 		int i = 1;
-		while(currentTime <= (tf-h)) {
+		while (currentTime <= (tf-h)) {
 			
 			states[i] = step(f, currentTime, states[i-1], h);
-			
 			currentTime = currentTime + h;
 			i++;
 		}
