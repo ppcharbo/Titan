@@ -31,12 +31,13 @@ public class ODESolver implements ODESolverInterface {
 		
 		double currentTime = 0;
 		
-		int i = 0;
-		while(currentTime < tf) {
+		int i = 1;
+		while(currentTime <= (tf-h)) {
 			
-			states[++i] = step(f, currentTime, states[i-1], h);
+			states[i] = step(f, currentTime, states[i-1], h);
 			
 			currentTime = currentTime + h;
+			i++;
 		}
 		return states;
 	}
