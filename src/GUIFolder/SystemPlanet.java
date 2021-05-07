@@ -169,9 +169,9 @@ public class SystemPlanet extends JPanel {
 
 			Point currentPt = e.getPoint();
 
-			imageCorner.translate(
+			//imageCorner.translate(
 
-					(int) (currentPt.getX() - prevPt.getX()), (int) (currentPt.getY() - prevPt.getY()));
+					//(int) (currentPt.getX() - prevPt.getX()), (int) (currentPt.getY() - prevPt.getY()));
 			
 			for (Planet planet : allPlanets) {
 				planet.translate((double) currentPt.getX() - planet.getX(), (double) currentPt.getY() - planet.getY());
