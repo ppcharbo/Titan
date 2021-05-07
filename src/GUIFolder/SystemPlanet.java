@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 public class SystemPlanet extends JPanel {
 
+
 	private static final long serialVersionUID = 1L;
 	ArrayList<Planet> allPlanets = new ArrayList<Planet>();
 	ArrayList<Rocket> greatRocket = new ArrayList<Rocket>();
@@ -34,6 +35,16 @@ public class SystemPlanet extends JPanel {
 
 	private static int prevN = 0;
 	private Dimension preferredSize = new Dimension(400, 400);
+	
+	/*public static void main(String[] args) {
+	
+		JFrame jf = new JFrame("test");
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.setSize(1600, 800);
+		
+		
+		
+	}*/
 
 	public SystemPlanet(double speed) {
 		
@@ -153,6 +164,7 @@ public class SystemPlanet extends JPanel {
 
 	private class DragListener extends MouseMotionAdapter {
 		
+		//TODO
 		public void mouseDragged(MouseEvent e) {
 
 			Point currentPt = e.getPoint();
@@ -160,6 +172,11 @@ public class SystemPlanet extends JPanel {
 			imageCorner.translate(
 
 					(int) (currentPt.getX() - prevPt.getX()), (int) (currentPt.getY() - prevPt.getY()));
+			
+			for (Planet planet : allPlanets) {
+				planet.translate((double) currentPt.getX() - planet.getX(), (double) currentPt.getY() - planet.getY());
+			}
+			
 			prevPt = currentPt;
 			repaint();
 		}

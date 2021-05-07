@@ -108,5 +108,11 @@ public class Planet {
 	public void setParent(JPanel parent) {
 		this.parent = parent;
 	}
+	
+	 public void translate(double d, double e) {
+	        this.x += d;
+	        this.y += e;
+	    }
+
 
 }

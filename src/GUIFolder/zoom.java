@@ -20,7 +20,7 @@ public class zoom extends JPanel {
 	private Dimension preferredSize = new Dimension(400, 400);
 	private Rectangle2D[] rects = new Rectangle2D[50];
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		JFrame jf = new JFrame("test");
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setSize(800, 800);
@@ -35,7 +35,7 @@ public class zoom extends JPanel {
 
 		jf.add(new JScrollPane(containerPanel));
 		jf.setVisible(true);
-	}
+	}*/
 
 	public zoom() {
 		// generate rectangles with pseudo-random coords
