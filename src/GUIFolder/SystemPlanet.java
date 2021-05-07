@@ -20,6 +20,7 @@ public class SystemPlanet extends JPanel {
 	ArrayList<Planet> allPlanets = new ArrayList<Planet>();
 	ArrayList<Rocket> greatRocket = new ArrayList<Rocket>();
 	private Image img;
+	private final boolean DEBUG = false;
 
 	public static int delay = 25;
 	double size = 1;
@@ -73,6 +74,18 @@ public class SystemPlanet extends JPanel {
 		// sun needs to move from 400 to 450/2 = 450, DELTA = 450-400 = 050 --> so
 		// everything 050 to the right!
 
+		
+		
+		//TODO add the labels to the planets so we can identify them more easily :)
+		//TODO plotting Titan and the earth's moon
+		//TODO plot Rocket
+		// -->
+		//TODO change the coordinates according to the planet.java inside the titan.impl
+		
+		
+		
+		
+		
 		allPlanets.add(new Planet(this, "", 128, 128, 128, 800, 500, 8, -4.7, 0, 9));
 		allPlanets.add(new Planet(this, "", 207, 153, 52, 952, 450, 12, 0, 2.5, 900));
 		allPlanets.add(new Planet(this, "", 0, 0, 255, 800, 200, 11, 1.8, 0, 900));
@@ -81,7 +94,7 @@ public class SystemPlanet extends JPanel {
 		allPlanets.add(new Planet(this, "", 112, 128, 144, 800, -75, 15, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 196, 233, 238, 800, -125, 15, 1.2, 0, 900));
 		allPlanets.add(new Planet(this, "", 66, 98, 243, 0, 650, 13, 0, -1.2, 900));
-		allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, .1, 0, 1000));
+		allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, 0.1, 0, 1000));
 		greatRocket.add(new Rocket(this, speed, 20, 800, 200));
 
 		Thread thread = new Thread() {
@@ -97,10 +110,6 @@ public class SystemPlanet extends JPanel {
 
 	public void paintComponent(Graphics g) {
 
-		//Graphics2D g2 = (Graphics2D) g;
-		//System.out.println("width " + getWidth() + " height " + getHeight());
-
-		//g2.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 
 		super.paintComponent(g);
 		icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
@@ -137,19 +146,6 @@ public class SystemPlanet extends JPanel {
 		}
 	}
 
-	/*
-	 * // PLEASE, DO NOT DELETE THIS, WORK IN PROGRESS! public void resetToMiddle()
-	 * { int width2 = getWidth(); int height2 = getHeight();
-	 * System.out.println("width " + width2 + " height " + height2);
-	 * 
-	 * for (Planet body : allPlanets) { body.setX((int) (body.getX() + (width -
-	 * getWidth() ))); body.setY((int) (body.getY() + (height - getHeight() ))); }
-	 * repaint();
-	 * 
-	 * } public void setHeight() { height = getHeight(); } public void setWidth() {
-	 * width = getWidth(); }
-	 */
-
 	private class ClickListener extends MouseAdapter {
 
 		public void mousePressed(MouseEvent e) {
@@ -167,14 +163,27 @@ public class SystemPlanet extends JPanel {
 		//TODO
 		public void mouseDragged(MouseEvent e) {
 
-			Point currentPt = e.getPoint();
+			Point currentPt = e.getPoint(); //obtain current clicked point
+			
+			//get the current x and y position
+			final double currentX = currentPt.getX();
+			final double currentY = currentPt.getY();
+			
+			//get the old x and y position (we got prevPt from the ClickListener class)
+			final double oldX = prevPt.getX();
+			final double oldY = prevPt.getY();
 
-			//imageCorner.translate(
-
-					//(int) (currentPt.getX() - prevPt.getX()), (int) (currentPt.getY() - prevPt.getY()));
+			
+			//imageCorner.translate((int) (currentPt.getX() - prevPt.getX()), (int) (currentPt.getY() - prevPt.getY()));
+			
 			
 			for (Planet planet : allPlanets) {
-				planet.translate((double) currentPt.getX() - planet.getX(), (double) currentPt.getY() - planet.getY());
+				planet.translate((double) currentX - oldX, (double) currentY - oldY);
+				if(DEBUG) {
+					System.out.println(currentX);
+					System.out.println(planet.getX());
+					System.out.println(planet.label);
+				}
 			}
 			
 			prevPt = currentPt;

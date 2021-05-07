@@ -21,6 +21,7 @@ public class Planet {
 	private double max = 0;
 	public String label;
 	private JPanel parent;
+	private final boolean DEBUG = false;
 
 	boolean visible;
 	Color color;
@@ -90,14 +91,12 @@ public class Planet {
 		int x = (int) (windth + (this.x - dia / 2 - windth) * size);
 		int y = (int) (height + (this.y - dia / 2 - height) * size);
 
-		//System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
-		// DON'T DELETE THIS IF-ELSE STATEMENT, THIS IS FOR TESTING PURPOSES!
-		// if (label.equals("rocket")) {
-		// draw box
-		// g.fillRect(x, y, (int) (dia * size), (int) (dia * size));
-		// } else {
+		if(DEBUG) {
+			System.out.println("x: " + x);
+			System.out.println("y: " + y);
+		}
 		g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
-		// }
+		
 
 	}
 
@@ -112,6 +111,9 @@ public class Planet {
 	 public void translate(double d, double e) {
 	        this.x += d;
 	        this.y += e;
+	        if(DEBUG) {
+	        	System.out.println("Translated: " + label +  " to x: " + x + " and y: " + y);
+	        }
 	    }
 
 
