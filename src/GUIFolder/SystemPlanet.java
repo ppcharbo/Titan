@@ -1,13 +1,12 @@
 package GUIFolder;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseWheelEvent;
+
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -15,57 +14,45 @@ import javax.swing.JPanel;
 
 public class SystemPlanet extends JPanel {
 
+	// TODO add the labels to the planets so we can identify them more easily :)
+	// TODO plotting Titan and the earth's moon
+	// TODO plot Rocket
+	// -->
+	// TODO change the coordinates according to the planet.java inside the
+	// titan.impl
 
 	private static final long serialVersionUID = 1L;
-	ArrayList<Planet> allPlanets = new ArrayList<Planet>();
-	ArrayList<Rocket> greatRocket = new ArrayList<Rocket>();
-	private Image img;
 	private final boolean DEBUG = false;
-
+	
+	private ArrayList<Planet> allPlanets = new ArrayList<Planet>();
+	private ArrayList<Rocket> greatRocket = new ArrayList<Rocket>();
+	private final GUIWelcome upperFrame;
+	private Point imageCorner;
+	private Point prevPt;
+	private ImageIcon icon;
+	
+	public double size = 1;
 	public static int delay = 25;
-	double size = 1;
-
-	boolean stop = false;
-	int clicked = -1;
-
-	int width;
-	int height;
-	Point imageCorner;
-	Point prevPt;
-	ImageIcon icon;
-
-	private static int prevN = 0;
-	private Dimension preferredSize = new Dimension(400, 400);
-	
-	/*public static void main(String[] args) {
-	
-		JFrame jf = new JFrame("test");
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.setSize(1600, 800);
-		
-		
-		
-	}*/
-
-	public SystemPlanet(double speed) {
-		
-		
-		// TODO
-		// Source of image: 
-		// setBackground(new Color(0, 0, 0));
-
-		icon = new ImageIcon(this.getClass().getResource("InkedBlackBackground_LI.jpg"));
-		img = icon.getImage();
+	public boolean stop = false;
 
 
+	public SystemPlanet(GUIWelcome frame, double speed) {
+
+		this.upperFrame = frame; // pass the GUIWelcome object because we need access to it.
+
+		// Source of image:
+		// https://www.pexels.com/photo/fine-tip-on-black-surface-3934623/
+		// Edited by the group so that the image is all black for a background
+		icon = new ImageIcon(this.getClass().getResource("background.jpg"));
 		imageCorner = new Point(0, 0);
+
+		// Create listeners
 		ClickListener clickListener = new ClickListener();
 		DragListener dragListener = new DragListener();
 
+		// add all the listeners
 		this.addMouseListener(clickListener);
 		this.addMouseMotionListener(dragListener);
-
-		// mousWheely
 		this.addMouseWheelListener(clickListener);
 
 		// frame is 1600 by 900 default
@@ -73,19 +60,6 @@ public class SystemPlanet extends JPanel {
 		// everything 200 to the right!
 		// sun needs to move from 400 to 450/2 = 450, DELTA = 450-400 = 050 --> so
 		// everything 050 to the right!
-
-		
-		
-		//TODO add the labels to the planets so we can identify them more easily :)
-		//TODO plotting Titan and the earth's moon
-		//TODO plot Rocket
-		// -->
-		//TODO change the coordinates according to the planet.java inside the titan.impl
-		
-		
-		
-		
-		
 		allPlanets.add(new Planet(this, "", 128, 128, 128, 800, 500, 8, -4.7, 0, 9));
 		allPlanets.add(new Planet(this, "", 207, 153, 52, 952, 450, 12, 0, 2.5, 900));
 		allPlanets.add(new Planet(this, "", 0, 0, 255, 800, 200, 11, 1.8, 0, 900));
@@ -110,13 +84,17 @@ public class SystemPlanet extends JPanel {
 
 	public void paintComponent(Graphics g) {
 
-
 		super.paintComponent(g);
+
+		// Repaint background
 		icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
 
+		// Repaint planets
 		for (Planet body : allPlanets) {
 			body.draw(g, size, getWidth(), getHeight());
 		}
+
+		// Repaint rocket
 		for (Rocket rocketo : greatRocket) {
 			rocketo.draw(g, 5);
 		}
@@ -149,79 +127,50 @@ public class SystemPlanet extends JPanel {
 	private class ClickListener extends MouseAdapter {
 
 		public void mousePressed(MouseEvent e) {
+
+			// Obtain the point for the drag function
 			prevPt = e.getPoint();
 		}
-		public void mouseWheelMoved(MouseWheelEvent e) {
-			
-			updatePreferredSize(e.getWheelRotation(), e.getPoint());
-		}
 
+		public void mouseWheelMoved(MouseWheelEvent e) {
+
+			// Zoom in using the button
+			if (e.getWheelRotation() < 0) {
+				upperFrame.zoomIn.doClick();
+			}
+			// Zoom out using the button
+			if (e.getWheelRotation() > 0) {
+				upperFrame.zoomOut.doClick();
+			}
+		}
 	}
 
 	private class DragListener extends MouseMotionAdapter {
-		
-		//TODO
+
 		public void mouseDragged(MouseEvent e) {
 
-			Point currentPt = e.getPoint(); //obtain current clicked point
-			
-			//get the current x and y position
+			Point currentPt = e.getPoint(); // Obtain current clicked point
+
+			// Get the current x and y position
 			final double currentX = currentPt.getX();
 			final double currentY = currentPt.getY();
-			
-			//get the old x and y position (we got prevPt from the ClickListener class)
+
+			// Get the old x and y position (we got prevPt from the ClickListener class)
 			final double oldX = prevPt.getX();
 			final double oldY = prevPt.getY();
 
-			
-			//imageCorner.translate((int) (currentPt.getX() - prevPt.getX()), (int) (currentPt.getY() - prevPt.getY()));
-			
-			
+			// Move the planets
 			for (Planet planet : allPlanets) {
 				planet.translate((double) currentX - oldX, (double) currentY - oldY);
-				if(DEBUG) {
+				if (DEBUG) {
 					System.out.println(currentX);
 					System.out.println(planet.getX());
 					System.out.println(planet.label);
 				}
 			}
-			
-			prevPt = currentPt;
+
+			prevPt = currentPt; // Reset points
 			repaint();
 		}
-
 	}
-
-	public void updatePreferredSize(int n, Point p) {
-
-		if (n == 0) // ideally getWheelRotation() should never return 0.
-			n = -1 * prevN; // but sometimes it returns 0 during changing of zoom
-		// direction. so if we get 0 just reverse the direction.
-
-		double d = (double) n * 1.08;
-		d = (n > 0) ? 1 / d : -d;
-
-		int w = (int) (getWidth() * d);
-		int h = (int) (getHeight() * d);
-		this.preferredSize.setSize(w, h);
-
-		int offX = (int) (p.x * d) - p.x;
-		int offY = (int) (p.y * d) - p.y;
-		this.getParent().setLocation(getParent().getLocation().x - offX, getParent().getLocation().y - offY);
-		// in the original code, zoomPanel is being shifted. here we are shifting
-		// containerPanel
-
-		this.getParent().doLayout(); // do the layout for containerPanel
-		this.getParent().getParent().doLayout(); // do the layout for jf (JFrame)
-
-		prevN = n;
-		
-		repaint();
-		
-	}
-
-	public Dimension getPreferredSize() {
-		return preferredSize;
-	}
-
 }
