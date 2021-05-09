@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class Planet {
 
-	private int mass = 0;
+	private double mass = 0;
 	private int dia = 0;
 	private double x = 0;
 	private double y = 0;
@@ -27,7 +27,7 @@ public class Planet {
 	Color color;
 
 	public Planet(JPanel parento, String label, int r, int g, int b, double xCoordinate, double yCoordinate,
-			int diameter, double vx, double vy, int mass) {
+			int diameter, double vx, double vy, double mass) {
 
 		this.setParent(parento);
 		this.label = label;
@@ -49,7 +49,7 @@ public class Planet {
 		return y;
 	}
 
-	public int getMass() {
+	public double getMass() {
 		return mass;
 	}
 
@@ -62,7 +62,7 @@ public class Planet {
 		y = y + vy;
 	}
 
-	public void update(double xNew, double yNew, int mass) {
+	public void update(double xNew, double yNew, double mass) {
 		distance = Math.sqrt((xNew - x) * (xNew - x) + (yNew - y) * (yNew - y));
 		initial = Math.min(distance, initial);
 		max = Math.max(distance, max);
