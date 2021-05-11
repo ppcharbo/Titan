@@ -19,6 +19,9 @@ import javax.swing.JToolBar;
 
 public class GUIWelcome {
 
+	public JButton zoomOut;
+	public JButton zoomIn;
+	
 	public static void main(String[] args) {
 		new GUIWelcome();
 	}
@@ -53,34 +56,14 @@ public class GUIWelcome {
 		gbc.gridy = 2;
 		panel.add(startButton, gbc);
 		
-
-		//JLabel initialSpeedLabel = new JLabel("Please enter the intial speed: ");
-		//JTextField initialSpeedInput = new JTextField();
-		
-		/*int speed = -1;
-		while(speed == -1 && initialSpeedInput.getText().equals(null)) {
-			speed = (int) Integer.parseInt(initialSpeedInput.getText());
-			System.out.println("I am here?");
-		}
-		*/
-		
+		// Obtain initial speed
         String input = JOptionPane.showInputDialog("Please, enter your speed.");
         double speed = Double.parseDouble(input);
 		
-		//int speed = (int) (initialSpeedInput.getText());
-		//initialSpeedInput.setSize(100, 100);
-		//gbc.gridx = 0;
-		//gbc.gridy = 3;
-		//panel.add(initialSpeedLabel, gbc);
-
-		//gbc.gridx = 0;
-		//gbc.gridy = 4;
-		//initialSpeedInput.setColumns(5);
-		//panel.add(initialSpeedInput, gbc);
 
 		welcomeFrame.add(panel);
 		welcomeFrame.setVisible(true);
-		SystemPlanet systemPlanet = new SystemPlanet(speed);
+		SystemPlanet systemPlanet = new SystemPlanet(this, speed);
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -119,7 +102,7 @@ public class GUIWelcome {
 					}
 				});
 
-				JButton zoomOut = new JButton("zoom out");
+				zoomOut = new JButton("zoom out");
 				zoomOut.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						systemPlanet.size = systemPlanet.size - 0.1;
@@ -127,7 +110,7 @@ public class GUIWelcome {
 					}
 				});
 
-				JButton zoomIn = new JButton("zoom in");
+				zoomIn = new JButton("zoom in");
 				zoomIn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						systemPlanet.size = systemPlanet.size + 0.1;
@@ -151,22 +134,6 @@ public class GUIWelcome {
 			public void componentResized(ComponentEvent e) {
 
 				systemPlanet.repaint();
-				//systemPlanet.resetToMiddle();
-				
-				// DO NOT DELETE THIS, WORK IN PROGRESS!
-				// Planet sun = systemPlanet.allPlanets.get(systemPlanet.allPlanets.size() - 1);
-				// sun.setX((int) (welcomeFrame.getWidth() * 0.5));
-				// sun.setY((int) (welcomeFrame.getHeight() * 0.5));
-				// systemPlanet.repaint();
-
-				// Planet sun = systemPlanet.allPlanets.get(systemPlanet.allPlanets.size() - 1);
-				// for (Planet planet : systemPlanet.allPlanets) {
-				// if(planet != sun)
-				// planet.update(sun.getX(), sun.getY(), sun.getMass());
-				// }
-				//systemPlanet.repaint();
-
-				// systemPlanet.resetToMiddle();
 			}
 		});
 	}

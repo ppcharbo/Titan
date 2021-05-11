@@ -5,10 +5,6 @@ import titan.Vector3dInterface;
 
 public class Rate implements RateInterface {
 	
-	/*
-	 * creating this class rate that implements the rateInterface that is empty.. , we are just return the vector speed
-	 */
-	
 	private Vector3d position;
 	private Vector3d speed;
 
@@ -39,6 +35,7 @@ public class Rate implements RateInterface {
 		return speed;
 	}
 	
+	// RK Solver calculations
 	public static Rate addRates(Rate k1, Rate k2, Rate k3, Rate k4) {
 		
 		Vector3d p1 = k1.position();

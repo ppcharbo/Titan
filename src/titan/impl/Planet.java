@@ -13,12 +13,8 @@ public enum Planet implements StateInterface {
 	 * addPosition, addVelocity. 
 	 */
 	
-	//relative to the earth
+	//relative to Earth
 	SHIP(15000, 0, 6371000.0, 0, 0, 3.039138601308728e+04, 5.173351615093083e+04, 0.008344378289015e+04),
-	//SHIP(15000, 0, -1.47188983107687310e+11, -0.286154513998541e+11, 0.000082693228546e+11, 3.039138601308728e+04, -5.173351615093083e+04, 0.008344378289015e+04),
-	//	SHIP(15000, 0, -1.47188983107687310e+11, -0.286154513998541e+11, 0.000082693228546e+11, 3.039138601308728e+04, 
-	//			-5.173351615093083e+04, -0.008344378289015e+04),
-	//	-0.290054152898541e+11
 
 	SUN(1.988500e30, 6.96e8, -6.806783239281648e+08, 1.080005533878725e+09, 6.564012751690170e+06, -1.420511669610689e+01, -4.954714716629277e+00, 3.994237625449041e-01),
 	MOON(7.349e22, 3e8, -1.472343904597218e+11, -2.822578361503422e+10, 1.052790970065631e+07, 4.433121605215677e+03, -2.948453614110320e+04, 8.896598225322805e+01),
@@ -49,10 +45,6 @@ public enum Planet implements StateInterface {
 		speed = new Vector3d(xSpeed, ySpeed, zSpeed);
 	}
 
-	// --------------------------------> mistake xi-xj/||xi-xj||
-	/*
-	 * This formula consist of the (G*m1*m2 )*(xj-xi/||xi-xj||^3)
-	 */
 	public Vector3dInterface gravitationalForce() {
 
 		Vector3dInterface force = new Vector3d();
@@ -64,12 +56,13 @@ public enum Planet implements StateInterface {
 
 				Vector3dInterface xi = this.position;
 				Vector3dInterface xj = p.position;
-				Vector3dInterface nTop = xj.sub(xi); //Vector from our planet towards the other planet (attractive force)
-				Vector3dInterface nBottom = xi.sub(xj); //Vector from our planet towards the other planet (attractive force)
+				Vector3dInterface nTop = xj.sub(xi); // Vector from our planet towards the other planet (attractive force)
+				Vector3dInterface nBottom = xi.sub(xj); // Vector from our planet towards the other planet (attractive force)
+				
 				double GMM = G * this.mass * p.mass;
 				double GMMdivNorm = GMM / Math.pow(nBottom.norm(), 3);
-				//result.add(N.mul(GMMdivNorm));
-				force = force.addMul(GMMdivNorm, nTop); //Add contribution planet p at each iteration
+			
+				force = force.addMul(GMMdivNorm, nTop); // Add contribution planet p at each iteration
 			}
 		}
 		return force;
@@ -100,9 +93,7 @@ public enum Planet implements StateInterface {
 		return this;
 	}
 
-	/*
-	 * we divide by the mass to get the acceleration
-	 */
+	// We divide by the mass to get the acceleration 
 	public Vector3dInterface accelerationForce() {
 
 		Vector3dInterface accVector = this.gravitationalForce().mul(1 / this.mass);
@@ -126,7 +117,18 @@ public enum Planet implements StateInterface {
 	}
 
 	public Vector3dInterface getSpeed() {
+		
 
 		return speed;
+	}
+	
+	public void setPosition(Vector3dInterface position) {
+		
+		this.position = position;
+	}
+	
+	public void setSpeed(Vector3dInterface speed) {
+
+		this.speed = speed;
 	}
 }

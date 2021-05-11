@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class Planet {
 
-	private int mass = 0;
+	private double mass = 0;
 	private int dia = 0;
 	private double x = 0;
 	private double y = 0;
@@ -21,12 +21,13 @@ public class Planet {
 	private double max = 0;
 	public String label;
 	private JPanel parent;
+	private final boolean DEBUG = false;
 
 	boolean visible;
 	Color color;
 
 	public Planet(JPanel parento, String label, int r, int g, int b, double xCoordinate, double yCoordinate,
-			int diameter, double vx, double vy, int mass) {
+			int diameter, double vx, double vy, double mass) {
 
 		this.setParent(parento);
 		this.label = label;
@@ -48,7 +49,7 @@ public class Planet {
 		return y;
 	}
 
-	public int getMass() {
+	public double getMass() {
 		return mass;
 	}
 
@@ -61,7 +62,7 @@ public class Planet {
 		y = y + vy;
 	}
 
-	public void update(double xNew, double yNew, int mass) {
+	public void update(double xNew, double yNew, double mass) {
 		distance = Math.sqrt((xNew - x) * (xNew - x) + (yNew - y) * (yNew - y));
 		initial = Math.min(distance, initial);
 		max = Math.max(distance, max);
@@ -90,14 +91,12 @@ public class Planet {
 		int x = (int) (windth + (this.x - dia / 2 - windth) * size);
 		int y = (int) (height + (this.y - dia / 2 - height) * size);
 
-		//System.out.println(" x = " + x + " y= " + y + " windth =" + windth + " height =" + height);
-		// DON'T DELETE THIS IF-ELSE STATEMENT, THIS IS FOR TESTING PURPOSES!
-		// if (label.equals("rocket")) {
-		// draw box
-		// g.fillRect(x, y, (int) (dia * size), (int) (dia * size));
-		// } else {
+		if(DEBUG) {
+			System.out.println("x: " + x);
+			System.out.println("y: " + y);
+		}
 		g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
-		// }
+		
 
 	}
 
@@ -108,5 +107,14 @@ public class Planet {
 	public void setParent(JPanel parent) {
 		this.parent = parent;
 	}
+	
+	 public void translate(double d, double e) {
+	        this.x += d;
+	        this.y += e;
+	        if(DEBUG) {
+	        	System.out.println("Translated: " + label +  " to x: " + x + " and y: " + y);
+	        }
+	    }
+
 
 }
