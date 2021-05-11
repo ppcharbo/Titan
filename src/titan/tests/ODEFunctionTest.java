@@ -13,8 +13,8 @@ public class ODEFunctionTest {
 	 * Testing accuracy of the new earth position after a year (iterating every seconds) compared to the initial earth position
 	 * @return initial earth position, positions Difference, and new earth position
 	 */
-	@Test
-	public void testCall() {
+	//@Test
+	/*public void testCall() {
 		
 		ODEFunction odeFunction = new ODEFunction();
 		
@@ -32,5 +32,5 @@ public class ODEFunctionTest {
 		System.out.println("Positions Difference "+planet.getPosition().sub(initialPosition));
 		System.out.println("");
 		System.out.println("New Earth Position "+planet.getPosition());
-	}
+	}*/
 }

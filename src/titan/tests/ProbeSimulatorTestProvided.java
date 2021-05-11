@@ -22,8 +22,6 @@ public class ProbeSimulatorTestProvided {
         Vector3dInterface[] trajectory = simulateOneDay();
         double x1 = -1.4218092965609787E11; // reference implementation
         double x = trajectory[1].getX();
-        System.out.println(trajectory[1].getX());
-        System.out.println(x1);
 		assertEquals(x1, x, ACCURACY); // delta +-ACCURACY
 
     }
@@ -34,16 +32,13 @@ public class ProbeSimulatorTestProvided {
         Vector3dInterface[] trajectory = simulateOneDay();
         double y1 = -3.3475191084301098E10; // reference implementation
         double y = trajectory[1].getY();
-        System.out.println(trajectory[1].getY());
-        System.out.println(y1);
 		assertEquals(y1, y, ACCURACY); // delta +-ACCURACY
 
     }
 
     @Test
     public void testTrajectoryOneDayZ() {
-    	
-    	System.out.println("PB");
+
         Vector3dInterface[] trajectory = simulateOneDay();
         double z1 = 8334994.892882561; // reference implementation
         System.out.println(trajectory[1].getZ());

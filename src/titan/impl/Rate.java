@@ -1,56 +1,60 @@
 package titan.impl;
 
 import titan.RateInterface;
-import titan.Vector3dInterface;
 
 public class Rate implements RateInterface {
-	
-	private Vector3d position;
-	private Vector3d speed;
+	private Vector3d[] velocity;
+	private Vector3d[] accelaration;
 
-	public Rate(Vector3d ratePosition, Vector3d rateSpeed) {
-		
-		this.position = ratePosition; 
-		this.speed = rateSpeed;
-	}
-	
-	public Rate(Vector3dInterface velocity) {
-		
-		this.speed = (Vector3d) velocity;
+	public Rate(Vector3d[] velocity, Vector3d[] accelaration) {
+		this.velocity=new Vector3d[velocity.length];
+		this.accelaration=new Vector3d[accelaration.length];
+		System.arraycopy(velocity, 0, this.velocity, 0, velocity.length);
+		System.arraycopy(accelaration, 0, this.accelaration, 0, accelaration.length);
 	}
 
-	public Rate(double xPosition, double yPosition, double zPosition, double xSpeed, double ySpeed, double zSpeed) {
-		
-		position = new Vector3d(xPosition, yPosition, zPosition);
-		speed = new Vector3d(xSpeed, ySpeed, zSpeed);
-	}
-	
-	public Vector3d position() {
-
-		return position;
+	public void setAccelaration(Vector3d[] accelaration) {
+		System.arraycopy(accelaration, 0, this.accelaration, 0, accelaration.length);
 	}
 
-	public Vector3d speed() {
-
-		return speed;
+	public Vector3d[] getAccelaration() {
+		return accelaration;
 	}
-	
-	// RK Solver calculations
-	public static Rate addRates(Rate k1, Rate k2, Rate k3, Rate k4) {
-		
-		Vector3d p1 = k1.position();
-		Vector3d p2 = (Vector3d) k2.position().mul(2);
-		Vector3d p3 = (Vector3d) k3.position().mul(2);
-		Vector3d p4 = k4.position();
-		
-		Vector3d s1 = k1.speed();
-		Vector3d s2 = (Vector3d) k2.speed().mul(2);
-		Vector3d s3 = (Vector3d) k3.speed().mul(2);
-		Vector3d s4 = k4.speed();
-		
-		Vector3d ratePosition = (Vector3d) p1.add(p2).add(p3).add(p4);
-		Vector3d rateSpeed = (Vector3d) s1.add(s2).add(s3).add(s4);
-		
-		return new Rate(ratePosition, rateSpeed);
+
+	public void setVelocity(Vector3d[] velocity) {
+		System.arraycopy(velocity, 0, this.velocity, 0, velocity.length);
+	}
+
+	public Vector3d[] getVelocity() {
+		return velocity;
+
+	}
+
+	public Rate mul(double scalar) {
+
+		Rate newRate = new Rate(new Vector3d[velocity.length], new Vector3d[accelaration.length]);
+		newRate.setAccelaration(accelaration);
+		newRate.setVelocity(velocity);
+		for (int i = 0; i < accelaration.length; i++) {
+			Vector3d newAcce = (Vector3d) newRate.getAccelaration()[i].mul(scalar);
+			Vector3d newVelo = (Vector3d) newRate.getVelocity()[i].mul(scalar);
+			newRate.getAccelaration()[i] = newAcce;
+			newRate.getVelocity()[i] = newVelo;
+		}
+		return newRate;
+	}
+//rpoblem here
+	public Rate addMul(double scalar, Rate vector) {
+
+		Rate newRate = new Rate(new Vector3d[velocity.length], new Vector3d[accelaration.length]);
+		newRate.setAccelaration(accelaration);
+		newRate.setVelocity(velocity);
+		for (int i = 0; i < accelaration.length; i++) {
+			Vector3d newAcce = (Vector3d) newRate.getAccelaration()[i].addMul(scalar, vector.getVelocity()[i]);
+			Vector3d newVelo = (Vector3d) newRate.getVelocity()[i].addMul(scalar, vector.getAccelaration()[i]);
+			newRate.getAccelaration()[i] = newAcce;
+			newRate.getVelocity()[i] = newVelo;
+		}
+		return newRate;
 	}
 }

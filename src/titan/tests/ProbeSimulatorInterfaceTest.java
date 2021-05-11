@@ -1,11 +1,8 @@
-package titan;
+package titan.tests;
 
-import org.junit.Test;
-import titan.impl.Planet;
-import titan.impl.ProbeSimulator;
-
-public class ProbeSimulatorInterfaceTest {
-
+/*
+public class ProbeSimulatorInterfaceTest
+{
 	@Test
 	public void testTrajectoryVector3dInterfaceVector3dInterfaceDoubleArray() {
 		 
@@ -21,4 +18,4 @@ public class ProbeSimulatorInterfaceTest {
 
  
 
-}
+}*/
