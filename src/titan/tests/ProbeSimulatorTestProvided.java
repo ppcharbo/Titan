@@ -71,7 +71,7 @@ public class ProbeSimulatorTestProvided {
         assertEquals(z366, trajectory[366].getZ(), ACCURACY); // delta +-ACCURACY
 
     }
-
+     
     @Test
     public void testTrajectoryLength() {
 
@@ -95,7 +95,7 @@ public class ProbeSimulatorTestProvided {
         assertEquals(367, trajectory.length);
 
     }
-  
+
     public static Vector3dInterface[] simulateOneDay() {
 
       Vector3dInterface probe_relative_position = new Vector3d(6371e3,0,0);

@@ -28,20 +28,22 @@ public class ODESolver implements ODESolverInterface {
 		i = 1;
 		
 		
-		//double stepSize = h;
+		// double stepSize = h;
 		double currentTime = 0;
 		
 		
-		//w(i+1) = w(i) + h*f(t,y)
-		//y_next = y_current + h*v
+		// w(i+1) = w(i) + h*f(t,y)
+		// y_next = y_current + h*v
 		
 		while(currentTime < tf) {
-			//operations
-			//w(i+1) = w(i) + h*f(t,y)
+			// operations
+			// w(i+1) = w(i) + h*f(t,y)
 			arr[i] = step(f, currentTime, arr[i-1], h);
-			
-			currentTime = currentTime + h;
+			if(arr[i] == null)
+			//i++;
+			currentTime = currentTime + h; // update time 
 		}
+		
 		/*
 		for (int i = 1; i < arr.length; i++) {
 			
@@ -53,7 +55,13 @@ public class ODESolver implements ODESolverInterface {
 			currentTime += stepSize;
 		}
 		*/
+		for (int a = 0; a < arr.length; a++) {
+			if(arr[a] == null) {
+				throw new NullPointerException("Some state is null: " + a);
+			}
+		}
 		return arr;
+		
 	}
 
 	@Override

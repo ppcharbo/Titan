@@ -114,17 +114,32 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		State beginState = new State(beginPositions, beginVelocities, 0);
 		
 		ODESolver solver = new ODESolver();
-		StateInterface[] solvedStates = (StateInterface[]) solver.solve(new ODEFunction(), beginState, tf, h);
-		
+		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.round(tf / h) + 1) + 1];
 		int j = 0;
+		
+		for(int a = 0; a < solvedStates.length; a++) {
+			returnPositions[a] = ((State) solvedStates[a]).getPosition()[0];
+		}
+		/*
 		for (StateInterface generalStates : solvedStates) {
+			// Problem is when we make the ship variable and cast it from StateInterface to State.
+			if(generalStates == null) {
+				//System.out.println("RIP generalStates");
+			}
+			
 			State ship = (State) generalStates;
+			
+			if(ship == null) {
+				//System.out.println("RIP ship");
+			}
 			Vector3d[] positons = ship.getPosition();
 			returnPositions[j] = positons[0];
+			//returnPositions[j] = generalStates.getPosition()[0];
 			j = j + 1;
 		}
+		*/
 		
 		return returnPositions;
 	}
