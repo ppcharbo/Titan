@@ -14,7 +14,7 @@ import titan.impl.Vector3d;
 
 public class ProbeSimulatorTestProvided {
 
-    static final double ACCURACY = 1e3; // 1 meter (might need to tweak that)
+    static final double ACCURACY = 1; // 1 meter (might need to tweak that)
 
     @Test
     public void testTrajectoryOneDayX() {
@@ -41,8 +41,6 @@ public class ProbeSimulatorTestProvided {
 
         Vector3dInterface[] trajectory = simulateOneDay();
         double z1 = 8334994.892882561; // reference implementation
-        System.out.println(trajectory[1].getZ());
-        System.out.println(z1);
         assertEquals(z1, trajectory[1].getZ(), ACCURACY); // delta +-ACCURACY
 
     }
