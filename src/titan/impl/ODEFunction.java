@@ -38,7 +38,7 @@ import titan.Vector3dInterface;
 public class ODEFunction implements ODEFunctionInterface {
 	// universal gravitational constant (m3 kg-1 s-2)
 	private static final double G = 6.67300E-11;
-	private int numberOfPlanet = AllPlanet.getListOfPlanet().size();
+	private int numberOfPlanet = AllPlanet.getListOfPlanets().size();
 
 	@Override
 	public Rate call(double t, StateInterface y) {
@@ -70,8 +70,8 @@ public class ODEFunction implements ODEFunctionInterface {
 					Vector3dInterface nBottom = xi.sub(xj); // Vector from our planet towards the other planet
 															// (attractive
 															// force)
-					double GMM = G * AllPlanet.getListOfPlanet().get(i).getMass()
-							* AllPlanet.getListOfPlanet().get(j).getMass();
+					double GMM = G * AllPlanet.getListOfPlanets().get(i).getMass()
+							* AllPlanet.getListOfPlanets().get(j).getMass();
 					double GMMdivNorm = GMM / Math.pow(nBottom.norm(), 3);
 					// result.add(N.mul(GMMdivNorm));
 					force = (Vector3d) force.addMul(GMMdivNorm, nTop); // Add contribution planet p at each iteration
@@ -90,7 +90,7 @@ public class ODEFunction implements ODEFunctionInterface {
 		Vector3d[] forces = gravitationalForce(y);
 		Vector3d[] acceleration = new Vector3d[numberOfPlanet];
 		for (int i = 0; i < numberOfPlanet; i++) {
-			acceleration[i] = (Vector3d) forces[i].mul(1 / (AllPlanet.getListOfPlanet().get(i).getMass()));
+			acceleration[i] = (Vector3d) forces[i].mul(1 / (AllPlanet.getListOfPlanets().get(i).getMass()));
 		}
 		return acceleration;
 

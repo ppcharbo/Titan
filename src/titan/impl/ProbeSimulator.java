@@ -1,7 +1,11 @@
 package titan.impl;
 
+import java.util.ArrayList;
+
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
+import titan.impl.State;
+import titan.StateInterface;
 
 public class ProbeSimulator implements ProbeSimulatorInterface {
 
@@ -27,6 +31,8 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double[] ts) {
 
 		Vector3dInterface[] positions = new Vector3d[ts.length + 1];
+		/*
+		Vector3dInterface[] positions = new Vector3d[ts.length + 1];
 
 		Planet ship = AllPlanet.getListOfPlanet().get(0);
 
@@ -44,6 +50,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 
 			positions[i++] = newPosition;
 		}
+		*/
 		return positions;
 	}
 
@@ -63,7 +70,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 
-		//Planet ship = Planet.SHIP;
+		// Planet ship = Planet.SHIP;
 
 		// StateInterface state = new StateInterface(..)
 		// tf = next time step we want to have
@@ -73,20 +80,52 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		// Then we want to get the last output of the solver because that contains it at
 		// the new time step h.
 
-		Vector3dInterface[] positions = new Vector3d[((int) Math.round(tf / h) + 1) + 1];
-		int i = 0;
-		positions[i] = p0;
-		State passMe = new State(p0.getX(), p0.getY(), p0.getZ(), v0.getX(), v0.getY(), v0.getZ());
-		i = 1; // lock the position[0] position to be the intial position
-
-		ODESolver solvy = new ODESolver();
-		State[] arr = (State[]) solvy.solve(new ODEFunction(v0), passMe, tf, h);
-		for (State px : arr) {
-			positions[i] = (Vector3d) px.position;
-			i++; // update the i'th position
+		AllPlanet allPlanets = new AllPlanet();
+		allPlanets.createPlanets();
+		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
+		
+		Vector3d[] beginPositions = new Vector3d[listOfPlanets.size()];
+		Vector3d[] beginVelocities = new Vector3d[listOfPlanets.size()];
+		
+		Vector3d beginEarthPosition = new Vector3d();
+		Vector3d beginEarthVelocity = new Vector3d();
+		
+		for(Planet planets : listOfPlanets) {
+			if(planets.getName().equals("EARTH")) {
+				beginEarthPosition.setX(planets.getPosition().getX());
+				beginEarthPosition.setY(planets.getPosition().getY());
+				beginEarthPosition.setZ(planets.getPosition().getZ());
+				beginEarthVelocity.setX(planets.getVelocity().getX());
+				beginEarthVelocity.setY(planets.getVelocity().getY());
+				beginEarthVelocity.setZ(planets.getVelocity().getZ());
+			}
 		}
-
-		return positions;
-
+		
+		listOfPlanets.get(0).setPosition(p0.add(beginEarthPosition));
+		listOfPlanets.get(0).setVelocity(v0.add(beginEarthVelocity));
+		
+		int i = 0;
+		for(Planet body : listOfPlanets) {
+			beginPositions[i] = (Vector3d) body.getPosition();
+			beginVelocities[i] = (Vector3d) body.getVelocity();
+			i = i + 1;
+		}
+		
+		State beginState = new State(beginPositions, beginVelocities, 0);
+		
+		ODESolver solver = new ODESolver();
+		StateInterface[] solvedStates = (StateInterface[]) solver.solve(new ODEFunction(), beginState, tf, h);
+		
+		
+		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.round(tf / h) + 1) + 1];
+		int j = 0;
+		for (StateInterface generalStates : solvedStates) {
+			State ship = (State) generalStates;
+			Vector3d[] positons = ship.getPosition();
+			returnPositions[j] = positons[0];
+			j = j + 1;
+		}
+		
+		return returnPositions;
 	}
 }
