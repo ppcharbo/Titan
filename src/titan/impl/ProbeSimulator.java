@@ -122,6 +122,8 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		for(int a = 0; a < solvedStates.length; a++) {
 			returnPositions[a] = ((State) solvedStates[a]).getPosition()[0];
 		}
+		
+		//another way to do this for loop is this:
 		/*
 		for (StateInterface generalStates : solvedStates) {
 			// Problem is when we make the ship variable and cast it from StateInterface to State.
