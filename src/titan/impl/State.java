@@ -4,8 +4,8 @@ import titan.RateInterface;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
-/*
-*
+/**
+ * An interface representing the state of a system described by a differential equation.
  */
 public class State implements StateInterface {
 	private Vector3d position[];
@@ -47,6 +47,13 @@ public class State implements StateInterface {
 		this.time = time;
 	}
 
+    /**
+     * Update a state to a new state computed by: this + step * rate
+     *
+     * @param step   The time-step of the update
+     * @param rate   The average rate-of-change over the time-step. Has dimensions of [state]/[time].
+     * @return The new state after the update. Required to have the same class as 'this'.
+     */
 	@Override
 	public State addMul(double step, RateInterface rate) {
 		State newState = new State(position, velocity, time + step);
