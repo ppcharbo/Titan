@@ -66,10 +66,9 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	 * @return an array of size round(tf/h)+1 giving the position of the probe at
 	 * each time stated, taken relative to the Solar System barycentre
 	 */
-
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
-
+		
 		// Planet ship = Planet.SHIP;
 
 		// StateInterface state = new StateInterface(..)
@@ -79,7 +78,6 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		// f = ODEFunction
 		// Then we want to get the last output of the solver because that contains it at
 		// the new time step h.
-
 		AllPlanet allPlanets = new AllPlanet();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
@@ -90,8 +88,10 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		Vector3d beginEarthPosition = new Vector3d();
 		Vector3d beginEarthVelocity = new Vector3d();
 		
-		for(Planet planets : listOfPlanets) {
-			if(planets.getName().equals("EARTH")) {
+		for (Planet planets : listOfPlanets) {
+			
+			if (planets.getName().equals("EARTH")) {
+				
 				beginEarthPosition.setX(planets.getPosition().getX());
 				beginEarthPosition.setY(planets.getPosition().getY());
 				beginEarthPosition.setZ(planets.getPosition().getZ());
@@ -100,29 +100,27 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 				beginEarthVelocity.setZ(planets.getVelocity().getZ());
 			}
 		}
-		
 		listOfPlanets.get(0).setPosition(p0.add(beginEarthPosition));
 		listOfPlanets.get(0).setVelocity(v0.add(beginEarthVelocity));
 		
 		int i = 0;
-		for(Planet body : listOfPlanets) {
+		
+		for (Planet body : listOfPlanets) {
+			
 			beginPositions[i] = (Vector3d) body.getPosition();
 			beginVelocities[i] = (Vector3d) body.getVelocity();
-			i = i + 1;
+			i += 1;
 		}
-		
 		State beginState = new State(beginPositions, beginVelocities, 0);
-		
 		ODESolver solver = new ODESolver();
 		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.round(tf / h) + 1) + 1];
-		int j = 0;
 		
-		for(int a = 0; a < solvedStates.length; a++) {
+		for (int a = 0; a < solvedStates.length; a++) {
+			
 			returnPositions[a] = ((State) solvedStates[a]).getPosition()[0];
 		}
-		
 		//another way to do this for loop is this:
 		/*
 		for (StateInterface generalStates : solvedStates) {
@@ -142,15 +140,12 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 			j = j + 1;
 		}
 		*/
-		
 		System.out.println();
 		System.out.println();
 		System.out.println();
 		System.out.println();
 		System.out.println();
 		System.out.println();
-		
-		
 		return returnPositions;
 	}
 }

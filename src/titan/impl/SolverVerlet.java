@@ -24,6 +24,7 @@ public class SolverVerlet implements ODESolverInterface {
 
 	@Override
 	public State[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
+		
 		State[] arr = new State[(int) Math.round((tf / h) + 1)];
 		arr[0] = (State) y0;
 		double stepSize = h;
@@ -35,7 +36,7 @@ public class SolverVerlet implements ODESolverInterface {
 				// we are in last step and have to check our remaining step size
 				stepSize = tf - currentTime;
 			}
-// swich the two lines
+			// switch the two lines
 			arr[i] = step(f, currentTime, arr[i - 1], stepSize);
 			currentTime += stepSize;
 		}
@@ -44,14 +45,11 @@ public class SolverVerlet implements ODESolverInterface {
 
 	@Override
 	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) {
-	Vector3d v1[]= ((State)y).getVelocity();
+		
+		Vector3d v1[]= ((State)y).getVelocity();
 	
-	RateInterface call = f.call(t, y);
+		RateInterface call = f.call(t, y);
 	
-	
-	
-	return null;
-
+		return null;
 	}
-
 }

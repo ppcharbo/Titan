@@ -34,7 +34,7 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 				// we are in last step and have to check our remaining step size
 				stepSize = tf - currentTime;
 			}
-// swich the two lines
+			// swich the two lines
 			arr[i] = step(f, currentTime, arr[i - 1], stepSize);
 			currentTime += stepSize;
 		}
@@ -50,6 +50,7 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 		Rate k4 = (Rate) f.call(t + h, y.addMul(h, k3));
 
 		State newY = (State) y.addMul(h / 6, k1.addMul(2, k2).addMul(2, k3).addMul(1, k4));
+		
 		return  newY;
 	}
 }
