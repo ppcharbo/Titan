@@ -54,24 +54,18 @@ public class ODESolver implements ODESolverInterface {
 		double currentTime = 0;
 
 		while(currentTime < tf) {
+			
 			// operations:
 			// w(i+1) = w(i) + h*f(t,y)
 			// y_next = y_current + h*v
 			// w(i+1) = w(i) + h*f(t,y)
+			
 			arr[i+1] = step(f, currentTime, arr[i], h); // calculate the next step
 			((State) arr[i+1]).setTime(currentTime+h); // set time for the next step
-			//System.out.println("i: " + (i+1) + " for tf: " + (tf/(24 * 60 * 60) + " day(s)")); 
 			i += 1; // update array position
 			currentTime += h; // update time
 		}
-		// checking for null problems
-		for (int a = 0; a < arr.length; a++) {
-			
-			if(arr[a] == null) {
-				
-				throw new NullPointerException("Some state is null in the ODESolver, state= " + a);
-			}
-		}
+
 		return arr;
 	}
 

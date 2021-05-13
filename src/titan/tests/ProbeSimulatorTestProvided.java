@@ -14,9 +14,9 @@ import titan.impl.Vector3d;
 
 public class ProbeSimulatorTestProvided {
 
-	static final double ACCURACY = 1e3; // 1 meter (might need to tweak that)
+	static final double ACCURACY = 1; // 1 meter (might need to tweak that)
 
-	/*
+	
 	@Test
 	public void testTrajectoryOneDayX() {
 
@@ -42,19 +42,17 @@ public class ProbeSimulatorTestProvided {
 
 		Vector3dInterface[] trajectory = simulateOneDay();
 		double z1 = 8334994.892882561; // reference implementation
-		// System.out.println(trajectory[1].getZ());
-		// System.out.println(z1);
 		assertEquals(z1, trajectory[1].getZ(), ACCURACY); // delta +-ACCURACY
 
 	}
-	*/
+	
 
 	@Test
 	public void testTrajectoryOneYearX() {
 
 		Vector3dInterface[] trajectory = simulateOneYear();
 		double x366 = -2.4951517995514418E13; // reference implementation
-		assertEquals(x366, trajectory[366].getX(), ACCURACY); // delta +-ACCURACY
+		assertEquals(x366, trajectory[365].getX(), ACCURACY); // delta +-ACCURACY
 
 	}
 
@@ -63,7 +61,7 @@ public class ProbeSimulatorTestProvided {
 
 		Vector3dInterface[] trajectory = simulateOneYear();
 		double y366 = -1.794349344879982E12; // reference implementation
-		assertEquals(y366, trajectory[366].getY(), ACCURACY); // delta +-ACCURACY
+		assertEquals(y366, trajectory[365].getY(), ACCURACY); // delta +-ACCURACY
 
 	}
 
@@ -72,11 +70,11 @@ public class ProbeSimulatorTestProvided {
 
 		Vector3dInterface[] trajectory = simulateOneYear();
 		double z366 = 2.901591968932223E7; // reference implementation
-		assertEquals(z366, trajectory[366].getZ(), ACCURACY); // delta +-ACCURACY
+		assertEquals(z366, trajectory[365].getZ(), ACCURACY); // delta +-ACCURACY
 
 	}
 
-	/*
+	
 	@Test
 	public void testTrajectoryLength() {
 
@@ -110,11 +108,10 @@ public class ProbeSimulatorTestProvided {
 		ProbeSimulatorInterface simulator = new ProbeSimulator();
 		Vector3dInterface[] trajectory = simulator.trajectory(probe_relative_position, probe_relative_velocity, day,
 				day);
-		// System.out.println("length: " + trajectory.length);
 		return trajectory;
 
 	}
-	*/
+	
 
 	public static Vector3dInterface[] simulateOneYear() {
 
@@ -123,21 +120,18 @@ public class ProbeSimulatorTestProvided {
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
 		ProbeSimulatorInterface simulator = new ProbeSimulator();
-		Vector3dInterface[] trajectory = simulator.trajectory(probe_relative_position, probe_relative_velocity, year,
-				day);
-		// System.out.println("length: " + trajectory.length);
+		Vector3dInterface[] trajectory = simulator.trajectory(probe_relative_position, probe_relative_velocity, year, day);
 		return trajectory;
 
 	}
 	
-	/*
+	
 	@Test
 	public void testTrajectoryXInitial() {
 
 		Vector3dInterface[] trajectory = simulateOneDay();
 		double x0 = -1.471922101663588e+11 + 6371e3; // reference implementation
 		double x = trajectory[0].getX();
-		// System.out.println("x0 = " + trajectory[0].getX());
 		assertEquals(x0, x, ACCURACY); // delta +-ACCURACY
 
 	}
@@ -148,7 +142,6 @@ public class ProbeSimulatorTestProvided {
 		Vector3dInterface[] trajectory = simulateOneDay();
 		double y0 = -2.860995816266412e+10; // reference implementation
 		double y = trajectory[0].getY();
-		// System.out.println("y0 = " + trajectory[0].getY());
 		assertEquals(y0, y, ACCURACY); // delta +-ACCURACY
 
 	}
@@ -159,10 +152,9 @@ public class ProbeSimulatorTestProvided {
 		Vector3dInterface[] trajectory = simulateOneDay();
 		double z0 = 8.278183193596080e+06; // reference implementation
 		double z = trajectory[0].getZ();
-		// System.out.println("z0 = " + trajectory[0].getZ());
 		assertEquals(z0, z, ACCURACY); // delta +-ACCURACY
 
 	}
-	*/
+	
 
 }

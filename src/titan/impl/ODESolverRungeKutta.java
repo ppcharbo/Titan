@@ -34,7 +34,7 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 				// we are in last step and have to check our remaining step size
 				stepSize = tf - currentTime;
 			}
-			// swich the two lines
+			// switch the two lines
 			arr[i] = step(f, currentTime, arr[i - 1], stepSize);
 			currentTime += stepSize;
 		}

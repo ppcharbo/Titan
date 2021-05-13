@@ -59,22 +59,23 @@ public class Rate implements RateInterface {
 			Vector3d newAcce = (Vector3d) newRate.getAccelaration()[i].mul(scalar);
 			newRate.getVelocity()[i] = newVelo;
 			newRate.getAccelaration()[i] = newAcce;
-			// System.out.println("Rate newAcce mul: " + newAcce.getX());
 		}
 		return newRate;
 	}
 	
-	//Problem here
+	// Problem here
 	public Rate addMul(double scalar, Rate vector) {
 
 		Rate newRate = new Rate(new Vector3d[velocity.length], new Vector3d[accelaration.length]);
-		//newRate.setVelocity(velocity);
-		//newRate.setAccelaration(accelaration);
 		for (int i = 0; i < accelaration.length; i++) {
 			
 			Vector3d newVelo = (Vector3d) newRate.getVelocity()[i].addMul(scalar, vector.getVelocity()[i]);
 			Vector3d newAcce = (Vector3d) newRate.getAccelaration()[i].addMul(scalar, vector.getAccelaration()[i]);
-			// System.out.println("Rate newAcce admull: " + newAcce.getX());
+			
+			newRate.getAccelaration()[i] = newAcce;
+			newRate.getVelocity()[i] = newVelo;
+			
+			/* Alternative way to update:
 			newRate.getVelocity()[i].setX(newVelo.getX());
 			newRate.getVelocity()[i].setY(newVelo.getY());
 			newRate.getVelocity()[i].setZ(newVelo.getZ());
@@ -82,8 +83,7 @@ public class Rate implements RateInterface {
 			newRate.getAccelaration()[i].setX(newAcce.getX());
 			newRate.getAccelaration()[i].setY(newAcce.getY());
 			newRate.getAccelaration()[i].setZ(newAcce.getZ());
-			//newRate.getAccelaration()[i] = newAcce;
-			//newRate.getVelocity()[i] = newVelo;
+			*/
 		}
 		return newRate;
 	}

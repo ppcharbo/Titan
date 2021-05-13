@@ -78,9 +78,12 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		// f = ODEFunction
 		// Then we want to get the last output of the solver because that contains it at
 		// the new time step h.
+		
+		
 		AllPlanet allPlanets = new AllPlanet();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
+		
 		
 		Vector3d[] beginPositions = new Vector3d[listOfPlanets.size()];
 		Vector3d[] beginVelocities = new Vector3d[listOfPlanets.size()];
@@ -115,37 +118,13 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		ODESolver solver = new ODESolver();
 		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
 		
-		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.round(tf / h) + 1) + 1];
+		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
 		
 		for (int a = 0; a < solvedStates.length; a++) {
 			
 			returnPositions[a] = ((State) solvedStates[a]).getPosition()[0];
 		}
-		//another way to do this for loop is this:
-		/*
-		for (StateInterface generalStates : solvedStates) {
-			// Problem is when we make the ship variable and cast it from StateInterface to State.
-			if(generalStates == null) {
-				//System.out.println("RIP generalStates");
-			}
-			
-			State ship = (State) generalStates;
-			
-			if(ship == null) {
-				//System.out.println("RIP ship");
-			}
-			Vector3d[] positons = ship.getPosition();
-			returnPositions[j] = positons[0];
-			//returnPositions[j] = generalStates.getPosition()[0];
-			j = j + 1;
-		}
-		*/
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
+		
 		return returnPositions;
 	}
 }
