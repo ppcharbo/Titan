@@ -1,9 +1,5 @@
 package titan.impl;
 
-import java.util.ArrayList;
-
-import titan.RateInterface;
-import titan.StateInterface;
 import titan.Vector3dInterface;
 
 public class Planet {
