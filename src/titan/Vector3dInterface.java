@@ -9,7 +9,8 @@ package titan;
 
 public interface Vector3dInterface {
 
-    public double getX();
+
+	public double getX();
     public void setX(double x);
     public double getY();
     public void setY(double y);
