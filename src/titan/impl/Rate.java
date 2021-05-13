@@ -18,23 +18,23 @@ public class Rate implements RateInterface {
 	private Vector3d[] velocity;
 	private Vector3d[] accelaration;
 
-	public Rate(Vector3d[] velocity, Vector3d[] accelaration) {
-		this.velocity = new Vector3d[velocity.length];
-		this.accelaration = new Vector3d[accelaration.length];
-		System.arraycopy(velocity, 0, this.velocity, 0, velocity.length);
-		System.arraycopy(accelaration, 0, this.accelaration, 0, accelaration.length);
+	public Rate(Vector3d[] velo, Vector3d[] accel) {
+		this.velocity = new Vector3d[velo.length];
+		this.accelaration = new Vector3d[accel.length];
+		System.arraycopy(velo, 0, this.velocity, 0, velo.length);
+		System.arraycopy(accel, 0, this.accelaration, 0, accel.length);
 	}
 
-	public void setAccelaration(Vector3d[] accelaration) {
-		System.arraycopy(accelaration, 0, this.accelaration, 0, accelaration.length);
+	public void setAccelaration(Vector3d[] accel) {
+		System.arraycopy(accel, 0, this.accelaration, 0, accel.length);
 	}
 
 	public Vector3d[] getAccelaration() {
 		return accelaration;
 	}
 
-	public void setVelocity(Vector3d[] velocity) {
-		System.arraycopy(velocity, 0, this.velocity, 0, velocity.length);
+	public void setVelocity(Vector3d[] velo) {
+		System.arraycopy(velo, 0, this.velocity, 0, velo.length);
 	}
 
 	public Vector3d[] getVelocity() {
@@ -52,6 +52,7 @@ public class Rate implements RateInterface {
 			Vector3d newVelo = (Vector3d) newRate.getVelocity()[i].mul(scalar);
 			newRate.getAccelaration()[i] = newAcce;
 			newRate.getVelocity()[i] = newVelo;
+			// System.out.println("Rate newAcce mul: " + newAcce.getX());
 		}
 		return newRate;
 	}
@@ -60,13 +61,25 @@ public class Rate implements RateInterface {
 	public Rate addMul(double scalar, Rate vector) {
 
 		Rate newRate = new Rate(new Vector3d[velocity.length], new Vector3d[accelaration.length]);
-		newRate.setAccelaration(accelaration);
-		newRate.setVelocity(velocity);
+		//newRate.setAccelaration(accelaration);
+		//newRate.setVelocity(velocity);
 		for (int i = 0; i < accelaration.length; i++) {
 			Vector3d newAcce = (Vector3d) newRate.getAccelaration()[i].addMul(scalar, vector.getAccelaration()[i]);
 			Vector3d newVelo = (Vector3d) newRate.getVelocity()[i].addMul(scalar, vector.getVelocity()[i]);
-			newRate.getAccelaration()[i] = newAcce;
-			newRate.getVelocity()[i] = newVelo;
+			// System.out.println("Rate newAcce admull: " + newAcce.getX());
+			
+			newRate.getAccelaration()[i].setX(newAcce.getX());
+			newRate.getAccelaration()[i].setY(newAcce.getY());
+			newRate.getAccelaration()[i].setZ(newAcce.getZ());
+			
+			newRate.getVelocity()[i].setX(newVelo.getX());
+			newRate.getVelocity()[i].setY(newVelo.getY());
+			newRate.getVelocity()[i].setZ(newVelo.getZ());
+			
+			
+			
+			//newRate.getAccelaration()[i] = newAcce;
+			//newRate.getVelocity()[i] = newVelo;
 		}
 		return newRate;
 	}

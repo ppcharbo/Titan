@@ -29,6 +29,11 @@ public class ODEFunction implements ODEFunctionInterface {
 	@Override
 	public Rate call(double t, StateInterface y) {
 		Vector3d[] accelaration = accelerationForce((State) y);
+
+		// Bug is also already here
+		//System.out.println(((State)y).getPosition()[0].getX());
+		
+		
 		Rate newRate = new Rate(((State) y).getVelocity(), accelaration);
 		return newRate;
 	}
@@ -38,7 +43,7 @@ public class ODEFunction implements ODEFunctionInterface {
 	 */
 	public Vector3d[] gravitationalForce(State y) {
 
-		System.out.println("Casting of state: " + y.getPosition()[0].getX());
+		//System.out.println("Casting of state: " + y.getPosition()[0].getX());
 		Vector3d[] allForces = new Vector3d[numberOfPlanet];
 		// Calculate force of all the surrounding planets except that same planet
 		for (int i = 0; i < numberOfPlanet; i++) {

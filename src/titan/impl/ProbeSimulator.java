@@ -143,6 +143,14 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		}
 		*/
 		
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
+		
 		return returnPositions;
 	}
 }
