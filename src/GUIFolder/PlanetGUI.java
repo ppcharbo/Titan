@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-public class Planet {
+public class PlanetGUI {
 
 	private double mass = 0;
 	private int dia = 0;
@@ -26,7 +26,7 @@ public class Planet {
 	boolean visible;
 	Color color;
 
-	public Planet(JPanel parento, String label, int r, int g, int b, double xCoordinate, double yCoordinate,
+	public PlanetGUI(JPanel parento, String label, int r, int g, int b, double xCoordinate, double yCoordinate,
 			int diameter, double vx, double vy, double mass) {
 
 		this.setParent(parento);
