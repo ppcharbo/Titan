@@ -46,10 +46,33 @@ public class SolverVerlet implements ODESolverInterface {
 	@Override
 	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 		
-		Vector3d v1[]= ((State)y).getVelocity();
-	
-		RateInterface call = f.call(t, y);
-	
-		return null;
+		Rate currentRate = (Rate) f.call(t, y); // current rate
+		
+		Vector3d currentPosition[] = ((State)y).getPosition(); // ri(t)
+		Vector3d currentVelocity[]= ((State)y).getVelocity(); // vi(t)
+		Vector3d currentAcceleration[] = currentRate.getAcceleration(); // current acceleration
+		
+		Vector3d nextPosition[] = new Vector3d[currentPosition.length]; // following position
+		Vector3d intermediateVelocity[] = new Vector3d[currentVelocity.length]; // intermediate velocity
+		Vector3d nextVelocity[] = new Vector3d[currentVelocity.length]; // following velocity
+		
+		for (int i = 0; i < currentVelocity.length; i++) {
+			
+			nextPosition[i] = (Vector3d) currentPosition[i].addMul(h, currentVelocity[i]).addMul(0.5*(Math.pow(h, 2)), currentAcceleration[i]); // first step: updating the position at t+h
+			intermediateVelocity[i] = (Vector3d) currentVelocity[i].addMul(0.5*h, currentAcceleration[i]); // second step: updating the velocity at an intermediate state t+1/2h
+		}
+			
+		State intermediateState = new State(nextPosition, intermediateVelocity, t+h);
+		Vector3d nextAcceleration[] = ((Rate)f.call(t+h, intermediateState)).getAcceleration(); // third step: updating the acceleration at t+h
+		
+		for (int i = 0; i < currentVelocity.length; i++) {
+			
+			nextVelocity[i] = (Vector3d) intermediateVelocity[i].addMul(0.5*h, nextAcceleration[i]); // fourth step: updating the velocity at t+h
+		}
+		
+		State nextState = new State(nextPosition, nextVelocity, t+h); // following state
+		
+		
+		return nextState;
 	}
 }

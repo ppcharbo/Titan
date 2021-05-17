@@ -78,7 +78,7 @@ public class State implements StateInterface {
 		
 		for (int i = 0; i < position.length; i++) {
 
-			Vector3d newVelo = (Vector3d) newState.getVelocity()[i].addMul(step, ((Rate) rate).getAccelaration()[i]);
+			Vector3d newVelo = (Vector3d) newState.getVelocity()[i].addMul(step, ((Rate) rate).getAcceleration()[i]);
 			Vector3d newPosition = (Vector3d) newState.getPosition()[i].addMul(step, ((Rate) rate).getVelocity()[i]);
 			
 			newState.getPosition()[i] = newPosition;
