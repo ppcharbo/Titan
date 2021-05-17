@@ -23,7 +23,7 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 	@Override
 	public State[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 
-		State[] arr = new State[(int) Math.round((tf / h) + 1)];
+		State[] arr = new State[(int) Math.ceil((tf / h) + 1)];
 		arr[0] = (State) y0;
 		double stepSize = h;
 		double currentTime = 0;
