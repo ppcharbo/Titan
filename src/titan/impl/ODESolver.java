@@ -59,13 +59,11 @@ public class ODESolver implements ODESolverInterface {
 			// w(i+1) = w(i) + h*f(t,y)
 			// y_next = y_current + h*v
 			// w(i+1) = w(i) + h*f(t,y)
-			
 			arr[i+1] = step(f, currentTime, arr[i], h); // calculate the next step
 			((State) arr[i+1]).setTime(currentTime+h); // set time for the next step
 			i += 1; // update array position
 			currentTime += h; // update time
 		}
-
 		return arr;
 	}
 

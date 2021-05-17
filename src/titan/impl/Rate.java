@@ -63,27 +63,15 @@ public class Rate implements RateInterface {
 		return newRate;
 	}
 	
-	// Problem here
 	public Rate addMul(double scalar, Rate vector) {
 		
 		Vector3d newVelo[] = new Vector3d[this.velocity.length];
 		Vector3d newAcce[] = new Vector3d[this.acceleration.length]; 
 			
-		// Rate newRate = new Rate(new Vector3d[velocity.length], new Vector3d[accelaration.length]); 
 		for (int i = 0; i < acceleration.length; i++) {
 			
 			newVelo[i] = (Vector3d) this.velocity[i].addMul(scalar, vector.getVelocity()[i]);
 			newAcce[i] = (Vector3d) this.acceleration[i].addMul(scalar, vector.getAcceleration()[i]);
-			
-			/* Alternative way to update:
-			newRate.getVelocity()[i].setX(newVelo.getX());
-			newRate.getVelocity()[i].setY(newVelo.getY());
-			newRate.getVelocity()[i].setZ(newVelo.getZ());
-			
-			newRate.getAccelaration()[i].setX(newAcce.getX());
-			newRate.getAccelaration()[i].setY(newAcce.getY());
-			newRate.getAccelaration()[i].setZ(newAcce.getZ());
-			*/
 		}
 		Rate newRate = new Rate(newVelo, newAcce);
 		

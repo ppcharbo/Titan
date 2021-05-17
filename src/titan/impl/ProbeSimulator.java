@@ -127,6 +127,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		
 		return returnPositions;
 	}
+	
 	public StateInterface[] trajectoryGUI(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 
 		// StateInterface state = new StateInterface(..)

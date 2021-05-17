@@ -44,35 +44,35 @@ public class ODESolverVerlet implements ODESolverInterface {
 	}
 
 	@Override
-	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) {
+	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) { // Four-step velocity Verlet algorithm
 		
-		Rate currentRate = (Rate) f.call(t, y); // current rate
+		Rate currentRate = (Rate) f.call(t, y); // current rate to access current acceleration
 		
-		Vector3d currentPosition[] = ((State)y).getPosition(); // ri(t)
-		Vector3d currentVelocity[]= ((State)y).getVelocity(); // vi(t)
+		Vector3d currentPosition[] = ((State)y).getPosition(); // current position
+		Vector3d currentVelocity[]= ((State)y).getVelocity(); // current velocity
 		Vector3d currentAcceleration[] = currentRate.getAcceleration(); // current acceleration
 		
-		Vector3d nextPosition[] = new Vector3d[currentPosition.length]; // following position
-		Vector3d intermediateVelocity[] = new Vector3d[currentVelocity.length]; // intermediate velocity
-		Vector3d nextVelocity[] = new Vector3d[currentVelocity.length]; // following velocity
+		Vector3d nextPosition[] = new Vector3d[currentPosition.length]; // following position initialization  
+		Vector3d intermediateVelocity[] = new Vector3d[currentVelocity.length]; // intermediate velocity initialization - midpoint
+		Vector3d nextVelocity[] = new Vector3d[currentVelocity.length]; // following velocity initialization
 		
-		for (int i = 0; i < currentVelocity.length; i++) {
+		for (int i = 0; i < currentVelocity.length; i++) { // for loop to update positions(at t+h) and velocities(at an intermediate state) for every corresponding planet present in the array
 			
-			nextPosition[i] = (Vector3d) currentPosition[i].addMul(h, currentVelocity[i]).addMul(0.5*(Math.pow(h, 2)), currentAcceleration[i]); // first step: updating the position at t+h
-			intermediateVelocity[i] = (Vector3d) currentVelocity[i].addMul(0.5*h, currentAcceleration[i]); // second step: updating the velocity at an intermediate state t+1/2h
+			nextPosition[i] = (Vector3d) currentPosition[i].addMul(h, currentVelocity[i]).addMul(0.5*(Math.pow(h, 2)), currentAcceleration[i]); // first step: updating position at t+h
+			intermediateVelocity[i] = (Vector3d) currentVelocity[i].addMul(0.5*h, currentAcceleration[i]); // second step: updating velocity at an intermediate state t+(h/2) 
 		}
 			
-		State intermediateState = new State(nextPosition, intermediateVelocity, t+h);
-		Vector3d nextAcceleration[] = ((Rate)f.call(t+h, intermediateState)).getAcceleration(); // third step: updating the acceleration at t+h
+		State intermediateState = new State(nextPosition, intermediateVelocity, t+h); // intermediate state to access corresponding acceleration 
+		Vector3d nextAcceleration[] = ((Rate)f.call(t+h, intermediateState)).getAcceleration(); // third step: updating acceleration at t+h
 		
-		for (int i = 0; i < currentVelocity.length; i++) {
+		for (int i = 0; i < currentVelocity.length; i++) { // for loop to update velocities(at t+h) for every corresponding planet present in the array
 			
-			nextVelocity[i] = (Vector3d) intermediateVelocity[i].addMul(0.5*h, nextAcceleration[i]); // fourth step: updating the velocity at t+h
+			nextVelocity[i] = (Vector3d) intermediateVelocity[i].addMul(0.5*h, nextAcceleration[i]); // fourth step: updating velocity at t+h
 		}
 		
-		State nextState = new State(nextPosition, nextVelocity, t+h); // following state
+		State nextState = new State(nextPosition, nextVelocity, t+h); // computed following state
 		
 		
-		return nextState;
+		return nextState; 
 	}
 }
