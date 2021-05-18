@@ -6,45 +6,55 @@ import titan.StateInterface;
 import titan.ODEFunctionInterface;
 
 /*
-this class is a function about costing fuel when the probe moving and especially when Probe approch the surface of the moon
-using the energy conservation theorem 
-
-Vairable:
-Pt=Total Pressure
-Tt=Total Temperatrue
-P0=Free stream Pressure
-γ=Specific Heat Ration
-R=Gas Constant
-A=Area
-#m=Mass FLow Rate
-
-Thrust: F=#mVe
-
-Mass Flow rate: #m=(Area*Pt/Math.sqrt(total_temperatrue))-(Math.sqrt(Specific heat rate/Gas Constant))*Math.pow((Specific heat rate+1)/2,-1*((Specific heat ratio + 1)/(2*(Specific heat ratio-1))
-                
-
-ps:the max relative velocity is 20km/s
-    the max thrustfoce is 30M N
-    m#max= Fmax/Ve= 1.5k kg/s
-
 
 */
 
-
 public class FuelCostProbe implements ProbeSimulatorInterface{
     
-    private final double area;
-    private final double total_pressure;
-    private final double specific_heat_ratio;
-    private final double Exit_mach;
-    private final double mach; //for now don`t know this variable
-    private final double gas_constant;
-    private final double total_temperatrue;
+    private static double mass_craft;
+    private static double mass_lander;
+    private static double mass_totalfuel; //have to calculate by using exit velocity and distance from earth to titan.
+    private static double exit_velocity;
+    private static double maxthrust;
+    private static double mass_flow_rate;
+    private static double acceleration;
+    private static double engineTime;
+    private static double fuelCost;
 
+    public FuelCostProbe(){
+        mass_craft=7.8e4;
+        mass_lander=6e3;
+        exit_velocity=2e4;
+        maxthrust=3e7;
+    }
 
-    public static double calMassflowRate(){
-        double fraction1= (area * total_presssure)/ Math.sqrt(total_temperatrue);
+    public static double massFlowrate(){
+
+    return maxthrust/exit_velocity;
 
     }
+    
+    //Fmax/totalmass-massflowrate*enginetime could be simplify as 1/(1-t) to Derivative, equal -1/(1-t)^2
+    public static double acceleration(){
+        return maxthrust/(mass_craft+mass_lander+mass_totalfuel);
+    }
+
+
+    public static double engineTime(){
+        return (Math.sqrt((-1*maxthrust)/velocity())-mass_craft+mass_lander+mass_totalfuel)/mass_flow_rate;
+    }
+
+    public static double velocity(){
+        return -maxthrust/(mass_craft+mass_lander+mass_totalfuel-mass_flow_rate*engineTime);
+    }
+
+    public static double fuelcost(){
+        fuelCost=mass_flow_rate*engineTime;
+    }
+
+
+
+
+    
 
 }
