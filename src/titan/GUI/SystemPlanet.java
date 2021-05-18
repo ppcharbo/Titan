@@ -69,6 +69,7 @@ public class SystemPlanet extends JPanel {
 		// PlanetGUI(JPanel parento, String label, int r, int g, int b, double xCoordinate, double yCoordinate, int diameter)
 		
 		// TODO check values for the radius
+		// TODO scale values
 		allPlanets.add(new PlanetGUI(this, "SHIP", 255, 20, 147, ((State) solvedStates[0]).getPosition()[0], 10E6));
 		allPlanets.add(new PlanetGUI(this, "SUN", 255, 140, 0, ((State) solvedStates[0]).getPosition()[1], 6.96E8));
 		allPlanets.add(new PlanetGUI(this, "MOON", 192, 192, 192, ((State) solvedStates[0]).getPosition()[2], 1.74E-02));
@@ -135,7 +136,7 @@ public class SystemPlanet extends JPanel {
 
 	private void gameLoop() {
 		int i = 0;
-		while (true ) { //&& i < solvedStates.length
+		while (true) { //&& i < solvedStates.length
 			if (!stop) {
 				// this is the SUN
 				// we must update relative to the sun position

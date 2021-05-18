@@ -50,6 +50,7 @@ public class FuelCostProbe implements ProbeSimulatorInterface{
 
     public static double fuelcost(){
         fuelCost=mass_flow_rate*engineTime;
+        return (Double) null;
     }
 
 
