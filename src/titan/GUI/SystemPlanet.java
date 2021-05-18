@@ -70,18 +70,18 @@ public class SystemPlanet extends JPanel {
 		
 		// TODO check values for the radius
 		// TODO scale values
-		allPlanets.add(new PlanetGUI(this, "SHIP", 255, 20, 147, ((State) solvedStates[0]).getPosition()[0], 10E6));
-		allPlanets.add(new PlanetGUI(this, "SUN", 255, 140, 0, ((State) solvedStates[0]).getPosition()[1], 6.96E8));
-		allPlanets.add(new PlanetGUI(this, "MOON", 192, 192, 192, ((State) solvedStates[0]).getPosition()[2], 1.74E-02));
-		allPlanets.add(new PlanetGUI(this, "MERCURY", 128, 128, 128, ((State) solvedStates[0]).getPosition()[3], 2.4397E6));
-		allPlanets.add(new PlanetGUI(this, "VENUS", 207, 153, 52, ((State) solvedStates[0]).getPosition()[4], 6.0518E6));
-		allPlanets.add(new PlanetGUI(this, "EARTH", 0, 0, 255, ((State) solvedStates[0]).getPosition()[5], 6.37814E6));
-		allPlanets.add(new PlanetGUI(this, "MARS", 255, 0, 0, ((State) solvedStates[0]).getPosition()[6], 3.3972E6));
-		allPlanets.add(new PlanetGUI(this, "JUPITER", 255, 140, 0, ((State) solvedStates[0]).getPosition()[7], 7.1492E7));
-		allPlanets.add(new PlanetGUI(this, "SATURN", 112, 128, 144, ((State) solvedStates[0]).getPosition()[8], 6.0268E7));
-		allPlanets.add(new PlanetGUI(this, "URANUS", 196, 233, 238, ((State) solvedStates[0]).getPosition()[9], 2.5559E7));
-		allPlanets.add(new PlanetGUI(this, "TITAN", 218, 165, 32, ((State) solvedStates[0]).getPosition()[10], 2575.5E3));
-		allPlanets.add(new PlanetGUI(this, "NEPTUNE", 66, 98, 243, ((State) solvedStates[0]).getPosition()[11], 2.4746E7));
+		allPlanets.add(new PlanetGUI(this, "SHIP", 255, 20, 147, ((State) solvedStates[0]).getPosition()[0], 20));
+		allPlanets.add(new PlanetGUI(this, "SUN", 255, 140, 0, ((State) solvedStates[0]).getPosition()[1], 50));
+		allPlanets.add(new PlanetGUI(this, "MOON", 192, 192, 192, ((State) solvedStates[0]).getPosition()[2], 10));
+		allPlanets.add(new PlanetGUI(this, "MERCURY", 128, 128, 128, ((State) solvedStates[0]).getPosition()[3], 10));
+		allPlanets.add(new PlanetGUI(this, "VENUS", 207, 153, 52, ((State) solvedStates[0]).getPosition()[4], 20));
+		allPlanets.add(new PlanetGUI(this, "EARTH", 0, 0, 255, ((State) solvedStates[0]).getPosition()[5], 20));
+		allPlanets.add(new PlanetGUI(this, "MARS", 255, 0, 0, ((State) solvedStates[0]).getPosition()[6], 15));
+		allPlanets.add(new PlanetGUI(this, "JUPITER", 255, 140, 0, ((State) solvedStates[0]).getPosition()[7], 45));
+		allPlanets.add(new PlanetGUI(this, "SATURN", 112, 128, 144, ((State) solvedStates[0]).getPosition()[8], 42));
+		allPlanets.add(new PlanetGUI(this, "URANUS", 196, 233, 238, ((State) solvedStates[0]).getPosition()[9], 50));
+		allPlanets.add(new PlanetGUI(this, "TITAN", 218, 165, 32, ((State) solvedStates[0]).getPosition()[10], 10));
+		allPlanets.add(new PlanetGUI(this, "NEPTUNE", 66, 98, 243, ((State) solvedStates[0]).getPosition()[11], 38));
 		
 		/*
 		allPlanets.add(new Planet(this, "mercury", 	128, 128, 128,		801, 381, 		8, 		3.89E-05, 2.98E-06,		9)); //done
@@ -146,6 +146,14 @@ public class SystemPlanet extends JPanel {
 				
 				if(i == solvedStates.length-1) {
 					i = 0;
+				}
+				if (i > 360 && i < 366) {
+					allPlanets.get(0).setColor(0, 255, 0);
+					allPlanets.get(0).setDiameter(20);
+				}
+				else {
+					allPlanets.get(0).setColor(255, 20, 147);
+					allPlanets.get(0).setDiameter(100);
 				}
 				
 				i++;
@@ -231,7 +239,7 @@ public class SystemPlanet extends JPanel {
 					System.out.println(planet.label);
 				}
 			}
-
+			
 			prevPt = currentPt; // Reset points
 			repaint();
 		}

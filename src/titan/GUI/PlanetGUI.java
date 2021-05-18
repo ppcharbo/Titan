@@ -22,20 +22,9 @@ public class PlanetGUI {
 		this.setParent(parento);
 		this.label = label;
 		color = new Color(r, g, b);
-		x = (position.getX()/(10E9));
-		y = (position.getY()/(10E9));
-		//this.dia = (int) (diameter/1E5);
-		
-		
-		if(label.equals("SUN")) {
-			this.dia = (int) (diameter/(1E6));
-		}
-		if(label.equals("TITAN") || label.equals("MARS") || label.equals("MERCURY") || label.equals("VENUS") || label.equals("EARTH")) {
-			this.dia = (int) (diameter/(10E4));
-		}
-		else {
-			this.dia = (int) (diameter/1E5);
-		}
+		x = (position.getX()/(1E9));
+		y = (position.getY()/(1E9));
+		this.dia = (int) (diameter);
 		
 
 	}
@@ -58,6 +47,14 @@ public class PlanetGUI {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public void setColor(int r, int g, int b) {
+		this.color = new Color(r, g, b);
+	}
+	
+	public void setDiameter(double d) {
+		this.dia = (int) d;
 	}
 
 	public void update(Vector3d newPosition) {
