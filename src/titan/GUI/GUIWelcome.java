@@ -107,7 +107,6 @@ public class GUIWelcome {
 				zoomOut.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						systemPlanet.size = systemPlanet.size - 0.1;
-						// systemPlanet.repaint();
 					}
 				});
 
@@ -115,7 +114,13 @@ public class GUIWelcome {
 				zoomIn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						systemPlanet.size = systemPlanet.size + 0.1;
-						// systemPlanet.repaint();
+					}
+				});
+				
+				JButton resetToInitialState = new JButton("reset");
+				resetToInitialState.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						systemPlanet.currentState = 0;
 					}
 				});
 
@@ -125,6 +130,7 @@ public class GUIWelcome {
 				toolbar.add(pauseStart);
 				toolbar.add(zoomOut);
 				toolbar.add(zoomIn);
+				toolbar.add(resetToInitialState);
 				welcomeFrame.add(toolbar);
 
 			}

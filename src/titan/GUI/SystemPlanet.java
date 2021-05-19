@@ -42,6 +42,7 @@ public class SystemPlanet extends JPanel {
 	public double size = 1;
 	public static int delay = 25;
 	public boolean stop = false;
+	public int currentState = 0;
 
 	public SystemPlanet(GUIWelcome frame, double speed) {
 
@@ -135,19 +136,20 @@ public class SystemPlanet extends JPanel {
 	}
 
 	private void gameLoop() {
-		int i = 0;
+		
 		while (true) { //&& i < solvedStates.length
 			if (!stop) {
 				// this is the SUN
 				// we must update relative to the sun position
 				for (int a = 0; a < 12; a++) {
-					allPlanets.get(a).update(((State) solvedStates[i]).getPosition()[a]);
+					allPlanets.get(a).update(((State) solvedStates[currentState]).getPosition()[a]);
 				}
 				
-				if(i == solvedStates.length-1) {
-					i = 0;
+				if(currentState == solvedStates.length-1) {
+					currentState = 0;
 				}
-				if (i > 360 && i < 366) {
+				if (currentState > 360 && currentState < 366) {
+					// Do some changes to the ship so that we can see where it lands
 					allPlanets.get(0).setColor(0, 255, 0);
 					allPlanets.get(0).setDiameter(20);
 				}
@@ -156,7 +158,7 @@ public class SystemPlanet extends JPanel {
 					allPlanets.get(0).setDiameter(100);
 				}
 				
-				i++;
+				currentState += 1;
 			}
 
 			repaint();
@@ -166,7 +168,7 @@ public class SystemPlanet extends JPanel {
 			} catch (InterruptedException ex) {
 				//
 			}
-			//System.out.println(i);
+			if(DEBUG) System.out.println("Simulating state: " + currentState);
 
 		}
 	}
@@ -231,27 +233,37 @@ public class SystemPlanet extends JPanel {
 			final double oldY = prevPt.getY();
 
 			// Move the planets
-			if(stop == true) {
+			if(stop == true) { // If the GUI is paused, then executed this
+				// This basically updates the drawing for the every planet by the difference in mouse position
 				for (PlanetGUI planet : allPlanets) {
 					planet.translate((double) currentX - oldX, (double) currentY - oldY);
 					if (DEBUG) {
-						System.out.println(currentX);
-						System.out.println(planet.getX());
-						System.out.println(planet.label);
+						System.out.println("CurrentX: " + currentX);
+						System.out.println("Coordinate of the planet: " + planet.getX());
+						System.out.println("Name of the planet: " + planet.label);
 					}
 				}
 			}
-			else {
+			else { // else the GUI is running (so planets are moving), then do this
+				// Calculate translation vector (difference in mouse position)
+				// Because everything is scaled by 1E9, we also move the translation by that
 				Vector3d translate = new Vector3d((currentX - oldX)*1E9, (currentY - oldY)*1E9, 0);
-				for(int a = 0; a <solvedStates.length; a++) {
+				
+				// Then update all states by this vector
+				for(int a = 0; a < solvedStates.length; a++) {
+					
+					// Get current positions of the planet and create a new array of the translated planets which is empty
 					Vector3d[] positionsForEveryState = ((State) solvedStates[a]).getPosition();
 					Vector3d[] positionsNew = new Vector3d[positionsForEveryState.length];
+					
 					for(int b = 0; b < positionsForEveryState.length; b++) {
+						// Set the translated place to the current place plus the translation
 						positionsNew[b] = (Vector3d) positionsForEveryState[b].add(translate);
 					}
-					System.out.println( ((State) solvedStates[0]).getPosition()[0].getX()   );
-					((State) solvedStates[a]).setPosition(positionsNew);
-					System.out.println( ((State) solvedStates[0]).getPosition()[0].getX()   );
+					
+					if(DEBUG) System.out.println("State before translating: " + ((State) solvedStates[0]).getPosition()[0].getX()   );
+					((State) solvedStates[a]).setPosition(positionsNew); // Sets new positions from translation
+					if(DEBUG) System.out.println("State after translating: " +  ((State) solvedStates[0]).getPosition()[0].getX()   );
 				}
 				
 			}
