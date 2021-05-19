@@ -121,6 +121,7 @@ public class GUIWelcome {
 				resetToInitialState.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						systemPlanet.currentState = 0;
+						systemPlanet.stop = true;
 					}
 				});
 

@@ -148,8 +148,15 @@ public class SystemPlanet extends JPanel {
 	}
 	public static StateInterface[] simulateOneYear() {
 
-		Vector3dInterface probe_relative_position = new Vector3d(6371e3, 0, 0);
-		Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
+		Vector3dInterface probe_relative_position = new Vector3d(6371E3, 0, 0);
+		//Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
+		
+		double constant = 1E4;
+		double vx = 3.039138601308728*constant;
+		double vy = -5.173351615093083*constant;
+		double vz = 0.008344378289015*constant;
+		//(3.039138601308728  -5.173351615093083  -0.008344378289015)*10^4
+		Vector3dInterface probe_relative_velocity = new Vector3d(-vx, -vy, vz);
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
 		ProbeSimulator simulator = new ProbeSimulator();
