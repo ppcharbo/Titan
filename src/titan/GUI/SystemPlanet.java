@@ -70,8 +70,6 @@ public class SystemPlanet extends JPanel {
 		
 		// PlanetGUI(JPanel parento, String label, int r, int g, int b, double xCoordinate, double yCoordinate, int diameter)
 		
-		// TODO check values for the radius
-		// TODO scale values
 		allPlanets.add(new PlanetGUI(this, "SHIP", 255, 20, 147, ((State) solvedStates[0]).getPosition()[0], 20));
 		allPlanets.add(new PlanetGUI(this, "SUN", 255, 140, 0, ((State) solvedStates[0]).getPosition()[1], 50));
 		allPlanets.add(new PlanetGUI(this, "MOON", 192, 192, 192, ((State) solvedStates[0]).getPosition()[2], 10));
@@ -85,38 +83,6 @@ public class SystemPlanet extends JPanel {
 		allPlanets.add(new PlanetGUI(this, "TITAN", 218, 165, 32, ((State) solvedStates[0]).getPosition()[10], 10));
 		allPlanets.add(new PlanetGUI(this, "NEPTUNE", 66, 98, 243, ((State) solvedStates[0]).getPosition()[11], 38));
 		
-		/*
-		allPlanets.add(new Planet(this, "mercury", 	128, 128, 128,		801, 381, 		8, 		3.89E-05, 2.98E-06,		9)); //done
-		allPlanets.add(new Planet(this, "venus", 	207, 153, 52, 		706, 502, 		12, 	-1.73E-05, -3.07E-05, 	900)); //done
-		allPlanets.add(new Planet(this, "earth", 	0, 0, 255, 			653, 421, 		11, 	5.43E-06, -2.93E-05, 	900)); //done
-		allPlanets.add(new Planet(this, "mars", 	255, 0, 0, 			764, 232, 		7, 		2.48E-05, -1.82E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "jupiter", 	255, 140, 0, 		978, -306, 		20, 	1.26E-05, 3.62E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "saturn", 	112, 128, 144, 		1434, 1807, 	15, 	8.22E-06, 4.05E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "uranus", 	196, 233, 238, 		3196, 2193, 	15, 	-4.06E-06, 5.19E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "neptune", 	66, 98, 243, 		5183, -460, 	13, 	1.07E-06, 5.35E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "sun", 		255, 140, 0, 		800, 450,		30, 	-1.42E-08, -4.95E-09, 	1000)); //done
-		*/
-		
-		
-		/*
-		 * //	Planet(double radius, double xPosition, double yPosition, String name)
-		// listOfPlanets.add(new Planet(0, 6371000.0, 0, "SHIP"));
-		// listOfPlanets.add(new Planet(6.96e8, -6.806783239281648e+08, 1.080005533878725e+09, "SUN"));
-		// listOfPlanets.add(new Planet(3e8, -1.472343904597218e+11, -2.822578361503422e+10, "MOON"));
-		// listOfPlanets.add(new Planet(2.4397e6, 6.047855986424127e+06, -6.801800047868888e+10, "MERCURY"));
-		// listOfPlanets.add(new Planet(6.0518e6, -9.435345478592035e+10, 5.350359551033670e+10, "VENUS"));
-		// listOfPlanets.add(new Planet(6.37814e6, -1.471922101663588e+11, -2.860995816266412e+10, "EARTH"));
-		// listOfPlanets.add(new Planet(3.3972e6, -3.615638921529161e+10, -2.167633037046744e+11, "MARS"));
-		// listOfPlanets.add(new Planet(7.1492e7, 1.781303138592153e+11, -7.551118436250277e+11, "JUPITER"));
-		// listOfPlanets.add(new Planet(6.0268e7, 6.328646641500651e+11, -1.358172804527507e+12, "SATURN"));
-		// listOfPlanets.add(new Planet(2.5559e7, 2.395195786685187e+12, 1.744450959214586e+12, "URANUS"));
-		// listOfPlanets.add(new Planet(2575.5e3, 6.332873118527889e+11, -1.357175556995868e+12, "TITAN"));
-		// listOfPlanets.add(new Planet(2.4746e7, 4.382692942729203e+12, -9.093501655486243e+11, "NEPTUNE"));
-		 */
-		
-
-
-
 	}
 
 	public void paintComponent(Graphics g) {
@@ -146,13 +112,20 @@ public class SystemPlanet extends JPanel {
 					allPlanets.get(a).update(((State) solvedStates[currentState]).getPosition()[a]);
 				}
 				
+				// Reset the state if we reach the end
 				if(currentState == solvedStates.length-1) {
 					currentState = 0;
 				}
+				
+				// Do some changes to the ship so that we can see where it is near the end of the trajectory
 				if (currentState > 360 && currentState < 366) {
-					// Do some changes to the ship so that we can see where it lands
 					allPlanets.get(0).setColor(0, 255, 0);
 					allPlanets.get(0).setDiameter(20);
+					
+					System.out.println("X: " + allPlanets.get(0).getX()  );
+					System.out.println("Y: " + allPlanets.get(0).getY()  );
+					System.out.println("XTitan: " + allPlanets.get(10).getX()  );
+					System.out.println("YTitan: " + allPlanets.get(10).getY()  );
 				}
 				else {
 					allPlanets.get(0).setColor(255, 20, 147);

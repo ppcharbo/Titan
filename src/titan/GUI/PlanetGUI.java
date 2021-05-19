@@ -79,8 +79,6 @@ public class PlanetGUI {
 		else {
 			g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
 		}
-		
-		
 
 	}
 
