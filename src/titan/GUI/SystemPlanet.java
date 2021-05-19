@@ -43,6 +43,7 @@ public class SystemPlanet extends JPanel {
 	public static int delay = 25;
 	public boolean stop = false;
 	public int currentState = 0;
+	// test for push
 
 	public SystemPlanet(GUIWelcome frame, double speed) {
 
