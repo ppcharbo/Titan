@@ -166,7 +166,7 @@ public class SystemPlanet extends JPanel {
 			} catch (InterruptedException ex) {
 				//
 			}
-			System.out.println(i);
+			//System.out.println(i);
 
 		}
 	}
@@ -231,15 +231,31 @@ public class SystemPlanet extends JPanel {
 			final double oldY = prevPt.getY();
 
 			// Move the planets
-			for (PlanetGUI planet : allPlanets) {
-				planet.translate((double) currentX - oldX, (double) currentY - oldY);
-				if (DEBUG) {
-					System.out.println(currentX);
-					System.out.println(planet.getX());
-					System.out.println(planet.label);
+			if(stop == true) {
+				for (PlanetGUI planet : allPlanets) {
+					planet.translate((double) currentX - oldX, (double) currentY - oldY);
+					if (DEBUG) {
+						System.out.println(currentX);
+						System.out.println(planet.getX());
+						System.out.println(planet.label);
+					}
 				}
 			}
-			
+			else {
+				Vector3d translate = new Vector3d((currentX - oldX)*1E9, (currentY - oldY)*1E9, 0);
+				for(int a = 0; a <solvedStates.length; a++) {
+					Vector3d[] positionsForEveryState = ((State) solvedStates[a]).getPosition();
+					Vector3d[] positionsNew = new Vector3d[positionsForEveryState.length];
+					for(int b = 0; b < positionsForEveryState.length; b++) {
+						positionsNew[b] = (Vector3d) positionsForEveryState[b].add(translate);
+					}
+					System.out.println( ((State) solvedStates[0]).getPosition()[0].getX()   );
+					((State) solvedStates[a]).setPosition(positionsNew);
+					System.out.println( ((State) solvedStates[0]).getPosition()[0].getX()   );
+				}
+				
+			}
+
 			prevPt = currentPt; // Reset points
 			repaint();
 		}
