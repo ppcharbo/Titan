@@ -30,7 +30,7 @@ public class Rate implements RateInterface {
 	public Vector3d[] getVelocity() {
 			
 			return velocity;
-		}
+	}
 	
 	public void setVelocity(Vector3d[] velo) {
 		

@@ -1,4 +1,4 @@
-package titan.GUI;
+package titan.impl;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -100,7 +100,7 @@ public class SystemPlanet extends JPanel {
 				}
 				if(Math.abs(shipVector.dist(titanVector)) < max) {
 					max = Math.abs(shipVector.dist(titanVector));
-					System.out.println(max);
+					//System.out.println(max);
 				}
 				else {
 					//System.out.println("Nope");
@@ -137,6 +137,7 @@ public class SystemPlanet extends JPanel {
 				for (int a = 0; a < 12; a++) {
 					allPlanets.get(a).update(((State) solvedStates[currentState]).getPosition()[a]);
 				}
+				System.out.println(((State) solvedStates[currentState]).getVelocity()[0].norm());
 				
 				// Reset the state if we reach the end
 				if(currentState == solvedStates.length-1) {
@@ -177,19 +178,20 @@ public class SystemPlanet extends JPanel {
 	}
 	
 	public static StateInterface[] simulateOneYear() {
-
-		Vector3dInterface probe_relative_position_matlab = new Vector3d(3.926620508447322e6, -5.017051486490201e6, 0.022062741157029e6);
-		Vector3dInterface probe_relative_velocity_matlab = new Vector3d(3.697963122066227e6, -4.724895451097348e6, 0.020777970011329e6);
+		//278: 3.926620508447322e6, -5.017051486490201e6, 0.022062741157029e6
+		//200: 3.740731413563386e6,  -5.157141498910596e6,   0.021472116668884e6
+		Vector3dInterface probe_relative_position_matlab = new Vector3d(3.740731413563386e6,  -5.157141498910596e6,   0.021472116668884e6);
+		Vector3dInterface probe_relative_velocity_matlab = new Vector3d(3.697963122066227e4, -4.724895451097348e4, 0.020777970011329e4);
 		
 		//smaller step size
 		double hour = 60*60;
-		double yearHour = 365.25*24*hour;
+		double twoYearHour = 2*365.25*24*hour;
 		
 		//original step
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
 		ProbeSimulator simulator = new ProbeSimulator();
-		StateInterface[] states = simulator.trajectoryGUI(probe_relative_position_matlab, probe_relative_velocity_matlab, yearHour, hour);
+		StateInterface[] states = simulator.trajectoryGUI(probe_relative_position_matlab, probe_relative_velocity_matlab, twoYearHour, hour);
 		return states;
 
 	}

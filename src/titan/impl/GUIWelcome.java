@@ -1,4 +1,4 @@
-package titan.GUI;
+package titan.impl;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
