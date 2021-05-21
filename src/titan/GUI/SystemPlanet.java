@@ -12,13 +12,9 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import titan.ProbeSimulatorInterface;
+import titan.impl.*;
 import titan.StateInterface;
 import titan.Vector3dInterface;
-import titan.GUI.ProbeSimulator;
-import titan.GUI.Vector3d;
-import titan.GUI.State;
-import titan.StateInterface;
 
 public class SystemPlanet extends JPanel {
 
@@ -66,6 +62,7 @@ public class SystemPlanet extends JPanel {
 		
 		
 		solvedStates = simulateOneYear();
+		doesItComeClose();
 		
 		
 		// PlanetGUI(JPanel parento, String label, int r, int g, int b, double xCoordinate, double yCoordinate, int diameter)
@@ -85,6 +82,35 @@ public class SystemPlanet extends JPanel {
 		
 	}
 
+	public void doesItComeClose() {
+		Vector3d[] shipPositions = new Vector3d[solvedStates.length];
+		Vector3d[] titanPositions = new Vector3d[solvedStates.length];
+		
+		for (int i = 0; i < solvedStates.length; i++) {
+			shipPositions[i] = ((State) solvedStates[i]).getPosition()[0];
+			titanPositions[i] = ((State) solvedStates[i]).getPosition()[10];
+		}
+		
+		//make a loop to see if the titanPositions.dist(titanPositions) <= 300
+		double max = 5E12;
+		for (Vector3dInterface shipVector : shipPositions) {
+			for (Vector3dInterface titanVector : titanPositions) {
+				if(Math.abs(shipVector.dist(titanVector)) <= 3E10) {
+					//System.out.println("Cotcha");
+				}
+				if(Math.abs(shipVector.dist(titanVector)) < max) {
+					max = Math.abs(shipVector.dist(titanVector));
+					System.out.println(max);
+				}
+				else {
+					//System.out.println("Nope");
+				}
+			}
+		}
+		System.out.println("Least fly-by");
+		System.out.println(max);
+	}
+	
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
@@ -95,7 +121,7 @@ public class SystemPlanet extends JPanel {
 		// Repaint planets
 		for (PlanetGUI body : allPlanets) {
 			body.draw(g, size, getWidth(), getHeight());
-			if (body.label.equals("earth") && DEBUG) {
+			if (body.label.equals("EARTH") && DEBUG) {
 				System.out.println(body.getX());
 				System.out.println(body.getY());
 			}
@@ -122,10 +148,13 @@ public class SystemPlanet extends JPanel {
 					allPlanets.get(0).setColor(0, 255, 0);
 					allPlanets.get(0).setDiameter(20);
 					
-					System.out.println("X: " + allPlanets.get(0).getX()  );
-					System.out.println("Y: " + allPlanets.get(0).getY()  );
-					System.out.println("XTitan: " + allPlanets.get(10).getX()  );
-					System.out.println("YTitan: " + allPlanets.get(10).getY()  );
+					if(DEBUG) {
+						System.out.println("X: " + allPlanets.get(0).getX()  );
+						System.out.println("Y: " + allPlanets.get(0).getY()  );
+						System.out.println("XTitan: " + allPlanets.get(10).getX()  );
+						System.out.println("YTitan: " + allPlanets.get(10).getY()  );
+					}
+
 				}
 				else {
 					allPlanets.get(0).setColor(255, 20, 147);
@@ -146,21 +175,21 @@ public class SystemPlanet extends JPanel {
 
 		}
 	}
+	
 	public static StateInterface[] simulateOneYear() {
 
-		Vector3dInterface probe_relative_position = new Vector3d(6371E3, 0, 0);
-		//Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
+		Vector3dInterface probe_relative_position_matlab = new Vector3d(3.926620508447322e6, -5.017051486490201e6, 0.022062741157029e6);
+		Vector3dInterface probe_relative_velocity_matlab = new Vector3d(3.697963122066227e6, -4.724895451097348e6, 0.020777970011329e6);
 		
-		double constant = 1E4;
-		double vx = 3.039138601308728*constant;
-		double vy = -5.173351615093083*constant;
-		double vz = 0.008344378289015*constant;
-		//(3.039138601308728  -5.173351615093083  -0.008344378289015)*10^4
-		Vector3dInterface probe_relative_velocity = new Vector3d(-vx, -vy, vz);
+		//smaller step size
+		double hour = 60*60;
+		double yearHour = 365.25*24*hour;
+		
+		//original step
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
 		ProbeSimulator simulator = new ProbeSimulator();
-		StateInterface[] states = simulator.trajectoryGUI(probe_relative_position, probe_relative_velocity, year, day);
+		StateInterface[] states = simulator.trajectoryGUI(probe_relative_position_matlab, probe_relative_velocity_matlab, yearHour, hour);
 		return states;
 
 	}
