@@ -9,7 +9,8 @@ import titan.ODEFunctionInterface;
 
 */
 
-public class FuelCostProbe implements ProbeSimulatorInterface{
+//public class FuelCostProbe implements ProbeSimulatorInterface{
+public class FuelCostProbe {
     
     private static double mass_craft;
     private static double mass_lander;
