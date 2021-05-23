@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
-import titan.impl.State;
 import titan.StateInterface;
 
 public class ProbeSimulator implements ProbeSimulatorInterface {

@@ -50,15 +50,27 @@ public class GUIWelcome {
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		panel.add(emptyLabel, gbc);
+		
+		JLabel waitingLabel = new JLabel("Please, wait till a few seconds so we can calculate the trajectory.");
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		panel.add(waitingLabel, gbc);
+		
+		JLabel emptyLabel2 = new JLabel("                              ");
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		panel.add(emptyLabel2, gbc);
 
 		JButton startButton = new JButton("Start your journey");
 		gbc.gridx = 0;
-		gbc.gridy = 2;
+		gbc.gridy = 4;
 		panel.add(startButton, gbc);
 		
+		// TODO properly document the input speed
 		// Obtain initial speed
-        String input = JOptionPane.showInputDialog("Please, enter your speed.");
-        double speed = Double.parseDouble(input);
+        //String input = JOptionPane.showInputDialog("Please, enter your speed.");
+		double speed = 10; //VARIABLE NOT USED
+        //double speed = Double.parseDouble(input);
 		
 
 		welcomeFrame.add(panel);

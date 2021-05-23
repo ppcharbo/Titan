@@ -190,7 +190,7 @@ public class SystemPlanet extends JPanel {
 		 * 1.8966840399361339E9
 		Vector3dInterface probe_vel = new Vector3d(72684.6410404669,	-107781.235228466,	385.083685268718); row 133 speed 130E3
 		Vector3dInterface probe_pos = new Vector3d(4154116.78496650,	-4830374.71365795,	20853.3573652752); row 367
-		 */
+		*/
 		Vector3dInterface probe_vel = new Vector3d(72684.6410404669,	-107781.235228466,	385.083685268718);
 		Vector3dInterface probe_pos = new Vector3d(4154116.78496650,	-4830374.71365795,	20853.3573652752);
 		
@@ -206,8 +206,8 @@ public class SystemPlanet extends JPanel {
 		double year = 365.25 * day;
 		ProbeSimulator simulator = new ProbeSimulator();
 		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, 2*365.25*24*60*60, 60*60);
+		
 		return states;
-
 	}
 
 	public void startMe() {

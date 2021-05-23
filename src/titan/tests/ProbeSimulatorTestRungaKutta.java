@@ -15,7 +15,7 @@ import titan.impl.Vector3d;
 
 public class ProbeSimulatorTestRungaKutta {
 
-	static final double ACCURACY = 100; // 1 meter (might need to tweak that)
+	static final double ACCURACY = 1E3; // 1 meter (might need to tweak that)
 
 	
 	@Test
