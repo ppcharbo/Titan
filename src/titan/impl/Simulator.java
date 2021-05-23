@@ -48,7 +48,7 @@ public class Simulator {
 		Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
 		*/
 		
-		Vector3dInterface probe_relative_position = new Vector3d(3.926620508447322E6, -5.017051486490201E6, 0.022062741157029E6);
+		Vector3dInterface probe_relative_position = new Vector3d(3.609867510498535E6, -5.249581360565903E6, 0.019826634766418E6);
 		Vector3dInterface probe_relative_velocity = new Vector3d(3.697963122066227E6, -4.724895451097348E6, 0.020777970011329E6);
 		
 		double day = 24 * 60 * 60;
