@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
-public class Sim {
+public class Simulator {
 
 	public static void main(String[] args) {
 		String planet = "titan";
