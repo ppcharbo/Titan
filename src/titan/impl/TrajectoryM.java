@@ -108,7 +108,7 @@ public class TrajectoryM {
 		double day = 24*60*60;
 		double year = 365.25*24*day;
 
-		ProbeSimulator simulator = new ProbeSimulator();
+		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
 		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, year, day);
 
 		return states;

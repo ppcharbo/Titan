@@ -191,7 +191,7 @@ public class SystemPlanet extends JPanel {
 		// original step
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
-		ProbeSimulator simulator = new ProbeSimulator();
+		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
 		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, 2 * 365.25 * 24 * 60 * 60, 60 * 60);
 
 		return states;

@@ -4,10 +4,11 @@ import titan.RateInterface;
 import titan.Vector3dInterface;
 
 //public class FuelCostProbe implements ProbeSimulatorInterface{
-public class FuelCostProbe {
+public class ShipFuelCosts {
 
-	private static final double MASS_EMPTY_CRAFT = 7.8e4 + 7.8e4;
-	private static final double MASS_totalfuel=0.08e4; // assume.
+	private static final double MASS_THIRSTY_CRAFT = 7.8e4 + 6e3; // craft + lander
+	private static final double MASS_FUEL=0.08e4; // assumption
+	
 	private static double maxthrusty;
 	private static double exit_velocity;
 	private static State Maxthrust;
@@ -17,7 +18,7 @@ public class FuelCostProbe {
 	private static double engineTime;
 	private static double fuelCost;
 
-	public FuelCostProbe() {
+	public ShipFuelCosts() {
 	}
 
 	public static double massFlowrate() {
@@ -30,11 +31,11 @@ public class FuelCostProbe {
 	// Derivative, equal -1/(1-t)^2
 
 	public static StateInterface acceleration() {
-		return Maxthrust.getAcceleration / (MASS_EMPTY_CRAFT + MASS_totalfuel);
+		return Maxthrust.getAcceleration / (MASS_THIRSTY_CRAFT + MASS_FUEL);
 	}
 
 	public static double engineTime() {
-		return ((MASS_EMPTY_CRAFT + MASS_totalfuel)-Math.sqrt((-1 * Maxthrust.getAcceleration)/ velocity())) / mass_flow_rate;
+		return ((MASS_THIRSTY_CRAFT + MASS_FUEL)-Math.sqrt((-1 * Maxthrust.getAcceleration)/ velocity())) / mass_flow_rate;
 		//use v(t) to get t(v) function, so as we know the delta(v), we could get delta(t)
 	}
 

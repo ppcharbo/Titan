@@ -58,7 +58,7 @@ public class Simulator {
 	}
 
 	private static Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, int element) {
-		AllPlanet allPlanets = new AllPlanet();
+		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
@@ -93,8 +93,8 @@ public class Simulator {
 			i += 1;
 		}
 		State beginState = new State(beginPositions, beginVelocities, 0);
-		ODESolver solver = new ODESolver();
-		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
+		ODESolverEuler solver = new ODESolverEuler();
+		StateInterface[] solvedStates = solver.solve(new ODEFunctionShip(), beginState, tf, h);
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
 		

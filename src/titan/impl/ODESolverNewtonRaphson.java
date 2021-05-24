@@ -2,9 +2,9 @@ package titan.impl;
 
 import java.util.ArrayList;
 
-public class ODENewtonRaphson {
-	public ODENewtonRaphson() {
-		AllPlanet allPlanets = new AllPlanet();
+public class ODESolverNewtonRaphson {
+	public ODESolverNewtonRaphson() {
+		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
