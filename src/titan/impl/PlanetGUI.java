@@ -29,6 +29,15 @@ public class PlanetGUI {
 
 	}
 
+	// for testing TrajectoryM class
+	public PlanetGUI(String string, int r, int g, int b, Vector3d position, int diameter) {
+		this.label = string;
+		color = new Color(r, g, b);
+		x = (position.getX()/(1E9));
+		y = (position.getY()/(1E9));
+		this.dia = (int) (diameter);
+	}
+
 	public double getX() {
 		return x;
 	}

@@ -19,11 +19,6 @@ import titan.Vector3dInterface;
 public class SystemPlanet extends JPanel {
 
 	// TODO add the labels to the planets so we can identify them more easily :)
-	// TODO plotting Titan and the earth's moon
-	// TODO plot Rocket
-	// -->
-	// TODO change the coordinates according to the planet.java inside the
-	// titan.impl
 
 	private static final long serialVersionUID = 1L;
 	private final boolean DEBUG = false;
@@ -39,7 +34,6 @@ public class SystemPlanet extends JPanel {
 	public static int delay = 25;
 	public boolean stop = false;
 	public int currentState = 0;
-	// test for push
 
 	public SystemPlanet(GUIWelcome frame, double speed) {
 
