@@ -23,7 +23,7 @@ public class AllPlanet {
 	}
 	
 	public ArrayList<Planet> getListOfPlanets() {
-		
+
 		return listOfPlanets;
 	}
 }

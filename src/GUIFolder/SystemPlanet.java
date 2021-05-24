@@ -53,8 +53,7 @@ public class SystemPlanet extends JPanel {
 		this.addMouseListener(clickListener);
 		this.addMouseMotionListener(dragListener);
 		this.addMouseWheelListener(clickListener);
-		
-		
+
 		// Original plotting data:
 		allPlanets.add(new PlanetGUI(this, "mercury", 128, 128, 128, 800, 500, 8, -4.7, 0, 9));
 		allPlanets.add(new PlanetGUI(this, "venus", 207, 153, 52, 952, 450, 12, 0, 2.5, 900));
@@ -66,51 +65,59 @@ public class SystemPlanet extends JPanel {
 		allPlanets.add(new PlanetGUI(this, "neptune", 66, 98, 243, 0, 650, 13, 0, -1.2, 900));
 		allPlanets.add(new PlanetGUI(this, "sun", 255, 140, 0, 800, 450, 30, 0.1, 0, 1000));
 		greatRocket.add(new Rocket(this, speed, 20, 800, 200));
-		
-		
-		/*
-		//Modified position and velocity data:
-		allPlanets.add(new Planet(this, "mercury", 	128, 128, 128,		801, 381, 		8, 		3.89E-05, 2.98E-06,		9)); //done
-		allPlanets.add(new Planet(this, "venus", 	207, 153, 52, 		706, 502, 		12, 	-1.73E-05, -3.07E-05, 	900)); //done
-		allPlanets.add(new Planet(this, "earth", 	0, 0, 255, 			653, 421, 		11, 	5.43E-06, -2.93E-05, 	900)); //done
-		allPlanets.add(new Planet(this, "mars", 	255, 0, 0, 			764, 232, 		7, 		2.48E-05, -1.82E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "jupiter", 	255, 140, 0, 		978, -306, 		20, 	1.26E-05, 3.62E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "saturn", 	112, 128, 144, 		1434, 1807, 	15, 	8.22E-06, 4.05E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "uranus", 	196, 233, 238, 		3196, 2193, 	15, 	-4.06E-06, 5.19E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "neptune", 	66, 98, 243, 		5183, -460, 	13, 	1.07E-06, 5.35E-06, 	900)); //done
-		allPlanets.add(new Planet(this, "sun", 		255, 140, 0, 		800, 450,		30, 	-1.42E-08, -4.95E-09, 	1000)); //done
-		*/
-		
-		
-		//Modified position, velocity and mass data:
-		/*
-		allPlanets.add(new Planet(this, "mercury", 	128, 128, 128,		801, 381, 		8, 		3.89E-05, 2.98E-06,		3.30E+00)); //done
-		allPlanets.add(new Planet(this, "venus", 	207, 153, 52, 		706, 502, 		12, 	-1.73E-05, -3.07E-05, 	4.87E+01)); //done
-		allPlanets.add(new Planet(this, "earth", 	0, 0, 255, 			653, 421, 		11, 	5.43E-06, -2.93E-05, 	5.97E+01)); //done
-		allPlanets.add(new Planet(this, "mars", 	255, 0, 0, 			764, 232, 		7, 		2.48E-05, -1.82E-06, 	6.42E+01)); //done
-		allPlanets.add(new Planet(this, "jupiter", 	255, 140, 0, 		978, -306, 		20, 	1.26E-05, 3.62E-06, 	1.90E+04)); //done
-		allPlanets.add(new Planet(this, "saturn", 	112, 128, 144, 		1434, 1807, 	15, 	8.22E-06, 4.05E-06, 	5.68E+03)); //done
-		allPlanets.add(new Planet(this, "uranus", 	196, 233, 238, 		3196, 2193, 	15, 	-4.06E-06, 5.19E-06, 	8.68E+02)); //done
-		allPlanets.add(new Planet(this, "neptune", 	66, 98, 243, 		5183, -460, 	13, 	1.07E-06, 5.35E-06, 	1.02E+03)); //done
-		allPlanets.add(new Planet(this, "sun", 		255, 140, 0, 		800, 450,		30, 	-1.42E-08, -4.95E-09, 	1.99E+07)); //done
-		*/
-		
-		//Modified position data:
-		/*
-		allPlanets.add(new Planet(this, "mercury", 	128, 128, 128,		801, 381, 		8, 		-4.7, 0,	9)); //done
-		allPlanets.add(new Planet(this, "venus", 	207, 153, 52, 		706, 502, 		12, 	0, 2.5, 	900)); //done
-		allPlanets.add(new Planet(this, "earth", 	0, 0, 255, 			653, 421, 		11, 	1.8, 0, 	900)); //done
-		allPlanets.add(new Planet(this, "mars", 	255, 0, 0, 			764, 232, 		7, 		1.2, 0, 	900)); //done
-		allPlanets.add(new Planet(this, "jupiter", 	255, 140, 0, 		978, -306, 		20, 	1.2, 0, 	900)); //done
-		allPlanets.add(new Planet(this, "saturn", 	112, 128, 144, 		1434, 1807, 	15, 	1.2, 0, 	900)); //done
-		allPlanets.add(new Planet(this, "uranus", 	196, 233, 238, 		3196, 2193, 	15, 	1.2, 0, 	900)); //done
-		allPlanets.add(new Planet(this, "neptune", 	66, 98, 243, 		5183, -460, 	13, 	0, -1.2, 	900)); //done
-		allPlanets.add(new Planet(this, "sun", 		255, 140, 0, 		800, 450,		30, 	0.1, 0, 	1000)); //done
-		*/
-		
-		greatRocket.add(new Rocket(this, speed, 20, 800, 200));
-		
 
+		/*
+		 * //Modified position and velocity data: allPlanets.add(new Planet(this,
+		 * "mercury", 128, 128, 128, 801, 381, 8, 3.89E-05, 2.98E-06, 9)); //done
+		 * allPlanets.add(new Planet(this, "venus", 207, 153, 52, 706, 502, 12,
+		 * -1.73E-05, -3.07E-05, 900)); //done allPlanets.add(new Planet(this, "earth",
+		 * 0, 0, 255, 653, 421, 11, 5.43E-06, -2.93E-05, 900)); //done
+		 * allPlanets.add(new Planet(this, "mars", 255, 0, 0, 764, 232, 7, 2.48E-05,
+		 * -1.82E-06, 900)); //done allPlanets.add(new Planet(this, "jupiter", 255, 140,
+		 * 0, 978, -306, 20, 1.26E-05, 3.62E-06, 900)); //done allPlanets.add(new
+		 * Planet(this, "saturn", 112, 128, 144, 1434, 1807, 15, 8.22E-06, 4.05E-06,
+		 * 900)); //done allPlanets.add(new Planet(this, "uranus", 196, 233, 238, 3196,
+		 * 2193, 15, -4.06E-06, 5.19E-06, 900)); //done allPlanets.add(new Planet(this,
+		 * "neptune", 66, 98, 243, 5183, -460, 13, 1.07E-06, 5.35E-06, 900)); //done
+		 * allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, -1.42E-08,
+		 * -4.95E-09, 1000)); //done
+		 */
+
+		// Modified position, velocity and mass data:
+		/*
+		 * allPlanets.add(new Planet(this, "mercury", 128, 128, 128, 801, 381, 8,
+		 * 3.89E-05, 2.98E-06, 3.30E+00)); //done allPlanets.add(new Planet(this,
+		 * "venus", 207, 153, 52, 706, 502, 12, -1.73E-05, -3.07E-05, 4.87E+01)); //done
+		 * allPlanets.add(new Planet(this, "earth", 0, 0, 255, 653, 421, 11, 5.43E-06,
+		 * -2.93E-05, 5.97E+01)); //done allPlanets.add(new Planet(this, "mars", 255, 0,
+		 * 0, 764, 232, 7, 2.48E-05, -1.82E-06, 6.42E+01)); //done allPlanets.add(new
+		 * Planet(this, "jupiter", 255, 140, 0, 978, -306, 20, 1.26E-05, 3.62E-06,
+		 * 1.90E+04)); //done allPlanets.add(new Planet(this, "saturn", 112, 128, 144,
+		 * 1434, 1807, 15, 8.22E-06, 4.05E-06, 5.68E+03)); //done allPlanets.add(new
+		 * Planet(this, "uranus", 196, 233, 238, 3196, 2193, 15, -4.06E-06, 5.19E-06,
+		 * 8.68E+02)); //done allPlanets.add(new Planet(this, "neptune", 66, 98, 243,
+		 * 5183, -460, 13, 1.07E-06, 5.35E-06, 1.02E+03)); //done allPlanets.add(new
+		 * Planet(this, "sun", 255, 140, 0, 800, 450, 30, -1.42E-08, -4.95E-09,
+		 * 1.99E+07)); //done
+		 */
+
+		// Modified position data:
+		/*
+		 * allPlanets.add(new Planet(this, "mercury", 128, 128, 128, 801, 381, 8, -4.7,
+		 * 0, 9)); //done allPlanets.add(new Planet(this, "venus", 207, 153, 52, 706,
+		 * 502, 12, 0, 2.5, 900)); //done allPlanets.add(new Planet(this, "earth", 0, 0,
+		 * 255, 653, 421, 11, 1.8, 0, 900)); //done allPlanets.add(new Planet(this,
+		 * "mars", 255, 0, 0, 764, 232, 7, 1.2, 0, 900)); //done allPlanets.add(new
+		 * Planet(this, "jupiter", 255, 140, 0, 978, -306, 20, 1.2, 0, 900)); //done
+		 * allPlanets.add(new Planet(this, "saturn", 112, 128, 144, 1434, 1807, 15, 1.2,
+		 * 0, 900)); //done allPlanets.add(new Planet(this, "uranus", 196, 233, 238,
+		 * 3196, 2193, 15, 1.2, 0, 900)); //done allPlanets.add(new Planet(this,
+		 * "neptune", 66, 98, 243, 5183, -460, 13, 0, -1.2, 900)); //done
+		 * allPlanets.add(new Planet(this, "sun", 255, 140, 0, 800, 450, 30, 0.1, 0,
+		 * 1000)); //done
+		 */
+
+		greatRocket.add(new Rocket(this, speed, 20, 800, 200));
 
 		Thread thread = new Thread() {
 
@@ -133,12 +140,8 @@ public class SystemPlanet extends JPanel {
 		// Repaint planets
 		for (PlanetGUI body : allPlanets) {
 			body.draw(g, size, getWidth(), getHeight());
-			if(body.label.equals("earth") && DEBUG) {
-				System.out.println(body.getX());
-				System.out.println(body.getY());
-			}
+
 		}
-		
 
 		// Repaint rocket
 		for (Rocket rocketo : greatRocket) {

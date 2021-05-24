@@ -1,14 +1,12 @@
 package GUIFolder;
 
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
-import javax.swing.JFrame;
+
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 public class zoom extends JPanel {
 

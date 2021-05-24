@@ -2,9 +2,7 @@ package titan.impl;
 
 import titan.ODEFunctionInterface;
 import titan.ODESolverInterface;
-import titan.RateInterface;
 import titan.StateInterface;
-import titan.Vector3dInterface;
 
 public class ODESolverVerlet implements ODESolverInterface {
 
