@@ -5,10 +5,10 @@ import titan.Vector3dInterface;
 
 public class MainTestTrajectoryM {
 
-	public static double globalMinimum = Double.MAX_VALUE;
-	public static double globalMinimumi = 0;
-	
 	public static void main(String[] args) {
+		double globalMinimum = Double.MAX_VALUE;
+		double globalMinimumi = 0;
+		
 		
 		TrajectoryM goedZo = new TrajectoryM();
 		StateInterface[] solvedStates = goedZo.solvedStates;
@@ -17,7 +17,6 @@ public class MainTestTrajectoryM {
 		Vector3dInterface vEarth = ((State) (solvedStates[0])).getVelocity()[5];
 		
 		//System.out.println("Max length of i: " + solvedStates.length);
-		
 		
 		for (int i = 0; i < solvedStates.length; i++) {
 			Vector3dInterface pTitan = ((State) (solvedStates[i])).getPosition()[10];
@@ -35,7 +34,7 @@ public class MainTestTrajectoryM {
 			double min = goedZo.sim(pLaunch, vLaunch);
 			if(min < globalMinimum) {
 				globalMinimum = min;
-				globalMinimumi  = i;
+				globalMinimumi = i;
 			}
 			System.out.println("For iteration i = "+ i+ " is min = " + min);
 		}
@@ -68,6 +67,4 @@ public class MainTestTrajectoryM {
 		System.out.println("Check min at position i:");
 		System.out.println(goedZo.sim(pLaunch, vLaunch));
 	}
-	
-
 }
