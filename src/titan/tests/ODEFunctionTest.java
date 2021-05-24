@@ -1,12 +1,5 @@
 package titan.tests;
 
-import org.junit.Test;
-
-import titan.RateInterface;
-import titan.impl.ODEFunction;
-import titan.impl.Planet;
-import titan.impl.Vector3d;
-
 public class ODEFunctionTest {
 
 	/*

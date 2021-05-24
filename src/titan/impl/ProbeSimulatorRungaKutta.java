@@ -3,9 +3,8 @@ package titan.impl;
 import java.util.ArrayList;
 
 import titan.ProbeSimulatorInterface;
-import titan.Vector3dInterface;
-import titan.impl.State;
 import titan.StateInterface;
+import titan.Vector3dInterface;
 
 public class ProbeSimulatorRungaKutta implements ProbeSimulatorInterface {
 
