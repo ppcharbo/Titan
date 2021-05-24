@@ -115,7 +115,7 @@ public class ProbeSimulatorVerlet implements ProbeSimulatorInterface {
 		}
 		State beginState = new State(beginPositions, beginVelocities, 0);
 		ODESolverVerlet solver = new ODESolverVerlet();
-		StateInterface[] solvedStates = solver.solve(new ODEFunctionShip(), beginState, tf, h);
+		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
 		

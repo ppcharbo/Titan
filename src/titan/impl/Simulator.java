@@ -94,7 +94,7 @@ public class Simulator {
 		}
 		State beginState = new State(beginPositions, beginVelocities, 0);
 		ODESolverEuler solver = new ODESolverEuler();
-		StateInterface[] solvedStates = solver.solve(new ODEFunctionShip(), beginState, tf, h);
+		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
 		

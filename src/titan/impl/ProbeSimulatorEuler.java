@@ -200,7 +200,7 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 		}
 		State beginState = new State(beginPositions, beginVelocities, 0);
 		ODESolverEuler solver = new ODESolverEuler();
-		StateInterface[] solvedStates = solver.solve(new ODEFunctionShip(), beginState, tf, h);
+		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
 		
 		return solvedStates;
 	}
