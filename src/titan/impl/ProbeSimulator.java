@@ -164,15 +164,6 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	
 	public StateInterface[] trajectoryGUI(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 
-		// StateInterface state = new StateInterface(..)
-		// tf = next time step we want to have
-		// h = the step to get to the next time
-		// y0 = current position/current state/current velocity
-		// f = ODEFunction
-		// Then we want to get the last output of the solver because that contains it at
-		// the new time step h.
-		
-		
 		AllPlanet allPlanets = new AllPlanet();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
