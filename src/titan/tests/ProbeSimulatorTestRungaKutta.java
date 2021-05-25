@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
-import titan.impl.ProbeSimulator;
 import titan.impl.ProbeSimulatorRungaKutta;
 import titan.impl.Vector3d;
 

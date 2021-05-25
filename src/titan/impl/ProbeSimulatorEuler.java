@@ -6,7 +6,7 @@ import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
 import titan.StateInterface;
 
-public class ProbeSimulator implements ProbeSimulatorInterface {
+public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 
 	public final double H = 60 * 60;
 
@@ -29,28 +29,74 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double[] ts) {
 
-		Vector3dInterface[] positions = new Vector3d[ts.length + 1];
-		/*
-		Vector3dInterface[] positions = new Vector3d[ts.length + 1];
-
-		Planet ship = AllPlanet.getListOfPlanet().get(0);
-
-		int i = 0;
-
-		for (double d : ts) {
- 
-			Vector3dInterface accelerationForce = ship.accelerationForce();
-			Vector3dInterface lastPosition = ship.getPosition();
-			Vector3dInterface speed = ship.getSpeed();
-			Vector3dInterface newPosition = lastPosition.add(speed.mul(d));
-			Vector3dInterface newSpeed = speed.add(accelerationForce.mul(d));
-			ship.addPosition(newPosition);
-			ship.addSpeed(newSpeed);
-
-			positions[i++] = newPosition;
+		Vector3dInterface[] returnPosition = new Vector3d[ts.length];
+		// Check for equal step sizes
+		boolean equalStepSizes = false;
+		double h = ts[1]-ts[0];
+		for (int i = 0; i < ts.length; i++) {
+			if(ts[i+1]-ts[i] == h) {
+				equalStepSizes = true;
+			}
+			else {
+				equalStepSizes = false;
+			}
 		}
-		*/
-		return positions;
+		
+		//System.out.println("Are there equal stepsizes? " + equalStepSizes);
+		
+		// case 1: ts[] with same stepsizes
+		if(equalStepSizes == true) {
+			return trajectory(p0, v0, ts[ts.length-1], h);
+		}
+		// case 2: ts[] with unequal stepsizes
+		else {
+			
+			AllPlanets allPlanets = new AllPlanets();
+			allPlanets.createPlanets();
+			ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
+			
+			
+			Vector3d[] beginPositions = new Vector3d[listOfPlanets.size()];
+			Vector3d[] beginVelocities = new Vector3d[listOfPlanets.size()];
+			
+			Vector3d beginEarthPosition = new Vector3d();
+			Vector3d beginEarthVelocity = new Vector3d();
+			
+			for (Planet planets : listOfPlanets) {
+				
+				if (planets.getName().equals("EARTH")) {
+					
+					beginEarthPosition.setX(planets.getPosition().getX());
+					beginEarthPosition.setY(planets.getPosition().getY());
+					beginEarthPosition.setZ(planets.getPosition().getZ());
+					beginEarthVelocity.setX(planets.getVelocity().getX());
+					beginEarthVelocity.setY(planets.getVelocity().getY());
+					beginEarthVelocity.setZ(planets.getVelocity().getZ());
+				}
+			}
+			listOfPlanets.get(0).setPosition(p0.add(beginEarthPosition));
+			listOfPlanets.get(0).setVelocity(v0.add(beginEarthVelocity));
+			
+			int i = 0;
+			
+			for (Planet body : listOfPlanets) {
+				
+				beginPositions[i] = (Vector3d) body.getPosition();
+				beginVelocities[i] = (Vector3d) body.getVelocity();
+				i += 1;
+			}
+			State beginState = new State(beginPositions, beginVelocities, 0);
+			ODESolverEuler solver = new ODESolverEuler();
+			StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, ts);
+			
+			
+			for (int a = 0; a < solvedStates.length; a++) {
+				
+				returnPosition[a] = ((State) solvedStates[a]).getPosition()[0];
+			}
+		}
+		
+		return returnPosition;
 	}
 
 	/*
@@ -68,18 +114,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 		
-		// Planet ship = Planet.SHIP;
-
-		// StateInterface state = new StateInterface(..)
-		// tf = next time step we want to have
-		// h = the step to get to the next time
-		// y0 = current position/current state/current velocity
-		// f = ODEFunction
-		// Then we want to get the last output of the solver because that contains it at
-		// the new time step h.
-		
-		
-		AllPlanet allPlanets = new AllPlanet();
+		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
@@ -114,8 +149,8 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 			i += 1;
 		}
 		State beginState = new State(beginPositions, beginVelocities, 0);
-		ODESolver solver = new ODESolver();
-		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
+		ODESolverEuler solver = new ODESolverEuler();
+		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
 		
@@ -129,16 +164,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	
 	public StateInterface[] trajectoryGUI(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 
-		// StateInterface state = new StateInterface(..)
-		// tf = next time step we want to have
-		// h = the step to get to the next time
-		// y0 = current position/current state/current velocity
-		// f = ODEFunction
-		// Then we want to get the last output of the solver because that contains it at
-		// the new time step h.
-		
-		
-		AllPlanet allPlanets = new AllPlanet();
+		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
@@ -173,8 +199,8 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 			i += 1;
 		}
 		State beginState = new State(beginPositions, beginVelocities, 0);
-		ODESolver solver = new ODESolver();
-		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
+		ODESolverEuler solver = new ODESolverEuler();
+		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
 		
 		return solvedStates;
 	}

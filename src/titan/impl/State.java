@@ -2,7 +2,6 @@ package titan.impl;
 
 import titan.RateInterface;
 import titan.StateInterface;
-import titan.Vector3dInterface;
 
 /**
  * An interface representing the state of a system described by a differential equation.

@@ -3,9 +3,8 @@ package titan.impl;
 import java.util.ArrayList;
 
 import titan.ProbeSimulatorInterface;
-import titan.Vector3dInterface;
-import titan.impl.State;
 import titan.StateInterface;
+import titan.Vector3dInterface;
 
 public class ProbeSimulatorRungaKutta implements ProbeSimulatorInterface {
 
@@ -80,7 +79,7 @@ public class ProbeSimulatorRungaKutta implements ProbeSimulatorInterface {
 		// the new time step h.
 		
 		
-		AllPlanet allPlanets = new AllPlanet();
+		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
@@ -116,7 +115,7 @@ public class ProbeSimulatorRungaKutta implements ProbeSimulatorInterface {
 		}
 		State beginState = new State(beginPositions, beginVelocities, 0);
 		ODESolverRungeKutta solver = new ODESolverRungeKutta();
-		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
+		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
 		

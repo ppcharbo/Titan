@@ -13,7 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -21,7 +20,7 @@ public class GUIWelcome {
 
 	public JButton zoomOut;
 	public JButton zoomIn;
-	
+
 	public static void main(String[] args) {
 		new GUIWelcome();
 	}
@@ -38,7 +37,8 @@ public class GUIWelcome {
 
 		GridBagConstraints gbc = new GridBagConstraints();
 
-		//source of imgIcon: https://tenor.com/view/cosmic-stairway-space-bright-lights-espacio-gif-11884832
+		// source of imgIcon:
+		// https://tenor.com/view/cosmic-stairway-space-bright-lights-espacio-gif-11884832
 		Icon imgIcon = new ImageIcon(this.getClass().getResource("cosmic.gif"));
 		JLabel label = new JLabel(imgIcon);
 		label.setSize(480, 270);
@@ -50,12 +50,12 @@ public class GUIWelcome {
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		panel.add(emptyLabel, gbc);
-		
+
 		JLabel waitingLabel = new JLabel("Please, wait till a few seconds so we can calculate the trajectory.");
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		panel.add(waitingLabel, gbc);
-		
+
 		JLabel emptyLabel2 = new JLabel("                              ");
 		gbc.gridx = 0;
 		gbc.gridy = 3;
@@ -65,13 +65,12 @@ public class GUIWelcome {
 		gbc.gridx = 0;
 		gbc.gridy = 4;
 		panel.add(startButton, gbc);
-		
+
 		// TODO properly document the input speed
 		// Obtain initial speed
-        //String input = JOptionPane.showInputDialog("Please, enter your speed.");
-		double speed = 10; //VARIABLE NOT USED
-        //double speed = Double.parseDouble(input);
-		
+		// String input = JOptionPane.showInputDialog("Please, enter your speed.");
+		double speed = 10; // VARIABLE NOT USED
+		// double speed = Double.parseDouble(input);
 
 		welcomeFrame.add(panel);
 		welcomeFrame.setVisible(true);
@@ -82,10 +81,10 @@ public class GUIWelcome {
 				// new Object to open Frame with everything
 				// e.g. new PlanetScreen();
 				welcomeFrame.setContentPane(systemPlanet);
-				//welcomeFrame.add(new JScrollPane(systemPlanet));
+				// welcomeFrame.add(new JScrollPane(systemPlanet));
 				welcomeFrame.setSize(1600, 900);
 				systemPlanet.startMe();
-				
+
 				JToolBar toolbar = new JToolBar("Tools");
 
 				// Buttons in toolbar
@@ -128,7 +127,7 @@ public class GUIWelcome {
 						systemPlanet.size = systemPlanet.size + 0.1;
 					}
 				});
-				
+
 				JButton resetToInitialState = new JButton("reset");
 				resetToInitialState.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
