@@ -35,8 +35,23 @@ public class ODEFunctionPlanet implements ODEFunctionInterface {
 	@Override
 	public Rate call(double t, StateInterface y) {
 		
-		Vector3d[] accelaration = accelerationForce((State) y);
-		Rate newRate = new Rate(((State) y).getVelocity(), accelaration);
+		Vector3d[] accelerationShip = ShipFuelCosts.acceleration(t, (State)y);
+		Vector3d[] accelerationPlanet = accelerationForce((State) y);
+		
+		Vector3d[] acceleration = new Vector3d[((State)y).getVelocity().length];
+		
+		for (int i=0; i<((State)y).getVelocity().length; i++) {
+			
+			if (i==0) { // if (y.isShip[i])
+				
+				acceleration[i] = accelerationShip[i];
+			}
+			else {
+				
+				acceleration[i] = accelerationPlanet[i];
+			}
+		}
+		Rate newRate = new Rate(((State) y).getVelocity(), acceleration);
 		
 		return newRate;
 	}
