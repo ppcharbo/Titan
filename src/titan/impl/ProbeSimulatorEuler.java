@@ -6,7 +6,7 @@ import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
 import titan.StateInterface;
 
-public class ProbeSimulator implements ProbeSimulatorInterface {
+public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 
 	public final double H = 60 * 60;
 
@@ -51,7 +51,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 		// case 2: ts[] with unequal stepsizes
 		else {
 			
-			AllPlanet allPlanets = new AllPlanet();
+			AllPlanets allPlanets = new AllPlanets();
 			allPlanets.createPlanets();
 			ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 			
@@ -86,8 +86,8 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 				i += 1;
 			}
 			State beginState = new State(beginPositions, beginVelocities, 0);
-			ODESolver solver = new ODESolver();
-			StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, ts);
+			ODESolverEuler solver = new ODESolverEuler();
+			StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, ts);
 			
 			
 			for (int a = 0; a < solvedStates.length; a++) {
@@ -114,7 +114,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	@Override
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 		
-		AllPlanet allPlanets = new AllPlanet();
+		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
@@ -149,8 +149,8 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 			i += 1;
 		}
 		State beginState = new State(beginPositions, beginVelocities, 0);
-		ODESolver solver = new ODESolver();
-		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
+		ODESolverEuler solver = new ODESolverEuler();
+		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
 		
@@ -164,7 +164,7 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 	
 	public StateInterface[] trajectoryGUI(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 
-		AllPlanet allPlanets = new AllPlanet();
+		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
@@ -199,8 +199,8 @@ public class ProbeSimulator implements ProbeSimulatorInterface {
 			i += 1;
 		}
 		State beginState = new State(beginPositions, beginVelocities, 0);
-		ODESolver solver = new ODESolver();
-		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
+		ODESolverEuler solver = new ODESolverEuler();
+		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
 		
 		return solvedStates;
 	}

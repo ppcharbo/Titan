@@ -17,11 +17,6 @@ import titan.Vector3dInterface;
 public class SystemPlanet extends JPanel {
 
 	// TODO add the labels to the planets so we can identify them more easily :)
-	// TODO plotting Titan and the earth's moon
-	// TODO plot Rocket
-	// -->
-	// TODO change the coordinates according to the planet.java inside the
-	// titan.impl
 
 	private static final long serialVersionUID = 1L;
 	private final boolean DEBUG = false;
@@ -37,7 +32,6 @@ public class SystemPlanet extends JPanel {
 	public static int delay = 25;
 	public boolean stop = false;
 	public int currentState = 0;
-	// test for push
 
 	public SystemPlanet(GUIWelcome frame, double speed) {
 
@@ -197,7 +191,7 @@ public class SystemPlanet extends JPanel {
 		// original step
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
-		ProbeSimulator simulator = new ProbeSimulator();
+		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
 		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, 2 * 365.25 * 24 * 60 * 60, 60 * 60);
 
 		return states;

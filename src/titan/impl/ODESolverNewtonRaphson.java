@@ -9,7 +9,7 @@ import titan.StateInterface;
  *     y(t) describes the state of the system at time t
  *     f(t,y(t)) defines the derivative of y(t) with respect to time t
  */
-public class ODESolver implements ODESolverInterface {
+public class ODESolverNewtonRaphson implements ODESolverInterface {
 	
 	/*
 	 * Solve the differential equation by taking multiple steps.
@@ -79,6 +79,6 @@ public class ODESolver implements ODESolverInterface {
 	@Override
 	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 
-		return y.addMul(h, f.call(t, y));
+		return null; //TODO 
 	}
 }

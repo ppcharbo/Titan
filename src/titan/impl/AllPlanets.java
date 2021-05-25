@@ -2,7 +2,7 @@ package titan.impl;
 
 import java.util.ArrayList;
 
-public class AllPlanet {
+public class AllPlanets {
 	
 	private ArrayList<Planet> listOfPlanets= new ArrayList<>();
 	
