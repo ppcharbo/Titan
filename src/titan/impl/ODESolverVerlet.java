@@ -1,5 +1,7 @@
 package titan.impl;
 
+import java.util.ArrayList;
+
 import titan.ODEFunctionInterface;
 import titan.ODESolverInterface;
 import titan.StateInterface;
@@ -44,6 +46,12 @@ public class ODESolverVerlet implements ODESolverInterface {
 	@Override
 	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) { // Four-step velocity Verlet algorithm
 		
+		AllPlanets allPlanets = new AllPlanets();
+		allPlanets.createPlanets();
+		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
+		boolean[] isShip = new boolean[listOfPlanets.size()];
+		isShip[0] = true;
+		
 		Rate currentRate = (Rate) f.call(t, y); // current rate to access current acceleration
 		
 		Vector3d currentPosition[] = ((State)y).getPosition(); // current position
@@ -60,7 +68,7 @@ public class ODESolverVerlet implements ODESolverInterface {
 			intermediateVelocity[i] = (Vector3d) currentVelocity[i].addMul(0.5*h, currentAcceleration[i]); // second step: updating velocity at an intermediate state t+(h/2) 
 		}
 			
-		State intermediateState = new State(nextPosition, intermediateVelocity, t+h); // intermediate state to access corresponding acceleration 
+		State intermediateState = new State(nextPosition, intermediateVelocity, isShip, t+h); // intermediate state to access corresponding acceleration 
 		Vector3d nextAcceleration[] = ((Rate)f.call(t+h, intermediateState)).getAcceleration(); // third step: updating acceleration at t+h
 		
 		for (int i = 0; i < currentVelocity.length; i++) { // for loop to update velocities(at t+h) for every corresponding planet present in the array
@@ -68,7 +76,7 @@ public class ODESolverVerlet implements ODESolverInterface {
 			nextVelocity[i] = (Vector3d) intermediateVelocity[i].addMul(0.5*h, nextAcceleration[i]); // fourth step: updating velocity at t+h
 		}
 		
-		State nextState = new State(nextPosition, nextVelocity, t+h); // computed following state
+		State nextState = new State(nextPosition, nextVelocity, isShip, t+h); // computed following state
 		
 		
 		return nextState; 

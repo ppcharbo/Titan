@@ -55,7 +55,8 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 			allPlanets.createPlanets();
 			ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 			
-			
+			boolean[] isShip = new boolean[listOfPlanets.size()];
+			isShip[0] = true;
 			Vector3d[] beginPositions = new Vector3d[listOfPlanets.size()];
 			Vector3d[] beginVelocities = new Vector3d[listOfPlanets.size()];
 			
@@ -85,9 +86,9 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 				beginVelocities[i] = (Vector3d) body.getVelocity();
 				i += 1;
 			}
-			State beginState = new State(beginPositions, beginVelocities, 0);
+			State beginState = new State(beginPositions, beginVelocities, isShip, 0);
 			ODESolverEuler solver = new ODESolverEuler();
-			StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, ts);
+			StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, ts);
 			
 			
 			for (int a = 0; a < solvedStates.length; a++) {
@@ -118,7 +119,8 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
-		
+		boolean[] isShip = new boolean[listOfPlanets.size()];
+		isShip[0] = true;
 		Vector3d[] beginPositions = new Vector3d[listOfPlanets.size()];
 		Vector3d[] beginVelocities = new Vector3d[listOfPlanets.size()];
 		
@@ -148,9 +150,9 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 			beginVelocities[i] = (Vector3d) body.getVelocity();
 			i += 1;
 		}
-		State beginState = new State(beginPositions, beginVelocities, 0);
+		State beginState = new State(beginPositions, beginVelocities, isShip, 0);
 		ODESolverEuler solver = new ODESolverEuler();
-		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
+		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
 		
@@ -168,7 +170,8 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
-		
+		boolean[] isShip = new boolean[listOfPlanets.size()];
+		isShip[0] = true;
 		Vector3d[] beginPositions = new Vector3d[listOfPlanets.size()];
 		Vector3d[] beginVelocities = new Vector3d[listOfPlanets.size()];
 		
@@ -198,9 +201,9 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 			beginVelocities[i] = (Vector3d) body.getVelocity();
 			i += 1;
 		}
-		State beginState = new State(beginPositions, beginVelocities, 0);
+		State beginState = new State(beginPositions, beginVelocities, isShip, 0);
 		ODESolverEuler solver = new ODESolverEuler();
-		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
+		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h);
 		
 		return solvedStates;
 	}

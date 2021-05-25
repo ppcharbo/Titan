@@ -18,14 +18,14 @@ import titan.Vector3dInterface;
  * @param   y   the state at which to evaluate the function
  * @return  The average rate-of-change over the time-step. Has dimensions of [state]/[time].
  */
-public class ODEFunctionPlanet implements ODEFunctionInterface {
+public class ODEFunction implements ODEFunctionInterface {
 	// universal gravitational constant (m3 kg-1 s-2)
 	private static final double G = 6.67300E-11;
 	private int numberOfPlanet;
 	private AllPlanets planets;
 	//= AllPlanet.getListOfPlanets().size();
 	
-	public ODEFunctionPlanet() {
+	public ODEFunction() {
 		
 		planets = new AllPlanets();
 		planets.createPlanets();
