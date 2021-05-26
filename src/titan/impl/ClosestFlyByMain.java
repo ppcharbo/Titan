@@ -6,11 +6,11 @@ import titan.Vector3dInterface;
 public class ClosestFlyByMain {
 
 	public static void main(String[] args) {
+		
 		double globalMinimum = Double.MAX_VALUE;
 		double globalMinimumi = 0;
 		Vector3dInterface pUltiLaunch = new Vector3d();
 		Vector3dInterface vUltiLaunch = new Vector3d();
-		
 		
 		ClosestFlyByCalculator goedZo = new ClosestFlyByCalculator();
 		StateInterface[] solvedStates = goedZo.solvedStates;
@@ -18,8 +18,8 @@ public class ClosestFlyByMain {
 		Vector3dInterface pEarth = ((State) (solvedStates[0])).getPosition()[5];
 		Vector3dInterface vEarth = ((State) (solvedStates[0])).getVelocity()[5];
 		
-		//System.out.println("Max length of i: " + solvedStates.length);
 		for (int i = 0; i < solvedStates.length; i++) {
+			
 			Vector3dInterface pTitan = ((State) (solvedStates[i])).getPosition()[10];
 			Vector3dInterface vTitan = ((State) (solvedStates[i])).getVelocity()[10];
 			
@@ -34,6 +34,7 @@ public class ClosestFlyByMain {
 			
 			double min = goedZo.sim(pLaunch, vLaunch);
 			if(min < globalMinimum) {
+				
 				globalMinimum = min;
 				globalMinimumi = i;
 				pUltiLaunch = pLaunch;
