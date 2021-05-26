@@ -44,7 +44,7 @@ public class ODEFunction implements ODEFunctionInterface {
 			
 			if (i==0) { // if (y.isShip[i])
 				
-				acceleration[i] = accelerationShip[i];
+				acceleration[i] = (Vector3d) accelerationShip[i].add(accelerationPlanet[i]); // attractive gravitational forces of the surrounding planets 
 			}
 			else {
 				
