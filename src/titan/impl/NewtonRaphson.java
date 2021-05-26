@@ -29,6 +29,7 @@ public class NewtonRaphson {
 	public static int[][] jacobianMatrix(){
 		int [][] jacobian = new int[3][3];
 		
+		
 		return jacobian;
 	}
 
