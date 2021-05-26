@@ -11,13 +11,18 @@ public class State implements StateInterface {
 	private Vector3d position[];
 	private Vector3d velocity[];
 	private double time;
-	private boolean isShip[]; // TODO 
+	private boolean isShip[]; 
 
 	public State(Vector3d[] pos, Vector3d[] velo, boolean[] isShip, double t) { // velo != bike
 		
+		for (int i=0; i<isShip.length ;i++) {
+			System.out.println(isShip[i]);
+		}
+		//State state = null;
+		//state.getPosition();
 		this.position = new Vector3d[pos.length];
 		this.velocity = new Vector3d[velo.length];
-		this.isShip = new boolean[isShip.length];
+		this.isShip = isShip;
 		
 		/* Alternative way to copy: 
 		for (int i = 0; i < pos.length; i++) {

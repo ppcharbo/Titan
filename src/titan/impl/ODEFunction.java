@@ -41,9 +41,9 @@ public class ODEFunction implements ODEFunctionInterface {
 		Vector3d[] acceleration = new Vector3d[((State)y).getVelocity().length];
 		
 		for (int i=0; i<((State)y).getVelocity().length; i++) {
-			
-			if (i==0) { // if (y.isShip[i])
-				
+	
+			//if (((State)y).getisShip()[i]) { 
+			if (1==0) {
 				acceleration[i] = (Vector3d) accelerationShip[i].add(accelerationPlanet[i]); // attractive gravitational forces of the surrounding planets 
 			}
 			else {
