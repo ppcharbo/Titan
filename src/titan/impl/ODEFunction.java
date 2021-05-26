@@ -42,12 +42,11 @@ public class ODEFunction implements ODEFunctionInterface {
 		
 		for (int i=0; i<((State)y).getVelocity().length; i++) {
 	
-			//if (((State)y).getisShip()[i]) { 
-			if (1==0) {
+			if (((State)y).getisShip()[i] && t>400) { // set time 
+			
 				acceleration[i] = (Vector3d) accelerationShip[i].add(accelerationPlanet[i]); // attractive gravitational forces of the surrounding planets 
 			}
 			else {
-				
 				acceleration[i] = accelerationPlanet[i];
 			}
 		}
