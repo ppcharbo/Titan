@@ -10,37 +10,45 @@ import titan.Vector3dInterface;
 public class Simulator {
 
 	public static void main(String[] args) {
+		
 		String planet = "titan";
 		getTrajectory(planet);
-
 	}
 
+	
 	private static void getTrajectory(String planet) {
-		int element = 0; // Simulate ship by default
+		
+		int element = 0; // simulate ship by default
+		
 		if(planet.equals("titan")){
+			
 			element = 10;
 		}
-		
 		Vector3dInterface[] trajectory = simulateOneYear(element);
+		
 		try {
+			
 			FileWriter writer = new FileWriter("trajectoryUniversal.csv");
-			//System.out.println("trajectory length: " + trajectory.length);
+		
 			String header = "day, x, y, z";
 			System.out.println(header);
 			writer.write(header + "\n");
+			
 			for (int i = 0; i < trajectory.length; i++) {
+				
 				String row = i + "," + trajectory[i].getX() + "," + trajectory[i].getY() + "," + trajectory[i].getZ();
 				System.out.println(row);
 				writer.write(row + "\n");
 			}
 			writer.close();
 		} catch (IOException e) {
+			
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-
 	}
 
+	
 	private static Vector3dInterface[] simulateOneYear(int element) {
 		
 		/* Provided from the test case:
@@ -53,11 +61,15 @@ public class Simulator {
 		
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
+		
 		Vector3dInterface[] trajectory = trajectory(probe_relative_position, probe_relative_velocity, year, day, element); // TODO print several different trajectories
+		
 		return trajectory;
 	}
 
+	
 	private static Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, int element) {
+		
 		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
@@ -103,15 +115,10 @@ public class Simulator {
 			
 			returnPositions[a] = ((State) solvedStates[a]).getPosition()[element]; //this should be position element
 		}
-		
 		return returnPositions; 
 	}
 	
-	
-	
-	
-	
-	
+
 	private static double simulateXDays(int element) { // X to be found
 			
 			/* Provided from the test case:
@@ -130,6 +137,7 @@ public class Simulator {
 	
 	
 	private static double fuelCosts(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, int element) {
+		
 		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();

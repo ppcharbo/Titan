@@ -20,6 +20,7 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 		return arr;
 	}
 
+	
 	@Override
 	public State[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 
@@ -31,16 +32,17 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 		for (int i = 1; i < arr.length; i++) {
 
 			if (i == arr.length - 1) {
-				// we are in last step and have to check our remaining step size
-				stepSize = tf - currentTime;
+				
+				stepSize = tf - currentTime; // we are in last step and have to check our remaining step size
 			}
-			// switch the two lines
 			arr[i] = step(f, currentTime, arr[i - 1], stepSize);
 			currentTime += stepSize;
 		}
 		return arr;
 	}
 
+	
+	// Fourth-order Runge-Kutta formula
 	@Override
 	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 
