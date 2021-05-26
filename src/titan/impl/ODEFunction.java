@@ -18,14 +18,14 @@ import titan.Vector3dInterface;
  * @param   y   the state at which to evaluate the function
  * @return  The average rate-of-change over the time-step. Has dimensions of [state]/[time].
  */
-public class ODEFunctionPlanet implements ODEFunctionInterface {
+public class ODEFunction implements ODEFunctionInterface {
 	// universal gravitational constant (m3 kg-1 s-2)
 	private static final double G = 6.67300E-11;
 	private int numberOfPlanet;
 	private AllPlanets planets;
 	//= AllPlanet.getListOfPlanets().size();
 	
-	public ODEFunctionPlanet() {
+	public ODEFunction() {
 		
 		planets = new AllPlanets();
 		planets.createPlanets();
@@ -35,8 +35,23 @@ public class ODEFunctionPlanet implements ODEFunctionInterface {
 	@Override
 	public Rate call(double t, StateInterface y) {
 		
-		Vector3d[] accelaration = accelerationForce((State) y);
-		Rate newRate = new Rate(((State) y).getVelocity(), accelaration);
+		Vector3d[] accelerationShip = ShipFuelCosts.acceleration(t, (State)y);
+		Vector3d[] accelerationPlanet = accelerationForce((State) y);
+		
+		Vector3d[] acceleration = new Vector3d[((State)y).getVelocity().length];
+		
+		for (int i=0; i<((State)y).getVelocity().length; i++) {
+			
+			if (i==0) { // if (y.isShip[i])
+				
+				acceleration[i] = accelerationShip[i];
+			}
+			else {
+				
+				acceleration[i] = accelerationPlanet[i];
+			}
+		}
+		Rate newRate = new Rate(((State) y).getVelocity(), acceleration);
 		
 		return newRate;
 	}

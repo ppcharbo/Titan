@@ -53,7 +53,7 @@ public class Simulator {
 		
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
-		Vector3dInterface[] trajectory = trajectory(probe_relative_position, probe_relative_velocity, year, day, element);
+		Vector3dInterface[] trajectory = trajectory(probe_relative_position, probe_relative_velocity, year, day, element); // TODO print several different trajectories
 		return trajectory;
 	}
 
@@ -62,7 +62,8 @@ public class Simulator {
 		allPlanets.createPlanets();
 		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
-		
+		boolean[] isShip = new boolean[listOfPlanets.size()];
+		isShip[0] = true;
 		Vector3d[] beginPositions = new Vector3d[listOfPlanets.size()];
 		Vector3d[] beginVelocities = new Vector3d[listOfPlanets.size()];
 		
@@ -92,9 +93,9 @@ public class Simulator {
 			beginVelocities[i] = (Vector3d) body.getVelocity();
 			i += 1;
 		}
-		State beginState = new State(beginPositions, beginVelocities, 0);
+		State beginState = new State(beginPositions, beginVelocities, isShip, 0);
 		ODESolverEuler solver = new ODESolverEuler();
-		StateInterface[] solvedStates = solver.solve(new ODEFunctionPlanet(), beginState, tf, h);
+		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h); 
 		
 		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
 		
@@ -103,8 +104,75 @@ public class Simulator {
 			returnPositions[a] = ((State) solvedStates[a]).getPosition()[element]; //this should be position element
 		}
 		
-		return returnPositions;
+		return returnPositions; 
 	}
+	
+	
+	private static double simulateXDays(int element) { // X to be found
+			
+			/* Provided from the test case:
+			Vector3dInterface probe_relative_position = new Vector3d(6371e3, 0, 0);
+			Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
+			*/
+			
+			Vector3dInterface probe_relative_position = new Vector3d(3.609867510498535E6, -5.249581360565903E6, 0.019826634766418E6);
+			Vector3dInterface probe_relative_velocity = new Vector3d(3.697963122066227E6, -4.724895451097348E6, 0.020777970011329E6);
+			
+			double day = 24 * 60 * 60;
+			double year = 365.25 * day;
+			double fuelCost = fuelCosts(probe_relative_position, probe_relative_velocity, year, day, element);
+			
+			return fuelCost;
+		}
+	
+	
+	private static double fuelCosts(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, int element) {
+		AllPlanets allPlanets = new AllPlanets();
+		allPlanets.createPlanets();
+		ArrayList<Planet> listOfPlanets = allPlanets.getListOfPlanets();
 		
+		boolean[] isShip = new boolean[listOfPlanets.size()];
+		isShip[0] = true;
+		Vector3d[] beginPositions = new Vector3d[listOfPlanets.size()];
+		Vector3d[] beginVelocities = new Vector3d[listOfPlanets.size()];
 		
+		Vector3d beginEarthPosition = new Vector3d();
+		Vector3d beginEarthVelocity = new Vector3d();
+		
+		for (Planet planets : listOfPlanets) {
+			
+			if (planets.getName().equals("EARTH")) {
+				
+				beginEarthPosition.setX(planets.getPosition().getX());
+				beginEarthPosition.setY(planets.getPosition().getY());
+				beginEarthPosition.setZ(planets.getPosition().getZ());
+				beginEarthVelocity.setX(planets.getVelocity().getX());
+				beginEarthVelocity.setY(planets.getVelocity().getY());
+				beginEarthVelocity.setZ(planets.getVelocity().getZ());
+			}
+		}
+		listOfPlanets.get(0).setPosition(p0.add(beginEarthPosition));
+		listOfPlanets.get(0).setVelocity(v0.add(beginEarthVelocity));
+		
+		int i = 0;
+		
+		for (Planet body : listOfPlanets) {
+			
+			beginPositions[i] = (Vector3d) body.getPosition();
+			beginVelocities[i] = (Vector3d) body.getVelocity();
+			i += 1;
+		}
+		State beginState = new State(beginPositions, beginVelocities, isShip, 0);
+		ODESolverEuler solver = new ODESolverEuler();
+		StateInterface[] solvedStates = solver.solve(new ODEFunction(), beginState, tf, h); 
+		
+		Vector3dInterface[] returnPositions = new Vector3d[((int) Math.ceil(tf / h) + 1)];
+		
+		for (int a = 0; a < solvedStates.length; a++) {
+			
+			returnPositions[a] = ((State) solvedStates[a]).getPosition()[element]; //this should be position element
+		}
+		
+		return ShipFuelCosts.fuelCost(tf); // need to find the fastest trajectory to optimize the fuel costs
+	}	
 }
