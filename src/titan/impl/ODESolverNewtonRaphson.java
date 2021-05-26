@@ -11,6 +11,8 @@ import titan.StateInterface;
  */
 public class ODESolverNewtonRaphson implements ODESolverInterface {
 	
+}
+	
 	/*
 	 * Solve the differential equation by taking multiple steps.
 	 *
@@ -82,3 +84,4 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		return null; //TODO 
 	}
 }
+
