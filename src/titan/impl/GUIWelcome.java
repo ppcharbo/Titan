@@ -66,15 +66,12 @@ public class GUIWelcome {
 		gbc.gridy = 4;
 		panel.add(startButton, gbc);
 
-		// TODO properly document the input speed
-		// Obtain initial speed
 		// String input = JOptionPane.showInputDialog("Please, enter your speed.");
-		double speed = 10; // VARIABLE NOT USED
 		// double speed = Double.parseDouble(input);
 
 		welcomeFrame.add(panel);
 		welcomeFrame.setVisible(true);
-		SystemPlanet systemPlanet = new SystemPlanet(this, speed);
+		SystemPlanet systemPlanet = new SystemPlanet(this);
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
