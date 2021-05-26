@@ -22,6 +22,7 @@ public class ODESolverVerlet implements ODESolverInterface {
 		return arr;
 	}
 
+	
 	@Override
 	public State[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 		
@@ -33,18 +34,19 @@ public class ODESolverVerlet implements ODESolverInterface {
 		for (int i = 1; i < arr.length; i++) {
 
 			if (i == arr.length - 1) {
-				// we are in last step and have to check our remaining step size
-				stepSize = tf - currentTime;
+				
+				stepSize = tf - currentTime; // we are in last step and have to check our remaining step size
 			}
-			// switch the two lines
 			arr[i] = step(f, currentTime, arr[i - 1], stepSize);
 			currentTime += stepSize;
 		}
 		return arr;
 	}
 
+	
+	// Four-step velocity Verlet algorithm
 	@Override
-	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) { // Four-step velocity Verlet algorithm
+	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) { 
 		
 		AllPlanets allPlanets = new AllPlanets();
 		allPlanets.createPlanets();
@@ -52,31 +54,31 @@ public class ODESolverVerlet implements ODESolverInterface {
 		boolean[] isShip = new boolean[listOfPlanets.size()];
 		isShip[0] = true;
 		
-		Rate currentRate = (Rate) f.call(t, y); // current rate to access current acceleration
+		Rate currentRate = (Rate) f.call(t, y); 
 		
-		Vector3d currentPosition[] = ((State)y).getPosition(); // current position
-		Vector3d currentVelocity[]= ((State)y).getVelocity(); // current velocity
-		Vector3d currentAcceleration[] = currentRate.getAcceleration(); // current acceleration
+		Vector3d currentPosition[] = ((State)y).getPosition(); 
+		Vector3d currentVelocity[]= ((State)y).getVelocity(); 
+		Vector3d currentAcceleration[] = currentRate.getAcceleration(); 
 		
-		Vector3d nextPosition[] = new Vector3d[currentPosition.length]; // following position initialization  
-		Vector3d intermediateVelocity[] = new Vector3d[currentVelocity.length]; // intermediate velocity initialization - midpoint
-		Vector3d nextVelocity[] = new Vector3d[currentVelocity.length]; // following velocity initialization
+		Vector3d nextPosition[] = new Vector3d[currentPosition.length];  
+		Vector3d intermediateVelocity[] = new Vector3d[currentVelocity.length]; // v(t+h/2)
+		Vector3d nextVelocity[] = new Vector3d[currentVelocity.length]; 
 		
-		for (int i = 0; i < currentVelocity.length; i++) { // for loop to update positions(at t+h) and velocities(at an intermediate state) for every corresponding planet present in the array
+		for (int i = 0; i < currentVelocity.length; i++) { // update positions(at t+h) and velocities(at the intermediate state) for every corresponding planet 
 			
 			nextPosition[i] = (Vector3d) currentPosition[i].addMul(h, currentVelocity[i]).addMul(0.5*(Math.pow(h, 2)), currentAcceleration[i]); // first step: updating position at t+h
-			intermediateVelocity[i] = (Vector3d) currentVelocity[i].addMul(0.5*h, currentAcceleration[i]); // second step: updating velocity at an intermediate state t+(h/2) 
+			intermediateVelocity[i] = (Vector3d) currentVelocity[i].addMul(0.5*h, currentAcceleration[i]); // second step: updating velocity at the midpoint t+(h/2) 
 		}
 			
-		State intermediateState = new State(nextPosition, intermediateVelocity, isShip, t+h); // intermediate state to access corresponding acceleration 
+		State intermediateState = new State(nextPosition, intermediateVelocity, isShip, t+h); 
 		Vector3d nextAcceleration[] = ((Rate)f.call(t+h, intermediateState)).getAcceleration(); // third step: updating acceleration at t+h
 		
-		for (int i = 0; i < currentVelocity.length; i++) { // for loop to update velocities(at t+h) for every corresponding planet present in the array
+		for (int i = 0; i < currentVelocity.length; i++) { // update velocities(at t+h) for every corresponding planet 
 			
 			nextVelocity[i] = (Vector3d) intermediateVelocity[i].addMul(0.5*h, nextAcceleration[i]); // fourth step: updating velocity at t+h
 		}
 		
-		State nextState = new State(nextPosition, nextVelocity, isShip, t+h); // computed following state
+		State nextState = new State(nextPosition, nextVelocity, isShip, t+h); 
 		
 		
 		return nextState; 
