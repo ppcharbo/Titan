@@ -11,11 +11,13 @@ public class State implements StateInterface {
 	private Vector3d position[];
 	private Vector3d velocity[];
 	private double time;
+	private boolean isShip[]; // TODO 
 
-	public State(Vector3d[] pos, Vector3d[] velo, double t) { // velo != bike
+	public State(Vector3d[] pos, Vector3d[] velo, boolean[] isShip, double t) { // velo != bike
 		
 		this.position = new Vector3d[pos.length];
 		this.velocity = new Vector3d[velo.length];
+		this.isShip = new boolean[isShip.length];
 		
 		/* Alternative way to copy: 
 		for (int i = 0; i < pos.length; i++) {
@@ -52,6 +54,15 @@ public class State implements StateInterface {
 		
 		System.arraycopy(velocity, 0, this.velocity, 0, velocity.length);
 	}
+	
+	public boolean[] getisShip() {
+		return isShip;
+	}
+	
+	public void setisShip(boolean[] isShip) {
+		
+		System.arraycopy(isShip, 0, this.isShip, 0, isShip.length);
+	}
 
 	public double getTime() {
 		
@@ -62,6 +73,7 @@ public class State implements StateInterface {
 		
 		this.time = time;
 	}
+	
 
     /**
      * Update a state to a new state computed by: this + step * rate
@@ -73,7 +85,7 @@ public class State implements StateInterface {
 	@Override
 	public State addMul(double step, RateInterface rate) {
 		
-		State newState = new State(getPosition(), getVelocity(), getTime() + step);
+		State newState = new State(getPosition(), getVelocity(), getisShip(), getTime() + step);
 		
 		for (int i = 0; i < position.length; i++) {
 

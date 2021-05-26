@@ -3,14 +3,14 @@ package titan.impl;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
-public class MainTestTrajectoryM {
+public class ClosestFlyByMain {
 
 	public static void main(String[] args) {
 		double globalMinimum = Double.MAX_VALUE;
 		double globalMinimumi = 0;
 		
 		
-		TrajectoryM goedZo = new TrajectoryM();
+		ClosestFlyByCalculator goedZo = new ClosestFlyByCalculator();
 		StateInterface[] solvedStates = goedZo.solvedStates;
 		
 		Vector3dInterface pEarth = ((State) (solvedStates[0])).getPosition()[5];
@@ -46,7 +46,7 @@ public class MainTestTrajectoryM {
 	
 	public void closest(int i) {
 		
-		TrajectoryM goedZo = new TrajectoryM();
+		ClosestFlyByCalculator goedZo = new ClosestFlyByCalculator();
 		StateInterface[] solvedStates = goedZo.solvedStates;
 		
 		Vector3dInterface pEarth = ((State) (solvedStates[0])).getPosition()[5];

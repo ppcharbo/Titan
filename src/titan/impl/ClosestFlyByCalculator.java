@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
-public class TrajectoryM {
+public class ClosestFlyByCalculator {
 
 	public ArrayList<PlanetGUI> allPlanets = new ArrayList<PlanetGUI>();
 	public StateInterface[] solvedStates;
@@ -24,7 +24,7 @@ public class TrajectoryM {
 	public Vector3dInterface p0 = new Vector3d(4154116.78496650,	-4830374.71365795,	20853.3573652752);
 	public Vector3dInterface v0 = new Vector3d(72684.6410404669,	-107781.235228466,	385.083685268718);
 
-	public TrajectoryM() {
+	public ClosestFlyByCalculator() {
 		solvedStates = simulateOneYear(p0, v0);
 		
 		// PlanetGUI(String label, int r, int g, int b, double xCoordinate, double yCoordinate, int diameter)
