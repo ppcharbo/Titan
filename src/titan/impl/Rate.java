@@ -27,26 +27,31 @@ public class Rate implements RateInterface {
 		System.arraycopy(accel, 0, this.acceleration, 0, accel.length);
 	}
 	
+	
 	public Vector3d[] getVelocity() {
 			
 			return velocity;
 	}
+	
 	
 	public void setVelocity(Vector3d[] velo) {
 		
 		System.arraycopy(velo, 0, this.velocity, 0, velo.length);
 	}
 	
+	
 	public Vector3d[] getAcceleration() {
 		
 		return acceleration;
 	}
+	
 	
 	public void setAcceleration(Vector3d[] accel) {
 		
 		System.arraycopy(accel, 0, this.acceleration, 0, accel.length);
 	}
 
+	
 	public Rate mul(double scalar) {
 
 		Rate newRate = new Rate(new Vector3d[velocity.length], new Vector3d[acceleration.length]);
@@ -62,6 +67,7 @@ public class Rate implements RateInterface {
 		}
 		return newRate;
 	}
+	
 	
 	public Rate addMul(double scalar, Rate vector) {
 		

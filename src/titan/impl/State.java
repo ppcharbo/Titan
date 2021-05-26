@@ -18,62 +18,57 @@ public class State implements StateInterface {
 		for (int i=0; i<isShip.length ;i++) {
 			System.out.println(isShip[i]);
 		}
-		//State state = null;
-		//state.getPosition();
 		this.position = new Vector3d[pos.length];
 		this.velocity = new Vector3d[velo.length];
 		this.isShip = isShip;
 		
-		/* Alternative way to copy: 
-		for (int i = 0; i < pos.length; i++) {
-			this.position[i] = pos[i];
-		}
-		
-		for (int i = 0; i < velo.length; i++) {
-			
-			this.velocity[i] = velo[i];
-		}
-		*/
-		//system.arraycopy does the same
 		System.arraycopy(pos, 0, this.position, 0, pos.length);
 		System.arraycopy(velo, 0, this.velocity, 0, velo.length);
 		this.time = t;
 	}
 
+	
 	public Vector3d[] getPosition() {
 		
 		return position;
 	}
  
+	
 	public void setPosition(Vector3d[] position) {
 		
 		System.arraycopy(position, 0, this.position, 0, position.length);
 	}
 
+	
 	public Vector3d[] getVelocity() {
 		
 		return velocity;
 	}
 
+	
 	public void setVelocity(Vector3d[] velocity) {
 		
 		System.arraycopy(velocity, 0, this.velocity, 0, velocity.length);
 	}
 	
+	
 	public boolean[] getisShip() {
 		return isShip;
 	}
+	
 	
 	public void setisShip(boolean[] isShip) {
 		
 		System.arraycopy(isShip, 0, this.isShip, 0, isShip.length);
 	}
 
+	
 	public double getTime() {
 		
 		return time;
 	}
 
+	
 	public void setTime(double time) {
 		
 		this.time = time;
@@ -100,7 +95,6 @@ public class State implements StateInterface {
 			newState.getPosition()[i] = newPosition;
 			newState.getVelocity()[i] = newVelo;
 		}
-		
 		return newState;
 	}
 }

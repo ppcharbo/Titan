@@ -19,24 +19,22 @@ public class ShipFuelCosts {
 		mass_flow_rate = MAX_THRUST_COMBUSTION / EFFECTIVE_EXHAUST_VELOCITY_COMBUSTION; // constant
 	}
 
-	// Fmax / total mass - massflowrate * enginetime simplified as 1/(1-t) to derivative -1/(1-t)^2
+
 	public static Vector3d[] acceleration(double t, State state) {
 		
 		Vector3d normTitan = (Vector3d) state.getPosition()[10];
-		
 		Vector3d ship = (Vector3d) state.getPosition()[0];
 		
-		Vector3d distanceVector = (Vector3d) normTitan.sub(ship);
-		
+		Vector3d distanceVector = (Vector3d) normTitan.sub(ship); // distance between norm of titan and norm of ship
 		double normDistanceVector = distanceVector.norm();
 				
 		double norm = MAX_THRUST_COMBUSTION / (MASS_THIRSTY_CRAFT + (MASS_FUEL_INITIAL -t*mass_flow_rate)); // fuel mass decreasing over time  
 		
 		double constant = 1/(normDistanceVector/norm);
 		
-		
 		Vector3d[] acceleration = new Vector3d[state.getVelocity().length]; 
-		acceleration[0] = (Vector3d) distanceVector.mul(constant);
+		
+		acceleration[0] = (Vector3d) distanceVector.mul(constant); // acceleration of ship
 				
 				
 		/*for (int i=0; i<state.getVelocity().length; i++) {
