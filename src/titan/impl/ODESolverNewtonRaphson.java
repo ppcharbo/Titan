@@ -33,6 +33,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		return arr;
 	}
 
+	
 	/*
 	 * Solve the differential equation by taking multiple steps of equal size, starting at time 0.
 	 * The final step may have a smaller size, if the step-size does not exactly divide the solution time range
@@ -55,18 +56,15 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 
 		while(currentTime < tf) {
 			
-			// operations:
-			// w(i+1) = w(i) + h*f(t,y)
-			// y_next = y_current + h*v
-			// w(i+1) = w(i) + h*f(t,y)
 			arr[i+1] = step(f, currentTime, arr[i], h); // calculate the next step
 			((State) arr[i+1]).setTime(currentTime+h); // set time for the next step
-			i += 1; // update array position
-			currentTime += h; // update time
+			i += 1; 
+			currentTime += h; 
 		}
 		return arr;
 	}
 
+	
 	/*
 	 * Update rule for one step.
 	 *
@@ -78,7 +76,51 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	 */
 	@Override
 	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
-
+		
+		Rate currentRate = (Rate) f.call(t, y);
+		Vector3d currentPosition[] = ((State)y).getPosition();
+		Vector3d currentVelocity[]= ((State)y).getVelocity();
+		
+		State previousState = (State)y.addMul(t-h, currentRate);
+		Vector3d previousPosition[] = ((State)y).getPosition();
+		Vector3d previousVelocity[]= ((State)y).getVelocity();
+		
+		State nextState = (State)y.addMul(t+h, currentRate);
+		Vector3d nextPosition[] = ((State)y).getPosition();
+		Vector3d nextVelocity[]= ((State)y).getVelocity();
+		
+		double [][] jacobianMatrix = new double [3][3];
+		
+		double[] nextPositionX = new double [nextPosition.length];
+		double[] nextPositionY = new double [nextPosition.length];
+		double[] nextPositionZ = new double [nextPosition.length];
+		
+		double[] previousPositionX = new double [previousPosition.length];
+		double[] previousPositionY = new double [previousPosition.length];
+		double[] previousPositionZ = new double [previousPosition.length];
+		
+				
+		for (int i=0; i<nextPosition.length; i++) {
+			
+			nextPositionX[i] = nextPosition[i].getX();
+			nextPositionY[i] = nextPosition[i].getY();
+			nextPositionZ[i] = nextPosition[i].getZ();
+			
+			previousPositionX[i] = previousPosition[i].getX();
+			previousPositionY[i] = previousPosition[i].getY();
+			previousPositionZ[i] = previousPosition[i].getZ();
+			
+			double derivativeX = (double) (nextPositionX[i] - previousPositionX[i]) / 2*h; // f(x+h) - f(x-h) / 2h
+			double derivativeY = (double) (nextPositionY[i] - previousPositionY[i]) / 2*h; // f(y+h) - f(y-h) / 2h
+			double derivativeZ = (double) (nextPositionZ[i] - previousPositionZ[i]) / 2*h; // f(z+h) - f(z-h) / 2h
+			
+			for (int j=0; j<jacobianMatrix.length; j++) {
+				for (int k=0; k<jacobianMatrix.length-1; k++) {
+					
+					jacobianMatrix[j][k] = 0;
+				}
+			}
+		}
 		return null; //TODO 
 	}
 }

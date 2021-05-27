@@ -4,27 +4,44 @@ public class ShipFuelCosts {
 
 	private static final double MASS_THIRSTY_CRAFT = 7.8e4 + 6.0e3; // craft + lander
 	private static final double MASS_FUEL_INITIAL = 0.08e4; // assumption
-	private static final double MAX_THRUST = 3e7; // Newton
+	private static final double MAX_THRUST_COMBUSTION = 3e7; // Newton
 	private static final double EFFECTIVE_EXHAUST_VELOCITY_COMBUSTION = 4e3; // m/s
+	private static final double MAX_THRUST_ION = 2e4; 
+	private static final double EFFECTIVE_EXHAUST_VELOCITY_ION = 1e-1; 
+	private static final double MAX_THRUST_MAGNETOPLASMADYNAMIC = 3e7; 
+	private static final double EFFECTIVE_EXHAUST_VELOCITY_MAGNETOPLASMADYNAMIC = 2.5e-25; 
 	
 	private static double mass_flow_rate;
 	private static double fuel_cost;
 	
 	public ShipFuelCosts() {
 		
-		mass_flow_rate = MAX_THRUST / EFFECTIVE_EXHAUST_VELOCITY_COMBUSTION; // constant
+		mass_flow_rate = MAX_THRUST_COMBUSTION / EFFECTIVE_EXHAUST_VELOCITY_COMBUSTION; // constant
 	}
 
-	// Fmax / total mass - massflowrate * enginetime simplified as 1/(1-t) to derivative -1/(1-t)^2
+
 	public static Vector3d[] acceleration(double t, State state) {
 		
-		double norm = MAX_THRUST / (MASS_THIRSTY_CRAFT + (MASS_FUEL_INITIAL -t*mass_flow_rate)); // fuel mass decreasing over time  
+		Vector3d normTitan = (Vector3d) state.getPosition()[10];
+		Vector3d ship = (Vector3d) state.getPosition()[0];
+		
+		Vector3d distanceVector = (Vector3d) normTitan.sub(ship); // distance between norm of titan and norm of ship
+		double normDistanceVector = distanceVector.norm();
+				
+		double norm = MAX_THRUST_COMBUSTION / (MASS_THIRSTY_CRAFT + (MASS_FUEL_INITIAL -t*mass_flow_rate)); // fuel mass decreasing over time  
+		
+		double constant = 1/(normDistanceVector/norm);
 		
 		Vector3d[] acceleration = new Vector3d[state.getVelocity().length]; 
 		
-		for (int i=0; i<state.getVelocity().length; i++) {
+		acceleration[0] = (Vector3d) distanceVector.mul(constant); // acceleration of ship
+				
+				
+		/*for (int i=0; i<state.getVelocity().length; i++) {
 			
-			Vector3d velocity = state.getVelocity()[i]; // correspond to norm of the ship (assumption)
+			Vector3d velocity = state.getVelocity()[i];// correspond to norm of the ship (assumption)
+			
+			velocity.mul(constant);
 			
 			// formulas for the projection of x, y, z coordinates of the norm of the ship (velocity vector)
 			double teta = Math.acos(velocity.getZ()/velocity.norm()); 
@@ -35,7 +52,9 @@ public class ShipFuelCosts {
 			double accelerationZ = norm*Math.cos(teta); // projection of z
 			
 			acceleration[i] = new Vector3d(accelerationX, accelerationY, accelerationZ); 
+			
 		}
+		*/
 		return acceleration;
 	}
 

@@ -33,7 +33,7 @@ public class SystemPlanet extends JPanel {
 	public boolean stop = false;
 	public int currentState = 0;
 
-	public SystemPlanet(GUIWelcome frame, double speed) {
+	public SystemPlanet(GUIWelcome frame) {
 
 		this.upperFrame = frame; // pass the GUIWelcome object because we need access to it.
 
@@ -47,17 +47,15 @@ public class SystemPlanet extends JPanel {
 		ClickListener clickListener = new ClickListener();
 		DragListener dragListener = new DragListener();
 
-		// add all the listeners
+		// Add all the listeners for advanced functionality
 		this.addMouseListener(clickListener);
 		this.addMouseMotionListener(dragListener);
 		this.addMouseWheelListener(clickListener);
 
-		solvedStates = simulateOneYear();
-		doesItComeClose();
+		solvedStates = simulateOneYear(); // Simulates the states so we can plot them
+		doesItComeClose(); // Prints least fly-by
 
-		// PlanetGUI(JPanel parento, String label, int r, int g, int b, double
-		// xCoordinate, double yCoordinate, int diameter)
-
+		// PlanetGUI(JPanel parento, String label, int r, int g, int b, Vector3d position, double diameter)
 		allPlanets.add(new PlanetGUI(this, "SHIP", 0, 255, 0, ((State) solvedStates[0]).getPosition()[0], 10));
 		allPlanets.add(new PlanetGUI(this, "SUN", 255, 140, 0, ((State) solvedStates[0]).getPosition()[1], 50));
 		allPlanets.add(new PlanetGUI(this, "MOON", 192, 192, 192, ((State) solvedStates[0]).getPosition()[2], 10));
@@ -86,14 +84,11 @@ public class SystemPlanet extends JPanel {
 		double max = 5E12;
 		for (Vector3dInterface shipVector : shipPositions) {
 			for (Vector3dInterface titanVector : titanPositions) {
-				if (Math.abs(shipVector.dist(titanVector)) <= 3E10) {
-					// System.out.println("Cotcha");
+				if (Math.abs(shipVector.dist(titanVector)) <= 3E5) {
+					System.out.println("We fully made it to Titan!");
 				}
 				if (Math.abs(shipVector.dist(titanVector)) < max) {
 					max = Math.abs(shipVector.dist(titanVector));
-					// System.out.println(max);
-				} else {
-					// System.out.println("Nope");
 				}
 			}
 		}
@@ -145,10 +140,6 @@ public class SystemPlanet extends JPanel {
 					}
 
 				}
-				// else {
-				// allPlanets.get(0).setColor(255, 20, 147);
-				// allPlanets.get(0).setDiameter(100);
-				// }
 
 				currentState += 1;
 			}
@@ -184,15 +175,20 @@ public class SystemPlanet extends JPanel {
 		Vector3dInterface probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718);
 		Vector3dInterface probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752);
 
+		// original step by examiners
+		//double day = 24 * 60 * 60;
+		//double year = 365.25 * day;
+		
+		// GUI2
+		//double stepGUI2 = 60 * 60; // 1 hour
+		//double finalGUI2 = 2*365.25 * 24 * 60 * 60; // 2 years
+		
 		// smaller step size
-		double hour = 60 * 60 * 1;
-		double twoYear = 2 * 365.25 * 24 * hour;
-
-		// original step
-		double day = 24 * 60 * 60;
-		double year = 365.25 * day;
+		// GUI3:
+		double hour = 60 * 60;
+		double year = 4.1 * 24 * hour;
 		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
-		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, 2 * 365.25 * 24 * 60 * 60, 60 * 60);
+		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, year, hour);
 
 		return states;
 	}
