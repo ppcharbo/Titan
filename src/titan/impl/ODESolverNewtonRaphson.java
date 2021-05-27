@@ -80,8 +80,56 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	 */
 	@Override
 	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
-
+		
+		Rate currentRate = (Rate) f.call(t, y);
+		
+		Vector3d currentPosition[] = ((State)y).getPosition();
+		Vector3d currentVelocity[]= ((State)y).getVelocity();
+		
+		State previousState = (State)y.addMul(t-h, currentRate);
+		
+		Vector3d previousPosition[] = ((State)y).getPosition();
+		Vector3d previousVelocity[]= ((State)y).getVelocity();
+		
+		State nextState = (State)y.addMul(t+h, currentRate);
+		
+		Vector3d nextPosition[] = ((State)y).getPosition();
+		Vector3d nextVelocity[]= ((State)y).getVelocity();
+		
+		
+		double [][] jacobianMatrix = new double [3][3];
+		
+		double[] nextPositionX = new double [nextPosition.length];
+		double[] nextPositionY = new double [nextPosition.length];
+		double[] nextPositionZ = new double [nextPosition.length];
+		
+		double[] previousPositionX = new double [previousPosition.length];
+		double[] previousPositionY = new double [previousPosition.length];
+		double[] previousPositionZ = new double [previousPosition.length];
+		
+				
+		for (int i=0; i<nextPosition.length; i++) {
+			
+			nextPositionX[i] = nextPosition[i].getX();
+			nextPositionY[i] = nextPosition[i].getY();
+			nextPositionZ[i] = nextPosition[i].getZ();
+			
+			previousPositionX[i] = previousPosition[i].getX();
+			previousPositionY[i] = previousPosition[i].getY();
+			previousPositionZ[i] = previousPosition[i].getZ();
+			
+			double derivativeX = (double) (nextPositionX[i] - previousPositionX[i]) / 2*h; // f(x+h) - f(x-h) / 2h
+			double derivativeY = (double) (nextPositionY[i] - previousPositionY[i]) / 2*h; // f(y+h) - f(y-h) / 2h
+			double derivativeZ = (double) (nextPositionZ[i] - previousPositionZ[i]) / 2*h; // f(z+h) - f(z-h) / 2h
+			
+			for (int j=0; j<jacobianMatrix.length; j++) {
+				for (int k=0; k<jacobianMatrix.length-1; k++) {
+					
+					jacobianMatrix[j][k] = null;
+				}
+			}
+		}
+		
 		return null; //TODO 
 	}
 }
-
