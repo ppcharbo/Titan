@@ -13,11 +13,8 @@ public class State implements StateInterface {
 	private double time;
 	private boolean isShip[]; 
 
-	public State(Vector3d[] pos, Vector3d[] velo, boolean[] isShip, double t) { // velo != bike
+	public State(Vector3d[] pos, Vector3d[] velo, boolean[] isShip, double t) {
 		
-		for (int i=0; i<isShip.length ;i++) {
-			System.out.println(isShip[i]);
-		}
 		this.position = new Vector3d[pos.length];
 		this.velocity = new Vector3d[velo.length];
 		this.isShip = isShip;
