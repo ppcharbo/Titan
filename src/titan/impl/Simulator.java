@@ -6,20 +6,30 @@ import java.util.ArrayList;
 
 import titan.StateInterface;
 import titan.Vector3dInterface;
-
+/**
+ * The simulator class makes a comma-seperated values file.
+ * We can use this to work with the stepsizes and MATLAB
+ * @author Group 12
+ */
 public class Simulator {
 
+	/**
+	 * Main method to run the simulator
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		
-		String planet = "titan";
-		getTrajectory(planet);
+		getTrajectory("titan");
 	}
 
-	
+	/**
+	 * This methods gets the trajectory in the .csv file.
+	 * @param planet: give a String name of the planet
+	 */
 	private static void getTrajectory(String planet) {
 		
 		int element = 0; // simulate ship by default
 		
+		//improve this with a loop!
 		if(planet.equals("titan")){
 			
 			element = 10;
@@ -48,7 +58,11 @@ public class Simulator {
 		}
 	}
 
-	
+	/**
+	 * A method to calculate the trajectory for one year for a planet
+	 * @param element: the number representing the planet according to the AllPlanets class
+	 * @return an array of Vector3d elements with every position of every time step of a planet
+	 */
 	private static Vector3dInterface[] simulateOneYear(int element) {
 		
 		/* Provided from the test case:
@@ -67,7 +81,15 @@ public class Simulator {
 		return trajectory;
 	}
 
-	
+	/**
+	 * 
+	 * @param p0: initial launch position
+	 * @param v0: initial launch velocity
+	 * @param tf: final time
+	 * @param h: step size
+	 * @param element: the number representing the planet according to the AllPlanets class
+	 * @return an array of Vector3d elements with every position of every time step of a planet
+	 */
 	private static Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, int element) {
 		
 		AllPlanets allPlanets = new AllPlanets();
