@@ -23,7 +23,7 @@ public class ClosestFlyByCalculator {
 		
 		solvedStates = simulateOneYear(p0, v0);
 		
-		// PlanetGUI(String label, int r, int g, int b, double xCoordinate, double yCoordinate, int diameter)
+		//PlanetGUI(String string, int r, int g, int b, Vector3d position, double d) {
 		allPlanets.add(new PlanetGUI("SHIP", 0, 255, 0, ((State) solvedStates[0]).getPosition()[0], 10));
 		allPlanets.add(new PlanetGUI("SUN", 255, 140, 0, ((State) solvedStates[0]).getPosition()[1], 50));
 		allPlanets.add(new PlanetGUI("MOON", 192, 192, 192, ((State) solvedStates[0]).getPosition()[2], 10));

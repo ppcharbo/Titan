@@ -16,26 +16,31 @@ import titan.Vector3dInterface;
 
 public class SystemPlanet extends JPanel {
 
-	// TODO add the labels to the planets so we can identify them more easily :)
-
 	private static final long serialVersionUID = 1L;
 	private final boolean DEBUG = false;
 
-	private ArrayList<PlanetGUI> allPlanets = new ArrayList<PlanetGUI>();
+	private ArrayList<PlanetGUI> allPlanets = new ArrayList<PlanetGUI>(); //list of planets
 	private final GUIWelcome upperFrame;
 	private Point imageCorner;
 	private Point prevPt;
 	private ImageIcon icon;
 	private StateInterface[] solvedStates;
 
+	// we need the following to be public, because we need access to it in
+	// the GUIWelcome class
 	public double size = 1;
 	public static int delay = 25;
 	public boolean stop = false;
-	public int currentState = 0;
+	public int currentState = 0; //starting from state = 0
 
+	/**
+	 * Constructor for the SystemPlanet class
+	 * This will simulate the complete planet system
+	 * @param frame: we need the GUIWelcome class because if we scroll in and out
+	 */
 	public SystemPlanet(GUIWelcome frame) {
 
-		this.upperFrame = frame; // pass the GUIWelcome object because we need access to it.
+		this.upperFrame = frame;
 
 		// Source of image:
 		// https://www.pexels.com/photo/fine-tip-on-black-surface-3934623/
@@ -52,10 +57,14 @@ public class SystemPlanet extends JPanel {
 		this.addMouseMotionListener(dragListener);
 		this.addMouseWheelListener(clickListener);
 
-		solvedStates = simulateOneYear(); // Simulates the states so we can plot them
-		doesItComeClose(); // Prints least fly-by
+		solvedStates = simulateOneYear(); // Simulates the states, so we can plot them
+		
+		// Calculating the minimal distance we get to Titan
+		double leastFlyBy = distanceTitan();
+		System.out.println("Least fly-by");
+		System.out.println(leastFlyBy);
 
-		// PlanetGUI(JPanel parento, String label, int r, int g, int b, Vector3d position, double diameter)
+		// PlanetGUI(JPanel parent, String label, int r, int g, int b, Vector3d position, double d)
 		allPlanets.add(new PlanetGUI(this, "SHIP", 0, 255, 0, ((State) solvedStates[0]).getPosition()[0], 10));
 		allPlanets.add(new PlanetGUI(this, "SUN", 255, 140, 0, ((State) solvedStates[0]).getPosition()[1], 50));
 		allPlanets.add(new PlanetGUI(this, "MOON", 192, 192, 192, ((State) solvedStates[0]).getPosition()[2], 10));
@@ -68,10 +77,9 @@ public class SystemPlanet extends JPanel {
 		allPlanets.add(new PlanetGUI(this, "URANUS", 196, 233, 238, ((State) solvedStates[0]).getPosition()[9], 50));
 		allPlanets.add(new PlanetGUI(this, "TITAN", 218, 165, 32, ((State) solvedStates[0]).getPosition()[10], 10));
 		allPlanets.add(new PlanetGUI(this, "NEPTUNE", 66, 98, 243, ((State) solvedStates[0]).getPosition()[11], 38));
-
 	}
 
-	public void doesItComeClose() {
+	public double distanceTitan() {
 		Vector3d[] shipPositions = new Vector3d[solvedStates.length];
 		Vector3d[] titanPositions = new Vector3d[solvedStates.length];
 
@@ -80,20 +88,19 @@ public class SystemPlanet extends JPanel {
 			titanPositions[i] = ((State) solvedStates[i]).getPosition()[10];
 		}
 
-		// make a loop to see if the titanPositions.dist(titanPositions) <= 300
-		double max = 5E12;
+		// loop over every state and look for the minimal distance
+		double closestDistance = Double.MAX_VALUE;
 		for (Vector3dInterface shipVector : shipPositions) {
 			for (Vector3dInterface titanVector : titanPositions) {
 				if (Math.abs(shipVector.dist(titanVector)) <= 3E5) {
 					System.out.println("We fully made it to Titan!");
 				}
-				if (Math.abs(shipVector.dist(titanVector)) < max) {
-					max = Math.abs(shipVector.dist(titanVector));
+				if (Math.abs(shipVector.dist(titanVector)) < closestDistance) {
+					closestDistance = Math.abs(shipVector.dist(titanVector));
 				}
 			}
 		}
-		System.out.println("Least fly-by");
-		System.out.println(max);
+		return closestDistance;
 	}
 
 	public void paintComponent(Graphics g) {
@@ -106,41 +113,33 @@ public class SystemPlanet extends JPanel {
 		// Repaint planets
 		for (PlanetGUI body : allPlanets) {
 			body.draw(g, size, getWidth(), getHeight());
-
 		}
 	}
 
 	private void gameLoop() {
 
-		while (true) { // && i < solvedStates.length
+		while (true) {
 			if (!stop) {
-				// this is the SUN
-				// we must update relative to the sun position
+				// update positions
 				for (int a = 0; a < 12; a++) {
 					allPlanets.get(a).update(((State) solvedStates[currentState]).getPosition()[a]);
 				}
-				System.out.println(((State) solvedStates[currentState]).getVelocity()[0].norm());
+				if(DEBUG) {
+					System.out.println("Ship's velocity:");
+					System.out.println(((State) solvedStates[currentState]).getVelocity()[0].norm());
+				}
 
 				// Reset the state if we reach the end
 				if (currentState == solvedStates.length - 1) {
 					currentState = 0;
 				}
 
-				// Do some changes to the ship so that we can see where it is near the end of
-				// the trajectory
-				if (currentState > 360 && currentState < 366) {
-					allPlanets.get(0).setColor(0, 255, 0);
+				// Do some changes to the ship so that we can see
+				//where it is near the end of the trajectory
+				if (currentState > (solvedStates.length-20) && currentState < (solvedStates.length-1)) {
+					allPlanets.get(0).setColor(255, 255, 255);
 					allPlanets.get(0).setDiameter(10);
-
-					if (DEBUG) {
-						System.out.println("X: " + allPlanets.get(0).getX());
-						System.out.println("Y: " + allPlanets.get(0).getY());
-						System.out.println("XTitan: " + allPlanets.get(10).getX());
-						System.out.println("YTitan: " + allPlanets.get(10).getY());
-					}
-
 				}
-
 				currentState += 1;
 			}
 
@@ -158,22 +157,18 @@ public class SystemPlanet extends JPanel {
 	}
 
 	public static StateInterface[] simulateOneYear() {
-		// 350: 4.115732989682610E6, -4.863119819665272E6, 0.021179641570518E6
-		// 3.876063088698110E4, -4.579927628000569E4, 0.019946295624408
-		// 300: 3.993756368515144E6, -4.963775939752052E6, 0.021897234604973E6
-		// 278: 3.926620508447322e6, -5.017051486490201e6, 0.022062741157029e6
-		// 200: 3.740731413563386e6, -5.157141498910596e6, 0.021472116668884e6
-		// 150: 3.609867510498535E6, -5.249581360565903E6, 0.019826634766418E6
-		//
+		/* test examples:
+		350: 4.115732989682610E6, -4.863119819665272E6, 0.021179641570518E6
+		300: 3.993756368515144E6, -4.963775939752052E6, 0.021897234604973E6
+		278: 3.926620508447322e6, -5.017051486490201e6, 0.022062741157029e6
+		200: 3.740731413563386e6, -5.157141498910596e6, 0.021472116668884e6
+		150: 3.609867510498535E6, -5.249581360565903E6, 0.019826634766418E6
+		*/
 
-		/*
-		 * 1.8966840399361339E9 Vector3dInterface probe_vel = new
-		 * Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); row 133
-		 * speed 130E3 Vector3dInterface probe_pos = new Vector3d(4154116.78496650,
-		 * -4830374.71365795, 20853.3573652752); row 367
-		 */
-		Vector3dInterface probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718);
-		Vector3dInterface probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752);
+		//Least fly-by: 2.2303070656140846E10
+		Vector3dInterface probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
+		Vector3dInterface probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
+
 
 		// original step by examiners
 		//double day = 24 * 60 * 60;
@@ -183,12 +178,11 @@ public class SystemPlanet extends JPanel {
 		//double stepGUI2 = 60 * 60; // 1 hour
 		//double finalGUI2 = 2*365.25 * 24 * 60 * 60; // 2 years
 		
-		// smaller step size
-		// GUI3:
+		// GUI3: smaller step size and final time
 		double hour = 60 * 60;
-		double year = 4.1 * 24 * hour;
+		double fourDays = 4.1 * 24 * hour;
 		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
-		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, year, hour);
+		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, fourDays, hour);
 
 		return states;
 	}
@@ -207,15 +201,10 @@ public class SystemPlanet extends JPanel {
 	}
 
 	private class ClickListener extends MouseAdapter {
-
 		public void mousePressed(MouseEvent e) {
-
-			// Obtain the point for the drag function
-			prevPt = e.getPoint();
+			prevPt = e.getPoint(); // Obtain the point for the drag function
 		}
-
 		public void mouseWheelMoved(MouseWheelEvent e) {
-
 			// Zoom in using the button
 			if (e.getWheelRotation() < 0) {
 				upperFrame.zoomIn.doClick();
@@ -228,9 +217,7 @@ public class SystemPlanet extends JPanel {
 	}
 
 	private class DragListener extends MouseMotionAdapter {
-
 		public void mouseDragged(MouseEvent e) {
-
 			Point currentPt = e.getPoint(); // Obtain current clicked point
 
 			// Get the current x and y position
@@ -242,7 +229,8 @@ public class SystemPlanet extends JPanel {
 			final double oldY = prevPt.getY();
 
 			// Move the planets
-			if (stop == true) { // If the GUI is paused, then executed this
+			if (stop == true) {
+				// If the GUI is paused, then executed this
 				// This basically updates the drawing for the every planet by the difference in
 				// mouse position
 				for (PlanetGUI planet : allPlanets) {
@@ -250,12 +238,14 @@ public class SystemPlanet extends JPanel {
 					if (DEBUG) {
 						System.out.println("CurrentX: " + currentX);
 						System.out.println("Coordinate of the planet: " + planet.getX());
-						System.out.println("Name of the planet: " + planet.label);
+						System.out.println("Name of the planet: " + planet.getLabel());
 					}
 				}
-			} else { // else the GUI is running (so planets are moving), then do this
-						// Calculate translation vector (difference in mouse position)
-						// Because everything is scaled by 1E9, we also move the translation by that
+			}
+			else {
+				// else the GUI is running (so planets are moving), then do this
+				// Calculate translation vector (difference in mouse position)
+				// Because everything is scaled by 1E9, we also move the translation by that
 				Vector3d translate = new Vector3d((currentX - oldX) * 1E9, (currentY - oldY) * 1E9, 0);
 
 				// Then update all states by this vector
@@ -271,20 +261,18 @@ public class SystemPlanet extends JPanel {
 						positionsNew[b] = (Vector3d) positionsForEveryState[b].add(translate);
 					}
 
-					if (DEBUG)
-						System.out.println(
-								"State before translating: " + ((State) solvedStates[0]).getPosition()[0].getX());
+					if (DEBUG) {
+						System.out.println("State before translating: " + ((State) solvedStates[0]).getPosition()[0].getX());
+					}
 					((State) solvedStates[a]).setPosition(positionsNew); // Sets new positions from translation
-					if (DEBUG)
-						System.out.println(
-								"State after translating: " + ((State) solvedStates[0]).getPosition()[0].getX());
+					if (DEBUG) {
+						System.out.println("State after translating: " + ((State) solvedStates[0]).getPosition()[0].getX());
+					}
 				}
-
 			}
 
 			prevPt = currentPt; // Reset points
 			repaint();
 		}
 	}
-
 }
