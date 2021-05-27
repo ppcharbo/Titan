@@ -15,6 +15,7 @@ public class Vector3d implements Vector3dInterface {
 		this.z = 0;
 	}
 
+	
 	public Vector3d(double x, double y, double z) {
 		
 		this.x = x;
@@ -22,51 +23,61 @@ public class Vector3d implements Vector3dInterface {
 		this.z = z;
 	}
 
+	
 	public double getX() {
 		
 		return x;
 	}
 
+	
 	public void setX(double x) {
 		
 		this.x = x;
 	}
 
+	
 	public double getY() {
 		
 		return y;
 	}
 
+	
 	public void setY(double y) {
 		
 		this.y = y;
 	}
 
+	
 	public double getZ() {
 
 		return z;
 	}
 
+	
 	public void setZ(double z) {
 		
 		this.z = z;
 	}
 
+	
 	public Vector3dInterface add(Vector3dInterface other) {
 		
 		return new Vector3d(this.getX() + other.getX(), this.getY() + other.getY(), this.getZ() + other.getZ());
 	}
 
+	
 	public Vector3dInterface sub(Vector3dInterface other) {
 		
 		return new Vector3d(this.getX() - other.getX(), this.getY() - other.getY(), this.getZ() - other.getZ());
 	}
 
+	
 	public Vector3dInterface mul(double scalar) {
 		
 		return new Vector3d(this.getX() * scalar, this.getY() * scalar, this.getZ() * scalar);
 	}
 
+	
 	/**
 	 * Scalar x vector multiplication, followed by an addition
 	 * 
@@ -86,6 +97,7 @@ public class Vector3d implements Vector3dInterface {
 		return this.add(other.mul(scalar));
 	}
 
+	
 	/**
 	 * @return the Euclidean norm of a vector
 	 */
@@ -94,6 +106,7 @@ public class Vector3d implements Vector3dInterface {
 		return Math.sqrt((this.getX() * this.getX()) + (this.getY() * this.getY()) + (this.getZ() * this.getZ()));
 	}
 
+	
 	/**
 	 * @return the Euclidean distance between two vectors
 	 */
@@ -102,6 +115,7 @@ public class Vector3d implements Vector3dInterface {
 		return this.sub(other).norm();
 	}
 
+	
 	/**
 	 * @return A string in this format: Vector3d(-1.0, 2, -3.0) should print out
 	 *         (-1.0,2.0,-3.0)
