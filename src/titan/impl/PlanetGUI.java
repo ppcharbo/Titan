@@ -1,4 +1,3 @@
-//hi
 package titan.impl;
 
 import java.awt.Color;
@@ -14,21 +13,24 @@ public class PlanetGUI {
 	public String label;
 	private JPanel parent;
 	private final boolean DEBUG = false;
-	private Color color;
-	
-	public PlanetGUI(JPanel parent, String label, int r, int g, int b, Vector3d position, double diameter) {
-		
-		this.setParent(parent);
+
+	boolean visible;
+	Color color;
+
+	public PlanetGUI(JPanel parento, String label, int r, int g, int b, Vector3d position, double diameter) {
+
+		this.setParent(parento);
 		this.label = label;
 		color = new Color(r, g, b);
 		x = (position.getX()/(1E9));
 		y = (position.getY()/(1E9));
 		this.dia = (int) (diameter);
+		
+
 	}
 
-	// For ClosestFlyBy class
+	// for testing TrajectoryM class
 	public PlanetGUI(String string, int r, int g, int b, Vector3d position, int diameter) {
-		
 		this.label = string;
 		color = new Color(r, g, b);
 		x = (position.getX()/(1E9));
@@ -86,6 +88,7 @@ public class PlanetGUI {
 		else {
 			g.fillOval(x, y, (int) (dia * size), (int) (dia * size));
 		}
+
 	}
 
 	public JPanel getParent() {
@@ -97,10 +100,12 @@ public class PlanetGUI {
 	}
 	
 	 public void translate(double d, double e) {
-		 this.x += d;
-	     this.y += e;
-	     if(DEBUG) {
-	        System.out.println("Translated: " + label +  " to x: " + x + " and y: " + y);
-	     }
-	 }
+	        this.x += d;
+	        this.y += e;
+	        if(DEBUG) {
+	        	System.out.println("Translated: " + label +  " to x: " + x + " and y: " + y);
+	        }
+	    }
+
+
 }

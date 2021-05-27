@@ -1,4 +1,3 @@
-//hiiii again
 package titan.impl;
 
 import java.awt.Color;
@@ -19,8 +18,6 @@ import javax.swing.JToolBar;
 
 public class GUIWelcome {
 
-	// These buttons are public, so we can easily zoom in and out using
-	// action listeners from SystemPlanet
 	public JButton zoomOut;
 	public JButton zoomIn;
 
@@ -78,14 +75,16 @@ public class GUIWelcome {
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// new Object to open Frame with everything
+				// e.g. new PlanetScreen();
 				welcomeFrame.setContentPane(systemPlanet);
+				// welcomeFrame.add(new JScrollPane(systemPlanet));
 				welcomeFrame.setSize(1600, 900);
 				systemPlanet.startMe();
 
-				// Buttons in toolbar: decrease/increase speed,
-				// pause/start, zoom and reset button
-				
 				JToolBar toolbar = new JToolBar("Tools");
+
+				// Buttons in toolbar
 				JButton speedDecrease = new JButton("decrease");
 				speedDecrease.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -134,6 +133,7 @@ public class GUIWelcome {
 					}
 				});
 
+				// buttons to toolbar to frame
 				toolbar.add(speedDecrease);
 				toolbar.add(speedIncrease);
 				toolbar.add(pauseStart);
@@ -142,6 +142,14 @@ public class GUIWelcome {
 				toolbar.add(resetToInitialState);
 				welcomeFrame.add(toolbar);
 
+			}
+		});
+
+		welcomeFrame.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+
+				systemPlanet.repaint();
 			}
 		});
 	}
