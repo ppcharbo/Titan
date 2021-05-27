@@ -18,7 +18,7 @@ public class FuelCostProbe {
 	private  Vector3d Current_velocity;
 	private  Vector3d acceleration;
 
-	private static double mass_flow_rate;
+	private static double mass_flow_rate=1500;
 	private static double engineTime; //fuel burning time
 	private static double fuelCost;
 	private static double accleration_value; //the value of acceleration when engine turn on,  using accleration.norm()
@@ -28,20 +28,10 @@ public class FuelCostProbe {
 		this.Post_velocity=post_velocity;
 	}
 
-	public static double massFlowrate() {
-
-		mass_flow_rate=maxthrusty / effective_exhaust_velocity;
-
-		return mass_flow_rate;
-		//flowrate is also a constant 
-
-	}
-
 	public Vector3d changeVelocity(){
 
 		//delta_velocity between engine on.
 		delta_velocity=(Vector3d) Post_velocity.sub(Current_velocity);
-
 		return delta_velocity;
 	}
 
@@ -61,9 +51,9 @@ public class FuelCostProbe {
 
 	  public double calcTime(){
 
-		accleration_value=effective_exhaust_velocity*massFlowrate()/MASS_EMPTY_CRAFT;
+		accleration_value=effective_exhaust_velocity*mass_flow_rate/MASS_EMPTY_CRAFT;
 
-		engineTime=(changeVelocity().norm())/accleration_value;
+		engineTime=(delta_velocity.norm())/accleration_value;
 
 		return engineTime;
 	  }
@@ -74,8 +64,7 @@ public class FuelCostProbe {
 
 	  public Vector3d calAce(){
 
-		  acceleration=(Vector3d)changeVelocity().mul(1/calcTime());
-
+		  acceleration=(Vector3d)delta_velocity.mul(1/engineTime);
 		  return acceleration;
 	  }
 
@@ -99,8 +88,8 @@ public class FuelCostProbe {
 
 	  
 	  public static void main(String[] args){
-		Vector3d v0=new Vector3d(1,1,1);
-		Vector3d vt=new Vector3d(1000,1000,1000);
+		Vector3d v0=new Vector3d(60000,60000,60000);
+		Vector3d vt=new Vector3d(59999,59999,59999);
 
 		FuelCostProbe f=new FuelCostProbe(v0,vt);
 		f.Fuelcost();
