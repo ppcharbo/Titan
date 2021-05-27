@@ -13,7 +13,10 @@ import javax.swing.JPanel;
 
 import titan.StateInterface;
 import titan.Vector3dInterface;
-
+/**
+ * SystemPlanet will simulate the solarsystem for a trajectory (step and t_final)
+ * @author Group 12
+ */
 public class SystemPlanet extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -34,8 +37,6 @@ public class SystemPlanet extends JPanel {
 	public int currentState = 0; //starting from state = 0
 
 	/**
-	 * Constructor for the SystemPlanet class
-	 * This will simulate the complete planet system
 	 * @param frame: we need the GUIWelcome class because if we scroll in and out
 	 */
 	public SystemPlanet(GUIWelcome frame) {

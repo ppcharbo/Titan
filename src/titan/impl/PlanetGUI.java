@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
-
+/**
+ * PlanetGUI is a class to construct every planet with, for the GUI
+ * @author Group 12
+ */
 public class PlanetGUI {
 	
 	private final boolean DEBUG = false;

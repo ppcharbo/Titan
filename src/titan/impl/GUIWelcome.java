@@ -14,6 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+/**
+ * GUIWelcome class opens a frame with a start button to launch the ship
+ */
 public class GUIWelcome {
 
 	//public because we need access to it later
@@ -24,9 +27,6 @@ public class GUIWelcome {
 		new GUIWelcome();
 	}
 
-	/**
-	 * GUIWelcome class opens a frame with a start button to launch the ship
-	 */
 	public GUIWelcome() {
 
 		JFrame welcomeFrame = new JFrame();
