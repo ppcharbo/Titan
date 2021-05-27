@@ -41,8 +41,9 @@ public class ODEFunction implements ODEFunctionInterface {
 		Vector3d[] acceleration = new Vector3d[((State)y).getVelocity().length];
 		
 		for (int i=0; i<((State)y).getVelocity().length; i++) {
-	
-			if (((State)y).getisShip()[i] && t>400) { // checking if the element of the list correspond to the ship as well as the current time 
+			if(1==0) { // engine-off
+				
+			// if (((State)y).getisShip()[i] && t>400) { // checking if the element of the list correspond to the ship as well as the current time 
 			
 				acceleration[i] = (Vector3d) accelerationShip[i].add(accelerationPlanet[i]); // acceleration of the thrusters combined with the attraction forces of the surroundings planets
 			}
