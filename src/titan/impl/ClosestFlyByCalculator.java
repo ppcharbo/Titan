@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import titan.StateInterface;
 import titan.Vector3dInterface;
-
+/**
+ * A class that calculates the closest point we get to Titan with the ship.
+ * @author Group 12
+ */
 public class ClosestFlyByCalculator {
 
 	public ArrayList<PlanetGUI> allPlanets = new ArrayList<PlanetGUI>();

@@ -2,7 +2,10 @@ package titan.impl;
 
 import titan.StateInterface;
 import titan.Vector3dInterface;
-
+/**
+ * A class that run the calculator to calculate the closest point we get to Titan with the ship.
+ * @author Group 12
+ */
 public class ClosestFlyByMain {
 
 	public static void main(String[] args) {
