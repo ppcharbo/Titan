@@ -167,10 +167,12 @@ public class SystemPlanet extends JPanel {
 		*/
 
 		//Least fly-by: 2.2303070656140846E10
-		Vector3dInterface probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
-		Vector3dInterface probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
-
-
+		//Vector3dInterface probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
+		//Vector3dInterface probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
+		
+		//Least fly-by: 5.183927817858741E10
+		Vector3dInterface probe_pos = new Vector3d(3934123.6794817075,-5011170.076552446,22053.081568514943);
+		Vector3dInterface probe_vel = new Vector3d(5069.870196164143,59785.41894141804,-9.909247179762742);
 		// original step by examiners
 		//double day = 24 * 60 * 60;
 		//double year = 365.25 * day;
@@ -181,7 +183,7 @@ public class SystemPlanet extends JPanel {
 		
 		// GUI3: smaller step size and final time
 		double hour = 60 * 60;
-		double fourDays = 4.1 * 24 * hour;
+		double fourDays = 4.05 * 24 * hour;
 		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
 		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, fourDays, hour);
 

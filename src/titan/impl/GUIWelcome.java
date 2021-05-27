@@ -16,6 +16,7 @@ import javax.swing.JToolBar;
 
 /**
  * GUIWelcome class opens a frame with a start button to launch the ship
+ * @author Group 12
  */
 public class GUIWelcome {
 

@@ -16,6 +16,10 @@ public class Simulator {
 	}
 
 	
+	/**
+	 * 
+	 * @param planet to get its trajectory over a year
+	 */
 	private static void getTrajectory(String planet) {
 		
 		int element = 0; // simulate ship by default
@@ -49,13 +53,17 @@ public class Simulator {
 	}
 
 	
+	/**
+	 * 
+	 * @param element
+	 * @return the trajectory over a year
+	 */
 	private static Vector3dInterface[] simulateOneYear(int element) {
 		
 		/* Provided from the test case:
 		Vector3dInterface probe_relative_position = new Vector3d(6371e3, 0, 0);
 		Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
 		*/
-		
 		Vector3dInterface probe_relative_position = new Vector3d(3.609867510498535E6, -5.249581360565903E6, 0.019826634766418E6);
 		Vector3dInterface probe_relative_velocity = new Vector3d(3.697963122066227E6, -4.724895451097348E6, 0.020777970011329E6);
 		
@@ -68,6 +76,22 @@ public class Simulator {
 	}
 
 	
+	/*
+	 * Simulate the solar system, including a probe fired from Earth at 00:00h on 1
+	 * April 2020.
+	 *
+	 * @param p0 the starting position of the probe, relative to the earth's
+	 * position.
+	 * 
+	 * @param v0 the starting velocity of the probe, relative to the earth's
+	 * velocity.
+	 * 
+	 * @param ts the times at which the states should be output, with ts[0] being
+	 * the initial time.
+	 * 
+	 * @return an array of size ts.length giving the position of the probe at each
+	 * time stated, taken relative to the Solar System barycentre.
+	 */
 	private static Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, int element) {
 		
 		AllPlanets allPlanets = new AllPlanets();
@@ -118,7 +142,12 @@ public class Simulator {
 		return returnPositions; 
 	}
 	
-
+	
+	/**
+	 * 
+	 * @param element
+	 * @return the fuel costs of an X-days journey
+	 */
 	private static double simulateXDays(int element) { // X to be found
 			
 			/* Provided from the test case:
@@ -136,6 +165,15 @@ public class Simulator {
 		}
 	
 	
+	/**
+	 * 
+	 * @param p0
+	 * @param v0
+	 * @param tf
+	 * @param h
+	 * @param element
+	 * @return the fuel costs of a ship following the trajectory calculated by the method parameters 
+	 */
 	private static double fuelCosts(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, int element) {
 		
 		AllPlanets allPlanets = new AllPlanets();
