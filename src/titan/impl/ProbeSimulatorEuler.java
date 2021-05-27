@@ -6,6 +6,11 @@ import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
 import titan.StateInterface;
 
+/**
+ * Simulator of a probe with an Euler ODE solver 
+ * @author Group 12
+ *
+ */
 public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 
 	public final double H = 60 * 60;
@@ -30,11 +35,13 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 	public Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double[] ts) {
 
 		Vector3dInterface[] returnPosition = new Vector3d[ts.length];
-		// Check for equal step sizes
 		boolean equalStepSizes = false;
 		double h = ts[1]-ts[0];
+		
 		for (int i = 0; i < ts.length; i++) {
+			
 			if(ts[i+1]-ts[i] == h) {
+				
 				equalStepSizes = true;
 			}
 			else {
@@ -42,10 +49,9 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 			}
 		}
 		
-		//System.out.println("Are there equal stepsizes? " + equalStepSizes);
-		
 		// case 1: ts[] with same stepsizes
 		if(equalStepSizes == true) {
+			
 			return trajectory(p0, v0, ts[ts.length-1], h);
 		}
 		// case 2: ts[] with unequal stepsizes
@@ -96,10 +102,10 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 				returnPosition[a] = ((State) solvedStates[a]).getPosition()[0];
 			}
 		}
-		
 		return returnPosition;
 	}
 
+	
 	/*
 	 * Simulate the solar system with steps of an equal size. The final step may
 	 * have a smaller size, if the step-size does not exactly divide the solution
@@ -163,6 +169,7 @@ public class ProbeSimulatorEuler implements ProbeSimulatorInterface {
 		
 		return returnPositions;
 	}
+	
 	
 	public StateInterface[] trajectoryGUI(Vector3dInterface p0, Vector3dInterface v0, double tf, double h) {
 

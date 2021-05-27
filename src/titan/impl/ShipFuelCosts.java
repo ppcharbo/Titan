@@ -5,6 +5,7 @@ public class ShipFuelCosts {
 	private static final double MASS_THIRSTY_CRAFT = 7.8e4 + 6.0e3; // craft + lander
 	private static final double MASS_FUEL_INITIAL = 0.08e4; // assumption
 	private static final double MAX_THRUST_COMBUSTION = 3e7; // Newton
+	
 	private static final double EFFECTIVE_EXHAUST_VELOCITY_COMBUSTION = 4e3; // m/s
 	private static final double MAX_THRUST_ION = 2e4; 
 	private static final double EFFECTIVE_EXHAUST_VELOCITY_ION = 1e-1; 

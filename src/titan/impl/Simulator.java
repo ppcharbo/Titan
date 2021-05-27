@@ -6,30 +6,24 @@ import java.util.ArrayList;
 
 import titan.StateInterface;
 import titan.Vector3dInterface;
-/**
- * The simulator class makes a comma-seperated values file.
- * We can use this to work with the stepsizes and MATLAB
- * @author Group 12
- */
+
 public class Simulator {
 
-	/**
-	 * Main method to run the simulator
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		getTrajectory("titan");
+		
+		String planet = "titan";
+		getTrajectory(planet);
 	}
 
+	
 	/**
-	 * This methods gets the trajectory in the .csv file.
-	 * @param planet: give a String name of the planet
+	 * 
+	 * @param planet to get its trajectory over a year
 	 */
 	private static void getTrajectory(String planet) {
 		
 		int element = 0; // simulate ship by default
 		
-		//improve this with a loop!
 		if(planet.equals("titan")){
 			
 			element = 10;
@@ -58,10 +52,11 @@ public class Simulator {
 		}
 	}
 
+	
 	/**
-	 * A method to calculate the trajectory for one year for a planet
-	 * @param element: the number representing the planet according to the AllPlanets class
-	 * @return an array of Vector3d elements with every position of every time step of a planet
+	 * 
+	 * @param element
+	 * @return the trajectory over a year
 	 */
 	private static Vector3dInterface[] simulateOneYear(int element) {
 		
@@ -69,7 +64,6 @@ public class Simulator {
 		Vector3dInterface probe_relative_position = new Vector3d(6371e3, 0, 0);
 		Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
 		*/
-		
 		Vector3dInterface probe_relative_position = new Vector3d(3.609867510498535E6, -5.249581360565903E6, 0.019826634766418E6);
 		Vector3dInterface probe_relative_velocity = new Vector3d(3.697963122066227E6, -4.724895451097348E6, 0.020777970011329E6);
 		
@@ -81,14 +75,22 @@ public class Simulator {
 		return trajectory;
 	}
 
-	/**
+	
+	/*
+	 * Simulate the solar system, including a probe fired from Earth at 00:00h on 1
+	 * April 2020.
+	 *
+	 * @param p0 the starting position of the probe, relative to the earth's
+	 * position.
 	 * 
-	 * @param p0: initial launch position
-	 * @param v0: initial launch velocity
-	 * @param tf: final time
-	 * @param h: step size
-	 * @param element: the number representing the planet according to the AllPlanets class
-	 * @return an array of Vector3d elements with every position of every time step of a planet
+	 * @param v0 the starting velocity of the probe, relative to the earth's
+	 * velocity.
+	 * 
+	 * @param ts the times at which the states should be output, with ts[0] being
+	 * the initial time.
+	 * 
+	 * @return an array of size ts.length giving the position of the probe at each
+	 * time stated, taken relative to the Solar System barycentre.
 	 */
 	private static Vector3dInterface[] trajectory(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, int element) {
 		
@@ -140,7 +142,12 @@ public class Simulator {
 		return returnPositions; 
 	}
 	
-
+	
+	/**
+	 * 
+	 * @param element
+	 * @return the fuel costs of an X-days journey
+	 */
 	private static double simulateXDays(int element) { // X to be found
 			
 			/* Provided from the test case:
@@ -158,6 +165,15 @@ public class Simulator {
 		}
 	
 	
+	/**
+	 * 
+	 * @param p0
+	 * @param v0
+	 * @param tf
+	 * @param h
+	 * @param element
+	 * @return the fuel costs of a ship following the trajectory calculated by the method parameters 
+	 */
 	private static double fuelCosts(Vector3dInterface p0, Vector3dInterface v0, double tf, double h, int element) {
 		
 		AllPlanets allPlanets = new AllPlanets();
