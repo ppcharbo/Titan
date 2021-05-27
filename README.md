@@ -1,17 +1,22 @@
 # Titan Project-1-2 Groupe 12
 
-Project 1-2: (a) project week: In week 6 of period 1.4 project groups will work on a short.
+Project 1-2 phase 2:
 There is a source file with 4 folder:
-- GUIFolder: this folder contains the old GUI
 - titan: this folder contains the provided interfaces.
-- titan.impl: this folder contains the implementation.
+- titan.impl: this folder contains the implementation with a graphical user interface.
 - titan.tests: this folder contains the testcases.
 
-You might also find 3 other folders: documents, lib, resources.
+You might also find 4 other folders: documents, doc, lib, resources.
 These folders contain the documents that were used during the project and the resources
 
 SOURCES:
--https://en.wikipedia.org/wiki/Numerical_model_of_the_Solar_System
--https://en.wikipedia.org/wiki/Kepler%27s_laws_of_planetary_motion#Formulary
--https://www.geeksforgeeks.org/euler-method-solving-differential-equation/
--https://en.wikipedia.org/wiki/Euler_method
+Euler and 4th-order Runge-Kutta: 
+Burden, R. L., Faires, D. J. (2010). Numerical Analysis (9th ed.). Cengage Learning.
+
+Verlet:
+Carlon, E. (2009, September). Molecular dynamics simulations. http://itf.fys.kuleuven.be/~enrico/Teaching/molecular_dynamics.pdf
+
+Acceleration of ship:
+Collins, P. J., DKE, Seiler, C. J., Staňková, K., & Roos, N. (2021, April). Project Manual Bachelor (Year 1). Project 1–2. A Titanic Space Odyssey! https://canvas.maastrichtuniversity.nl/courses/4427/files/613537/download?download_frd=1
+and
+https://en.wikipedia.org/wiki/Spherical_coordinate_system 
