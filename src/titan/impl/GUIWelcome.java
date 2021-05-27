@@ -5,8 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -16,8 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+/**
+ * GUIWelcome class opens a frame with a start button to launch the ship
+ */
 public class GUIWelcome {
 
+	//public because we need access to it later
 	public JButton zoomOut;
 	public JButton zoomIn;
 
@@ -66,6 +68,7 @@ public class GUIWelcome {
 		gbc.gridy = 4;
 		panel.add(startButton, gbc);
 
+		// Previous implementation where then user determines the initial velocity
 		// String input = JOptionPane.showInputDialog("Please, enter your speed.");
 		// double speed = Double.parseDouble(input);
 
@@ -75,13 +78,11 @@ public class GUIWelcome {
 
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new Object to open Frame with everything
-				// e.g. new PlanetScreen();
 				welcomeFrame.setContentPane(systemPlanet);
-				// welcomeFrame.add(new JScrollPane(systemPlanet));
 				welcomeFrame.setSize(1600, 900);
 				systemPlanet.startMe();
 
+				// Toolbar for more functionality
 				JToolBar toolbar = new JToolBar("Tools");
 
 				// Buttons in toolbar
@@ -95,12 +96,11 @@ public class GUIWelcome {
 				speedIncrease.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (SystemPlanet.delay - 10 <= 0) {
-							// systemPlanet.delay is very small
-							SystemPlanet.delay = 1;
-						} else {
+							SystemPlanet.delay = 1; // systemPlanet.delay is very small
+						}
+						else {
 							SystemPlanet.delay = SystemPlanet.delay - 10;
 						}
-
 					}
 				});
 
@@ -133,7 +133,7 @@ public class GUIWelcome {
 					}
 				});
 
-				// buttons to toolbar to frame
+				// add to toolbar and add toolbar to frame
 				toolbar.add(speedDecrease);
 				toolbar.add(speedIncrease);
 				toolbar.add(pauseStart);
@@ -141,15 +141,6 @@ public class GUIWelcome {
 				toolbar.add(zoomIn);
 				toolbar.add(resetToInitialState);
 				welcomeFrame.add(toolbar);
-
-			}
-		});
-
-		welcomeFrame.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-
-				systemPlanet.repaint();
 			}
 		});
 	}
