@@ -33,6 +33,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		return arr;
 	}
 
+	
 	/*
 	 * Solve the differential equation by taking multiple steps of equal size, starting at time 0.
 	 * The final step may have a smaller size, if the step-size does not exactly divide the solution time range
@@ -55,18 +56,15 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 
 		while(currentTime < tf) {
 			
-			// operations:
-			// w(i+1) = w(i) + h*f(t,y)
-			// y_next = y_current + h*v
-			// w(i+1) = w(i) + h*f(t,y)
 			arr[i+1] = step(f, currentTime, arr[i], h); // calculate the next step
 			((State) arr[i+1]).setTime(currentTime+h); // set time for the next step
-			i += 1; // update array position
-			currentTime += h; // update time
+			i += 1; 
+			currentTime += h; 
 		}
 		return arr;
 	}
 
+	
 	/*
 	 * Update rule for one step.
 	 *
@@ -80,20 +78,16 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 		
 		Rate currentRate = (Rate) f.call(t, y);
-		
 		Vector3d currentPosition[] = ((State)y).getPosition();
 		Vector3d currentVelocity[]= ((State)y).getVelocity();
 		
 		State previousState = (State)y.addMul(t-h, currentRate);
-		
 		Vector3d previousPosition[] = ((State)y).getPosition();
 		Vector3d previousVelocity[]= ((State)y).getVelocity();
 		
 		State nextState = (State)y.addMul(t+h, currentRate);
-		
 		Vector3d nextPosition[] = ((State)y).getPosition();
 		Vector3d nextVelocity[]= ((State)y).getVelocity();
-		
 		
 		double [][] jacobianMatrix = new double [3][3];
 		
@@ -123,11 +117,10 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 			for (int j=0; j<jacobianMatrix.length; j++) {
 				for (int k=0; k<jacobianMatrix.length-1; k++) {
 					
-					jacobianMatrix[j][k] = null;
+					jacobianMatrix[j][k] = 0;
 				}
 			}
 		}
-		
 		return null; //TODO 
 	}
 }

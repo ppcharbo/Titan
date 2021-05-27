@@ -33,6 +33,7 @@ public class ODESolverEuler implements ODESolverInterface {
 		return arr;
 	}
 
+	
 	/*
 	 * Solve the differential equation by taking multiple steps of equal size, starting at time 0.
 	 * The final step may have a smaller size, if the step-size does not exactly divide the solution time range
@@ -54,19 +55,16 @@ public class ODESolverEuler implements ODESolverInterface {
 		double currentTime = 0;
 
 		while(currentTime < tf) {
-			
-			// operations:
-			// w(i+1) = w(i) + h*f(t,y)
-			// y_next = y_current + h*v
-			// w(i+1) = w(i) + h*f(t,y)
+	
 			arr[i+1] = step(f, currentTime, arr[i], h); // calculate the next step
 			((State) arr[i+1]).setTime(currentTime+h); // set time for the next step
-			i += 1; // update array position
-			currentTime += h; // update time
+			i += 1; 
+			currentTime += h; 
 		}
 		return arr;
 	}
 
+	
 	/*
 	 * Update rule for one step.
 	 *
