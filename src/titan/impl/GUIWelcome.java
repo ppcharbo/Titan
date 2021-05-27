@@ -26,6 +26,9 @@ public class GUIWelcome {
 		new GUIWelcome();
 	}
 
+	/**
+	 * GUIWelcome class opens a frame with a start button to launch the ship
+	 */
 	public GUIWelcome() {
 
 		JFrame welcomeFrame = new JFrame();
