@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"titan"},{"l":"titan.impl"},{"l":"titan.tests"}];updateSearchResults();
