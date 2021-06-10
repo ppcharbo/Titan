@@ -141,6 +141,10 @@ public class SystemPlanet extends JPanel {
 					allPlanets.get(0).setColor(255, 255, 255);
 					allPlanets.get(0).setDiameter(10);
 				}
+				// also make sure to reset the color!
+				else {
+					allPlanets.get(0).setColor(0, 255, 0);
+				}
 				currentState += 1;
 			}
 
@@ -178,15 +182,21 @@ public class SystemPlanet extends JPanel {
 		//double year = 365.25 * day;
 		
 		// GUI2
-		double stepGUI2 = 60 * 60; // 1 hour
-		double finalGUI2 = 2*365.25 * 24 * 60 * 60; // 2 years
+		//double stepGUI2 = 60 * 60; // 1 hour
+		//double finalGUI2 = 2*365.25 * 24 * 60 * 60; // 2 years
+		
+		//TEST NASA CLASS
+		double stepGUI2 = 24 * 60 * 60; // 1 day
+		double finalGUI2 = 365.25 * 24 * 60 * 60; // 1 year
 		
 		// GUI3: smaller step size and final time ENGINE ON
 		//double hour = 60 * 60;
 		//double fourDays = 4.05 * 24 * hour;
-		//ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
-		//ProbeSimulatorRungaKutta simulator = new ProbeSimulatorRungaKutta();
-		ProbeSimulatorVerlet simulator = new ProbeSimulatorVerlet();
+		
+		//SELECT THE SIMULATOR
+		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
+		//ProbeSimulatorRungeKutta simulator = new ProbeSimulatorRungeKutta();
+		//ProbeSimulatorVerlet simulator = new ProbeSimulatorVerlet();
 		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
 
 		return states;

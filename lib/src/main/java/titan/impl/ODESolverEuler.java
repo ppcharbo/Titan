@@ -47,6 +47,7 @@ public class ODESolverEuler implements ODESolverInterface {
 	@Override
 	public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 		
+		/*
 		StateInterface[] arr = new StateInterface[(int) Math.ceil((tf / h) + 1)];
 		int i = 0;
 		arr[i] = y0;
@@ -62,6 +63,23 @@ public class ODESolverEuler implements ODESolverInterface {
 			currentTime += h; 
 		}
 		return arr;
+		*/
+		
+		State[] arr = new State[(int) Math.ceil((tf / h) + 1)];
+		arr[0] = (State) y0;
+		double stepSize = h;
+		double currentTime = 0;
+
+		for (int i = 1; i < arr.length; i++) {
+
+			if (i == arr.length - 1) {
+				
+				stepSize = tf - currentTime; // we are in last step and have to check our remaining step size
+			}
+			arr[i] = step(f, currentTime, arr[i - 1], stepSize);
+			currentTime += stepSize;
+		}
+		return arr;
 	}
 
 	
@@ -75,8 +93,8 @@ public class ODESolverEuler implements ODESolverInterface {
 	 * @return  the new state after taking one step
 	 */
 	@Override
-	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
+	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 
-		return y.addMul(h, f.call(t, y));
+		return (State) y.addMul(h, f.call(t, y));
 	}
 }

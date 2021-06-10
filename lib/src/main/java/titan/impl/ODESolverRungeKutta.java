@@ -24,6 +24,7 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 	@Override
 	public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 		
+		
 		State[] arr = new State[(int) Math.ceil((tf / h) + 1)];
 		arr[0] = (State) y0;
 		double stepSize = h;
@@ -39,7 +40,6 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 			currentTime += stepSize;
 		}
 		return arr;
-		
 		
 		/*
 		StateInterface[] arr = new StateInterface[(int) Math.ceil((tf / h) + 1)];
@@ -58,6 +58,7 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 		}
 		return arr;
 		*/
+		
 	}
 
 	

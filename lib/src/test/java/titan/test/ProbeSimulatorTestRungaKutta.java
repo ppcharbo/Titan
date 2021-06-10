@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import titan.ProbeSimulatorInterface;
 import titan.Vector3dInterface;
-import titan.impl.ProbeSimulatorRungaKutta;
+import titan.impl.ProbeSimulatorRungeKutta;
 import titan.impl.Vector3d;
 
 public class ProbeSimulatorTestRungaKutta {
@@ -105,7 +105,7 @@ public class ProbeSimulatorTestRungaKutta {
 		Vector3dInterface probe_relative_position = new Vector3d(6371e3, 0, 0);
 		Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
 		double day = 24 * 60 * 60;
-		ProbeSimulatorInterface simulator = new ProbeSimulatorRungaKutta();
+		ProbeSimulatorInterface simulator = new ProbeSimulatorRungeKutta();
 		Vector3dInterface[] trajectory = simulator.trajectory(probe_relative_position, probe_relative_velocity, day,
 				day);
 		return trajectory;
@@ -119,7 +119,7 @@ public class ProbeSimulatorTestRungaKutta {
 		Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
-		ProbeSimulatorInterface simulator = new ProbeSimulatorRungaKutta();
+		ProbeSimulatorInterface simulator = new ProbeSimulatorRungeKutta();
 		Vector3dInterface[] trajectory = simulator.trajectory(probe_relative_position, probe_relative_velocity, year, day);
 		return trajectory;
 
@@ -131,7 +131,7 @@ public class ProbeSimulatorTestRungaKutta {
 		Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
 		double twelveHours = 60 * 60 * 12;
 		double year = 365.25 * 8 * twelveHours;
-		ProbeSimulatorInterface simulator = new ProbeSimulatorRungaKutta();
+		ProbeSimulatorInterface simulator = new ProbeSimulatorRungeKutta();
 		Vector3dInterface[] trajectory = simulator.trajectory(probe_relative_position, probe_relative_velocity, year, twelveHours);
 		return trajectory;
 

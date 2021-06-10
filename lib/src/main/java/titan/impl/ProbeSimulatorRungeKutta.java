@@ -6,7 +6,7 @@ import titan.ProbeSimulatorInterface;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
-public class ProbeSimulatorRungaKutta implements ProbeSimulatorInterface {
+public class ProbeSimulatorRungeKutta implements ProbeSimulatorInterface {
 
 	public final double H = 60 * 60;
 

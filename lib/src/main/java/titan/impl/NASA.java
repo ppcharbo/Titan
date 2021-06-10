@@ -103,7 +103,7 @@ public class NASA {
 	
 	private static void initialStateRK4() {
 		System.out.println("Initial State RK4");
-		ProbeSimulatorRungaKutta rk = new ProbeSimulatorRungaKutta();
+		ProbeSimulatorRungeKutta rk = new ProbeSimulatorRungeKutta();
 		
 		//Taken from SystemPlanet.java
 		Vector3d probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
@@ -159,7 +159,7 @@ public class NASA {
 
 	private static void runRK4() {
 		System.out.println("Doing RK4");
-		ProbeSimulatorRungaKutta rk = new ProbeSimulatorRungaKutta();
+		ProbeSimulatorRungeKutta rk = new ProbeSimulatorRungeKutta();
 		
 		//Taken from SystemPlanet.java
 		Vector3d probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
