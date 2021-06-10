@@ -11,6 +11,10 @@ public class ShipFuelCosts {
 	private static final double EFFECTIVE_EXHAUST_VELOCITY_ION = 1e-1; 
 	private static final double MAX_THRUST_MAGNETOPLASMADYNAMIC = 3e7; 
 	private static final double EFFECTIVE_EXHAUST_VELOCITY_MAGNETOPLASMADYNAMIC = 2.5e-25; 
+	private static Vector3d delta_velocity;
+	private static Vector3d Post_velocity;
+	private static Vector3d Current_velocity;
+	private static double engineTime;
 	
 	private static double mass_flow_rate;
 	private static double fuel_cost;
@@ -59,18 +63,19 @@ public class ShipFuelCosts {
 		return acceleration;
 	}
 
-/*
-	public static double engineTime() {
-		return ((MASS_THIRSTY_CRAFT + MASS_FUEL)-Math.sqrt((-1 * MAX_THRUST.getAcceleration)/ velocity())) / mass_flow_rate;
-		//use v(t) to get t(v) function, so as we know the delta(v), we could get delta(t)
-	}
-	
-	public static StateInterface velocity() {
+	public Vector3d changeVelocity(){
 
-		return Post_velocity.getVelocity-Current_velocity.getVelocity;
-		// set Post_velocity-getCurrentVelocity
+	//delta_velocity between engine on.
+		delta_velocity=(Vector3d) Post_velocity.sub(Current_velocity);
+		return delta_velocity;
 	}
-*/
+
+	public static double calcTime(){
+		engineTime=(delta_velocity.norm())/accleration.norm();
+
+		return engineTime;
+	}
+
 	public static double fuelCost(double t) {
 		
 		fuel_cost = mass_flow_rate * t;
