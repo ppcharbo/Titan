@@ -2,12 +2,12 @@ package titan.impl;
 
 import titan.StateInterface;
 
-public class Nasa {
+public class NASA {
 
 	private final static boolean INITIAL = false;
 	private final static boolean END = true;
 	
-	private final static double STEP_SIZE = 24 * 60 * 60; // 1 day
+	private final static double STEP_SIZE = 24*60*60; // 1 day
 	private final static double FINAL_TIME = 365.25 * 24 * 60 * 60; // 1 year
 	
 	/* From the NASA Horizon website:

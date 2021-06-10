@@ -184,7 +184,9 @@ public class SystemPlanet extends JPanel {
 		// GUI3: smaller step size and final time ENGINE ON
 		//double hour = 60 * 60;
 		//double fourDays = 4.05 * 24 * hour;
-		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
+		//ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
+		//ProbeSimulatorRungaKutta simulator = new ProbeSimulatorRungaKutta();
+		ProbeSimulatorVerlet simulator = new ProbeSimulatorVerlet();
 		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
 
 		return states;
