@@ -64,6 +64,20 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		return arr;
 	}
 
+
+	// TODO
+	private double[][] inverseMatrix(double[][] jacobianMatrix) {
+		
+		return null;
+	}
+	
+	
+	// TODO
+	private double[] matrixMultiplication(double[][] jacobianMatrix, double[] functionsMatrix) {
+		
+		return null;
+	}
+	
 	
 	/*
 	 * Update rule for one step.
@@ -77,50 +91,154 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	@Override
 	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 		
-		Rate currentRate = (Rate) f.call(t, y);
+		// current state
+		Rate currentRate = (Rate) f.call(t, y);	
 		Vector3d currentPosition[] = ((State)y).getPosition();
 		Vector3d currentVelocity[]= ((State)y).getVelocity();
+		boolean[] isShip = ((State)y).getisShip();
 		
+		// previous state
 		State previousState = (State)y.addMul(t-h, currentRate);
 		Vector3d previousPosition[] = ((State)y).getPosition();
 		Vector3d previousVelocity[]= ((State)y).getVelocity();
 		
+		// next state
 		State nextState = (State)y.addMul(t+h, currentRate);
 		Vector3d nextPosition[] = ((State)y).getPosition();
 		Vector3d nextVelocity[]= ((State)y).getVelocity();
 		
-		double [][] jacobianMatrix = new double [3][3];
+		// for all planets (first dimensions)
+		double[][] functionsMatrix = new double[currentPosition.length][6]; // [positionX, positionY, positionZ, velocityX, velocityY, velocityZ] - only on the current state --> 1 column
+		double[][][] jacobianMatrix = new double[currentPosition.length][6][6]; 
 		
-		double[] nextPositionX = new double [nextPosition.length];
-		double[] nextPositionY = new double [nextPosition.length];
-		double[] nextPositionZ = new double [nextPosition.length];
+		// fill in functionsMatrix
+		for (int i=0; i<currentPosition.length; i++) {
+			
+				functionsMatrix[i][0] = currentPosition[i].getX();
+				functionsMatrix[i][1] = currentPosition[i].getY();
+				functionsMatrix[i][2] = currentPosition[i].getZ();
+				functionsMatrix[i][3] = currentVelocity[i].getX();
+				functionsMatrix[i][4] = currentVelocity[i].getY();
+				functionsMatrix[i][5] = currentVelocity[i].getZ();
+		}
 		
-		double[] previousPositionX = new double [previousPosition.length];
-		double[] previousPositionY = new double [previousPosition.length];
-		double[] previousPositionZ = new double [previousPosition.length];
-		
-				
-		for (int i=0; i<nextPosition.length; i++) {
-			
-			nextPositionX[i] = nextPosition[i].getX();
-			nextPositionY[i] = nextPosition[i].getY();
-			nextPositionZ[i] = nextPosition[i].getZ();
-			
-			previousPositionX[i] = previousPosition[i].getX();
-			previousPositionY[i] = previousPosition[i].getY();
-			previousPositionZ[i] = previousPosition[i].getZ();
-			
-			double derivativeX = (double) (nextPositionX[i] - previousPositionX[i]) / 2*h; // f(x+h) - f(x-h) / 2h
-			double derivativeY = (double) (nextPositionY[i] - previousPositionY[i]) / 2*h; // f(y+h) - f(y-h) / 2h
-			double derivativeZ = (double) (nextPositionZ[i] - previousPositionZ[i]) / 2*h; // f(z+h) - f(z-h) / 2h
-			
-			for (int j=0; j<jacobianMatrix.length; j++) {
-				for (int k=0; k<jacobianMatrix.length-1; k++) {
+		// fill in jacobianMatrix
+		for (int i=0; i<currentPosition.length; i++) { // = number of planets
+			for (int j=0; j<jacobianMatrix[i].length; j++) { // = 6 (rows)
+				for (int k=0; k<jacobianMatrix[i][j].length; k++) { // = 6 (columns)
 					
-					jacobianMatrix[j][k] = 0;
-				}
+					State previousY = new State(currentPosition, currentVelocity, isShip, t);
+					State nextY = new State(currentPosition, currentVelocity, isShip, t);
+					
+					boolean isPrevious = true;
+					boolean isNext = true;
+					
+					if (isPrevious) {
+						
+						isNext = false;
+						
+						if (k==0) {
+							
+							currentPosition[i].setX(currentPosition[i].getX() - h);
+						}
+						else if (k==1) {
+							
+							currentPosition[i].setY(currentPosition[i].getY() - h);
+						}
+						else if (k==2) {
+							
+							currentPosition[i].setZ(currentPosition[i].getZ() - h);
+						}
+						// switch to velocities 
+						else if (k==3) {
+							
+							currentVelocity[i].setX(currentVelocity[i].getX() - h);
+						}
+						else if (k==4) {
+							
+							currentVelocity[i].setY(currentVelocity[i].getY() - h);
+						}
+						else if (k==5) {
+							
+							currentVelocity[i].setZ(currentVelocity[i].getZ() - h);
+						}
+					}
+					
+					if (isNext) {
+						
+						isPrevious = false;
+						
+						if (k==0) {
+							
+							currentPosition[i].setX(currentPosition[i].getX() + h);
+						}
+						else if (k==1) {
+							
+							currentPosition[i].setY(currentPosition[i].getY() + h);
+						}
+						else if (k==2) {
+							
+							currentPosition[i].setZ(currentPosition[i].getZ() + h);
+						}
+						// switch to velocities 
+						else if (k==3) {
+							
+							currentVelocity[i].setX(currentVelocity[i].getX() + h);
+						}
+						else if (k==4) {
+							
+							currentVelocity[i].setY(currentVelocity[i].getY() + h);
+						}
+						else if (k==5) {
+							
+							currentVelocity[i].setZ(currentVelocity[i].getZ() + h);
+						}
+					}
+					
+					Rate previousRate = (Rate) f.call(t, previousY);
+					Rate nextRate = (Rate) f.call(t, nextY);
+					
+					
+					double derivative;
+					//derivatives calculations  
+					if (j==0) { 
+						
+						derivative = (nextRate.getVelocity()[i].getX() - previousRate.getVelocity()[i].getX()) / 2*h;  				
+					}
+					else if (j==1) {
+						
+						derivative = (nextRate.getVelocity()[i].getY() - previousRate.getVelocity()[i].getY()) / 2*h;  				
+					}
+					else if (j==2) {
+						
+						derivative = (nextRate.getVelocity()[i].getZ() - previousRate.getVelocity()[i].getZ()) / 2*h;  				
+					}
+					// switch to velocities
+					else if (j==3) {
+						
+						derivative = (nextRate.getAcceleration()[i].getX() - previousRate.getAcceleration()[i].getX()) / 2*h;  				
+					}
+					else if (j==4) {
+						
+						derivative = (nextRate.getAcceleration()[i].getY() - previousRate.getAcceleration()[i].getY()) / 2*h;  				
+					}
+					else {
+						
+						derivative = (nextRate.getAcceleration()[i].getZ() - previousRate.getAcceleration()[i].getZ()) / 2*h;  				
+					}
+
+					jacobianMatrix[i][j][k] = derivative;
+				}		
 			}
 		}
-		return null; //TODO 
+		
+		/* TODO
+		 * 1) inverse jacobianMatrix
+		 * 2) multiply both inverted jacobianMatrix with functionsMatrix
+		 * 3) calculate the corresponding new Rate
+		 * 4) return y.addMul(1, -Rate);
+		*/
+		
+		return null; 
 	}
 }
