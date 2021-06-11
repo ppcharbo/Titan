@@ -82,16 +82,25 @@ public class State implements StateInterface {
 	@Override
 	public State addMul(double step, RateInterface rate) {
 		
-		State newState = new State(getPosition(), getVelocity(), getisShip(), getTime() + step);
+		State newState = new State(this.getPosition(), this.getVelocity(), this.getisShip(), this.getTime() + step);
+		//The commented stuff is another approach/implementation
+		//Vector3d[] newPosition = new Vector3d[this.position.length];
+		//Vector3d[] newVelocity = new Vector3d[this.velocity.length];
 		
 		for (int i = 0; i < position.length; i++) {
 
+			//newVelocity[i] = (Vector3d) newState.getVelocity()[i].addMul(step, ((Rate) rate).getAcceleration()[i]);
+			//newPosition[i] = (Vector3d) newState.getPosition()[i].addMul(step, ((Rate) rate).getVelocity()[i]);
+			
 			Vector3d newVelo = (Vector3d) newState.getVelocity()[i].addMul(step, ((Rate) rate).getAcceleration()[i]);
 			Vector3d newPosition = (Vector3d) newState.getPosition()[i].addMul(step, ((Rate) rate).getVelocity()[i]);
 			
 			newState.getPosition()[i] = newPosition;
 			newState.getVelocity()[i] = newVelo;
 		}
+		//newState.setPosition(newPosition);
+		//newState.setVelocity(newVelocity);
+		
 		return newState;
 	}
 }

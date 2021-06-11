@@ -58,13 +58,24 @@ public class Rate implements RateInterface {
 		newRate.setVelocity(velocity);
 		newRate.setAcceleration(acceleration);
 		
+		//The commented stuff is another implementation that also work
+		//Vector3d[] newVelo = new Vector3d[this.velocity.length];
+		//Vector3d[] newAcce = new Vector3d[this.acceleration.length];
+		
 		for (int i = 0; i < acceleration.length; i++) {
+			
+			//newVelo[i] = (Vector3d) newRate.getVelocity()[i].mul(scalar);
+			//newAcce[i] = (Vector3d) newRate.getAcceleration()[i].mul(scalar);
 			
 			Vector3d newVelo = (Vector3d) newRate.getVelocity()[i].mul(scalar);
 			Vector3d newAcce = (Vector3d) newRate.getAcceleration()[i].mul(scalar);
 			newRate.getVelocity()[i] = newVelo;
 			newRate.getAcceleration()[i] = newAcce;
+			
 		}
+		
+		//newRate.setAcceleration(newAcce);
+		//newRate.setVelocity(newVelo);
 		return newRate;
 	}
 	

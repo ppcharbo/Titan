@@ -56,13 +56,13 @@ public class NASA {
         
         if(INITIAL) {
             System.out.println("From the text file:");
-            System.out.println("x= 6.332873118527889e+11");
-            System.out.println("y=-1.357175556995868e+12");
-            System.out.println("z=-2.134637041453660e+09");
+            System.out.println("x= 6.332873118527889E+08");
+            System.out.println("y=-1.357175556995868E+09");
+            System.out.println("z=-2.134637041453660e+06");
             
-            System.out.println("vx= 3.056877965721629e+03");
-            System.out.println("vy= 6.125612956428791e+03");
-            System.out.println("vz= -9.523587380845593e+02");
+            System.out.println("vx= 3.056877965721629E+00");
+            System.out.println("vy= 6.125612956428791E+00");
+            System.out.println("vz= -9.523587380845593E-01");
             
     		System.out.println();
             
