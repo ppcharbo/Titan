@@ -71,7 +71,8 @@ public class ShipFuelCosts {
 	}
 
 	public static double calcTime(){
-		engineTime=(delta_velocity.norm())/accleration.norm();
+		//TODO fix accleration field
+		//engineTime=(delta_velocity.norm())/accleration.norm();
 
 		return engineTime;
 	}
