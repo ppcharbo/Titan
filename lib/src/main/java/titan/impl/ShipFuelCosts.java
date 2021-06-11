@@ -15,6 +15,7 @@ public class ShipFuelCosts {
 	private static Vector3d Post_velocity;
 	private static Vector3d Current_velocity;
 	private static double engineTime;
+	private static Vector3d[] acceleration;
 	
 	private static double mass_flow_rate;
 	private static double fuel_cost;
@@ -37,7 +38,7 @@ public class ShipFuelCosts {
 		
 		double constant = 1/(normDistanceVector/norm);
 		
-		Vector3d[] acceleration = new Vector3d[state.getVelocity().length]; 
+		acceleration = new Vector3d[state.getVelocity().length]; 
 		
 		acceleration[0] = (Vector3d) distanceVector.mul(constant); // acceleration of ship
 				
@@ -71,9 +72,10 @@ public class ShipFuelCosts {
 	}
 
 	public static double calcTime(){
-		//TODO fix accleration field
-		//engineTime=(delta_velocity.norm())/accleration.norm();
-
+		
+		System.out.println("Hey There, the error might have been fixed " + acceleration[0].norm());
+		engineTime=(delta_velocity.norm())/acceleration[0].norm();
+		
 		return engineTime;
 	}
 
