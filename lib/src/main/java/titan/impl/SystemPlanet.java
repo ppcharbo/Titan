@@ -28,6 +28,7 @@ public class SystemPlanet extends JPanel {
 	private Point prevPt;
 	private ImageIcon icon;
 	private StateInterface[] solvedStates;
+	private int globalState = -1; //define the state where the minimum fly-by is
 
 	// we need the following to be public, because we need access to it in
 	// the GUIWelcome class
@@ -89,8 +90,10 @@ public class SystemPlanet extends JPanel {
 			titanPositions[i] = ((State) solvedStates[i]).getPosition()[10];
 		}
 
-		// loop over every state and look for the minimal distance
 		double closestDistance = Double.MAX_VALUE;
+		
+		/* ONE IMPLEMENTATION WAY
+		// loop over every state and look for the minimal distance
 		for (Vector3dInterface shipVector : shipPositions) {
 			for (Vector3dInterface titanVector : titanPositions) {
 				if (Math.abs(shipVector.dist(titanVector)) <= 3E5) {
@@ -101,6 +104,25 @@ public class SystemPlanet extends JPanel {
 				}
 			}
 		}
+		*/
+		
+		// THE OTHER WAY:
+		// loop over every state and calculate the minimal distance
+		for (int j = 0; j < shipPositions.length; j++) {
+			if (shipPositions[j].dist(titanPositions[j]) < closestDistance) {
+				closestDistance = shipPositions[j].dist(titanPositions[j]);
+				globalState = j;
+			}
+		}
+
+		System.out.println(closestDistance);
+		System.out.println(globalState);
+		
+		if(DEBUG) {
+			System.out.println("To check:");
+			System.out.println(((State) solvedStates[globalState]).getPosition()[0].dist(((State) solvedStates[globalState]).getPosition()[10]));
+		}
+		
 		return closestDistance;
 	}
 
@@ -136,7 +158,7 @@ public class SystemPlanet extends JPanel {
 				}
 
 				// Do some changes to the ship so that we can see
-				//where it is near the end of the trajectory
+				// where it is near the end of the trajectory
 				if (currentState > (solvedStates.length-20) && currentState < (solvedStates.length-1)) {
 					allPlanets.get(0).setColor(255, 255, 255);
 					allPlanets.get(0).setDiameter(10);
@@ -182,12 +204,8 @@ public class SystemPlanet extends JPanel {
 		//double year = 365.25 * day;
 		
 		// GUI2
-		//double stepGUI2 = 60 * 60; // 1 hour
-		//double finalGUI2 = 2*365.25 * 24 * 60 * 60; // 2 years
-		
-		//TEST NASA CLASS
-		double stepGUI2 = 24 * 60 * 60; // 1 day
-		double finalGUI2 = 365.25 * 24 * 60 * 60; // 1 year
+		double stepGUI2 = 60 * 60; // 1 hour
+		double finalGUI2 = 2*365.25 * 24 * 60 * 60; // 2 years
 		
 		// GUI3: smaller step size and final time ENGINE ON
 		//double hour = 60 * 60;

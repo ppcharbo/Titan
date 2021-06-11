@@ -66,9 +66,6 @@ public class ClosestFlyByCalculator {
 			
 			for (Vector3dInterface titanVector : titanPositions) {
 				
-				if(Math.abs(shipVector.dist(titanVector)) <= 3E10) {
-					
-				}
 				if(Math.abs(shipVector.dist(titanVector)) < min) {
 					
 					min = Math.abs(shipVector.dist(titanVector));
