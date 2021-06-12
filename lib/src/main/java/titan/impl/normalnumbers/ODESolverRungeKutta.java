@@ -4,7 +4,6 @@ public class ODESolverRungeKutta {
 
 	public State[] solve(ODEFunction f, State y0, double tf, double h) {
 		
-		
 		State[] arr = new State[(int) Math.ceil(tf / h -1)];
 		arr[0] = y0;
 		double currentTime = y0.getTime();
@@ -37,18 +36,10 @@ public class ODESolverRungeKutta {
 		k3 = f.call(t + (0.5*h), y.addMul(0.5*h, k2));
 		k4 = f.call(t + h, y.addMul(h, k3));
 		
-		Rate k1i = k1;
-		Rate k2i = k2.mul(2);
-		Rate k3i = k3.mul(2);
-		Rate k4i = k4;
-		
-		ki = k1i.addMul(1, k2i).addMul(1, k3i).addMul(1, k4i);
-		
-		/*
 		ki = k1.addMul(2, k2);
 		ki = ki.addMul(2, k3);
 		ki = ki.addMul(1, k4);
-		*/
+		
 		ki = ki.mul(h/6);
 
 		return new State((y.addMul(1, ki)).getElement(), t+h);
