@@ -185,8 +185,14 @@ public class SystemPlanet extends JPanel {
 				else {
 					allPlanets.get(0).setColor(0, 255, 0);
 				}
+				if(currentState == globalState)
+				{
+					new LandingFrame();
+					break;
+				}
 				currentState += 1;
 			}
+			
 
 			repaint();
 
