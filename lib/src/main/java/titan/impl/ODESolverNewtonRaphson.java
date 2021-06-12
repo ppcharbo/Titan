@@ -80,7 +80,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	
 	
 	/*
-	 * Update rule for one step.
+	 * Update rule for one step: we apply the Multivariate Newton Raphson Method: https://skill-lync.com/projects/week-6-multivariate-newton-rhapson-solver-18 
 	 *
 	 * @param   f   the function defining the differential equation dy/dt=f(t,y)
 	 * @param   t   the time
@@ -91,24 +91,43 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	@Override
 	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 		
-		// current state
+		// current state for all planets
 		Rate currentRate = (Rate) f.call(t, y);	
 		Vector3d currentPosition[] = ((State)y).getPosition();
 		Vector3d currentVelocity[]= ((State)y).getVelocity();
 		boolean[] isShip = ((State)y).getisShip();
 		
-		// previous state
+		// previous state for all planets
 		State previousState = (State)y.addMul(t-h, currentRate);
 		Vector3d previousPosition[] = ((State)y).getPosition();
 		Vector3d previousVelocity[]= ((State)y).getVelocity();
 		
-		// next state
+		// next state for all planets
 		State nextState = (State)y.addMul(t+h, currentRate);
 		Vector3d nextPosition[] = ((State)y).getPosition();
 		Vector3d nextVelocity[]= ((State)y).getVelocity();
 		
-		// for all planets (first dimensions)
-		double[][] functionsMatrix = new double[currentPosition.length][6]; // [positionX, positionY, positionZ, velocityX, velocityY, velocityZ] - only on the current state --> 1 column
+		
+		/* functionsMatrix:
+		 * 
+		 * 	[ positionX ]
+		 * 	| positionY |
+		 * 	| positionZ	|	6x1 matrix of the current state only
+		 *  | velocityX |
+		 *  | velocityY |
+		 *  [ velocityZ ]
+		 *    
+		 * jacobianMatrix:
+		 * 
+		 * [ (delta positionX / delta positionX) . . . (delta positionX / delta velocityZ) ]
+		 * | (delta positionY / delta positionX) . . . (delta positionY / delta velocityZ) |
+		 * | (delta positionZ / delta positionX) . . . (delta positionZ / delta velocityZ) |	6x6 matrix of the current state only
+		 * | (delta velocityX / delta positionX) . . . (delta velocityX / delta velocityZ) |
+		 * | (delta velocityY / delta positionX) . . . (delta velocityY / delta velocityZ) |
+		 * [ (delta velocityZ / delta positionX) . . . (delta velocityZ / delta velocityZ) ]
+		 */
+		// for all planets (additional first dimensions)
+		double[][] functionsMatrix = new double[currentPosition.length][6];  
 		double[][][] jacobianMatrix = new double[currentPosition.length][6][6]; 
 		
 		// fill in functionsMatrix
@@ -123,20 +142,23 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		}
 		
 		// fill in jacobianMatrix
-		for (int i=0; i<currentPosition.length; i++) { // = number of planets
-			for (int j=0; j<jacobianMatrix[i].length; j++) { // = 6 (rows)
-				for (int k=0; k<jacobianMatrix[i][j].length; k++) { // = 6 (columns)
+		for (int i=0; i<currentPosition.length; i++) { 
+			for (int j=0; j<jacobianMatrix[i].length; j++) { 
+				for (int k=0; k<jacobianMatrix[i][j].length; k++) { 
 					
-					State previousY = new State(currentPosition, currentVelocity, isShip, t);
-					State nextY = new State(currentPosition, currentVelocity, isShip, t);
 					
-					boolean isPrevious = true;
+					State previousY = new State(currentPosition, currentVelocity, isShip, t); // initialize a variable previous state
+					State nextY = new State(currentPosition, currentVelocity, isShip, t); // initialize a variable following state
+					/*
+					 * flags
+					 */
+					boolean isPrevious = true; 
 					boolean isNext = true;
-					
 					if (isPrevious) {
 						
 						isNext = false;
 						
+						// set position vector coordinates
 						if (k==0) {
 							
 							currentPosition[i].setX(currentPosition[i].getX() - h);
@@ -149,7 +171,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 							
 							currentPosition[i].setZ(currentPosition[i].getZ() - h);
 						}
-						// switch to velocities 
+						// set velocity vector coordinates
 						else if (k==3) {
 							
 							currentVelocity[i].setX(currentVelocity[i].getX() - h);
@@ -163,11 +185,11 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 							currentVelocity[i].setZ(currentVelocity[i].getZ() - h);
 						}
 					}
-					
 					if (isNext) {
 						
 						isPrevious = false;
 						
+						// set position vector coordinates
 						if (k==0) {
 							
 							currentPosition[i].setX(currentPosition[i].getX() + h);
@@ -180,7 +202,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 							
 							currentPosition[i].setZ(currentPosition[i].getZ() + h);
 						}
-						// switch to velocities 
+						// set velocity vector coordinates
 						else if (k==3) {
 							
 							currentVelocity[i].setX(currentVelocity[i].getX() + h);
@@ -194,13 +216,13 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 							currentVelocity[i].setZ(currentVelocity[i].getZ() + h);
 						}
 					}
+					Rate previousRate = (Rate) f.call(t, previousY); // correspond to the functions: f1 ... fn=f6 of the previous state
+					Rate nextRate = (Rate) f.call(t, nextY); // correspond to the functions: f1 ... fn=f6 of the following state
 					
-					Rate previousRate = (Rate) f.call(t, previousY);
-					Rate nextRate = (Rate) f.call(t, nextY);
 					
-					
+					// lets calculate the deltas
 					double derivative;
-					//derivatives calculations  
+					// derivatives of position vector coordinates: delta position = (nextSate velocity - previousState velocity) / 2h
 					if (j==0) { 
 						
 						derivative = (nextRate.getVelocity()[i].getX() - previousRate.getVelocity()[i].getX()) / 2*h;  				
@@ -213,7 +235,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 						
 						derivative = (nextRate.getVelocity()[i].getZ() - previousRate.getVelocity()[i].getZ()) / 2*h;  				
 					}
-					// switch to velocities
+					// derivatives of velocity vector coordinates: delta velocity = (nextSate acceleration - previousState acceleration) / 2h
 					else if (j==3) {
 						
 						derivative = (nextRate.getAcceleration()[i].getX() - previousRate.getAcceleration()[i].getX()) / 2*h;  				
@@ -236,7 +258,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		 * 1) inverse jacobianMatrix
 		 * 2) multiply both inverted jacobianMatrix with functionsMatrix
 		 * 3) calculate the corresponding new Rate
-		 * 4) return y.addMul(1, -Rate);
+		 * 4) return y.addMul(1, -newRate); 
 		*/
 		
 		return null; 
