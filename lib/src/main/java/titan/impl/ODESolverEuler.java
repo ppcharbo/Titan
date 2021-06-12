@@ -3,6 +3,7 @@ package titan.impl;
 import titan.ODEFunctionInterface;
 import titan.ODESolverInterface;
 import titan.StateInterface;
+import titan.impl.normalnumbers.State;
 
 /*
  * A class for solving a general differential equation dy/dt = f(t,y)
@@ -47,6 +48,18 @@ public class ODESolverEuler implements ODESolverInterface {
 	@Override
 	public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 		
+		StateInterface[] arr = new StateInterface[(int) Math.ceil(tf / h)+1];
+		arr[0] = y0;
+		double currentTime = 0;
+		int i = 1;
+		
+		while(currentTime < tf) {
+			arr[i] = step(f, currentTime, arr[i - 1], h);
+			//System.out.println(currentTime);
+			currentTime += h;
+			i++;
+		}
+		
 		/*
 		StateInterface[] arr = new StateInterface[(int) Math.ceil((tf / h) + 1)];
 		int i = 0;
@@ -65,6 +78,7 @@ public class ODESolverEuler implements ODESolverInterface {
 		return arr;
 		*/
 		
+		/*
 		State[] arr = new State[(int) Math.ceil((tf / h) + 1)];
 		arr[0] = (State) y0;
 		double stepSize = h;
@@ -79,6 +93,7 @@ public class ODESolverEuler implements ODESolverInterface {
 			arr[i] = step(f, currentTime, arr[i - 1], stepSize);
 			currentTime += stepSize;
 		}
+		*/
 		return arr;
 	}
 
@@ -93,8 +108,8 @@ public class ODESolverEuler implements ODESolverInterface {
 	 * @return  the new state after taking one step
 	 */
 	@Override
-	public State step(ODEFunctionInterface f, double t, StateInterface y, double h) {
+	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 
-		return (State) y.addMul(h, f.call(t, y));
+		return y.addMul(h, f.call(t, y));
 	}
 }
