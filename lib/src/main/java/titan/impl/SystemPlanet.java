@@ -125,6 +125,24 @@ public class SystemPlanet extends JPanel {
 		
 		return closestDistance;
 	}
+	/*                                          
+	public double getMinDistance() {		// this method returns the minimum distance between our probe ant titan. 
+		
+		double[] allDistances = new double[solvedStates.length];
+		
+		for(int i = 0; i < solvedStates.length; i++)
+			allDistances[i] = distanceTitan();
+		
+		double minDist = allDistances[0];
+		for(int i = 0; i < solvedStates.length; i++)
+			if(allDistances[i] <= minDist)
+				{
+				 minDist = allDistances[i];
+				}
+		
+		return minDist;
+	}
+	*/
 
 	public void paintComponent(Graphics g) {
 
