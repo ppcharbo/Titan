@@ -19,8 +19,8 @@ public class ODEFunction {
 	 *
 	*/
 	public Rate call(double t, State y) {
-		System.out.println(y.getElement());
-		System.out.println(t);
+		//System.out.println(y.getElement());
+		//System.out.println(t);
 		double rate = y.getElement()/t-2;
 		//System.out.println(rate);
 		return new Rate(rate);

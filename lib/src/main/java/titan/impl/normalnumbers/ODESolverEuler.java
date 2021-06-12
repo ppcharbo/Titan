@@ -1,9 +1,5 @@
 package titan.impl.normalnumbers;
 
-import titan.ODEFunctionInterface;
-import titan.ODESolverInterface;
-import titan.StateInterface;
-
 /*
  * A class for solving a general differential equation dy/dt = f(t,y)
  *     y(t) describes the state of the system at time t
@@ -23,14 +19,28 @@ public class ODESolverEuler {
 	 */
 	public State[] solve(ODEFunction f, State y0, double tf, double h) {
 		
-		State[] arr = new State[(int) Math.ceil((tf / h) + 1)];
-		arr[0] = (State) y0;
+		State[] arr = new State[(int) Math.ceil(tf / h-1)];
+		arr[0] = y0;
+		double currentTime = y0.getTime();
+		int i = 1;
+		
+		while(currentTime < tf) {
+			arr[i] = step(f, currentTime, arr[i - 1], h);
+			System.out.println(currentTime);
+			currentTime += h;
+			i++;
+		}
+		
+		/*
+		State[] arr = new State[(int) Math.ceil(tf / h)];
+		arr[0] = y0;
 		double currentTime = y0.getTime();
 
 		for (int i = 1; i < arr.length; i++) {
 			arr[i] = step(f, currentTime, arr[i - 1], h);
 			currentTime += h;
 		}
+		*/
 		return arr;
 	}
 

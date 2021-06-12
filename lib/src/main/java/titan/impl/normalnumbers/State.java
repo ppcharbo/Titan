@@ -22,7 +22,6 @@ public class State {
 	public double getTime() {
 		return this.time;
 	}
-	
 
     /**
      * Update a state to a new state computed by: this + step * rate
@@ -32,7 +31,7 @@ public class State {
      * @return The new state after the update. Required to have the same class as 'this'.
      */
 	public State addMul(double step, Rate rate) {
-		State returner = new State(this.w + rate.getRate(), this.time + step);
+		State returner = new State(this.w + step*rate.getRate(), this.time + step);
 		//System.out.println(returner.getElement());
 		//System.out.println(returner.getTime());
 		return returner;

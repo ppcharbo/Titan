@@ -10,4 +10,12 @@ public class Rate {
 	public double getRate() {
 		return this.change;
 	}
+	
+	public Rate mul(double scalar) {
+		return new Rate(this.change*scalar);
+	}
+	
+	public Rate addMul(double scalar, Rate rat) {
+		return new Rate(this.change + scalar*rat.getRate());
+	}
 }
