@@ -29,6 +29,7 @@ public class SystemPlanet extends JPanel {
 	private ImageIcon icon;
 	private StateInterface[] solvedStates;
 	private int globalState = -1; //define the state where the minimum fly-by is
+	private final boolean AUTO_CLOSE = true;
 
 	// we need the following to be public, because we need access to it in
 	// the GUIWelcome class
@@ -188,6 +189,9 @@ public class SystemPlanet extends JPanel {
 				if(currentState == globalState)
 				{
 					new LandingFrame(solvedStates[globalState]);
+					if(AUTO_CLOSE) {
+						upperFrame.welcomeFrame.dispose();
+					}
 					break;
 				}
 				currentState += 1;

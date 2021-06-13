@@ -12,15 +12,14 @@ public class OpenLoopController {
 	public InputFunctionLanding u;
 	public InputFunctionLanding v;
 	
-	public State[] landingStates;
+	//public StateInterface[] landingStates;
+	private StateInterface[] landingStatesPerTime;
 	
-	private double diameter = 0;
+	private double diameter = 10;
 	private int xLT = 400;
 	private int yLT = 0;
-	private String label;
-	private JPanel parent;
 	
-	public double OpenLoopLandingSimulatorWRTU(StateInterface initialLaunchState) {
+	public double openLoopLandingSimulatorWRTU(StateInterface initialLaunchState) {
 		
 		//TODO Change shipWhenDistanceIsSmallest to ship
 		int ship = 0;
@@ -43,13 +42,10 @@ public class OpenLoopController {
 		
 		ODESolverRungeKutta solveLanding = new ODESolverRungeKutta();
 		f.setLanding(true);
-		int tf = 60*60*24;
+		int tf = 60*60*24*50;
 		int h = 60*60;
 		
-		StateInterface[] landingStatesPerTime = solveLanding.solve(f, initialState, tf, h);
-		//go over landingStatesPerTime and draw the module using ((State) landingStatesPerTime).getPosition()[0] ((.getX()/.getY()))
-		landingStates = (State[]) landingStatesPerTime;
-		System.out.println("WET ASS PU$$Y " + landingStates.length);
+		landingStatesPerTime = (StateInterface[]) solveLanding.solve(f, initialState, tf, h);
 		
 		double x = positionLaunch.getX();
 		double y = positionLaunch.getY();
@@ -62,17 +58,15 @@ public class OpenLoopController {
 		return g.getU();
 	}
 	
-	public InputFunctionLanding OpenLoopLandingSimulatorWRTV(State initialLaunchState) {
-		//TODO Change shipWhenDistanceIsSmallest to ship
-		int shipWhenDistanceIsSmallest = 0;
-		Vector3d positionLaunch = initialLaunchState.getPosition()[shipWhenDistanceIsSmallest];
-		Vector3d velocityLaunch = initialLaunchState.getVelocity()[shipWhenDistanceIsSmallest];
+	public InputFunctionLanding openLoopLandingSimulatorWRTV(State initialLaunchState) {
+		int ship = 0;
+		Vector3d positionLaunch = initialLaunchState.getPosition()[ship];
+		Vector3d velocityLaunch = initialLaunchState.getVelocity()[ship];
 		double x = positionLaunch.getX();
 		double y = positionLaunch.getY();
 		double vx = velocityLaunch.getX();
 		double vy = velocityLaunch.getY();
 		
-		//TODO define eta's
 		double eta = 0;
 		double eta2 = 0;
 		InputFunctionLanding f = new InputFunctionLanding(x, y, eta, vx, vy, eta2);
@@ -93,26 +87,14 @@ public class OpenLoopController {
 		setY((int) (newPosition.getY()/(1E9)) );
 	}
 	
-	public State[] returnLandingStates() {
-		
-		return landingStates;
+	public StateInterface[] returnLandingStates() {
+		return landingStatesPerTime;
 	}
 	
 	public void draw(Graphics g, double size, int width, int height) {
-
 		Color color = new Color(0, 255, 0);
-		
-		size = 1;
-		width = 110;
-		height = 110;
-		diameter = 10;
-		
 		g.setColor(color);
-		
-		System.out.println("This is diameter " + diameter);
-		
-		g.fillRect(xLT, yLT, (int) (diameter * size), (int) (diameter * size));
+		g.fillRect(xLT, yLT, width, height);
 		
 	}
-	
 }

@@ -20,19 +20,6 @@ public class InputFunctionLanding {
 	public double v;    // the torque provided by the side thrusters
 	public final double TITAN_GRAVITY = 1.352;
 	
-	/*
-	public InputFunctionLanding(double x, double y, double eta, double XVelocity, double YVelocity, double etader) {
-		
-		this.x = x;
-		this.y = y;
-		this.eta = eta;
-		this.XVelocity = XVelocity;
-		this.YVelocity = YVelocity;
-		this.etader = etader;
-		
-	}
-	*/
-	
 	public InputFunctionLanding(double x, double y, double eta, double XVelocity, double YVelocity, double etader) {
 		
 		this.x = x;
@@ -52,17 +39,14 @@ public class InputFunctionLanding {
 	}
 	
 	public double getInputX() {
-		
 		return x;
 	}
 	
 	public double getInputY() {
-		
 		return y;
 	}
 	
 	public double getRotationAngle() {
-		
 		return eta;
 	}
 	
@@ -107,5 +91,4 @@ public class InputFunctionLanding {
 		}
 		return false;
 	}
-
 }

@@ -14,16 +14,18 @@ import titan.Vector3dInterface;
 public class LandingModule extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	// private final GUIWelcome landFrame;
 	private Point imageCorner;
 	private ImageIcon icon;
-	private State[] landingStatesPerTime;
+	private StateInterface[] landingStatesPerTime;
+	private static int delay = 25;
 
-	public double size = 100;
+	public double size = 1;
 	public boolean stop = false;
 	public int currentState = 0;
+
 	
-	private OpenLoopController landingstuff = new OpenLoopController();
+	//private OpenLoopController landingModule = new OpenLoopController();
+	private OpenLoopController openController;
 
 	public LandingModule(LandingFrame landing, StateInterface landingState) {
 
@@ -33,17 +35,9 @@ public class LandingModule extends JPanel {
 		icon = new ImageIcon(this.getClass().getResource("background.jpg"));
 		imageCorner = new Point(0, 0);
 
-		OpenLoopController openController = new OpenLoopController();
-		openController.OpenLoopLandingSimulatorWRTU(landingState);
+		openController = new OpenLoopController();
+		openController.openLoopLandingSimulatorWRTU(landingState);
 
-	}
-
-	public LandingModule(LandingFrame landingFrame) {
-		// Source of image:
-		// https://www.pexels.com/photo/fine-tip-on-black-surface-3934623/
-		// Edited by the group so that the image is all black for a background
-		icon = new ImageIcon(this.getClass().getResource("background.jpg"));
-		imageCorner = new Point(0, 0);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -53,29 +47,34 @@ public class LandingModule extends JPanel {
 		// Repaint background
 		icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
 
-		landingstuff.draw(g, size, 120, 100);
-		// landingstuff.draw(g, size, 120, 100);
+		openController.draw(g, size, 10, 10);
 
 		g.setColor(new Color(218, 165, 32));
-		// x, y, width, height
-		g.fillRect(0, 700, 800, 100);
-		// g.fillRect(0, 0, 800, 100);
-
+		g.fillRect(0, 700, 800, 100); // x, y, width, height
 	}
 	
 	private void landingLoop() {
 		
-		landingStatesPerTime = landingstuff.returnLandingStates();
-		System.out.println("WET ASS PU$$Y " + landingStatesPerTime.length);
-		//for(int j = 0; j < landingStatesPerTime.length; j++)
-			
-
+		landingStatesPerTime = openController.returnLandingStates();
+		
 		while (true) {
 			if (!stop) {
 				// update positions
-					landingstuff.update(((State) landingStatesPerTime[currentState]).getPosition()[0]);
+				openController.update(((State) landingStatesPerTime[currentState]).getPosition()[0]);
+				if (currentState == landingStatesPerTime.length - 1) {
+					currentState = 0;
 				}
+				System.out.println(currentState);
+			}
 			currentState++;
+			
+			repaint();
+
+			try {
+				Thread.sleep(delay);
+			} catch (InterruptedException ex) {
+				//
+			}
 		}
 	}
 	
@@ -87,9 +86,8 @@ public class LandingModule extends JPanel {
 				landingLoop();
 			}
 		};
-
 		thread.start();
-
+		
+		
 	}
-
 }

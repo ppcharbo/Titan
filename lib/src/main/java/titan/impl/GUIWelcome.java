@@ -23,6 +23,7 @@ public class GUIWelcome {
 	//public because we need access to it later
 	public JButton zoomOut;
 	public JButton zoomIn;
+	public JFrame welcomeFrame;
 
 	public static void main(String[] args) {
 		new GUIWelcome();
@@ -30,7 +31,7 @@ public class GUIWelcome {
 
 	public GUIWelcome() {
 
-		JFrame welcomeFrame = new JFrame();
+		welcomeFrame = new JFrame();
 		welcomeFrame.setSize(800, 800);
 		welcomeFrame.setTitle("Journey to Titan");
 		welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

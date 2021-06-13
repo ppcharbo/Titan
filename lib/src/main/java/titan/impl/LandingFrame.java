@@ -11,30 +11,7 @@ import titan.StateInterface;
 
 public class LandingFrame extends JPanel{
 	
-
-	public static void main(String[] args) {
-		new LandingFrame();
-	}
-	
-	public LandingFrame() {
-		
-		
-		JFrame landingFrame = new JFrame();
-		
-		landingFrame.setSize(800, 800);
-		landingFrame.setTitle("Journey to Titan - Landing");
-		landingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		LandingModule landMode = new LandingModule(this);
-		landingFrame.add(landMode);
-		landMode.repaint();
-		
-		landMode.startLanding();
-		landingFrame.setVisible(true);
-		
-		
-	}
-
+	private static final long serialVersionUID = 1L;
 	
 	public LandingFrame(StateInterface landingState) {
 		
@@ -50,10 +27,6 @@ public class LandingFrame extends JPanel{
 		landMode.repaint();
 		
 		landMode.startLanding();
-		landingFrame.setVisible(true);
-
-		
-		
+		landingFrame.setVisible(true);	
 	}
-
 }
