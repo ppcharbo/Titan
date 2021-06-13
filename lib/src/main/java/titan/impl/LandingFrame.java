@@ -29,8 +29,8 @@ public class LandingFrame extends JPanel{
 		landingFrame.add(landMode);
 		landMode.repaint();
 		
+		landMode.startLanding();
 		landingFrame.setVisible(true);
-
 		
 		
 	}
@@ -49,6 +49,7 @@ public class LandingFrame extends JPanel{
 		landingFrame.add(landMode);
 		landMode.repaint();
 		
+		landMode.startLanding();
 		landingFrame.setVisible(true);
 
 		

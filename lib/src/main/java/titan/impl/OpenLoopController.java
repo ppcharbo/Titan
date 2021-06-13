@@ -12,6 +12,8 @@ public class OpenLoopController {
 	public InputFunctionLanding u;
 	public InputFunctionLanding v;
 	
+	public State[] landingStates;
+	
 	private double diameter = 0;
 	private int xLT = 400;
 	private int yLT = 0;
@@ -46,6 +48,8 @@ public class OpenLoopController {
 		
 		StateInterface[] landingStatesPerTime = solveLanding.solve(f, initialState, tf, h);
 		//go over landingStatesPerTime and draw the module using ((State) landingStatesPerTime).getPosition()[0] ((.getX()/.getY()))
+		landingStates = (State[]) landingStatesPerTime;
+		System.out.println("WET ASS PU$$Y " + landingStates.length);
 		
 		double x = positionLaunch.getX();
 		double y = positionLaunch.getY();
@@ -87,6 +91,11 @@ public class OpenLoopController {
 	public void update(Vector3d newPosition) {
 		setX((int) (newPosition.getX()/(1E9)) );
 		setY((int) (newPosition.getY()/(1E9)) );
+	}
+	
+	public State[] returnLandingStates() {
+		
+		return landingStates;
 	}
 	
 	public void draw(Graphics g, double size, int width, int height) {

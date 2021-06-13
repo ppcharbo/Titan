@@ -17,9 +17,12 @@ public class LandingModule extends JPanel {
 	// private final GUIWelcome landFrame;
 	private Point imageCorner;
 	private ImageIcon icon;
+	private State[] landingStatesPerTime;
 
 	public double size = 100;
-
+	public boolean stop = false;
+	public int currentState = 0;
+	
 	private OpenLoopController landingstuff = new OpenLoopController();
 
 	public LandingModule(LandingFrame landing, StateInterface landingState) {
@@ -57,6 +60,35 @@ public class LandingModule extends JPanel {
 		// x, y, width, height
 		g.fillRect(0, 700, 800, 100);
 		// g.fillRect(0, 0, 800, 100);
+
+	}
+	
+	private void landingLoop() {
+		
+		landingStatesPerTime = landingstuff.returnLandingStates();
+		System.out.println("WET ASS PU$$Y " + landingStatesPerTime.length);
+		//for(int j = 0; j < landingStatesPerTime.length; j++)
+			
+
+		while (true) {
+			if (!stop) {
+				// update positions
+					landingstuff.update(((State) landingStatesPerTime[currentState]).getPosition()[0]);
+				}
+			currentState++;
+		}
+	}
+	
+	public void startLanding() {
+		Thread thread = new Thread() {
+
+			@Override
+			public void run() {
+				landingLoop();
+			}
+		};
+
+		thread.start();
 
 	}
 
