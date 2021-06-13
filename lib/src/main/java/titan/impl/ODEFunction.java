@@ -24,36 +24,68 @@ public class ODEFunction implements ODEFunctionInterface {
 	private int numberOfPlanet;
 	private AllPlanets planets; // = AllPlanet.getListOfPlanets().size();
 	
+	private boolean landingEnabled = false;
+	private double eta = Math.PI/4;
+	private final double G_TITAN = 1.352;
+	private double u = 15;
+	
 	public ODEFunction() {
 		
 		planets = new AllPlanets();
 		planets.createPlanets();
 		numberOfPlanet = planets.getListOfPlanets().size();
 	}
+	
+	public void setLanding(boolean landing) {
+		this.landingEnabled = landing;
+	}
+	
+	public void setEta(double et) {
+		this.eta = et;
+	}
+	
+	public void setU(double newU) {
+		this.u = newU;
+	}
 
 	
 	@Override
 	public Rate call(double t, StateInterface y) {
-		
-		Vector3d[] accelerationShip = ShipFuelCosts.acceleration(t, (State)y); // acceleration provided by the thrusters 
-		Vector3d[] accelerationPlanet = accelerationForce((State) y); // acceleration force of the planets
-		
-		Vector3d[] acceleration = new Vector3d[((State)y).getVelocity().length];
-		
-		for (int i=0; i<((State)y).getVelocity().length; i++) {
-			if(1==0) { // engine-off
-				
-			//if (((State)y).getisShip()[i] && t>400) { // checking if the element of the list correspond to the ship as well as the current time 
+
+		if(landingEnabled == true) {
+			double xDoubleDot = u*Math.sin(eta);
+			double yDoubleDot = u*Math.cos(eta)-G_TITAN;
 			
-				acceleration[i] = (Vector3d) accelerationShip[i].add(accelerationPlanet[i]); // acceleration of the thrusters combined with the attraction forces of the surroundings planets
+			if(((State) y).getPosition()[0].getX() == ((State) y).getPosition()[1].getX()) {
+				setEta(0);
 			}
-			else {
-				acceleration[i] = accelerationPlanet[i]; // if not a ship, apply only the attraction forces 
+			Vector3d newAccelLandingModule = new Vector3d(xDoubleDot, yDoubleDot, 0);
+			Vector3d newAccelTitan = new Vector3d(0, 0, 0);
+			Vector3d[] newAcceleration = {newAccelLandingModule, newAccelTitan};
+			return new Rate(((State) y).getVelocity(), newAcceleration);
+			
+			
+		} else {
+			Vector3d[] accelerationShip = ShipFuelCosts.acceleration(t, (State)y); // acceleration provided by the thrusters 
+			Vector3d[] accelerationPlanet = accelerationForce((State) y); // acceleration force of the planets
+			
+			Vector3d[] acceleration = new Vector3d[((State)y).getVelocity().length];
+			
+			for (int i=0; i<((State)y).getVelocity().length; i++) {
+				if(1==0) { // engine-off
+					
+				//if (((State)y).getisShip()[i] && t>400) { // checking if the element of the list correspond to the ship as well as the current time 
+				
+					acceleration[i] = (Vector3d) accelerationShip[i].add(accelerationPlanet[i]); // acceleration of the thrusters combined with the attraction forces of the surroundings planets
+				}
+				else {
+					acceleration[i] = accelerationPlanet[i]; // if not a ship, apply only the attraction forces 
+				}
 			}
+			Rate newRate = new Rate(((State) y).getVelocity(), acceleration);
+			
+			return newRate;
 		}
-		Rate newRate = new Rate(((State) y).getVelocity(), acceleration);
-		
-		return newRate;
 	}
 	
 	

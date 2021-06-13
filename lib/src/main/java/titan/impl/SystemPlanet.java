@@ -187,7 +187,7 @@ public class SystemPlanet extends JPanel {
 				}
 				if(currentState == globalState)
 				{
-					new LandingFrame();
+					new LandingFrame(solvedStates[globalState]);
 					break;
 				}
 				currentState += 1;

@@ -16,8 +16,8 @@ public class InputFunctionLanding {
 	private final double yDerTolerance = 0.1;
 	private final double etaDerTolerance = 0.01;
 	
-	//public double u;    // acceleration provided by the main thruster
-	//public double v;    // the torque provided by the side thrusters
+	public double u;    // acceleration provided by the main thruster
+	public double v;    // the torque provided by the side thrusters
 	public final double TITAN_GRAVITY = 1.352;
 	
 	/*
@@ -41,7 +41,14 @@ public class InputFunctionLanding {
 		this.XVelocity = XVelocity;
 		this.YVelocity = YVelocity;
 		this.etader = etader;
-		
+	}
+	
+	public double getU() {
+		return u;
+	}
+	
+	public double getV() {
+		return v;
 	}
 	
 	public double getInputX() {
