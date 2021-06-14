@@ -42,36 +42,19 @@ public class ShipFuelCosts {
 		
 		acceleration[0] = (Vector3d) distanceVector.mul(constant); // acceleration of ship
 				
-				
-		/*for (int i=0; i<state.getVelocity().length; i++) {
-			
-			Vector3d velocity = state.getVelocity()[i];// correspond to norm of the ship (assumption)
-			
-			velocity.mul(constant);
-			
-			// formulas for the projection of x, y, z coordinates of the norm of the ship (velocity vector)
-			double teta = Math.acos(velocity.getZ()/velocity.norm()); 
-			double phy = Math.atan(velocity.getY()/velocity.getX());  // from: https://en.wikipedia.org/wiki/Spherical_coordinate_system
-			
-			double accelerationX = norm*Math.cos(phy)*Math.sin(teta); // projection of x
-			double accelerationY = norm*Math.sin(phy)*Math.sin(teta); // projection of y
-			double accelerationZ = norm*Math.cos(teta); // projection of z
-			
-			acceleration[i] = new Vector3d(accelerationX, accelerationY, accelerationZ); 
-			
-		}
-		*/
 		return acceleration;
 	}
 
-	public Vector3d changeVelocity(){
+	
+	public Vector3d changeVelocity() {
 
-	//delta_velocity between engine on.
+		//delta_velocity between engine on.
 		delta_velocity=(Vector3d) Post_velocity.sub(Current_velocity);
 		return delta_velocity;
 	}
 
-	public static double calcTime(){
+	
+	public static double calcTime() {
 		
 		System.out.println("Hey There, the error might have been fixed " + acceleration[0].norm());
 		engineTime=(delta_velocity.norm())/acceleration[0].norm();
@@ -79,6 +62,7 @@ public class ShipFuelCosts {
 		return engineTime;
 	}
 
+	
 	public static double fuelCost(double t) {
 		
 		fuel_cost = mass_flow_rate * t;
