@@ -17,7 +17,7 @@ public class LandingModule extends JPanel {
 	private Point imageCorner;
 	private ImageIcon icon;
 	private StateInterface[] landingStatesPerTime;
-	private static int delay = 25;
+	public static int delay = 25;
 
 	public double size = 1;
 	public boolean stop = false;
@@ -25,7 +25,7 @@ public class LandingModule extends JPanel {
 
 	
 	//private OpenLoopController landingModule = new OpenLoopController();
-	private OpenLoopController openController;
+	private OpenLoopControllerNew openController;
 
 	public LandingModule(LandingFrame landing, StateInterface landingState) {
 
@@ -35,8 +35,9 @@ public class LandingModule extends JPanel {
 		icon = new ImageIcon(this.getClass().getResource("background.jpg"));
 		imageCorner = new Point(0, 0);
 
-		openController = new OpenLoopController();
-		openController.openLoopLandingSimulatorWRTU(landingState);
+		openController = new OpenLoopControllerNew(landingState);
+		//openController.openLoopLandingSimulatorWRTU(landingState);
+		
 
 	}
 
@@ -50,12 +51,12 @@ public class LandingModule extends JPanel {
 		openController.draw(g, size, 10, 10);
 
 		g.setColor(new Color(218, 165, 32));
-		g.fillRect(0, 700, 800, 100); // x, y, width, height
+		g.fillRect(0, getHeight()-100, getWidth(), 100); // x, y, width, height
 	}
 	
 	private void landingLoop() {
 		
-		landingStatesPerTime = openController.returnLandingStates();
+		landingStatesPerTime = openController.getLandingStates();
 		
 		while (true) {
 			if (!stop) {
@@ -64,7 +65,6 @@ public class LandingModule extends JPanel {
 				if (currentState == landingStatesPerTime.length - 1) {
 					currentState = 0;
 				}
-				System.out.println(currentState);
 			}
 			currentState++;
 			

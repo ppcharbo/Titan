@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -59,15 +60,40 @@ public class GUIWelcome {
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		panel.add(waitingLabel, gbc);
+		
+		JLabel chooseLabel = new JLabel("Please, also choose the solver which you would like to try.");
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		panel.add(chooseLabel, gbc);
 
 		JLabel emptyLabel2 = new JLabel("                              ");
 		gbc.gridx = 0;
-		gbc.gridy = 3;
+		gbc.gridy = 4;
 		panel.add(emptyLabel2, gbc);
+
+		JComboBox controller = new JComboBox();
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		controller.addItem("Open-loop controller");
+		controller.addItem("Feedback controller");
+		panel.add(controller, gbc);
+		
+		JComboBox solver = new JComboBox();
+		gbc.gridx = 1;
+		gbc.gridy = 5;
+		solver.addItem("Euler");
+		solver.addItem("RK4");
+		solver.addItem("Verlet");
+		panel.add(solver, gbc);
+		
+		JLabel emptyLabel3 = new JLabel("                              ");
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		panel.add(emptyLabel3, gbc);
 
 		JButton startButton = new JButton("Start your journey");
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 7;
 		panel.add(startButton, gbc);
 
 		// Previous implementation where then user determines the initial velocity

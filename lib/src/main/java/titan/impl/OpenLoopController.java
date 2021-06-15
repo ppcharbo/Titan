@@ -41,7 +41,7 @@ public class OpenLoopController {
 		ODEFunction f = new ODEFunction();
 		
 		ODESolverRungeKutta solveLanding = new ODESolverRungeKutta();
-		f.setLanding(true);
+		f.setLandingOpen(true);
 		int tf = 60*60*24*50;
 		int h = 60*60;
 		

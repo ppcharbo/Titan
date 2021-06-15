@@ -24,10 +24,9 @@ public class ODEFunction implements ODEFunctionInterface {
 	private int numberOfPlanet;
 	private AllPlanets planets; // = AllPlanet.getListOfPlanets().size();
 	
-	private boolean landingEnabled = false;
-	private double eta = Math.PI/4;
+	private boolean landingEnabledOpenController = false;
+	private boolean landingEnabledFeedbackController = false;
 	private final double G_TITAN = 1.352;
-	private double u = 15;
 	
 	public ODEFunction() {
 		
@@ -36,36 +35,50 @@ public class ODEFunction implements ODEFunctionInterface {
 		numberOfPlanet = planets.getListOfPlanets().size();
 	}
 	
-	public void setLanding(boolean landing) {
-		this.landingEnabled = landing;
+	public void setLandingOpen(boolean landing) {
+		this.landingEnabledOpenController = landing;
 	}
 	
-	public void setEta(double et) {
-		this.eta = et;
-	}
-	
-	public void setU(double newU) {
-		this.u = newU;
+	public void setLandingFeedback(boolean landing) {
+		this.landingEnabledFeedbackController = landing;
 	}
 
 	
 	@Override
 	public Rate call(double t, StateInterface y) {
 
-		if(landingEnabled == true) {
+		if(landingEnabledOpenController == true) {
+			
+			OpenLoopControllerNew openController = new OpenLoopControllerNew();
+			double u = openController.functionU(y);
+			double v = openController.functionV(y);
+			double eta = openController.calculateEta(y);
+			
+			//System.out.println("u: " + u);
+			//System.out.println("v: " + v);
+			//System.out.println("eta: " + eta);
+			
 			double xDoubleDot = u*Math.sin(eta);
 			double yDoubleDot = u*Math.cos(eta)-G_TITAN;
+			System.out.println("x**: " + xDoubleDot);
+			System.out.println("y**: " + yDoubleDot);
 			
-			if(((State) y).getPosition()[0].getX() == ((State) y).getPosition()[1].getX()) {
-				setEta(0);
-			}
-			Vector3d newAccelLandingModule = new Vector3d(xDoubleDot, yDoubleDot, 0);
+			Vector3d newAccelLandingModule = new Vector3d(-xDoubleDot, -yDoubleDot, 0);
 			Vector3d newAccelTitan = new Vector3d(0, 0, 0);
 			Vector3d[] newAcceleration = {newAccelLandingModule, newAccelTitan};
-			return new Rate(((State) y).getVelocity(), newAcceleration);
 			
+			Vector3d[] currentVelocities = ((State) y).getVelocity();
+			Vector3d newVelocityLandingModule = (Vector3d) currentVelocities[0].addMul(t, newAccelLandingModule);
+			Vector3d newVelocityTitan = (Vector3d) currentVelocities[1].addMul(t, newAccelLandingModule);
+			Vector3d[] newVelocity = {newVelocityLandingModule, newVelocityTitan};
 			
-		} else {
+			return new Rate(newVelocity, newAcceleration);	
+		}
+		else if(landingEnabledFeedbackController == true) {
+			//TODO
+			throw new RuntimeException("THIS HAS STILL TO BE IMPLEMENTED --> ERROR");
+		}
+		else {
 			Vector3d[] accelerationShip = ShipFuelCosts.acceleration(t, (State)y); // acceleration provided by the thrusters 
 			Vector3d[] accelerationPlanet = accelerationForce((State) y); // acceleration force of the planets
 			
