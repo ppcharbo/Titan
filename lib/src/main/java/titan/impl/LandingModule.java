@@ -65,6 +65,7 @@ public class LandingModule extends JPanel {
 				if (currentState == landingStatesPerTime.length - 1) {
 					currentState = 0;
 				}
+			displayDistances((State)landingStatesPerTime[currentState]);	
 			}
 			currentState++;
 			
@@ -78,6 +79,13 @@ public class LandingModule extends JPanel {
 		}
 	}
 	
+	public void displayDistances(State array) {
+		
+			 System.out.println("Current distance " + array.getPosition()[0].dist(array.getPosition()[1]));
+			
+	}
+	
+
 	public void startLanding() {
 		Thread thread = new Thread() {
 
