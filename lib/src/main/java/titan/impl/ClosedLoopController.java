@@ -4,6 +4,7 @@ import titan.StateInterface;
 
 public class ClosedLoopController {
 	private StateInterface[] landingStatesPerTime;
+	public final double E = 2.718281828459;
 
 	public ClosedLoopController(StateInterface initialLaunchState) {
 		
@@ -44,4 +45,53 @@ public class ClosedLoopController {
 		
 		return 5;
 	}
+	
+	public double computePositiveLambda(double a, double b) {
+		
+		double posLambda;
+		posLambda = (b/2) + ((a*a - 4*b)/2);
+		return posLambda;
+		
+	}
+	
+	/*
+	public double computeNegativeLambda(double a, double b) {
+		
+		double negLambda;
+		negLambda = (b/2) - ((a*a - 4*b)/2);
+		return negLambda;
+		
+	}
+	*/
+	
+	public double calcTheta(double a, double b, double t) {        // might not need
+		
+		double theta;
+		double lambda = computePositiveLambda(a,b);
+		theta = Math.pow(E, lambda*t);
+		return theta;
+		
+	}
+	
+	public double calcThetaDot(double a, double b, double t) {     // might not need
+		
+		double thetaDot;
+		double lambda = computePositiveLambda(a,b);
+		thetaDot = lambda * Math.pow(E, lambda*t);
+		return thetaDot;
+		
+	}
+	
+	public double calcThetaDoubleDot(double a, double b, double t) {     // the equivalent of V
+		
+		double thetaDoubleDot;
+		double lambda = computePositiveLambda(a,b);
+		thetaDoubleDot = lambda * lambda * Math.pow(E, lambda*t);
+		return thetaDoubleDot;
+		
+	}
+	
+	
+	
+	
 }
