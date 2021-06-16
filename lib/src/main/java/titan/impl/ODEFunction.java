@@ -60,10 +60,11 @@ public class ODEFunction implements ODEFunctionInterface {
 			
 			double xDoubleDot = u*Math.sin(eta);
 			double yDoubleDot = u*Math.cos(eta)-G_TITAN;
+			
 			System.out.println("x**: " + xDoubleDot);
 			System.out.println("y**: " + yDoubleDot);
 			
-			Vector3d newAccelLandingModule = new Vector3d(-xDoubleDot, -yDoubleDot, 0);
+			Vector3d newAccelLandingModule = new Vector3d(xDoubleDot, yDoubleDot, 0);
 			Vector3d newAccelTitan = new Vector3d(0, 0, 0);
 			Vector3d[] newAcceleration = {newAccelLandingModule, newAccelTitan};
 			
