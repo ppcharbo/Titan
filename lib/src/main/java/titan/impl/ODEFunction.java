@@ -49,14 +49,15 @@ public class ODEFunction implements ODEFunctionInterface {
 
 		if(landingEnabledOpenController == true) {
 			
-			OpenLoopControllerNew openController = new OpenLoopControllerNew();
-			double u = openController.functionU(y);
-			double v = openController.functionV(y);
-			double eta = openController.calculateEta(y);
+			//OpenLoopControllerNew openController = new OpenLoopControllerNew();
+			ClosedLoopController openController = new ClosedLoopController();
+			double u = 5;
+			double v = openController.calcThetaDoubleDot(Math.PI,-0.75,(((State) y).getTime())/(60*60));
+			double eta = openController.calcTheta(Math.PI,-0.75, (((State) y).getTime())/(60*60));
 			
-			//System.out.println("u: " + u);
-			//System.out.println("v: " + v);
-			//System.out.println("eta: " + eta);
+			System.out.println("u: " + u);
+			System.out.println("v: " + v);
+			System.out.println("eta: " + eta);
 			
 			double xDoubleDot = u*Math.sin(eta);
 			double yDoubleDot = u*Math.cos(eta)-G_TITAN;
@@ -64,7 +65,7 @@ public class ODEFunction implements ODEFunctionInterface {
 			System.out.println("x**: " + xDoubleDot);
 			System.out.println("y**: " + yDoubleDot);
 			
-			Vector3d newAccelLandingModule = new Vector3d(xDoubleDot, yDoubleDot, 0);
+			Vector3d newAccelLandingModule = new Vector3d(-xDoubleDot, -yDoubleDot, 0);
 			Vector3d newAccelTitan = new Vector3d(0, 0, 0);
 			Vector3d[] newAcceleration = {newAccelLandingModule, newAccelTitan};
 			

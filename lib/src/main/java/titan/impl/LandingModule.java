@@ -23,9 +23,8 @@ public class LandingModule extends JPanel {
 	public boolean stop = false;
 	public int currentState = 0;
 
-	
-	//private OpenLoopController landingModule = new OpenLoopController();
-	private OpenLoopControllerNew openController;
+	//private OpenLoopControllerNew openController;
+	private ClosedLoopController feedbackController;
 
 	public LandingModule(LandingFrame landing, StateInterface landingState) {
 
@@ -34,8 +33,9 @@ public class LandingModule extends JPanel {
 		// Edited by the group so that the image is all black for a background
 		icon = new ImageIcon(this.getClass().getResource("background.jpg"));
 		imageCorner = new Point(0, 0);
-
-		openController = new OpenLoopControllerNew(landingState);
+		
+		feedbackController = new ClosedLoopController(landingState);
+		//openController = new OpenLoopControllerNew(landingState);
 		//openController.openLoopLandingSimulatorWRTU(landingState);
 		
 
@@ -48,7 +48,7 @@ public class LandingModule extends JPanel {
 		// Repaint background
 		icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
 
-		openController.draw(g, size, 10, 10);
+		feedbackController.draw(g, size, 10, 10);
 
 		g.setColor(new Color(218, 165, 32));
 		g.fillRect(0, getHeight()-100, getWidth(), 100); // x, y, width, height
@@ -56,12 +56,12 @@ public class LandingModule extends JPanel {
 	
 	private void landingLoop() {
 		
-		landingStatesPerTime = openController.getLandingStates();
+		landingStatesPerTime = feedbackController.getLandingStates();
 		
 		while (true) {
 			if (!stop) {
 				// update positions
-				openController.update(((State) landingStatesPerTime[currentState]).getPosition()[0]);
+				feedbackController.update(((State) landingStatesPerTime[currentState]).getPosition()[0]);
 				if (currentState == landingStatesPerTime.length - 1) {
 					currentState = 0;
 				}
@@ -80,12 +80,9 @@ public class LandingModule extends JPanel {
 	}
 	
 	public void displayDistances(State array) {
-		
 			 System.out.println("Current distance " + array.getPosition()[0].dist(array.getPosition()[1]));
-			
 	}
 	
-
 	public void startLanding() {
 		Thread thread = new Thread() {
 
@@ -95,7 +92,5 @@ public class LandingModule extends JPanel {
 			}
 		};
 		thread.start();
-		
-		
 	}
 }

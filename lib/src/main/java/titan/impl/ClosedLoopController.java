@@ -1,11 +1,20 @@
 package titan.impl;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import titan.StateInterface;
 
 public class ClosedLoopController {
 	private StateInterface[] landingStatesPerTime;
 	public final double E = 2.718281828459;
+	private int xLT = 400;
+	private int yLT = 0;
 
+	public ClosedLoopController() {
+		//nothing
+	}
+	
 	public ClosedLoopController(StateInterface initialLaunchState) {
 		
 		int ship = 0;
@@ -24,7 +33,7 @@ public class ClosedLoopController {
 		Vector3d[] positions = {positionLaunch, positionTitan};
 		Vector3d[] velocities = {velocityLaunch, velocityTitan};
 		boolean[] isShip = {true, false};
-		State initialState = new State(positions, velocities, isShip, ((State)(initialLaunchState)).getTime());
+		State initialState = new State(positions, velocities, isShip, 0);
 		ODEFunction f = new ODEFunction();
 		f.setLandingOpen(true);
 		
@@ -49,7 +58,7 @@ public class ClosedLoopController {
 	public double computePositiveLambda(double a, double b) {
 		
 		double posLambda;
-		posLambda = (b/2) + ((a*a - 4*b)/2);
+		posLambda = (b/2) + Math.sqrt( ((a*a - 4*b)/2) );
 		return posLambda;
 		
 	}
@@ -88,10 +97,28 @@ public class ClosedLoopController {
 		double lambda = computePositiveLambda(a,b);
 		thetaDoubleDot = lambda * lambda * Math.pow(E, lambda*t);
 		return thetaDoubleDot;
-		
+	}
+
+	public StateInterface[] getLandingStates() {
+		return this.landingStatesPerTime;
 	}
 	
+	public void update(Vector3d newPosition) {
+		setX((int) (newPosition.getX()/(1E9)) );
+		setY((int) (newPosition.getY()/(1E9)) );
+	}
+
+	private void setX(int i) {
+		this.xLT = i;
+	}
 	
+	private void setY(int i) {
+		this.yLT = i;
+	}
 	
-	
+	public void draw(Graphics g, double size, int width, int height) {	
+		Color color = new Color(0, 255, 0);
+		g.setColor(color);
+		g.fillRect(xLT, yLT, width, height);
+	}
 }
