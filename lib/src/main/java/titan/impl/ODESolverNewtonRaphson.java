@@ -183,7 +183,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	
 	
 	/*
-	 * Update rule for one step: we apply the Multivariate Newton Raphson Method: https://skill-lync.com/projects/week-6-multivariate-newton-rhapson-solver-18 
+	 * Update rule for one step: we apply the Multivariate Newton-Raphson Method: https://skill-lync.com/projects/week-6-multivariate-newton-rhapson-solver-18 
 	 *
 	 * @param   f   the function defining the differential equation dy/dt=f(t,y)
 	 * @param   t   the time
@@ -233,8 +233,8 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		
 		// for all planets (additional first dimensions)
 		double[][] functionsMatrix = new double[currentPosition.length][6];  
-		double[][][] jacobianMatrix_tmp = new double[currentPosition.length][6][6];
-		double[][][] jacobianMatrix;
+		double[][][] jacobianMatrix_tmp = new double[currentPosition.length][6][6]; // non-inverted
+		double[][][] jacobianMatrix; // inverted
 		
 		// fill in functionsMatrix
 		for (int i=0; i<currentPosition.length; i++) {
@@ -363,10 +363,11 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		//Xk+1 = Xk - (J^-1 * F(Xk)) <=> nextState = currentState - (invertedJacobianMatrix * functionsMatrix)
 		
 		/* TODO
-		 * 1) inverse jacobianMatrix
-		 * 2) multiply both inverted jacobianMatrix with functionsMatrix
+		 * 1) inverse jacobianMatrix 6x6 --> jacobianMatrix[i][6][6]
+		 * 2) multiply both inverted jacobianMatrix with functionsMatrix (6x6 * 6x1)
+		 * 
 		 * 3) calculate the corresponding new Rate
-		 * 4) return y.addMul(1, -newRate); 
+		 * 4) return y.addMul(1, -newRate);  
 		*/
 		
 		return null; 
