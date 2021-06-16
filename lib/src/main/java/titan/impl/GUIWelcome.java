@@ -71,20 +71,28 @@ public class GUIWelcome {
 		gbc.gridy = 4;
 		panel.add(emptyLabel2, gbc);
 
-		JComboBox controller = new JComboBox();
+		JComboBox<String> controller = new JComboBox<String>();
 		gbc.gridx = 0;
 		gbc.gridy = 5;
 		controller.addItem("Open-loop controller");
 		controller.addItem("Feedback controller");
 		panel.add(controller, gbc);
 		
-		JComboBox solver = new JComboBox();
+		JComboBox<String> solver = new JComboBox<String>();
 		gbc.gridx = 1;
 		gbc.gridy = 5;
 		solver.addItem("Euler");
 		solver.addItem("RK4");
 		solver.addItem("Verlet");
 		panel.add(solver, gbc);
+		
+		String controllerChoice = controller.getSelectedItem().toString();
+		
+		String solverChoice = solver.getSelectedItem().toString();
+		//System.out.println(solverChoice);
+		
+		SystemPlanet.setSolver(solverChoice);
+		SystemPlanet.setController(controllerChoice);
 		
 		JLabel emptyLabel3 = new JLabel("                              ");
 		gbc.gridx = 0;

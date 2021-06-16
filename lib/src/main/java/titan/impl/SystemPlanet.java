@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import titan.ProbeSimulatorInterface;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 /**
@@ -20,7 +21,7 @@ import titan.Vector3dInterface;
 public class SystemPlanet extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final boolean DEBUG = false;
+	private final static boolean DEBUG = false;
 
 	private ArrayList<PlanetGUI> allPlanets = new ArrayList<PlanetGUI>(); //list of planets
 	private final GUIWelcome upperFrame;
@@ -29,7 +30,7 @@ public class SystemPlanet extends JPanel {
 	private ImageIcon icon;
 	private StateInterface[] solvedStates;
 	private int globalState = -1; //define the state where the minimum fly-by is
-	private final boolean AUTO_CLOSE = true;
+	private final boolean AUTO_CLOSE = true; 
 
 	// we need the following to be public, because we need access to it in
 	// the GUIWelcome class
@@ -37,6 +38,13 @@ public class SystemPlanet extends JPanel {
 	public static int delay = 25;
 	public boolean stop = false;
 	public int currentState = 0; //starting from state = 0
+	
+	public static boolean euler = false;
+	public static boolean rk4 = false;
+	public static boolean verlet = false;
+	
+	public static boolean openController = false;
+	public static boolean feedbackController = false;
 
 	/**
 	 * @param frame: we need the GUIWelcome class because if we scroll in and out
@@ -61,6 +69,8 @@ public class SystemPlanet extends JPanel {
 		this.addMouseWheelListener(clickListener);
 
 		solvedStates = simulateOneYear(); // Simulates the states, so we can plot them
+		
+		
 		
 		// Calculating the minimal distance we get to Titan
 		double leastFlyBy = distanceTitan();
@@ -239,14 +249,27 @@ public class SystemPlanet extends JPanel {
 		//double hour = 60 * 60;
 		//double fourDays = 4.05 * 24 * hour;
 		
-		//SELECT THE SIMULATOR
-		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
-		//ProbeSimulatorRungeKutta simulator = new ProbeSimulatorRungeKutta();
-		//ProbeSimulatorVerlet simulator = new ProbeSimulatorVerlet();
-		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
-
+		//SELECT THE SIMULATOR	
+		StateInterface[] states = null;
+		if (euler) {
+			ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
+			states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
+			System.out.println("Euler sim");
+		} else if (verlet) {
+			ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
+			states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
+			System.out.println("verlet sim");
+		} else {
+			ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
+			states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
+			System.out.println("rk4 sim");
+		}
+		
+		
+		//check if states = null
 		return states;
 	}
+	
 
 	public void startMe() {
 		Thread thread = new Thread() {
@@ -334,6 +357,36 @@ public class SystemPlanet extends JPanel {
 
 			prevPt = currentPt; // Reset points
 			repaint();
+		}
+	}
+
+	public static void setSolver(String solverChoice) {
+		if(DEBUG) {
+			//System.out.println(solverChoice);
+		}
+		if(solverChoice.equals("Euler")) {
+			euler = true;
+		}
+		else if(solverChoice.equals("Verlet")) {
+			verlet = true;
+		}
+		else {
+			rk4 = true;
+		}
+		System.out.println("Euler:" + euler);
+		System.out.println("Euler:" + rk4);
+		System.out.println("Euler:" + verlet);
+	}
+
+	public static void setController(String controllerChoice) {
+		if(DEBUG) {
+			//System.out.println(controllerChoice);
+		}
+		if(controllerChoice.equals("Open-loop controller")) {
+			openController = true;
+		}
+		else if(controllerChoice.equals("Feedback controller")) {
+			feedbackController = true;
 		}
 	}
 }
