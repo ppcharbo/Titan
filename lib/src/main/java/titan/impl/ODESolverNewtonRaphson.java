@@ -1,5 +1,7 @@
 package titan.impl;
 
+import java.util.Arrays;
+
 import titan.ODEFunctionInterface;
 import titan.ODESolverInterface;
 import titan.StateInterface;
@@ -65,10 +67,110 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	}
 
 
-	// TODO
+	/**
+	 * This is a method for inverting a 3 by 3 matrix that has all entries filled (i.e. no 0 element)
+	 * @param jacobianMatrix: matrix to be inverted
+	 * @return inverted matrix: inverse of the jacobianMatrix
+	 */
 	private double[][] inverseMatrix(double[][] jacobianMatrix) {
+
+		double[][] inverse = new double[jacobianMatrix.length][jacobianMatrix[0].length];
+		//fill the identity matrix
+		for(int i = 0; i < jacobianMatrix.length; i++) {
+			inverse[i][i] = 1;
+		}
+        
 		
-		return null;
+		//Get the first row to start with 1, ..., ...
+		//[1,x,y;...;...]
+		double firstRowfirstColumnFactor = 1/(jacobianMatrix[0][0]);
+		for(int i = 0; i < jacobianMatrix[0].length; i++) {
+			jacobianMatrix[0][i] = firstRowfirstColumnFactor*jacobianMatrix[0][i];
+			inverse[0][i] = firstRowfirstColumnFactor*inverse[0][i];
+		}
+		
+
+		//Get zero in the first column and second row
+		//[1,x,y;0,a,b;e,c,d]
+		double secondRowfirstColumnFactor = -1*(jacobianMatrix[1][0]);
+		for(int i = 0; i < jacobianMatrix[1].length; i++) {
+			jacobianMatrix[1][i] = jacobianMatrix[1][i] + secondRowfirstColumnFactor*jacobianMatrix[0][i];
+			inverse[1][i] = inverse[1][i] + secondRowfirstColumnFactor*inverse[0][i];
+		}
+		
+
+        //Get zero in the first column and second&third row
+		//[1,x,y;0,a,b;0,c,d]
+        double thirdRowfirstColumnFactor = -1*(jacobianMatrix[2][0]);
+		for(int i = 0; i < jacobianMatrix[2].length; i++) {
+            jacobianMatrix[2][i] = jacobianMatrix[2][i] + thirdRowfirstColumnFactor*jacobianMatrix[0][i];
+			inverse[2][i] = inverse[2][i] + thirdRowfirstColumnFactor*inverse[0][i];
+		}
+        
+		
+		//Get the second row to start with 0, 1, ...
+		////[1,x,y;0,1,b;0,c,d]
+		double secondRowsecondColumnFactor = 1/(jacobianMatrix[1][1]);
+		for(int i = 0; i < jacobianMatrix[1].length; i++) {
+			jacobianMatrix[1][i] = secondRowsecondColumnFactor*jacobianMatrix[1][i];
+			inverse[1][i] = secondRowsecondColumnFactor*inverse[1][i];
+		}
+		
+
+		//Get the third row to start with 0, 1, ...
+		//[1,x,y;0,1,b;0,1,d]
+		double thirdRowsecondColumnFactor = 1/(jacobianMatrix[2][1]);
+		for(int i = 0; i < jacobianMatrix[2].length; i++) {
+			jacobianMatrix[2][i] = thirdRowsecondColumnFactor*jacobianMatrix[2][i];
+			inverse[2][i] = thirdRowsecondColumnFactor*inverse[2][i];
+		}
+        
+		
+		//Get 1 in the second column and third row
+		//[1,x,y;0,1,b;0,0,d]
+		double thirdRowsecondColumnFactorSubstraction = -1*(jacobianMatrix[2][1]); //this should be -1 ;)
+		for(int i = 0; i < jacobianMatrix[2].length; i++) {
+            jacobianMatrix[2][i] = jacobianMatrix[2][i] + thirdRowsecondColumnFactorSubstraction*jacobianMatrix[1][i];
+			inverse[2][i] = inverse[2][i] + thirdRowsecondColumnFactorSubstraction*inverse[1][i];
+		}
+        
+
+
+		//Get 1 in the third row, third column
+		//[1,x,y;0,1,b;0,0,1]
+		double thirdRowthirdColumnFactor = 1/(jacobianMatrix[2][2]);
+		for(int i = 0; i < jacobianMatrix[2].length; i++) {
+			jacobianMatrix[2][i] = thirdRowthirdColumnFactor*jacobianMatrix[2][i];
+			inverse[2][i] = thirdRowthirdColumnFactor*inverse[2][i];
+		}
+		
+
+		//Get 0 in the second row and third column
+		//[1,x,y;0,1,0;0,0,1]
+		double secondRowThirdColumnFactorSubstraction = -1*(jacobianMatrix[1][2]);
+		for(int i = 0; i < jacobianMatrix[1].length; i++) {
+            jacobianMatrix[1][i] = jacobianMatrix[1][i] + secondRowThirdColumnFactorSubstraction*jacobianMatrix[2][i];
+			inverse[1][i] = inverse[1][i] + secondRowThirdColumnFactorSubstraction*inverse[2][i];
+		}
+		
+
+		//Get 0 in the first row and third column
+		//[1,x,0;0,1,0;0,0,1]
+		double firstRowThirdColumnFactorSubstraction = -1*(jacobianMatrix[0][2]);
+		for(int i = 0; i < jacobianMatrix[0].length; i++) {
+            jacobianMatrix[0][i] = jacobianMatrix[0][i] + firstRowThirdColumnFactorSubstraction*jacobianMatrix[2][i];
+			inverse[0][i] = inverse[0][i] + firstRowThirdColumnFactorSubstraction*inverse[2][i];
+		}
+		
+		
+		//Get 0 in the first row and second column
+		//[1,0,0;0,1,0;0,0,1]
+		double firstRowSecondColumnFactorSubstraction = -1*(jacobianMatrix[0][1]);
+		for(int i = 0; i < jacobianMatrix[0].length; i++) {
+            jacobianMatrix[0][i] = jacobianMatrix[0][i] + firstRowSecondColumnFactorSubstraction*jacobianMatrix[1][i];
+			inverse[0][i] = inverse[0][i] + firstRowSecondColumnFactorSubstraction*inverse[1][i];
+		}
+		return inverse;
 	}
 	
 	
