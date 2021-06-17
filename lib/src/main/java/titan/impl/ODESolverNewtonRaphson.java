@@ -290,8 +290,8 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 			
 			//Get the 2D matrix (6 by 6)
 			double[][] passingArray = new double[jacobianMatrix_tmp[i].length][jacobianMatrix_tmp[0][i].length];
-			for (int j = 0; j < 6; j++) {
-				for (int j2 = 0; j2 < 6; j2++) {
+			for (int j = 0; j < jacobianMatrix_tmp[i].length; j++) {
+				for (int j2 = 0; j2 < jacobianMatrix_tmp[i][j].length; j2++) {
 					passingArray[j][j2] = jacobianMatrix_tmp[i][j][j2];
 				}
 			}
