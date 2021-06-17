@@ -1,6 +1,6 @@
 package titan.impl.normalnumbers;
 
-public class ODESolverRungeKutta {
+public class ODESolverHeun {
 
 	public State[] solve(ODEFunction f, State y0, double tf, double h) {
 		
@@ -11,7 +11,7 @@ public class ODESolverRungeKutta {
 
 		while(currentTime < tf) {
 			arr[i] = step(f, currentTime, arr[i - 1], h);
-			System.out.println(currentTime);
+			//System.out.println(currentTime);
 			currentTime += h;
 			i++;
 		}
@@ -26,21 +26,18 @@ public class ODESolverRungeKutta {
 		return arr;	
 	}
 
-	// Fourth-order Runge-Kutta formula
+	// Heun's formula
 	public State step(ODEFunction f, double t, State y, double h) {
 		
-		Rate k1, k2, k3, k4, ki;
+		Rate k1, k2, k3, ki;
 		
 		k1 = f.call(t, y);
-		k2 = f.call(t + (0.5*h), y.addMul(0.5*h, k1));
-		k3 = f.call(t + (0.5*h), y.addMul(0.5*h, k2));
-		k4 = f.call(t + h, y.addMul(h, k3));
+		k2 = f.call(t + ((1/3)*h), y.addMul((1/3)*h, k1));
+		k3 = f.call(t + ((2/3)*h), y.addMul((2/3)*h, k2));
 		
-		ki = k1.addMul(2, k2);
-		ki = ki.addMul(2, k3);
-		ki = ki.addMul(1, k4);
+		ki = k1.addMul(3, k3);
 		
-		ki = ki.mul(h/6);
+		ki = ki.mul(h/4);
 
 		return new State((y.addMul(1, ki)).getElement(), t+h);
 		//return (State) y.addMul(0.5, ki);

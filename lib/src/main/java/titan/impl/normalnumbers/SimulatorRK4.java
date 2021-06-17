@@ -8,15 +8,18 @@ import java.util.ArrayList;
  *
  */
 
-public class EulerSimulator {
+public class SimulatorRK4 {
 	
 	public ArrayList tada(State initialState, double t_final, double stepSize, ODEFunction function) {
 		ArrayList list = new ArrayList<>();
 		
-		ODESolverEuler euler = new ODESolverEuler();
-		State[] states = euler.solve(function, initialState, t_final, stepSize);
+		ODESolverRK4 rk4 = new ODESolverRK4();
+		State[] states = rk4.solve(function, initialState, t_final, stepSize);
 		int i = 0;
 		for(State state : states) {
+			if(state == null) {
+				break;
+			}
 			list.add(i, ((State) state).getElement());
 			i++;
 		}

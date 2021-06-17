@@ -26,7 +26,7 @@ public class ODESolverEuler {
 		
 		while(currentTime < tf) {
 			arr[i] = step(f, currentTime, arr[i - 1], h);
-			System.out.println(currentTime);
+			//System.out.println(currentTime);
 			currentTime += h;
 			i++;
 		}

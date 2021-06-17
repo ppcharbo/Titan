@@ -8,15 +8,18 @@ import java.util.ArrayList;
  *
  */
 
-public class RungeKuttaSimulator {
+public class SimulatorRalston {
 	
 	public ArrayList tada(State initialState, double t_final, double stepSize, ODEFunction function) {
 		ArrayList list = new ArrayList<>();
 		
-		ODESolverRungeKutta rk4 = new ODESolverRungeKutta();
-		State[] states = rk4.solve(function, initialState, t_final, stepSize);
+		ODESolverRalston ralston = new ODESolverRalston();
+		State[] states = ralston.solve(function, initialState, t_final, stepSize);
 		int i = 0;
 		for(State state : states) {
+			if(state == null) {
+				break;
+			}
 			list.add(i, ((State) state).getElement());
 			i++;
 		}
