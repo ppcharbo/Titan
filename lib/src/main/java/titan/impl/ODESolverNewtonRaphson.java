@@ -72,7 +72,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	 * @param jacobianMatrix: matrix to be inverted
 	 * @return inverted matrix: inverse of the jacobianMatrix
 	 */
-	private double[][] inverseMatrix(double[][] jacobianMatrix_tmp) {
+	public double[][] inverseMatrix(double[][] jacobianMatrix_tmp) {
 
 		double[][] inverse = new double[jacobianMatrix_tmp.length][jacobianMatrix_tmp[0].length];
 		
@@ -174,11 +174,30 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		return inverse;
 	}
 	
+	//TODO use this method together with the method of the 2D array to compute the inverse
+	private double inverseMatrix3D(double[][][] jacobianMatrix_tmp) {
+		return 0;
+	}
 	
-	// TODO
-	private double[] matrixMultiplication(double[][] jacobianMatrix, double[] functionsMatrix) {
-		
-		return null;
+	/**
+	 * Method to compute the multiplication of a matrix by a vector
+	 * @param jacobianMatrix: a 2d matrix
+	 * @param functionsMatrix: a 1d matrix (also know as a vector)
+	 * @return: the result of the multiplication of jacobianMatrix*functionsMatrix
+	 */
+	public double[] matrixMultiplication(double[][] jacobianMatrix, double[] functionsMatrix) {
+		if(functionsMatrix.length != jacobianMatrix[0].length) { //maybe also: && functionsMatrix.length != jacobianMatrix.length
+			throw new RuntimeException("The dimensions don't match for multiplication.");
+		}
+		double[] result = new double [2];
+		for(int i = 0; i < 2; i++) {
+			double multipliedElement = 0;
+			for(int j = 0; j < 2; j++) {
+				multipliedElement +=jacobianMatrix[i][j]*functionsMatrix[j];	
+			}
+			result[i]=multipliedElement;
+		}
+		return result;
 	}
 	
 	
@@ -355,7 +374,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 					}
 
 					jacobianMatrix_tmp[i][j][k] = derivative;
-					jacobianMatrix[i][j][k] = inverseMatrix(jacobianMatrix_tmp);
+					jacobianMatrix[i][j][k] = inverseMatrix3D(jacobianMatrix_tmp);
 				}		
 			}
 		}
@@ -372,4 +391,5 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		
 		return null; 
 	}
+
 }
