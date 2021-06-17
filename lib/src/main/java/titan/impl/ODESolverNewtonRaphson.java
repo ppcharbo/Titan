@@ -507,10 +507,11 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 					}
 
 					jacobianMatrix_tmp[i][j][k] = derivative;
-					jacobianMatrix[i][j][k] = inverseMatrix3D(jacobianMatrix_tmp);
-				}		
+					//jacobianMatrix[i][j][k] = inverseMatrix3D(jacobianMatrix_tmp);
+				}
 			}
 		}
+		jacobianMatrix = inverseMatrix3D(jacobianMatrix_tmp);
 		
 		//Xk+1 = Xk - (J^-1 * F(Xk)) <=> nextState = currentState - (invertedJacobianMatrix * functionsMatrix)
 		
