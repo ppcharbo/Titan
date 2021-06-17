@@ -72,7 +72,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	 * @param jacobianMatrix: matrix to be inverted
 	 * @return inverted matrix: inverse of the jacobianMatrix
 	 */
-	public double[][] inverseMatrix(double[][] jacobianMatrix_tmp) {
+	public double[][] inverseMatrix3by3(double[][] jacobianMatrix_tmp) {
 
 		double[][] inverse = new double[jacobianMatrix_tmp.length][jacobianMatrix_tmp[0].length];
 		
