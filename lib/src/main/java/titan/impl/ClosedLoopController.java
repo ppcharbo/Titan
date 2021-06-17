@@ -63,21 +63,23 @@ public class ClosedLoopController {
 		
 	}
 	
-	/*
+	
 	public double computeNegativeLambda(double a, double b) {
 		
 		double negLambda;
-		negLambda = (b/2) - ((a*a - 4*b)/2);
+		negLambda = (b/2) - Math.sqrt( ((a*a - 4*b)/2) );
 		return negLambda;
 		
 	}
-	*/
+	
 	
 	public double calcTheta(double a, double b, double t) {        // might not need
 		
 		double theta;
-		double lambda = computePositiveLambda(a,b);
-		theta = Math.pow(E, lambda*t);
+		double posLambda = computePositiveLambda(a,b);
+		//double negLambda = computePositiveLambda(a,b);
+		theta = Math.pow(E, posLambda*t);
+		//theta = Math.pow(E, posLambda*t) + Math.pow(E, negLambda*t);
 		return theta;
 		
 	}
