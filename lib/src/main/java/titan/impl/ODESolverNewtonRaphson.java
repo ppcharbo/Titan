@@ -186,16 +186,18 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	 * @return: the result of the multiplication of jacobianMatrix*functionsMatrix
 	 */
 	public double[] matrixMultiplication(double[][] jacobianMatrix, double[] functionsMatrix) {
-		if(functionsMatrix.length != jacobianMatrix[0].length) { //maybe also: && functionsMatrix.length != jacobianMatrix.length
-			throw new RuntimeException("The dimensions don't match for multiplication.");
+		double[] result = new double [functionsMatrix.length];
+		if(functionsMatrix.length != jacobianMatrix[0].length) {
+			throw new RuntimeException(" Matrix dimensions don't match.");
 		}
-		double[] result = new double [2];
-		for(int i = 0; i < 2; i++) {
-			double multipliedElement = 0;
-			for(int j = 0; j < 2; j++) {
-				multipliedElement +=jacobianMatrix[i][j]*functionsMatrix[j];	
+		else {
+			for(int i = 0; i < jacobianMatrix.length; i++) {
+				double element = 0;
+				for(int j = 0; j < functionsMatrix.length; j++) {
+					element += jacobianMatrix[i][j]*functionsMatrix[j];
+				}
+				result[i] = element;
 			}
-			result[i]=multipliedElement;
 		}
 		return result;
 	}
