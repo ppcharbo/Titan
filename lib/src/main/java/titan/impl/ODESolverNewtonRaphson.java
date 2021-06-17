@@ -255,7 +255,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		// for all planets (additional first dimensions)
 		double[][] functionsMatrix = new double[currentPosition.length][6];  
 		double[][][] jacobianMatrix_tmp = new double[currentPosition.length][6][6]; // non-inverted
-		double[][][] jacobianMatrix; // inverted
+		double[][][] jacobianMatrix = null; // inverted
 		
 		// fill in functionsMatrix
 		for (int i=0; i<currentPosition.length; i++) {
@@ -393,5 +393,4 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		
 		return null; 
 	}
-
 }
