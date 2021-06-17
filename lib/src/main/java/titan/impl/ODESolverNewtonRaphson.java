@@ -188,7 +188,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	public double[] matrixMultiplication(double[][] jacobianMatrix, double[] functionsMatrix) {
 		double[] result = new double [functionsMatrix.length];
 		if(functionsMatrix.length != jacobianMatrix[0].length) {
-			throw new RuntimeException(" Matrix dimensions don't match.");
+			throw new RuntimeException("Matrix dimensions don't match.");
 		}
 		else {
 			for(int i = 0; i < jacobianMatrix.length; i++) {

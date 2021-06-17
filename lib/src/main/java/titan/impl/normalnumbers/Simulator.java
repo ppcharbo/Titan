@@ -7,7 +7,7 @@ public class Simulator {
 		
 		double y0 = 3;
 		double t0 = 1;
-		double h = 0.25;
+		double h = 0.50;
 		double tf = 2;
 		
 		State initialState = new State(y0, t0);
