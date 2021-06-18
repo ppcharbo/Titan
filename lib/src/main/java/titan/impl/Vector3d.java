@@ -21,11 +21,6 @@ public class Vector3d implements Vector3dInterface {
 		this.z = 0;
 	}
 
-	public vector2d(double x,double y){
-		this.x=x;
-		this.y=y;
-	}
-
 	/**
 	 * 
 	 * @param x: x-coordinate
@@ -66,6 +61,7 @@ public class Vector3d implements Vector3dInterface {
 	/**
 	 * @param y: the y to be set
 	 */
+	
 	public void setY(double y) {
 		
 		this.y = y;
