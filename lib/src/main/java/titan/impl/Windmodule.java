@@ -5,6 +5,7 @@ import java.util.Random;
 public class Windmodule {
 
 	private Vector2d wind;
+	private Random generator;
 
 	public Windmodule() {
 		this.setWind(getRandomWind());
@@ -41,7 +42,7 @@ public class Windmodule {
 	}
 
 	public Vector2d getStronger() {
-		Random generator = new Random();
+		generator = new Random();
 		double x = 0;
 		double y = 0;
 		while (x < 50 || y < 50) {
@@ -60,11 +61,12 @@ public class Windmodule {
 		return wind;
 	}
 
-	public vector2d influencedBydistanceFromSurface(){
+	public Vector2d influencedBydistanceFromSurface(){
+		double x=Math.random()*100; //Chen please check: initialized x
 		double y=Math.random()*100;
 		for(int i=100;i>0;i--){
 			if(y==i)
-			y=generator.nextInt(100-i);
+			y=generator.nextInt(100-i); //Chen please check: generator has been made a field
 		}
 
 		if (Math.random() < 0.5) {
