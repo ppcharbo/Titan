@@ -179,105 +179,434 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	 * @param jacobianMatrix: matrix to be inverted
 	 * @return inverted matrix: inverse of the jacobianMatrix
 	 */
-	public double[][] inverseMatrix6by6(double[][] jacobianMatrix_tmp) {
-
+	public double[][] inverseMatrix6by6(double[][] jacobianMatrixInput) {
+		
+		//Copy the input matrix so we do not change it
+		double[][] jacobianMatrix_tmp = new double[jacobianMatrixInput.length][jacobianMatrixInput[0].length];
+		for (int i = 0; i < jacobianMatrix_tmp.length; i++) {
+			for (int j = 0; j < jacobianMatrix_tmp[0].length; j++) {
+				jacobianMatrix_tmp[i][j] = jacobianMatrixInput[i][j];
+			}
+		}
 		double[][] inverse = new double[jacobianMatrix_tmp.length][jacobianMatrix_tmp[0].length];
 		
 		//fill the identity matrix
 		for (int i = 0; i < jacobianMatrix_tmp.length; i++) {
-			
 			inverse[i][i] = 1;
 		}
-        
-		//Get the first row to start with 1, ..., ...
-		//[1,x,y;...;...]
+		
+		/*the 6x6 matrix looks like:
+		[a1,b1,c1,d1,e1,f1];
+		[a2,b2,c2,d2,e2,f2];
+		[a3,b3,c3,d3,e3,f3];
+		[a4,b4,c4,d4,e4,f4];
+		[a5,b5,c5,d5,e5,f5];
+		[a6,b6,c6,d6,e6,f6];
+        */
+		
+		//Get the a1 to start with 1.
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[a2,b2,c2,d2,e2,f2];
+		[a3,b3,c3,d3,e3,f3];
+		[a4,b4,c4,d4,e4,f4];
+		[a5,b5,c5,d5,e5,f5];
+		[a6,b6,c6,d6,e6,f6];
+        */
 		double firstRowfirstColumnFactor = 1/(jacobianMatrix_tmp[0][0]);
 		for (int i = 0; i < jacobianMatrix_tmp[0].length; i++) {
-			
 			jacobianMatrix_tmp[0][i] = firstRowfirstColumnFactor*jacobianMatrix_tmp[0][i];
 			inverse[0][i] = firstRowfirstColumnFactor*inverse[0][i];
 		}
 		
-		//Get zero in the first column and second row
-		//[1,x,y;0,a,b;e,c,d]
+		//Get zero in the all entries of the first column (except a1)
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,b2,c2,d2,e2,f2];
+		[0,b3,c3,d3,e3,f3];
+		[0,b4,c4,d4,e4,f4];
+		[0,b5,c5,d5,e5,f5];
+		[0,b6,c6,d6,e6,f6];
+        */
 		double secondRowfirstColumnFactor = -1*(jacobianMatrix_tmp[1][0]);
 		for (int i = 0; i < jacobianMatrix_tmp[1].length; i++) {
-			
 			jacobianMatrix_tmp[1][i] = jacobianMatrix_tmp[1][i] + secondRowfirstColumnFactor*jacobianMatrix_tmp[0][i];
 			inverse[1][i] = inverse[1][i] + secondRowfirstColumnFactor*inverse[0][i];
 		}
-		
-        //Get zero in the first column and second&third row
-		//[1,x,y;0,a,b;0,c,d]
         double thirdRowfirstColumnFactor = -1*(jacobianMatrix_tmp[2][0]);
 		for (int i = 0; i < jacobianMatrix_tmp[2].length; i++) {
-			
             jacobianMatrix_tmp[2][i] = jacobianMatrix_tmp[2][i] + thirdRowfirstColumnFactor*jacobianMatrix_tmp[0][i];
 			inverse[2][i] = inverse[2][i] + thirdRowfirstColumnFactor*inverse[0][i];
 		}
+        double fourthRowfirstColumnFactor = -1*(jacobianMatrix_tmp[3][0]);
+		for (int i = 0; i < jacobianMatrix_tmp[3].length; i++) {
+            jacobianMatrix_tmp[3][i] = jacobianMatrix_tmp[3][i] + fourthRowfirstColumnFactor*jacobianMatrix_tmp[0][i];
+			inverse[3][i] = inverse[3][i] + fourthRowfirstColumnFactor*inverse[0][i];
+		}
+        double fifthRowfirstColumnFactor = -1*(jacobianMatrix_tmp[4][0]);
+		for (int i = 0; i < jacobianMatrix_tmp[3].length; i++) {
+            jacobianMatrix_tmp[4][i] = jacobianMatrix_tmp[4][i] + fifthRowfirstColumnFactor*jacobianMatrix_tmp[0][i];
+			inverse[4][i] = inverse[4][i] + fifthRowfirstColumnFactor*inverse[0][i];
+		}
+        double sixthRowfirstColumnFactor = -1*(jacobianMatrix_tmp[5][0]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+            jacobianMatrix_tmp[5][i] = jacobianMatrix_tmp[5][i] + sixthRowfirstColumnFactor*jacobianMatrix_tmp[0][i];
+			inverse[5][i] = inverse[5][i] + sixthRowfirstColumnFactor*inverse[0][i];
+		}
         
-		//Get the second row to start with 0, 1, ...
-		////[1,x,y;0,1,b;0,c,d]
+		//Get the rows (except 1st) to start with 0, 1, ...
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,1,c2,d2,e2,f2];
+		[0,1,c3,d3,e3,f3];
+		[0,1,c4,d4,e4,f4];
+		[0,1,c5,d5,e5,f5];
+		[0,1,c6,d6,e6,f6];
+        */
 		double secondRowsecondColumnFactor = 1/(jacobianMatrix_tmp[1][1]);
 		for (int i = 0; i < jacobianMatrix_tmp[1].length; i++) {
-			
 			jacobianMatrix_tmp[1][i] = secondRowsecondColumnFactor*jacobianMatrix_tmp[1][i];
 			inverse[1][i] = secondRowsecondColumnFactor*inverse[1][i];
 		}
-		
-		//Get the third row to start with 0, 1, ...
-		//[1,x,y;0,1,b;0,1,d]
 		double thirdRowsecondColumnFactor = 1/(jacobianMatrix_tmp[2][1]);
 		for (int i = 0; i < jacobianMatrix_tmp[2].length; i++) {
-			
 			jacobianMatrix_tmp[2][i] = thirdRowsecondColumnFactor*jacobianMatrix_tmp[2][i];
 			inverse[2][i] = thirdRowsecondColumnFactor*inverse[2][i];
 		}
-        
-		//Get 1 in the second column and third row
-		//[1,x,y;0,1,b;0,0,d]
-		double thirdRowsecondColumnFactorSubstraction = -1*(jacobianMatrix_tmp[2][1]); //this should be -1 ;)
+		double fourthRowSecondColumnFactor = 1/(jacobianMatrix_tmp[3][1]);
+		for (int i = 0; i < jacobianMatrix_tmp[3].length; i++) {
+			jacobianMatrix_tmp[3][i] = fourthRowSecondColumnFactor*jacobianMatrix_tmp[3][i];
+			inverse[3][i] = fourthRowSecondColumnFactor*inverse[3][i];
+		}
+		double fifthRowSecondColumnFactor = 1/(jacobianMatrix_tmp[4][1]);
+		for (int i = 0; i < jacobianMatrix_tmp[4].length; i++) {
+			jacobianMatrix_tmp[4][i] = fifthRowSecondColumnFactor*jacobianMatrix_tmp[4][i];
+			inverse[4][i] = fifthRowSecondColumnFactor*inverse[4][i];
+		}
+		double sixthRowSecondColumnFactor = 1/(jacobianMatrix_tmp[5][1]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+			jacobianMatrix_tmp[5][i] = sixthRowSecondColumnFactor*jacobianMatrix_tmp[5][i];
+			inverse[5][i] = sixthRowSecondColumnFactor*inverse[5][i];
+		}
+		
+		
+		//Get the columns from 2 onwards to start with 0
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,1,c2,d2,e2,f2];
+		[0,0,c3,d3,e3,f3];
+		[0,0,c4,d4,e4,f4];
+		[0,0,c5,d5,e5,f5];
+		[0,0,c6,d6,e6,f6];
+        */
+		double thirdRowsecondColumnFactorSubstraction = -1*(jacobianMatrix_tmp[2][1]);
 		for (int i = 0; i < jacobianMatrix_tmp[2].length; i++) {
-			
             jacobianMatrix_tmp[2][i] = jacobianMatrix_tmp[2][i] + thirdRowsecondColumnFactorSubstraction*jacobianMatrix_tmp[1][i];
 			inverse[2][i] = inverse[2][i] + thirdRowsecondColumnFactorSubstraction*inverse[1][i];
 		}
-        
-		//Get 1 in the third row, third column
-		//[1,x,y;0,1,b;0,0,1]
-		double thirdRowthirdColumnFactor = 1/(jacobianMatrix_tmp[2][2]);
-		for (int i = 0; i < jacobianMatrix_tmp[2].length; i++) {
-			
-			jacobianMatrix_tmp[2][i] = thirdRowthirdColumnFactor*jacobianMatrix_tmp[2][i];
-			inverse[2][i] = thirdRowthirdColumnFactor*inverse[2][i];
+		double fourthRowsecondColumnFactorSubstraction = -1*(jacobianMatrix_tmp[3][1]);
+		for (int i = 0; i < jacobianMatrix_tmp[3].length; i++) {
+            jacobianMatrix_tmp[3][i] = jacobianMatrix_tmp[3][i] + fourthRowsecondColumnFactorSubstraction*jacobianMatrix_tmp[1][i];
+			inverse[3][i] = inverse[3][i] + fourthRowsecondColumnFactorSubstraction*inverse[1][i];
+		}
+		double fifthRowsecondColumnFactorSubstraction = -1*(jacobianMatrix_tmp[4][1]);
+		for (int i = 0; i < jacobianMatrix_tmp[4].length; i++) {
+            jacobianMatrix_tmp[4][i] = jacobianMatrix_tmp[4][i] + fifthRowsecondColumnFactorSubstraction*jacobianMatrix_tmp[1][i];
+			inverse[4][i] = inverse[4][i] + fifthRowsecondColumnFactorSubstraction*inverse[1][i];
+		}
+		double sixthRowsecondColumnFactorSubstraction = -1*(jacobianMatrix_tmp[5][1]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+            jacobianMatrix_tmp[5][i] = jacobianMatrix_tmp[5][i] + sixthRowsecondColumnFactorSubstraction*jacobianMatrix_tmp[1][i];
+			inverse[5][i] = inverse[5][i] + sixthRowsecondColumnFactorSubstraction*inverse[1][i];
 		}
 		
-		//Get 0 in the second row and third column
-		//[1,x,y;0,1,0;0,0,1]
+		
+		//Get the rows (except 1st, 2nd) to start with 0, 0, 1, ...
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,1,c2,d2,e2,f2];
+		[0,0,1,d3,e3,f3];
+		[0,0,1,d4,e4,f4];
+		[0,0,1,d5,e5,f5];
+		[0,0,1,d6,e6,f6];
+		*/
+		double thirdRowThirdColumnFactor = 1 / (jacobianMatrix_tmp[2][2]);
+		for (int i = 0; i < jacobianMatrix_tmp[2].length; i++) {
+			jacobianMatrix_tmp[2][i] = thirdRowThirdColumnFactor * jacobianMatrix_tmp[2][i];
+			inverse[2][i] = thirdRowsecondColumnFactor * inverse[2][i];
+		}
+		double fourthRowThirdColumnFactor = 1 / (jacobianMatrix_tmp[3][2]);
+		for (int i = 0; i < jacobianMatrix_tmp[3].length; i++) {
+			jacobianMatrix_tmp[3][i] = fourthRowThirdColumnFactor * jacobianMatrix_tmp[3][i];
+			inverse[3][i] = fourthRowThirdColumnFactor * inverse[3][i];
+		}
+		double fifthRowThirdColumnFactor = 1 / (jacobianMatrix_tmp[4][2]);
+		for (int i = 0; i < jacobianMatrix_tmp[4].length; i++) {
+			jacobianMatrix_tmp[4][i] = fifthRowThirdColumnFactor * jacobianMatrix_tmp[4][i];
+			inverse[4][i] = fifthRowThirdColumnFactor * inverse[4][i];
+		}
+		double sixthRowThirdColumnFactor = 1 / (jacobianMatrix_tmp[5][2]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+			jacobianMatrix_tmp[5][i] = sixthRowThirdColumnFactor * jacobianMatrix_tmp[5][i];
+			inverse[5][i] = sixthRowThirdColumnFactor * inverse[5][i];
+		}
+		
+		
+		//Get the columns from 3 onwards to start with 0
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,1,c2,d2,e2,f2];
+		[0,0,1,d3,e3,f3];
+		[0,0,0,d4,e4,f4];
+		[0,0,0,d5,e5,f5];
+		[0,0,0,d6,e6,f6];
+		*/
+		double fourthRowThirdColumnFactorSubstraction = -1*(jacobianMatrix_tmp[3][2]);
+		for (int i = 0; i < jacobianMatrix_tmp[3].length; i++) {
+            jacobianMatrix_tmp[3][i] = jacobianMatrix_tmp[2][i] + fourthRowThirdColumnFactorSubstraction*jacobianMatrix_tmp[2][i];
+			inverse[3][i] = inverse[3][i] + fourthRowThirdColumnFactorSubstraction*inverse[2][i];
+		}
+		double fifthRowThirdColumnFactorSubstraction = -1*(jacobianMatrix_tmp[4][2]);
+		for (int i = 0; i < jacobianMatrix_tmp[4].length; i++) {
+            jacobianMatrix_tmp[4][i] = jacobianMatrix_tmp[4][i] + fifthRowThirdColumnFactorSubstraction*jacobianMatrix_tmp[2][i];
+			inverse[4][i] = inverse[4][i] + fifthRowThirdColumnFactorSubstraction*inverse[2][i];
+		}
+		double sixthRowThirdColumnFactorSubstraction = -1*(jacobianMatrix_tmp[5][2]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+            jacobianMatrix_tmp[5][i] = jacobianMatrix_tmp[5][i] + sixthRowThirdColumnFactorSubstraction*jacobianMatrix_tmp[2][i];
+			inverse[5][i] = inverse[5][i] + sixthRowThirdColumnFactorSubstraction*inverse[2][i];
+		}
+		
+		
+		//Get the rows (except 1-3) to start with 0, 0, 0, 1, ...
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,1,c2,d2,e2,f2];
+		[0,0,1,d3,e3,f3];
+		[0,0,0,1,e4,f4];
+		[0,0,0,1,e5,f5];
+		[0,0,0,1,e6,f6];
+		*/
+		double fourthRowFourthColumnFactor = 1 / (jacobianMatrix_tmp[3][3]);
+		for (int i = 0; i < jacobianMatrix_tmp[3].length; i++) {
+			jacobianMatrix_tmp[3][i] = fourthRowFourthColumnFactor * jacobianMatrix_tmp[3][i];
+			inverse[3][i] = fourthRowFourthColumnFactor * inverse[3][i];
+		}
+		double fifthRowFourthColumnFactor = 1 / (jacobianMatrix_tmp[4][3]);
+		for (int i = 0; i < jacobianMatrix_tmp[4].length; i++) {
+			jacobianMatrix_tmp[4][i] = fifthRowFourthColumnFactor * jacobianMatrix_tmp[4][i];
+			inverse[4][i] = fifthRowFourthColumnFactor * inverse[4][i];
+		}
+		double sixthRowFourthColumnFactor = 1 / (jacobianMatrix_tmp[5][3]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+			jacobianMatrix_tmp[5][i] = sixthRowFourthColumnFactor * jacobianMatrix_tmp[5][i];
+			inverse[5][i] = sixthRowFourthColumnFactor * inverse[5][i];
+		}
+		
+		
+		//Get the columns from 4 onwards to start with 0
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,1,c2,d2,e2,f2];
+		[0,0,1,d3,e3,f3];
+		[0,0,0,1,e4,f4];
+		[0,0,0,0,e5,f5];
+		[0,0,0,0,e6,f6];
+		*/
+		double fifthRowFourthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[4][3]);
+		for (int i = 0; i < jacobianMatrix_tmp[4].length; i++) {
+            jacobianMatrix_tmp[4][i] = jacobianMatrix_tmp[4][i] + fifthRowFourthColumnFactorSubstraction*jacobianMatrix_tmp[3][i];
+			inverse[4][i] = inverse[4][i] + fifthRowFourthColumnFactorSubstraction*inverse[3][i];
+		}
+		double sixthRowFourthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[5][3]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+            jacobianMatrix_tmp[5][i] = jacobianMatrix_tmp[5][i] + sixthRowFourthColumnFactorSubstraction*jacobianMatrix_tmp[3][i];
+			inverse[5][i] = inverse[5][i] + sixthRowFourthColumnFactorSubstraction*inverse[3][i];
+		}
+		
+		
+		//Get the rows (except 1-4) to start with 0, 0, 0, 0,1, ...
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,1,c2,d2,e2,f2];
+		[0,0,1,d3,e3,f3];
+		[0,0,0,1,e4,f4];
+		[0,0,0,0,1,f5];
+		[0,0,0,0,1,f6];
+		*/
+		double fifthRowfifthColumnFactor = 1 / (jacobianMatrix_tmp[4][4]);
+		for (int i = 0; i < jacobianMatrix_tmp[4].length; i++) {
+			jacobianMatrix_tmp[4][i] = fifthRowfifthColumnFactor * jacobianMatrix_tmp[4][i];
+			inverse[4][i] = fifthRowfifthColumnFactor * inverse[4][i];
+		}
+		double sixthRowFifthColumnFactor = 1 / (jacobianMatrix_tmp[5][4]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+			jacobianMatrix_tmp[5][i] = sixthRowFifthColumnFactor * jacobianMatrix_tmp[5][i];
+			inverse[5][i] = sixthRowFifthColumnFactor * inverse[5][i];
+		}
+		
+		//Get the columns from 5 onwards to start with 0
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,1,c2,d2,e2,f2];
+		[0,0,1,d3,e3,f3];
+		[0,0,0,1,e4,f4];
+		[0,0,0,0,1,f5];
+		[0,0,0,0,0,f6];
+		*/
+		double sixthRowFifthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[5][4]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+            jacobianMatrix_tmp[5][i] = jacobianMatrix_tmp[5][i] + sixthRowFifthColumnFactorSubstraction*jacobianMatrix_tmp[4][i];
+			inverse[5][i] = inverse[5][i] + sixthRowFifthColumnFactorSubstraction*inverse[4][i];
+		}
+		
+		//Get the rows (except 1-5) to start with 0, 0, 0, 0,1, ...
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,f1];
+		[0,1,c2,d2,e2,f2];
+		[0,0,1,d3,e3,f3];
+		[0,0,0,1,e4,f4];
+		[0,0,0,0,1,f5];
+		[0,0,0,0,0,1];
+		*/
+		double sixthRowSixthColumnFactor = 1 / (jacobianMatrix_tmp[5][5]);
+		for (int i = 0; i < jacobianMatrix_tmp[5].length; i++) {
+			jacobianMatrix_tmp[5][i] = sixthRowSixthColumnFactor * jacobianMatrix_tmp[5][i];
+			inverse[5][i] = sixthRowSixthColumnFactor * inverse[5][i];
+		}
+		
+		
+		//Get 0 in rows 1-5 at column 6
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,e1,0];
+		[0,1,c2,d2,e2,0];
+		[0,0,1,d3,e3,0];
+		[0,0,0,1,e4,0];
+		[0,0,0,0,1,0];
+		[0,0,0,0,0,1];
+		*/
+		double fifthRowSixthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[4][5]);
+		for (int i = 0; i < jacobianMatrix_tmp[4].length; i++) {
+            jacobianMatrix_tmp[4][i] = jacobianMatrix_tmp[4][i] + fifthRowSixthColumnFactorSubstraction*jacobianMatrix_tmp[5][i];
+			inverse[4][i] = inverse[4][i] + fifthRowSixthColumnFactorSubstraction*inverse[5][i];
+		}
+		double fourthRowSixthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[3][5]);
+		for (int i = 0; i < jacobianMatrix_tmp[3].length; i++) {
+            jacobianMatrix_tmp[3][i] = jacobianMatrix_tmp[3][i] + fourthRowSixthColumnFactorSubstraction*jacobianMatrix_tmp[5][i];
+			inverse[3][i] = inverse[3][i] + fourthRowSixthColumnFactorSubstraction*inverse[5][i];
+		}
+		double thirdRowSixthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[2][5]);
+		for (int i = 0; i < jacobianMatrix_tmp[2].length; i++) {
+            jacobianMatrix_tmp[2][i] = jacobianMatrix_tmp[2][i] + thirdRowSixthColumnFactorSubstraction*jacobianMatrix_tmp[5][i];
+			inverse[2][i] = inverse[2][i] + thirdRowSixthColumnFactorSubstraction*inverse[5][i];
+		}
+		double secondRowSixthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[1][5]);
+		for (int i = 0; i < jacobianMatrix_tmp[1].length; i++) {
+            jacobianMatrix_tmp[1][i] = jacobianMatrix_tmp[1][i] + secondRowSixthColumnFactorSubstraction*jacobianMatrix_tmp[5][i];
+			inverse[1][i] = inverse[1][i] + secondRowSixthColumnFactorSubstraction*inverse[5][i];
+		}
+		double firstRowSixthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[0][5]);
+		for (int i = 0; i < jacobianMatrix_tmp[0].length; i++) {
+            jacobianMatrix_tmp[0][i] = jacobianMatrix_tmp[0][i] + firstRowSixthColumnFactorSubstraction*jacobianMatrix_tmp[5][i];
+			inverse[0][i] = inverse[0][i] + firstRowSixthColumnFactorSubstraction*inverse[5][i];
+		}
+
+		
+		//Get 0 in rows 1-4 at column 5
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,d1,0,0];
+		[0,1,c2,d2,0,0];
+		[0,0,1,d3,0,0];
+		[0,0,0,1,0,0];
+		[0,0,0,0,1,0];
+		[0,0,0,0,0,1];
+		*/
+		double fourthRowFifthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[3][4]);
+		for (int i = 0; i < jacobianMatrix_tmp[3].length; i++) {
+            jacobianMatrix_tmp[3][i] = jacobianMatrix_tmp[3][i] + fourthRowFifthColumnFactorSubstraction*jacobianMatrix_tmp[4][i];
+			inverse[3][i] = inverse[3][i] + fourthRowFifthColumnFactorSubstraction*inverse[4][i];
+		}
+		double thirdRowFifthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[2][4]);
+		for (int i = 0; i < jacobianMatrix_tmp[2].length; i++) {
+            jacobianMatrix_tmp[2][i] = jacobianMatrix_tmp[2][i] + thirdRowFifthColumnFactorSubstraction*jacobianMatrix_tmp[4][i];
+			inverse[2][i] = inverse[2][i] + thirdRowFifthColumnFactorSubstraction*inverse[4][i];
+		}
+		double secondRowFifthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[1][4]);
+		for (int i = 0; i < jacobianMatrix_tmp[1].length; i++) {
+            jacobianMatrix_tmp[1][i] = jacobianMatrix_tmp[1][i] + secondRowFifthColumnFactorSubstraction*jacobianMatrix_tmp[4][i];
+			inverse[1][i] = inverse[1][i] + secondRowFifthColumnFactorSubstraction*inverse[4][i];
+		}
+		double firstRowFifthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[0][4]);
+		for (int i = 0; i < jacobianMatrix_tmp[0].length; i++) {
+            jacobianMatrix_tmp[0][i] = jacobianMatrix_tmp[0][i] + firstRowFifthColumnFactorSubstraction*jacobianMatrix_tmp[4][i];
+			inverse[0][i] = inverse[0][i] + firstRowFifthColumnFactorSubstraction*inverse[4][i];
+		}
+		
+		
+		//Get 0 in rows 1-3 at column 4
+		/*the 6x6 matrix looks like:
+		[1,b1,c1,0,0,0];
+		[0,1,c2,0,0,0];
+		[0,0,1,0,0,0];
+		[0,0,0,1,0,0];
+		[0,0,0,0,1,0];
+		[0,0,0,0,0,1];
+		*/
+		double thirdRowFourthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[2][3]);
+		for (int i = 0; i < jacobianMatrix_tmp[2].length; i++) {
+            jacobianMatrix_tmp[2][i] = jacobianMatrix_tmp[2][i] + thirdRowFourthColumnFactorSubstraction*jacobianMatrix_tmp[3][i];
+			inverse[2][i] = inverse[2][i] + thirdRowFourthColumnFactorSubstraction*inverse[3][i];
+		}
+		double secondRowFourthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[1][3]);
+		for (int i = 0; i < jacobianMatrix_tmp[1].length; i++) {
+            jacobianMatrix_tmp[1][i] = jacobianMatrix_tmp[1][i] + secondRowFourthColumnFactorSubstraction*jacobianMatrix_tmp[3][i];
+			inverse[1][i] = inverse[1][i] + secondRowFourthColumnFactorSubstraction*inverse[3][i];
+		}
+		double firstRowFourthColumnFactorSubstraction = -1*(jacobianMatrix_tmp[0][3]);
+		for (int i = 0; i < jacobianMatrix_tmp[0].length; i++) {
+            jacobianMatrix_tmp[0][i] = jacobianMatrix_tmp[0][i] + firstRowFourthColumnFactorSubstraction*jacobianMatrix_tmp[3][i];
+			inverse[0][i] = inverse[0][i] + firstRowFourthColumnFactorSubstraction*inverse[3][i];
+		}
+		
+		
+		//Get 0 in rows 1-2 at column 3
+		/*the 6x6 matrix looks like:
+		[1,b1,0,0,0,0];
+		[0,1,0,0,0,0];
+		[0,0,1,0,0,0];
+		[0,0,0,1,0,0];
+		[0,0,0,0,1,0];
+		[0,0,0,0,0,1];
+		*/
 		double secondRowThirdColumnFactorSubstraction = -1*(jacobianMatrix_tmp[1][2]);
 		for (int i = 0; i < jacobianMatrix_tmp[1].length; i++) {
-			
             jacobianMatrix_tmp[1][i] = jacobianMatrix_tmp[1][i] + secondRowThirdColumnFactorSubstraction*jacobianMatrix_tmp[2][i];
 			inverse[1][i] = inverse[1][i] + secondRowThirdColumnFactorSubstraction*inverse[2][i];
 		}
-		
-		//Get 0 in the first row and third column
-		//[1,x,0;0,1,0;0,0,1]
 		double firstRowThirdColumnFactorSubstraction = -1*(jacobianMatrix_tmp[0][2]);
 		for (int i = 0; i < jacobianMatrix_tmp[0].length; i++) {
-			
             jacobianMatrix_tmp[0][i] = jacobianMatrix_tmp[0][i] + firstRowThirdColumnFactorSubstraction*jacobianMatrix_tmp[2][i];
 			inverse[0][i] = inverse[0][i] + firstRowThirdColumnFactorSubstraction*inverse[2][i];
 		}
 		
-		//Get 0 in the first row and second column
-		//[1,0,0;0,1,0;0,0,1]
+		
+		//Get 0 in row 1 at column 2
+		/*the 6x6 matrix looks like:
+		[1,0,0,0,0,0];
+		[0,1,0,0,0,0];
+		[0,0,1,0,0,0];
+		[0,0,0,1,0,0];
+		[0,0,0,0,1,0];
+		[0,0,0,0,0,1];
+		*/
 		double firstRowSecondColumnFactorSubstraction = -1*(jacobianMatrix_tmp[0][1]);
 		for (int i = 0; i < jacobianMatrix_tmp[0].length; i++) {
-			
             jacobianMatrix_tmp[0][i] = jacobianMatrix_tmp[0][i] + firstRowSecondColumnFactorSubstraction*jacobianMatrix_tmp[1][i];
 			inverse[0][i] = inverse[0][i] + firstRowSecondColumnFactorSubstraction*inverse[1][i];
 		}
+		
+		
+		//IDENTITY MATRIX --> inverse is the inverse matrix of the input
 		return inverse;
 	}
 	
