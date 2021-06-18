@@ -60,6 +60,24 @@ public class Windmodule {
 		return wind;
 	}
 
+	public vector2d influencedBydistanceFromSurface(){
+		double y=Math.random()*100;
+		for(int i=100;i>0;i--){
+			if(y==i)
+			y=generator.nextInt(100-i);
+		}
+
+		if (Math.random() < 0.5) {
+			x = x - 5;
+		}
+		if (Math.random() < 0.5) {
+			y = y - 5;
+		}
+
+		Vector2d wind = new Vector2d(x, y);
+		return wind;
+	}
+
 	public Vector2d getWind() {
 		return wind;
 	}
