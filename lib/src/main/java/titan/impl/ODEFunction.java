@@ -49,11 +49,15 @@ public class ODEFunction implements ODEFunctionInterface {
 
 		if(landingEnabledOpenController == true) {
 			
-			//OpenLoopControllerNew openController = new OpenLoopControllerNew();
-			ClosedLoopController openController = new ClosedLoopController();
+			OpenLoopControllerNew openController = new OpenLoopControllerNew();
 			double u = 5;
-			double v = openController.calcThetaDoubleDot(-13,-17,(((State) y).getTime())/(60*60));
-			double eta = openController.calcTheta(-13,-17, (((State) y).getTime())/(60*60));
+			double v = openController.calcThetaDoubleDot(y);
+			double eta = openController.calcTheta(y);
+			/*ClosedLoopController closedController = new ClosedLoopController();
+			double u = 5;
+			double v = closedController.calcThetaDoubleDot(-13,-17,(((State) y).getTime())/(60*60));
+			double eta = closedController.calcTheta(-13,-17, (((State) y).getTime())/(60*60));
+			*/
 			
 			System.out.println("u: " + u);
 			System.out.println("v: " + v);

@@ -12,6 +12,7 @@ public class OpenLoopControllerNew {
 	private StateInterface[] landingStatesPerTime;
 	private int xLT = 400;
 	private int yLT = 0;
+	private boolean landingSpotX = false;
 
 	public OpenLoopControllerNew() {
 		//nothing
@@ -60,7 +61,7 @@ public class OpenLoopControllerNew {
 		return 5;
 	}
 	
-	public double functionV(StateInterface y) {
+	public double calcThetaDoubleDot(StateInterface y) {
 		//Function v is pre-determined by the time t.
 		/*
 		if(((State) y).getTime() < 60*60) {
@@ -71,12 +72,41 @@ public class OpenLoopControllerNew {
 		}
 		*/
 		
+		if(landingSpotX == true) {
+			return 0;
+		}
+		
 		//System.out.println("Simulation is taking longer than a day");
 		return 5;
 	}
 	
-	public double calculateEta(StateInterface y) {
-		double returner = (0.5*functionV(y)*Math.pow(((State) y).getTime(), 2) + etaDotZero *((State) y).getTime()+etaZero) % (Math.PI*2);
+	public double calcThetaDot(StateInterface y) {
+		//Function v is pre-determined by the time t.
+		/*
+		if(((State) y).getTime() < 60*60) {
+			return 20;
+		}
+		else if(((State) y).getTime() < 24*60*60) {
+			return 10;
+		}
+		*/
+		
+		if(landingSpotX == true) {
+			return 0;
+		}
+		
+		//System.out.println("Simulation is taking longer than a day");
+		return 5;
+	}
+	
+	public double calcTheta(StateInterface y) {
+		if(((State) y).getPosition()[0].getX() == ((State) y).getPosition()[1].getX()) {
+			System.out.println("We are at the same x, so x = 0");
+			landingSpotX = true;
+			return 0;
+		}
+		
+		double returner = (0.5*calcThetaDoubleDot(y)*Math.pow(((State) y).getTime(), 2) + etaDotZero *((State) y).getTime()+etaZero) % (Math.PI*2);
 		return returner;
 	}
 	
