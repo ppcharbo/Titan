@@ -173,7 +173,6 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	}
 	
 	
-	//TODO make it for 6 by 6 and not 3 by 3 only
 	/**
 	 * This is a method for inverting a 6 by 6 matrix that has all entries filled (i.e. no 0 element)
 	 * @param jacobianMatrix: matrix to be inverted
