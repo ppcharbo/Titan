@@ -1,5 +1,7 @@
 package titan.impl;
 
+import java.util.Arrays;
+
 import titan.ODEFunctionInterface;
 import titan.ODESolverInterface;
 import titan.StateInterface;

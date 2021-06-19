@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import javax.management.RuntimeErrorException;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -20,10 +21,10 @@ public class LandingModule extends JPanel {
 	public static int delay = 25;
 
 	public double size = 1;
-	public boolean stop = false;
+	public static boolean stop = false;
 	public int currentState = 0;
 
-	//private OpenLoopControllerNew openController;
+	private OpenLoopControllerNew openController;
 	private ClosedLoopController feedbackController;
 
 	public LandingModule(LandingFrame landing, StateInterface landingState) {
@@ -35,10 +36,8 @@ public class LandingModule extends JPanel {
 		imageCorner = new Point(0, 0);
 		
 		feedbackController = new ClosedLoopController(landingState);
-		//openController = new OpenLoopControllerNew(landingState);
-		//openController.openLoopLandingSimulatorWRTU(landingState);
+		openController = new OpenLoopControllerNew(landingState);
 		
-
 	}
 
 	public void paintComponent(Graphics g) {
@@ -48,20 +47,25 @@ public class LandingModule extends JPanel {
 		// Repaint background
 		icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
 
-		feedbackController.draw(g, size, 10, 10);
+		openController.draw(g, size, 10, 10);
 
 		g.setColor(new Color(218, 165, 32));
+		//g.drawLine(1025, 0, 1025, getHeight()); //open: around 1300 // feedback around 1025
+		g.drawLine(720, 0, 720, getHeight()); //with new states: //open: around 1300 // feedback around 705
 		g.fillRect(0, getHeight()-100, getWidth(), 100); // x, y, width, height
+		
+		g.setColor(new Color(255, 0, 0));
+		g.fillRect(700, getHeight()-100-10, 40, 10);
 	}
 	
 	private void landingLoop() {
 		
-		landingStatesPerTime = feedbackController.getLandingStates();
+		landingStatesPerTime = openController.getLandingStates();
 		
 		while (true) {
 			if (!stop) {
 				// update positions
-				feedbackController.update(((State) landingStatesPerTime[currentState]).getPosition()[0]);
+				openController.update(((State) landingStatesPerTime[currentState]).getPosition()[0]);
 				if (currentState == landingStatesPerTime.length - 1) {
 					currentState = 0;
 				}
