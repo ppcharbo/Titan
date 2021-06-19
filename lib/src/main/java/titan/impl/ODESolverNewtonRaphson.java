@@ -1,12 +1,11 @@
 package titan.impl;
 
-import java.util.Arrays;
-
 import titan.ODEFunctionInterface;
 import titan.ODESolverInterface;
 import titan.StateInterface;
 
 import org.apache.commons.math3.linear.MatrixUtils;
+
 /*
  * A class for solving a general differential equation dy/dt = f(t,y)
  *     y(t) describes the state of the system at time t
@@ -73,7 +72,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	 * @param jacobianMatrix: matrix to be inverted
 	 * @return inverted matrix: inverse of the jacobianMatrix
 	 */
-	public static double[][] inverse6x6JacobianMatrix(double[][] jacobianMatrix) {
+	public static double[][] inverseMatrix(double[][] jacobianMatrix) {
 		
 		return MatrixUtils.inverse(MatrixUtils.createRealMatrix(jacobianMatrix)).getData();
 	}
@@ -85,7 +84,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	 * @param functionsMatrix: 1D matrix (vector)
 	 * @return result of the multiplication of: jacobianMatrix*functionsMatrix
 	 */
-	public static double[] matrixMultiplication(double[][] jacobianMatrix, double[] functionsMatrix) {
+	public static double[] multipliesMatrices(double[][] jacobianMatrix, double[] functionsMatrix) {
 		double[] result = new double [functionsMatrix.length];
 		if(functionsMatrix.length != jacobianMatrix[0].length) {
 			throw new RuntimeException("Matrix dimensions don't match.");
@@ -274,8 +273,8 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 					jacobianMatrix[i][j][k] = derivative;
 				}
 			}
-			inversedJacobianMatrix[i] = inverse6x6JacobianMatrix(jacobianMatrix[i]);
-			double[] tmp = matrixMultiplication(inversedJacobianMatrix[i], functionsMatrix[i]);
+			inversedJacobianMatrix[i] = inverseMatrix(jacobianMatrix[i]);
+			double[] tmp = multipliesMatrices(inversedJacobianMatrix[i], functionsMatrix[i]);
 			
 			velocity[i] = new Vector3d(-tmp[0], -tmp[1], -tmp[2]);
 			acceleration[i] = new Vector3d(-tmp[3], -tmp[4], -tmp[5]);
