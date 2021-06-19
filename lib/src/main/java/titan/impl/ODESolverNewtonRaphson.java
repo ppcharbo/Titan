@@ -66,13 +66,13 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		return arr;
 	}
 
-
+	
 	/**
 	 * This is a method for inverting a 3 by 3 matrix that has all entries filled (i.e. no 0 element)
 	 * @param jacobianMatrix: matrix to be inverted
 	 * @return inverted matrix: inverse of the jacobianMatrix
 	 */
-	public double[][] inverseMatrix3by3(double[][] jacobianMatrix_tmp) {
+	/*public double[][] inverseMatrix3by3(double[][] jacobianMatrix_tmp) {
 
 		double[][] inverse = new double[jacobianMatrix_tmp.length][jacobianMatrix_tmp[0].length];
 		
@@ -172,7 +172,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 			inverse[0][i] = inverse[0][i] + firstRowSecondColumnFactorSubstraction*inverse[1][i];
 		}
 		return inverse;
-	}
+	}*/
 	
 	
 	/**
@@ -846,11 +846,9 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 		//Xk+1 = Xk - (J^-1 * F(Xk)) <=> nextState = currentState - (invertedJacobianMatrix * functionsMatrix)
 		
 		/* TODO
-		 * 1) inverse jacobianMatrix 6x6 --> jacobianMatrix[i][6][6]
-		 * 2) multiply both inverted jacobianMatrix with functionsMatrix (6x6 * 6x1)
-		 * 
-		 * 3) calculate the corresponding new Rate
-		 * 4) return y.addMul(1, -newRate);  
+		 * 1) multiply both inverted jacobianMatrix with functionsMatrix (6x6 * 6x1)
+		 * 2) calculate the corresponding new Rate
+		 * 3) return y.addMul(1, -newRate);
 		*/
 		
 		return null; 
