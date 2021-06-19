@@ -9,7 +9,6 @@ public class MatrixTests {
 	
 	public final double ACCURACY = 1E-3;
 	
-<<<<<<< HEAD
 	@Test
 	public void testInverse6By6() {
 		
@@ -52,8 +51,7 @@ public class MatrixTests {
 		}
 	}
 	*/
-=======
->>>>>>> branch 'main' of https://github.com/Basaratojo/Titan.git
+
 	
 	@Test
 	public void testMultiplication1() {
@@ -67,7 +65,7 @@ public class MatrixTests {
 		for (int i = 0; i < resultMatlab.length; i++) {
 			assertEquals(resultMatlab[i], multiplicationAv[i], ACCURACY);
 		}
-<<<<<<< HEAD
+
 	}
 	
 	@Test
@@ -99,7 +97,3 @@ public class MatrixTests {
 		}
 	}
 }
-=======
-	}	
-}
->>>>>>> branch 'main' of https://github.com/Basaratojo/Titan.git
