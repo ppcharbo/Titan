@@ -3,11 +3,14 @@ package titan.test;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import titan.impl.ODESolverNewtonRaphson;
 
 public class MatrixTests {
 	
-	public final double ACCURACY = 1E-3;
+	private static final double ACCURACY = 1E-6;
+	private static final boolean PRINT = false;
 	
 	@Test
 	public void testInverseMatrixOnRandomMatrix() {
@@ -18,9 +21,13 @@ public class MatrixTests {
 									 {0.14912280701754377, -0.5877192982456139, 0.2017543859649123},
 									 {-0.10964912280701754, 0.2850877192982456, -0.030701754385964914} };
 		
+		if(PRINT) {
+			System.out.println("Calculated inverse:");
+			System.out.println(Arrays.deepToString(inverse));
+		}
+		
 		for(int i = 0; i < inverse.length; i++) {
 			for (int j = 0; j < inverse[0].length; j++) {
-				
 				assertEquals(inverseMatlab[i][j], inverse[i][j], ACCURACY);
 			}
 		}
@@ -32,23 +39,19 @@ public class MatrixTests {
 		
 		double[][] identityMatrix = new double[6][6];
 		
-		for (int i=0; i<identityMatrix.length; i++) {
-			for (int j=0; j<identityMatrix[0].length; j++) {
-				
-				if (i==j) {
-					identityMatrix[i][j] = 1;
-				}
-				else {
-					identityMatrix[i][j] = 0;
-				}
-			}
+		for (int i = 0; i < identityMatrix.length; i++) {
+			identityMatrix[i][i] = 1;
 		}
+		
 		double[][] inversedIdentityMatrix = ODESolverNewtonRaphson.inverseMatrix(identityMatrix);
+		
+		if(PRINT) {
+			System.out.println("Calculated inverse:");
+			System.out.println(Arrays.deepToString(inversedIdentityMatrix));
+		}
 		
 		for (int i=0; i<identityMatrix.length; i++) {
 			for (int j=0; j<identityMatrix[0].length; j++) {
-				
-				System.out.println(inversedIdentityMatrix[i][j]);
 				assertEquals(identityMatrix[i][j], inversedIdentityMatrix[i][j], ACCURACY);
 			}
 		}
@@ -56,13 +59,18 @@ public class MatrixTests {
 
 	
 	@Test
-	public void testMultipliesMatricesOnRandomMatrix() {
+	public void testMultiplicationRandomMatrixOnRandomVector() {
 		
 		double[][] A = { {1, 18}, {2, 7} };
 		double[] v = { 5, 6 };
 		
 		double[] multiplicationAv = ODESolverNewtonRaphson.multipliesMatrices(A, v);
 		double[] resultMatlab = { 113, 52 };
+		
+		if(PRINT) {
+			System.out.println("Calculated multiplication:");
+			System.out.println(Arrays.toString(multiplicationAv));
+		}
 		
 		for (int i = 0; i < resultMatlab.length; i++) {
 			
@@ -72,31 +80,27 @@ public class MatrixTests {
 	
 	
 	@Test
-	public void testMultipliesMatricesOnIdentityMatrix() {
+	public void testMultiplicationIdentityMatrixOnOnesVector() {
 		
-		double[][] identityMatrix1 = new double[6][6];
-		double[] identityMatrix2 = new double[6];
+		double[][] identityMatrix = new double[6][6];
+		double[] onesVector = new double[6];
 		
-		for (int i=0; i<identityMatrix1.length; i++) {
-			for (int j=0; j<identityMatrix1[0].length; j++) {
-				
-				if (i==j) {
-					identityMatrix1[i][j] = 1;
-				}
-				else {
-					identityMatrix1[i][j] = 0;
-				}
-			}
+		for (int i = 0; i < identityMatrix.length; i++) {
+			identityMatrix[i][i] = 1;
 		}
 		
-		for (int i=0; i<identityMatrix2.length; i++) {
-			
-			identityMatrix2[i] = 1;
+		for (int i = 0; i < onesVector.length; i++) {
+			onesVector[i] = 1;
 		}
-		double[] multiplication = ODESolverNewtonRaphson.multipliesMatrices(identityMatrix1, identityMatrix2);
+		
+		double[] multiplication = ODESolverNewtonRaphson.multipliesMatrices(identityMatrix, onesVector);
+		
+		if(PRINT) {
+			System.out.println("Calculated multiplication:");
+			System.out.println(Arrays.toString(multiplication));
+		}
 		
 		for (int i=0; i < multiplication.length; i++) {
-			
 			assertEquals(1, multiplication[i], ACCURACY);
 		}
 	}
