@@ -49,15 +49,20 @@ public class Windmodule {
 		return wind;
 	}
 
-	public Vector2d getStronger() {
-		//this is a method that make the random windForce be stonger if the windforce is small for now.
+	public Vector2d fixWindForce() {
+		//this is a method that make the random windForce be stongger or smaller if the wind force is too small or big for now.
 		
 		generator = new Random();
 		double x = 0;
 		double y = 0;
-		while (x < 50 || y < 50) {
-			x = generator.nextInt(90);
-			y = generator.nextInt(90);
+		while (x < 20 && y < 20) {
+			x = generator.nextInt(60);
+			y = generator.nextInt(60);
+		}
+		
+		while (x >90 && y >90 ) {
+			x = generator.nextInt(60);
+			y = generator.nextInt(60);
 		}
 
 		if (Math.random() < 0.5) {
@@ -70,6 +75,8 @@ public class Windmodule {
 		Vector2d wind = new Vector2d(x, y);
 		return wind;
 	}
+	
+	
 
 	public Vector2d influencedBydistanceFromSurface(){
 		// this method is a model for the wind will be influenced by the height of the probe when landing on the surface.
