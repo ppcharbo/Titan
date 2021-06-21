@@ -20,22 +20,6 @@ public class Simulator {
 		System.out.println();
 		
 		
-		System.out.println("Running Ralston");
-		SimulatorRalston simRalston = new SimulatorRalston();
-		ArrayList list2 = simRalston.tada(initialState, tf, h, new ODEFunction());
-		System.out.println(list2);
-		//System.out.println(list2.get(list2.size()-1));
-		System.out.println();
-		
-		
-		System.out.println("Running Heun");
-		SimulatorHeun simHeun = new SimulatorHeun();
-		ArrayList list3 = simHeun.tada(initialState, tf, h, new ODEFunction());
-		System.out.println(list3);
-		//System.out.println(list3.get(list3.size()-1));
-		System.out.println();
-		
-		
 		System.out.println("Running RK4");
 		SimulatorRK4 simRK4 = new SimulatorRK4();
 		ArrayList list4 = simRK4.tada(initialState, tf, h, new ODEFunction());
