@@ -9,10 +9,17 @@ import titan.StateInterface;
 /**
  * A class that use Runge-Kutta ODE Solver properties to calculate the next position
  * @author Group 12
- *
  */
 public class ODESolverRungeKutta implements ODESolverInterface {
 	
+	/**
+	 * Solve the differential equation by taking multiple steps.
+	 *
+	 * @param   f       the function defining the differential equation dy/dt=f(t,y)
+	 * @param   y0      the starting state
+	 * @param   ts      the times at which the states should be output, with ts[0] being the initial time
+	 * @return  an array of size ts.length with all intermediate states along the path
+	 */
 	@Override
 	public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double[] ts) {
 
@@ -27,7 +34,16 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 		return arr;
 	}
 
-	
+	/**
+	 * Solve the differential equation by taking multiple steps of equal size, starting at time 0.
+	 * The final step may have a smaller size, if the step-size does not exactly divide the solution time range
+	 *
+	 * @param   f       the function defining the differential equation dy/dt=f(t,y)
+	 * @param   y0      the starting state
+	 * @param   tf      the final time
+	 * @param   h       the size of step to be taken
+	 * @return  an array of size round(tf/h)+1 including all intermediate states along the path
+	 */
 	@Override
 	public StateInterface[] solve(ODEFunctionInterface f, StateInterface y0, double tf, double h) {
 		
@@ -43,65 +59,31 @@ public class ODESolverRungeKutta implements ODESolverInterface {
 			i++;
 		}
 		
-		/*
-		State[] arr = new State[(int) Math.ceil((tf / h) + 1)];
-		arr[0] = (State) y0;
-		double stepSize = h;
-		double currentTime = 0;
-
-		for (int i = 1; i < arr.length; i++) {
-
-			if (i == arr.length - 1) {
-				
-				stepSize = tf - currentTime; // we are in last step and have to check our remaining step size
-			}
-			arr[i] = step(f, currentTime, arr[i - 1], stepSize);
-			currentTime += stepSize;
-		}
-		*/
-		
-		/*
-		StateInterface[] arr = new StateInterface[(int) Math.ceil((tf / h) + 1)];
-		int i = 0;
-		arr[i] = y0;
-		((State) y0).setTime(0);
-		
-		double currentTime = 0;
-
-		while(currentTime < tf) {
-	
-			arr[i+1] = step(f, currentTime, arr[i], h); // calculate the next step
-			((State) arr[i+1]).setTime(currentTime+h); // set time for the next step
-			i += 1; 
-			currentTime += h; 
-		}
-		*/
 		return arr;
 	}
-
 	
-	// Fourth-order Runge-Kutta formula
+	/**
+	 * Update rule for one step using the fourth-order Runge-Kutta.
+	 *
+	 * @param   f   the function defining the differential equation dy/dt=f(t,y)
+	 * @param   t   the time
+	 * @param   y   the state
+	 * @param   h   the step size
+	 * @return  the new state after taking one step
+	 */
 	@Override
 	public StateInterface step(ODEFunctionInterface f, double t, StateInterface y, double h) {
 
-		/*
+		
 		Rate k1 = (Rate) f.call(t, y);
 		Rate k2 = (Rate) f.call(t + h / 2, y.addMul(h / 2, k1));
 		Rate k3 = (Rate) f.call(t + h / 2, y.addMul(h / 2, k2));
 		Rate k4 = (Rate) f.call(t + h, y.addMul(h, k3));
-		*/
-		Rate k1, k2, k3, k4, ki;
 		
-		k1 = (Rate) f.call(t, y);
-		k2 = (Rate) f.call(t + (0.5*h), y.addMul(0.5*h, (RateInterface) k1));
-		k3 = (Rate) f.call(t + (0.5*h), y.addMul(0.5*h, (RateInterface) k2));
-		k4 = (Rate) f.call(t + h, y.addMul(h, (RateInterface) k3));
-		
+		Rate ki; // compute in summation
 		ki = k1.addMul(2, k2);
 		ki = ki.addMul(2, k3);
 		ki = ki.addMul(1, k4);
-		
-		//ki = ki.mul(h/6);
 		
 		StateInterface newY = y.addMul(h / 6, (RateInterface) ki);
 		

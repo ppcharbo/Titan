@@ -5,21 +5,21 @@ import java.awt.Graphics;
 
 import titan.StateInterface;
 /**
-  *  This class is responsible for simulating the probe's landing using a closed loop controller.
+  *  This class is responsible for simulating the probe's landing using a feedback controller.
   *  @author Group 12 
   */
-public class ClosedLoopController {
+public class FeedbackController {
 	private StateInterface[] landingStatesPerTime;
 	public final double E = 2.718281828459;
 	private int xLT = 400;
 	private int yLT = 0;
 	private boolean landingSpotX = false;
 
-	public ClosedLoopController() {
-		//nothing
+	public FeedbackController() {
+		// Constructor used in ODEFunction
 	}
 	
-	public ClosedLoopController(StateInterface initialLaunchState) {
+	public FeedbackController(StateInterface initialLaunchState) {
 		
 		int ship = 0;
 		int titan = 10;
@@ -29,8 +29,6 @@ public class ClosedLoopController {
 		positionLaunch.setZ(0);
 		velocityLaunch.setZ(0);
 		positionTitan.setZ(0);
-		//System.out.println("Distance from ship to Titan:");
-		//System.out.println(positionLaunch.dist(positionTitan));
 		
 		Vector3d velocityTitan = new Vector3d(0, 0, 0);
 		
@@ -41,7 +39,6 @@ public class ClosedLoopController {
 		ODEFunction f = new ODEFunction();
 		f.setLandingFeedback(true);
 		
-		//ODESolverEuler solveLanding = new ODESolverEuler();
 		ODESolverRungeKutta solveLanding = new ODESolverRungeKutta();
 		
 		int tf = 60*60*24*365; //1 day
@@ -50,33 +47,32 @@ public class ClosedLoopController {
 		landingStatesPerTime = (StateInterface[]) solveLanding.solve(f, initialState, tf, h);
 	}
 	
-	
 	public double calcU() {
 		if(landingSpotX == true) {
 			return 1.352;
 		}
-		
 		return 5;
 	}
 	
-	
 	public double computePositiveLambda(double a, double b) {
-		
 		double posLambda = (b/2) + Math.sqrt( ((a*a - 4*b)/2) );
 		return posLambda;
 	}
 	
-	
 	public double computeNegativeLambda(double a, double b) {
-		
 		double negLambda = (b/2) - Math.sqrt( ((a*a - 4*b)/2) );
 		return negLambda;
 	}
 	
-	
-	public double calcTheta(double a, double b, double t, StateInterface y) {        // might not need
-		
-		if(((State) y).getPosition()[0].getX()/1E9 <= 1290 && ((State) y).getPosition()[0].getX()/1E9 >= 1310) { //1300
+	/**
+	 * Method to calculate the angle.
+	 * @param a: coefficients for the equation.
+	 * @param b: coefficients for the equation.
+	 * @param t: the time at which we evaluate our equation.
+	 * @return theta: the angle
+	 */
+	public double calcTheta(double a, double b, double t, StateInterface y) {
+		if(((State) y).getPosition()[0].getX()/1E9 <= 1290 && ((State) y).getPosition()[0].getX()/1E9 >= 1310) {
 			landingSpotX  = true;
 			return 0;
 		}
@@ -90,17 +86,31 @@ public class ClosedLoopController {
 		return theta;
 	}
 	
-	public double calcThetaDot(double a, double b, double t) {     // might not need
+	/**
+	 * Method to calculate the angular velocity.
+	 * @param a: coefficients for the equation.
+	 * @param b: coefficients for the equation.
+	 * @param t: the time at which we evaluate our equation.
+	 * @return thetaDot: representing the angular velocity
+	 */
+	public double calcThetaDot(double a, double b, double t) {
 		if(landingSpotX == true) {
 			return 0;
 		}
+		
 		double lambda = computePositiveLambda(a,b);
 		double thetaDot = lambda * Math.pow(E, lambda*t);
 		return thetaDot;
-		
 	}
 	
-	public double calcThetaDoubleDot(double a, double b, double t) {     // the equivalent of V
+	/**
+	 * Method to calculate the torque that is used for the angular acceleration.
+	 * @param a: coefficients for the equation.
+	 * @param b: coefficients for the equation.
+	 * @param t: the time at which we evaluate our equation.
+	 * @return thetaDoubleDot: representing the torque (v(...))
+	 */
+	public double calcThetaDoubleDot(double a, double b, double t) {
 		if(landingSpotX == true) {
 			return 0;
 		}
@@ -108,11 +118,15 @@ public class ClosedLoopController {
 		double thetaDoubleDot = lambda * lambda * Math.pow(E, lambda*t);
 		return thetaDoubleDot;
 	}
-
+	
 	public StateInterface[] getLandingStates() {
 		return this.landingStatesPerTime;
 	}
 	
+	/**
+	 * Method that updates the coordinates in the GUI
+	 * @param newPosition: vector that contains the new position.
+	 */
 	public void update(Vector3d newPosition) {
 		setX((int) (newPosition.getX()/(1E9)) );
 		setY((int) (newPosition.getY()/(1E9)) );

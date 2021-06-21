@@ -9,19 +9,16 @@ import titan.StateInterface;
 import org.apache.commons.math3.linear.MatrixUtils;
 /**
  * A class that use Newton Raphson ODE solver properties to calculate the next position
+ * For solving a general differential equation dy/dt = f(t,y)
+ * y(t) describes the state of the system at time t
+ * f(t,y(t)) defines the derivative of y(t) with respect to time t
+ * 
  * @author Group 12
- *
  */
 
-
-/*
- * A class for solving a general differential equation dy/dt = f(t,y)
- *     y(t) describes the state of the system at time t
- *     f(t,y(t)) defines the derivative of y(t) with respect to time t
- */
 public class ODESolverNewtonRaphson implements ODESolverInterface {
 	
-	/*
+	/**
 	 * Solve the differential equation by taking multiple steps.
 	 *
 	 * @param   f       the function defining the differential equation dy/dt=f(t,y)
@@ -44,7 +41,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	}
 
 	
-	/*
+	/**
 	 * Solve the differential equation by taking multiple steps of equal size, starting at time 0.
 	 * The final step may have a smaller size, if the step-size does not exactly divide the solution time range
 	 *
@@ -110,7 +107,7 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 	}
 	
 	
-	/*
+	/**
 	 * Update rule for one step: we apply the Multivariate Newton-Raphson Method: https://skill-lync.com/projects/week-6-multivariate-newton-rhapson-solver-18 
 	 *
 	 * @param   f   the function defining the differential equation dy/dt=f(t,y)
@@ -216,7 +213,8 @@ public class ODESolverNewtonRaphson implements ODESolverInterface {
 						
 						currentPosition = ((State)y).getPosition(); // re-initialization (avoid -h+h --> current and not next)
 						currentVelocity = ((State)y).getVelocity();
-					// compute next Y
+						
+						// compute next Y
 						// set position vector coordinates
 						if (k==0) {
 							

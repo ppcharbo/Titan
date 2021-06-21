@@ -1,11 +1,8 @@
 package titan.impl;
 
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +11,11 @@ import javax.swing.JToolBar;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
+
+/**
+ * Class to display the frame in for the landing
+ * @author Group 12
+ */
 public class LandingFrame extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
@@ -30,8 +32,6 @@ public class LandingFrame extends JPanel{
 		
 		LandingModule landMode = new LandingModule(this, landingState);
 
-
-		
 		// Toolbar for more functionality
 		JToolBar toolbar = new JToolBar("Tools");
 
@@ -75,10 +75,7 @@ public class LandingFrame extends JPanel{
 		toolbar.add(pauseStart);
 		toolbar.add(resetToInitialState);
 		landMode.add(toolbar);
-		
-		
-		
-		
+
 		landingFrame.add(landMode);
 		landMode.repaint();
 		
@@ -86,7 +83,10 @@ public class LandingFrame extends JPanel{
 		landingFrame.setVisible(true);
 	}
 	
-	//From SystemPlanet
+	/**
+	 * Method from the SystemPlanet class
+	 * @return states: array of StateInterfaces describing the states to go to Titan from Earth
+	 */
 	public static StateInterface[] simulateTime() {
 		Vector3dInterface probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
 		Vector3dInterface probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3

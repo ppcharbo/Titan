@@ -1,5 +1,5 @@
 package titan.impl;
-/*
+/**
  *  This class simulates the trajectory of the probe again using various solvers and the numbers given by NASA this time.
  *  @author Group 12 
  */
@@ -7,6 +7,7 @@ import titan.StateInterface;
 
 public class NASA {
 
+	// Make sure to choose one of the following conditions!
 	private final static boolean INITIAL = false;
 	private final static boolean END = true;
 	
@@ -20,7 +21,6 @@ public class NASA {
 	 * Time Span [change] : 	Start=2020-04-01, Stop=2021-04-01, Step=1 d
 	 * Table Settings [change] : 	quantities code=2; output units=KM-S
 	 * Display/Output [change] : 	default (formatted HTML)
-	 * 
 	 * 
 	 * 
 	 * 2458940.500000000 = A.D.
@@ -50,7 +50,6 @@ public class NASA {
 	 * VX =  4.600295683062070E+00
 	 * VY =  1.023830877803223E+01
 	 * VZ = -2.479030926015208E+00
-	 * 
 	 * 
 	 */
 	
@@ -88,7 +87,6 @@ public class NASA {
 		System.out.println("Initial State Euler");
 		ProbeSimulatorEuler euler = new ProbeSimulatorEuler();
 		
-		//Taken from SystemPlanet.java
 		Vector3d probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
 		Vector3d probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
 
@@ -108,7 +106,6 @@ public class NASA {
 		System.out.println("Initial State RK4");
 		ProbeSimulatorRungeKutta rk = new ProbeSimulatorRungeKutta();
 		
-		//Taken from SystemPlanet.java
 		Vector3d probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
 		Vector3d probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
 		
@@ -128,7 +125,6 @@ public class NASA {
 		System.out.println("Initial State Verlet");
 		ProbeSimulatorVerlet verlet = new ProbeSimulatorVerlet();
 		
-		//Taken from SystemPlanet.java
 		Vector3d probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
 		Vector3d probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
 		
@@ -148,7 +144,6 @@ public class NASA {
 		System.out.println("Doing Verlet");
 		ProbeSimulatorVerlet verlet = new ProbeSimulatorVerlet();
 		
-		//Taken from SystemPlanet.java
 		Vector3d probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
 		Vector3d probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
 		
@@ -164,7 +159,6 @@ public class NASA {
 		System.out.println("Doing RK4");
 		ProbeSimulatorRungeKutta rk = new ProbeSimulatorRungeKutta();
 		
-		//Taken from SystemPlanet.java
 		Vector3d probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
 		Vector3d probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
 		
@@ -183,7 +177,6 @@ public class NASA {
 		System.out.println("Doing Euler");
 		ProbeSimulatorEuler euler = new ProbeSimulatorEuler();
 		
-		//Taken from SystemPlanet.java
 		Vector3d probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
 		Vector3d probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
 		
@@ -196,7 +189,5 @@ public class NASA {
 		
 		System.out.println();
 		System.out.println();
-		
 	}
-
 }

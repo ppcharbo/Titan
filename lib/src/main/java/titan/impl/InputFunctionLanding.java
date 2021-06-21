@@ -1,5 +1,5 @@
 package titan.impl;
-/*
+/**
  *  This class creates the two functions we need in order to implement he landing. 'u' is the function
  *  responsible for controlling the x and y coordinates, whereas 'v' controls theta which is the angle of rotation.
  *  @author Group 12 

@@ -61,6 +61,7 @@ public class GUIWelcome {
 		gbc.gridy = 2;
 		panel.add(waitingLabel, gbc);
 		
+		/* Attempt for the buttons
 		JLabel chooseLabel = new JLabel("Please, also choose the solver which you would like to try.");
 		gbc.gridx = 0;
 		gbc.gridy = 3;
@@ -94,6 +95,7 @@ public class GUIWelcome {
 		SystemPlanet.setSolver(solverChoice);
 		SystemPlanet.setController(controllerChoice);
 		
+		*/
 		JLabel emptyLabel3 = new JLabel("                              ");
 		gbc.gridx = 0;
 		gbc.gridy = 6;
@@ -103,10 +105,6 @@ public class GUIWelcome {
 		gbc.gridx = 0;
 		gbc.gridy = 7;
 		panel.add(startButton, gbc);
-
-		// Previous implementation where then user determines the initial velocity
-		// String input = JOptionPane.showInputDialog("Please, enter your speed.");
-		// double speed = Double.parseDouble(input);
 
 		welcomeFrame.add(panel);
 		welcomeFrame.setVisible(true);

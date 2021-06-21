@@ -4,7 +4,6 @@ import titan.Vector3dInterface;
 /**
  * A class that can set and get the name, the postion, the velocity, the radius and the mass of every planets
  *  @author Group 12
- *
  */
 
 public class Planet {
