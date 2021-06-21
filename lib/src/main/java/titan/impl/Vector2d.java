@@ -30,6 +30,16 @@ public class Vector2d {
 		this.x = x;
 		this.y = y;
 	}
+	
+	/**
+	 * 
+	 * @param vector2
+	 */
+	public Vector2d(Vector2d vector2) {
+
+		this.x = vector2.getX();
+		this.y = vector2.getY();
+	}
 
 	/**
 	 * @return x
@@ -137,4 +147,9 @@ public class Vector2d {
 
 		return "(" + x + "," + y + ")";
 	}
+	
+    public Vector2d cloneVector() {
+        Vector2d clone = new Vector2d(this.x, this.y);
+        return clone;
+    }
 }

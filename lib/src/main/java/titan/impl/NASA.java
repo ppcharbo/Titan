@@ -1,5 +1,8 @@
 package titan.impl;
-
+/*
+ *  This class simulates the trajectory of the probe again using various solvers and the numbers given by NASA this time.
+ *  @author Group 12 
+ */
 import titan.StateInterface;
 
 public class NASA {
