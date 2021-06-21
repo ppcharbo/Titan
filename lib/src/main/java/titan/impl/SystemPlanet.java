@@ -197,22 +197,8 @@ public class SystemPlanet extends JPanel {
 	}
 
 	public static StateInterface[] simulateOneYear() {
-		/* test examples:
-		350: 4.115732989682610E6, -4.863119819665272E6, 0.021179641570518E6
-		300: 3.993756368515144E6, -4.963775939752052E6, 0.021897234604973E6
-		278: 3.926620508447322e6, -5.017051486490201e6, 0.022062741157029e6
-		200: 3.740731413563386e6, -5.157141498910596e6, 0.021472116668884e6
-		150: 3.609867510498535E6, -5.249581360565903E6, 0.019826634766418E6
-		*/
 		
 		/*
-		 * Fly-by Titan
-		 * 1.0947200624149562E11
-		 * 
-		 * Fly by Jupiter
-		 * 4.666789063372709E9 
-		 * 4154116.78496650, -4830374.71365795, 20853.3573652752
-		 * 
 		 * 
 		 * Fly-by Titan
 		 * 5.036348713187294E10
@@ -223,30 +209,18 @@ public class SystemPlanet extends JPanel {
 		 */
 		Vector3dInterface probe_pos = new Vector3d(4.115732989682610E6, -4.863119819665272E6, 0.021179641570518E6); // row 367
 		Vector3dInterface probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
-		
-		//Least fly-by: 5.183927817858741E10
-		//Vector3dInterface probe_pos = new Vector3d(3934123.6794817075,-5011170.076552446,22053.081568514943);
-		//Vector3dInterface probe_vel = new Vector3d(5069.870196164143,59785.41894141804,-9.909247179762742);
-		
-		
-		// original step by examiners
-		//double day = 24 * 60 * 60;
-		//double year = 365.25 * day;
-		
-		// GUI2
+	
+		// GUI
 		double stepGUI2 = 60 * 60; // 1 hour
 		double finalGUI2 = 2*365.25 * 24 * 60 * 60; // 2 years
 		
-		// GUI3: smaller step size and final time ENGINE ON
+		// GUI2: smaller step size and final time ENGINE ON
 		//double hour = 60 * 60;
 		//double fourDays = 4.05 * 24 * hour;
 		
 		ProbeSimulatorRungeKutta simulator = new ProbeSimulatorRungeKutta();
 		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
 		
-		
-		
-		//check if states = null
 		return states;
 	}
 	
@@ -340,33 +314,4 @@ public class SystemPlanet extends JPanel {
 		}
 	}
 
-	public static void setSolver(String solverChoice) {
-		if(DEBUG) {
-			//System.out.println(solverChoice);
-		}
-		if(solverChoice.equals("Euler")) {
-			euler = true;
-		}
-		else if(solverChoice.equals("Verlet")) {
-			verlet = true;
-		}
-		else {
-			rk4 = true;
-		}
-		System.out.println("Euler:" + euler);
-		System.out.println("Euler:" + rk4);
-		System.out.println("Euler:" + verlet);
-	}
-
-	public static void setController(String controllerChoice) {
-		if(DEBUG) {
-			//System.out.println(controllerChoice);
-		}
-		if(controllerChoice.equals("Open-loop controller")) {
-			openController = true;
-		}
-		else if(controllerChoice.equals("Feedback controller")) {
-			feedbackController = true;
-		}
-	}
 }
