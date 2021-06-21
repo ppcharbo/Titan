@@ -10,6 +10,7 @@ public class ClosedLoopController {
 	public final double E = 2.718281828459;
 	private int xLT = 400;
 	private int yLT = 0;
+	private boolean landingSpotX = false;
 
 	public ClosedLoopController() {
 		//nothing
@@ -35,7 +36,7 @@ public class ClosedLoopController {
 		boolean[] isShip = {true, false};
 		State initialState = new State(positions, velocities, isShip, 0);
 		ODEFunction f = new ODEFunction();
-		f.setLandingOpen(true);
+		f.setLandingFeedback(true);
 		
 		//ODESolverEuler solveLanding = new ODESolverEuler();
 		ODESolverRungeKutta solveLanding = new ODESolverRungeKutta();
@@ -46,58 +47,62 @@ public class ClosedLoopController {
 		landingStatesPerTime = (StateInterface[]) solveLanding.solve(f, initialState, tf, h);
 	}
 	
-	public double functionU(double x, double y, double eta, double xDot, double yDot, double etaDot) {
-		double uMax = 100;
-		while(x != 0) {
-			//
+	
+	public double calcU() {
+		if(landingSpotX == true) {
+			return 1.352;
 		}
 		
 		return 5;
 	}
 	
+	
 	public double computePositiveLambda(double a, double b) {
 		
-		double posLambda;
-		posLambda = (b/2) + Math.sqrt( ((a*a - 4*b)/2) );
+		double posLambda = (b/2) + Math.sqrt( ((a*a - 4*b)/2) );
 		return posLambda;
-		
 	}
 	
 	
 	public double computeNegativeLambda(double a, double b) {
 		
-		double negLambda;
-		negLambda = (b/2) - Math.sqrt( ((a*a - 4*b)/2) );
+		double negLambda = (b/2) - Math.sqrt( ((a*a - 4*b)/2) );
 		return negLambda;
-		
 	}
 	
 	
-	public double calcTheta(double a, double b, double t) {        // might not need
+	public double calcTheta(double a, double b, double t, StateInterface y) {        // might not need
 		
-		double theta;
+		if(((State) y).getPosition()[0].getX()/1E9 <= 1290 && ((State) y).getPosition()[0].getX()/1E9 >= 1310) { //1300
+			landingSpotX  = true;
+			return 0;
+		}
+		if(landingSpotX == true) {
+			return 0;
+		}
+		
 		double posLambda = computePositiveLambda(a,b);
-		//double negLambda = computePositiveLambda(a,b);
-		theta = Math.pow(E, posLambda*t);
-		//theta = Math.pow(E, posLambda*t) + Math.pow(E, negLambda*t);
-		return theta;
+		double theta = Math.pow(E, posLambda*t);
 		
+		return theta;
 	}
 	
 	public double calcThetaDot(double a, double b, double t) {     // might not need
-		
-		double thetaDot;
+		if(landingSpotX == true) {
+			return 0;
+		}
 		double lambda = computePositiveLambda(a,b);
-		thetaDot = lambda * Math.pow(E, lambda*t);
+		double thetaDot = lambda * Math.pow(E, lambda*t);
 		return thetaDot;
 		
 	}
 	
 	public double calcThetaDoubleDot(double a, double b, double t) {     // the equivalent of V
-		
-		double thetaDoubleDot;
+		if(landingSpotX == true) {
+			return 0;
+		}
 		double lambda = computePositiveLambda(a,b);
-		thetaDoubleDot = lambda * lambda * Math.pow(E, lambda*t);
+		double thetaDoubleDot = lambda * lambda * Math.pow(E, lambda*t);
 		return thetaDoubleDot;
 	}
 
@@ -120,7 +125,12 @@ public class ClosedLoopController {
 	
 	public void draw(Graphics g, double size, int width, int height) {	
 		Color color = new Color(0, 255, 0);
+		System.out.println(xLT);
 		g.setColor(color);
 		g.fillRect(xLT, yLT, width, height);
+		
+		if (yLT >= 742) {
+			LandingModule.stop = true;
+		}
 	}
 }

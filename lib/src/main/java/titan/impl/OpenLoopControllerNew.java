@@ -12,6 +12,7 @@ public class OpenLoopControllerNew {
 	private StateInterface[] landingStatesPerTime;
 	private int xLT = 400;
 	private int yLT = 0;
+	private boolean landingSpotX = false;
 
 	public OpenLoopControllerNew() {
 		//nothing
@@ -44,7 +45,7 @@ public class OpenLoopControllerNew {
 		landingStatesPerTime = (StateInterface[]) solveLanding.solve(f, initialState, tf, h);
 	}
 	
-	public double functionU(StateInterface y) {
+	public double calcU(StateInterface y) {
 		//Function u is pre-determined by the time t.
 		
 		/*
@@ -56,11 +57,12 @@ public class OpenLoopControllerNew {
 		}
 		*/
 		
+		
 		//System.out.println("Simulation is taking longer than a day");
 		return 5;
 	}
 	
-	public double functionV(StateInterface y) {
+	public double calcThetaDoubleDot(StateInterface y) { //this is v (torque in Nm)
 		//Function v is pre-determined by the time t.
 		/*
 		if(((State) y).getTime() < 60*60) {
@@ -71,12 +73,52 @@ public class OpenLoopControllerNew {
 		}
 		*/
 		
+		if(landingSpotX == true) {
+			return 0;
+		}
+		
 		//System.out.println("Simulation is taking longer than a day");
 		return 5;
 	}
 	
-	public double calculateEta(StateInterface y) {
-		double returner = (0.5*functionV(y)*Math.pow(((State) y).getTime(), 2) + etaDotZero *((State) y).getTime()+etaZero) % (Math.PI*2);
+	public double calcThetaDot(StateInterface y) {
+		//Function v is pre-determined by the time t.
+		/*
+		if(((State) y).getTime() < 60*60) {
+			return 20;
+		}
+		else if(((State) y).getTime() < 24*60*60) {
+			return 10;
+		}
+		*/
+		
+		if(landingSpotX == true) {
+			return 0;
+		}
+		
+		//System.out.println("Simulation is taking longer than a day");
+		return 5;
+	}
+	
+	public double calcTheta(StateInterface y) {
+		
+		/*
+		if(((State) y).getPosition()[0].getX() == ((State) y).getPosition()[1].getX()) {
+			System.out.println("We are at the same x, so x = 0");
+			landingSpotX = true;
+			return 0;
+		}
+		*/
+		
+		if(((State) y).getPosition()[0].getX()/1E9 <= 1290 && ((State) y).getPosition()[0].getX()/1E9 >= 1310) { //1300
+			landingSpotX = true;
+			return 0;
+		}
+		if(landingSpotX == true) {
+			return 0;
+		}
+		
+		double returner = (0.5*calcThetaDoubleDot(y)*Math.pow(((State) y).getTime(), 2) + etaDotZero *((State) y).getTime()+etaZero) % (Math.PI*2);
 		return returner;
 	}
 	
@@ -96,6 +138,10 @@ public class OpenLoopControllerNew {
 		Color color = new Color(0, 255, 0);
 		g.setColor(color);
 		g.fillRect(xLT, yLT, width, height);
+		
+		if(yLT >= 734) {
+			LandingModule.stop = true;
+		}
 		
 	}
 	

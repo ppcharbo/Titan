@@ -49,11 +49,15 @@ public class ODEFunction implements ODEFunctionInterface {
 
 		if(landingEnabledOpenController == true) {
 			
-			//OpenLoopControllerNew openController = new OpenLoopControllerNew();
-			ClosedLoopController openController = new ClosedLoopController();
+			OpenLoopControllerNew openController = new OpenLoopControllerNew();
+			double u = openController.calcU(y);
+			double v = openController.calcThetaDoubleDot(y);
+			double eta = openController.calcTheta(y);
+			/*ClosedLoopController closedController = new ClosedLoopController();
 			double u = 5;
-			double v = openController.calcThetaDoubleDot(-13,-17,(((State) y).getTime())/(60*60));
-			double eta = openController.calcTheta(-13,-17, (((State) y).getTime())/(60*60));
+			double v = closedController.calcThetaDoubleDot(-13,-17,(((State) y).getTime())/(60*60));
+			double eta = closedController.calcTheta(-13,-17, (((State) y).getTime())/(60*60));
+			*/
 			
 			System.out.println("u: " + u);
 			System.out.println("v: " + v);
@@ -77,8 +81,33 @@ public class ODEFunction implements ODEFunctionInterface {
 			return new Rate(newVelocity, newAcceleration);	
 		}
 		else if(landingEnabledFeedbackController == true) {
-			//TODO
-			throw new RuntimeException("THIS HAS STILL TO BE IMPLEMENTED --> ERROR");
+			
+			ClosedLoopController closedController = new ClosedLoopController();
+			double u = closedController.calcU();
+			double v = closedController.calcThetaDoubleDot(-13,-17,(((State) y).getTime())/(60*60));
+			double eta = closedController.calcTheta(-13,-17, (((State) y).getTime())/(60*60), y);
+			
+			
+			System.out.println("u: " + u);
+			System.out.println("v: " + v);
+			System.out.println("eta: " + eta);
+			
+			double xDoubleDot = u*Math.sin(eta);
+			double yDoubleDot = u*Math.cos(eta)-G_TITAN;
+			
+			System.out.println("x**: " + xDoubleDot);
+			System.out.println("y**: " + yDoubleDot);
+			
+			Vector3d newAccelLandingModule = new Vector3d(-xDoubleDot, -yDoubleDot, 0);
+			Vector3d newAccelTitan = new Vector3d(0, 0, 0);
+			Vector3d[] newAcceleration = {newAccelLandingModule, newAccelTitan};
+			
+			Vector3d[] currentVelocities = ((State) y).getVelocity();
+			Vector3d newVelocityLandingModule = (Vector3d) currentVelocities[0].addMul(t, newAccelLandingModule);
+			Vector3d newVelocityTitan = (Vector3d) currentVelocities[1].addMul(t, newAccelLandingModule);
+			Vector3d[] newVelocity = {newVelocityLandingModule, newVelocityTitan};
+			
+			return new Rate(newVelocity, newAcceleration);	
 		}
 		else {
 			Vector3d[] accelerationShip = ShipFuelCosts.acceleration(t, (State)y); // acceleration provided by the thrusters 

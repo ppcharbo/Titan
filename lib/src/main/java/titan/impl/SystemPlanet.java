@@ -30,6 +30,7 @@ public class SystemPlanet extends JPanel {
 	private ImageIcon icon;
 	private StateInterface[] solvedStates;
 	private int globalState = -1; //define the state where the minimum fly-by is
+	private int globalStateJupiter = -1; //define the state where the minimum fly-by is for Jupiter
 	private final boolean AUTO_CLOSE = true; 
 
 	// we need the following to be public, because we need access to it in
@@ -68,14 +69,19 @@ public class SystemPlanet extends JPanel {
 		this.addMouseMotionListener(dragListener);
 		this.addMouseWheelListener(clickListener);
 
-		solvedStates = simulateOneYear(); // Simulates the states, so we can plot them
-		
-		
+		// Simulates the states, so we can plot them
+		solvedStates = simulateOneYear(); 
 		
 		// Calculating the minimal distance we get to Titan
-		double leastFlyBy = distanceTitan();
-		System.out.println("Least fly-by");
-		System.out.println(leastFlyBy);
+		int titan = 10; //Titan is the 10th of the list
+		System.out.println("Fly-by Titan");
+		System.out.println(distanceToPlanet(titan));
+		System.out.println();
+		
+		// Calculating the minimal distance we get to Jupuiter
+		System.out.println("Fly by Jupiter");
+		int jupiter = 7; //Titan is the 7th of the list
+		System.out.println(distanceToPlanet(jupiter));
 
 		// PlanetGUI(JPanel parent, String label, int r, int g, int b, Vector3d position, double d)
 		allPlanets.add(new PlanetGUI(this, "SHIP", 0, 255, 0, ((State) solvedStates[0]).getPosition()[0], 10));
@@ -91,69 +97,38 @@ public class SystemPlanet extends JPanel {
 		allPlanets.add(new PlanetGUI(this, "TITAN", 218, 165, 32, ((State) solvedStates[0]).getPosition()[10], 10));
 		allPlanets.add(new PlanetGUI(this, "NEPTUNE", 66, 98, 243, ((State) solvedStates[0]).getPosition()[11], 38));
 	}
-
-	public double distanceTitan() {
+	
+	public double distanceToPlanet(int planet) {
 		Vector3d[] shipPositions = new Vector3d[solvedStates.length];
-		Vector3d[] titanPositions = new Vector3d[solvedStates.length];
+		Vector3d[] planetPositions = new Vector3d[solvedStates.length];
 
 		for (int i = 0; i < solvedStates.length; i++) {
 			shipPositions[i] = ((State) solvedStates[i]).getPosition()[0];
-			titanPositions[i] = ((State) solvedStates[i]).getPosition()[10];
+			planetPositions[i] = ((State) solvedStates[i]).getPosition()[planet];
 		}
 
 		double closestDistance = Double.MAX_VALUE;
-		
-		/* ONE IMPLEMENTATION WAY
-		// loop over every state and look for the minimal distance
-		for (Vector3dInterface shipVector : shipPositions) {
-			for (Vector3dInterface titanVector : titanPositions) {
-				if (Math.abs(shipVector.dist(titanVector)) <= 3E5) {
-					System.out.println("We fully made it to Titan!");
-				}
-				if (Math.abs(shipVector.dist(titanVector)) < closestDistance) {
-					closestDistance = Math.abs(shipVector.dist(titanVector));
-				}
-			}
-		}
-		*/
-		
-		// THE OTHER WAY:
+
 		// loop over every state and calculate the minimal distance
 		for (int j = 0; j < shipPositions.length; j++) {
-			if (shipPositions[j].dist(titanPositions[j]) < closestDistance) {
-				closestDistance = shipPositions[j].dist(titanPositions[j]);
-				globalState = j;
+			if (shipPositions[j].dist(planetPositions[j]) < closestDistance) {
+				closestDistance = shipPositions[j].dist(planetPositions[j]);
+				if(planet == 10) {
+					globalState = j;
+				}
+				if(planet == 7) {
+					globalStateJupiter = j;
+				}
 			}
 		}
 
-		System.out.println(closestDistance);
-		System.out.println(globalState);
-		
 		if(DEBUG) {
 			System.out.println("To check:");
-			System.out.println(((State) solvedStates[globalState]).getPosition()[0].dist(((State) solvedStates[globalState]).getPosition()[10]));
+			System.out.println(((State) solvedStates[globalStateJupiter]).getPosition()[0].dist(((State) solvedStates[globalStateJupiter]).getPosition()[7]));
 		}
 		
 		return closestDistance;
 	}
-	/*                                          
-	public double getMinDistance() {		// this method returns the minimum distance between our probe ant titan. 
-		
-		double[] allDistances = new double[solvedStates.length];
-		
-		for(int i = 0; i < solvedStates.length; i++)
-			allDistances[i] = distanceTitan();
-		
-		double minDist = allDistances[0];
-		for(int i = 0; i < solvedStates.length; i++)
-			if(allDistances[i] <= minDist)
-				{
-				 minDist = allDistances[i];
-				}
-		
-		return minDist;
-	}
-	*/
 
 	public void paintComponent(Graphics g) {
 
@@ -198,7 +173,7 @@ public class SystemPlanet extends JPanel {
 				}
 				if(currentState == globalState)
 				{
-					new LandingFrame(solvedStates[globalState]);
+					new LandingFrame(globalState);
 					if(AUTO_CLOSE) {
 						upperFrame.welcomeFrame.dispose();
 					}
@@ -229,14 +204,31 @@ public class SystemPlanet extends JPanel {
 		200: 3.740731413563386e6, -5.157141498910596e6, 0.021472116668884e6
 		150: 3.609867510498535E6, -5.249581360565903E6, 0.019826634766418E6
 		*/
-
-		//Least fly-by: 2.2303070656140846E10
-		Vector3dInterface probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
+		
+		/*
+		 * Fly-by Titan
+		 * 1.0947200624149562E11
+		 * 
+		 * Fly by Jupiter
+		 * 4.666789063372709E9 
+		 * 4154116.78496650, -4830374.71365795, 20853.3573652752
+		 * 
+		 * 
+		 * Fly-by Titan
+		 * 5.036348713187294E10
+		 * 
+		 * Fly by Jupiter
+		 * 3.818103778134106E10
+		 * 4.115732989682610E6, -4.863119819665272E6, 0.021179641570518E6
+		 */
+		Vector3dInterface probe_pos = new Vector3d(4.115732989682610E6, -4.863119819665272E6, 0.021179641570518E6); // row 367
 		Vector3dInterface probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
 		
 		//Least fly-by: 5.183927817858741E10
 		//Vector3dInterface probe_pos = new Vector3d(3934123.6794817075,-5011170.076552446,22053.081568514943);
 		//Vector3dInterface probe_vel = new Vector3d(5069.870196164143,59785.41894141804,-9.909247179762742);
+		
+		
 		// original step by examiners
 		//double day = 24 * 60 * 60;
 		//double year = 365.25 * day;
@@ -249,21 +241,9 @@ public class SystemPlanet extends JPanel {
 		//double hour = 60 * 60;
 		//double fourDays = 4.05 * 24 * hour;
 		
-		//SELECT THE SIMULATOR	
-		StateInterface[] states = null;
-		if (euler) {
-			ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
-			states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
-			System.out.println("Euler sim");
-		} else if (verlet) {
-			ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
-			states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
-			System.out.println("verlet sim");
-		} else {
-			ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
-			states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
-			System.out.println("rk4 sim");
-		}
+		ProbeSimulatorRungeKutta simulator = new ProbeSimulatorRungeKutta();
+		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
+		
 		
 		
 		//check if states = null

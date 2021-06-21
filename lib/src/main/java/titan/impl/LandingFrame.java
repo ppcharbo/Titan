@@ -12,17 +12,19 @@ import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import titan.StateInterface;
+import titan.Vector3dInterface;
 
 public class LandingFrame extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	
-	public LandingFrame(StateInterface landingState) {
+	public LandingFrame(int state) {
 		
-		
+		StateInterface[] simulations = simulateTime();
+		StateInterface landingState = simulations[state];
 		JFrame landingFrame = new JFrame();
 		
-		landingFrame.setSize(800, 800);
+		landingFrame.setSize(1600, 900);
 		landingFrame.setTitle("Journey to Titan - Landing");
 		landingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -82,5 +84,19 @@ public class LandingFrame extends JPanel{
 		
 		landMode.startLanding();
 		landingFrame.setVisible(true);
+	}
+	
+	//From SystemPlanet
+	public static StateInterface[] simulateTime() {
+		Vector3dInterface probe_pos = new Vector3d(4154116.78496650, -4830374.71365795, 20853.3573652752); // row 367
+		Vector3dInterface probe_vel = new Vector3d(72684.6410404669, -107781.235228466, 385.083685268718); // row 133 with speed 130E3
+		
+		double stepGUI2 = 60 * 60; // 1 hour
+		double finalGUI2 = 2*365.25 * 24 * 60 * 60; // 2 years
+		
+		ProbeSimulatorEuler simulator = new ProbeSimulatorEuler();
+		StateInterface[] states = simulator.trajectoryGUI(probe_pos, probe_vel, finalGUI2, stepGUI2);
+		
+		return states;
 	}
 }
