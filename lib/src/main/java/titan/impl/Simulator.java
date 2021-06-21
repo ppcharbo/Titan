@@ -76,7 +76,6 @@ public class Simulator {
 		double day = 24 * 60 * 60;
 		double year = 365.25 * day;
 		
-		// TODO print several different trajectories
 		Vector3dInterface[] trajectory = trajectory(probe_relative_position, probe_relative_velocity, year, day, element);
 		
 		return trajectory;
@@ -157,10 +156,6 @@ public class Simulator {
 	 */
 	private static double simulateXDays(int element) { // X to be found
 			
-			/* Provided from the test case:
-			Vector3dInterface probe_relative_position = new Vector3d(6371e3, 0, 0);
-			Vector3dInterface probe_relative_velocity = new Vector3d(52500.0, -27000.0, 0); // 12.0 months
-			*/
 			Vector3dInterface probe_relative_position = new Vector3d(3.609867510498535E6, -5.249581360565903E6, 0.019826634766418E6);
 			Vector3dInterface probe_relative_velocity = new Vector3d(3.697963122066227E6, -4.724895451097348E6, 0.020777970011329E6);
 			
@@ -226,8 +221,8 @@ public class Simulator {
 		
 		for (int a = 0; a < solvedStates.length; a++) {
 			
-			returnPositions[a] = ((State) solvedStates[a]).getPosition()[element]; //this should be position element
+			returnPositions[a] = ((State) solvedStates[a]).getPosition()[element]; 
 		}
-		return ShipFuelCosts.fuelCost(tf); // need to find the fastest trajectory to optimize the fuel costs
+		return ShipFuelCosts.fuelCost(tf); 
 	}	
 }

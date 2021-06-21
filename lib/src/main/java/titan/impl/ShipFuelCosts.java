@@ -61,7 +61,6 @@ public class ShipFuelCosts {
 	
 	public static double calcTime() {
 		
-		System.out.println("Hey There, the error might have been fixed " + acceleration[0].norm());
 		engineTime=(delta_velocity.norm())/acceleration[0].norm();
 		
 		return engineTime;
