@@ -1,12 +1,14 @@
 # Titan Project-1-2 Groupe 12
 
 Project 1-2 phase 2:
-There is a source file with 4 folder:
+There is a src (soruce) file with several folders:
+- main.java: this contains the main files to run the project
 - titan: this folder contains the provided interfaces.
 - titan.impl: this folder contains the implementation with a graphical user interface.
-- titan.tests: this folder contains the testcases.
+- titan.impl.normalnumbers: this folder contains the tests we ran to test the solvers.
+- test.java.titan.tests: this folder contains the testcases.
 
-You might also find 4 other folders: documents, lib, resources.
+You might also find 5 other folders: documents, lib, resources, build and bin.
 These folders contain the documents that were used during the project and the resources
 
 SOURCES:
