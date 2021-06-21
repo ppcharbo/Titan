@@ -1,4 +1,9 @@
 package titan.impl;
+/**
+ * A class that calculates the cost of the fuel in time, dependent on the actions of the probe. 
+ * @author Group 12
+ *
+ */
 
 public class ShipFuelCosts {
 

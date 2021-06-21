@@ -1,10 +1,16 @@
 package titan.impl;
 
 import titan.ODEFunctionInterface;
+
 import titan.ODESolverInterface;
 import titan.RateInterface;
 import titan.StateInterface;
 
+/**
+ * A class that use Runge-Kutta ODE Solver properties to calculate the next position
+ * @author Group 12
+ *
+ */
 public class ODESolverRungeKutta implements ODESolverInterface {
 	
 	@Override

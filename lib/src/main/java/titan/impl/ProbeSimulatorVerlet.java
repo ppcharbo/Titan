@@ -2,6 +2,12 @@ package titan.impl;
 
 import java.util.ArrayList;
 
+/**
+ * Simulator of a probe with an Verlet ODE solver 
+ * @author Group 12
+ *
+ */
+
 import titan.ProbeSimulatorInterface;
 import titan.StateInterface;
 import titan.Vector3dInterface;

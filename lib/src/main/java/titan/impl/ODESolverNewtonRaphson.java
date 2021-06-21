@@ -1,6 +1,12 @@
+
 package titan.impl;
 
 import titan.ODEFunctionInterface;
+/**
+ * A class that use Newton Raphson ODE solver to calculate the next position
+ * @author Group 12
+ *
+ */
 import titan.ODESolverInterface;
 import titan.StateInterface;
 
