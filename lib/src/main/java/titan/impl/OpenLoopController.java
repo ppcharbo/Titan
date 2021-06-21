@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import titan.StateInterface;
-/*
+/**
  *  This class is responsible for simulating the probe's landing using an open loop controller.
  *  @author Group 12 
  */

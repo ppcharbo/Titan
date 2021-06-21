@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import titan.StateInterface;
-/*
- *  This class is responsible for simulating the probe's landing using a closed loop controller.
- *  @author Group 12 
- */
+/**
+  *  This class is responsible for simulating the probe's landing using a closed loop controller.
+  *  @author Group 12 
+  */
 public class ClosedLoopController {
 	private StateInterface[] landingStatesPerTime;
 	public final double E = 2.718281828459;

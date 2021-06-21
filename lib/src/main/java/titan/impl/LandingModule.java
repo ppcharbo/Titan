@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import titan.StateInterface;
 import titan.Vector3dInterface;
-/*
+/**
  *  This class is responsible for displaying the probe on the landing frame and it also updates its coordinates.
  *  @author Group 12 
  */
