@@ -4,8 +4,8 @@ import titan.ODEFunctionInterface;
 import titan.StateInterface;
 import titan.Vector3dInterface;
 
-/*
- * This is an interface for the function f that represents the
+/**
+ * This is an interface for the function f that represents the 
  * differential equation dy/dt = f(t,y). It is used in every solver as input function (the function that has to be solved).
  * @author Group 12 
 */
