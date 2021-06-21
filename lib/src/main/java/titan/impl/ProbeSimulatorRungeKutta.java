@@ -1,14 +1,17 @@
+
 package titan.impl;
 
 import java.util.ArrayList;
+
+import titan.ProbeSimulatorInterface;
+import titan.StateInterface;
+import titan.Vector3dInterface;
 /**
  * Simulator of a probe with an Runge-Kutta ODE solver 
  * @author Group 12
  *
  */
-import titan.ProbeSimulatorInterface;
-import titan.StateInterface;
-import titan.Vector3dInterface;
+
 
 public class ProbeSimulatorRungeKutta implements ProbeSimulatorInterface {
 
