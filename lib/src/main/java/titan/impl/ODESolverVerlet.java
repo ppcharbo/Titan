@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import titan.ODEFunctionInterface;
 import titan.ODESolverInterface;
 import titan.StateInterface;
+/**
+ * A class that use Verlet ODE Solver properties to calculate the next postion
+ * @author Group 12
+ *
+ */
 
 public class ODESolverVerlet implements ODESolverInterface {
 

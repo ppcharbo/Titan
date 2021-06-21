@@ -1,11 +1,17 @@
 package titan.impl;
 
 import java.io.FileWriter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 import titan.StateInterface;
 import titan.Vector3dInterface;
+/**
+ * A class that get the trajectory of the planets and simulate the trajectory over a year
+ * @author Group 12
+ *
+ */
 
 public class Simulator {
 

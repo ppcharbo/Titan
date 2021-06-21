@@ -1,10 +1,18 @@
+
 package titan.impl;
 
 import titan.ODEFunctionInterface;
+
 import titan.ODESolverInterface;
 import titan.StateInterface;
 
 import org.apache.commons.math3.linear.MatrixUtils;
+/**
+ * A class that use Newton Raphson ODE solver properties to calculate the next position
+ * @author Group 12
+ *
+ */
+
 
 /*
  * A class for solving a general differential equation dy/dt = f(t,y)
