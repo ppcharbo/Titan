@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import titan.StateInterface;
-
+/*
+ *  This class is responsible for simulating the probe's landing using an open loop controller.
+ *  @author Group 12 
+ */
 public class OpenLoopControllerNew {
 	
 	private double etaDotZero = 0;

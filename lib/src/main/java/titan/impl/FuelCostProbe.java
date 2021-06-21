@@ -1,5 +1,8 @@
 package titan.impl;
-
+/*
+ *  This class calculates the cost of fuel, taking into consideration the velocity and acceleration.
+ *  @author Group 12 
+ */
 //public class FuelCostProbe implements ProbeSimulatorInterface{
 public class FuelCostProbe {
 

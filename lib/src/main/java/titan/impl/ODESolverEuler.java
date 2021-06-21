@@ -6,6 +6,11 @@ import titan.StateInterface;
 import titan.impl.normalnumbers.State;
 
 /*
+ *  This class solves a differential equation using the Euler method.
+ *  @author Group 12 
+ */
+
+/*
  * A class for solving a general differential equation dy/dt = f(t,y)
  *     y(t) describes the state of the system at time t
  *     f(t,y(t)) defines the derivative of y(t) with respect to time t

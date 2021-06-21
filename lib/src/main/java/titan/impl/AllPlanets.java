@@ -1,7 +1,10 @@
 package titan.impl;
 
 import java.util.ArrayList;
-
+/*
+ *  This class creates an ArrayList of planet objects and returns it.
+ *  @author Group 12 
+ */
 public class AllPlanets {
 	
 	private ArrayList<Planet> listOfPlanets= new ArrayList<>();
