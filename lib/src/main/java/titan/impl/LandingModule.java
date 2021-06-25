@@ -48,24 +48,24 @@ public class LandingModule extends JPanel {
 		// Repaint background
 		icon.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
 
-		openController.draw(g, size, 10, 10);
+		feedbackController.draw(g, size, 10, 10);
 
 		g.setColor(new Color(218, 165, 32));
 		g.drawLine(720, 0, 720, getHeight());
-		g.fillRect(0, getHeight()-100, getWidth(), 100);
+		g.fillRect(0, getHeight()-110, getWidth(), 110);
 		
 		g.setColor(new Color(255, 0, 0));
-		g.fillRect(700, getHeight()-100-10, 40, 10);
+		g.fillRect(700, getHeight()-110-10, 40, 10);
 	}
 	
 	private void landingLoop() {
 		
-		landingStatesPerTime = openController.getLandingStates();
+		landingStatesPerTime = feedbackController.getLandingStates();
 		
 		while (true) {
 			if (!stop) {
 				// update positions
-				openController.update(((State) landingStatesPerTime[currentState]).getPosition()[0]);
+				feedbackController.update(((State) landingStatesPerTime[currentState]).getPosition()[0]);
 				if (currentState == landingStatesPerTime.length - 1) {
 					currentState = 0;
 				}
