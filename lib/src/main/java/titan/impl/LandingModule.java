@@ -52,7 +52,7 @@ public class LandingModule extends JPanel {
 
 		g.setColor(new Color(218, 165, 32));
 		g.drawLine(720, 0, 720, getHeight());
-		g.fillRect(0, getHeight()-100, getWidth(), 100);
+		g.fillRect(0, getHeight()-128, getWidth(), 100);
 		
 		g.setColor(new Color(255, 0, 0));
 		g.fillRect(700, getHeight()-100-10, 40, 10);

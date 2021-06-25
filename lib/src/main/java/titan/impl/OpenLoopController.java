@@ -134,12 +134,15 @@ public class OpenLoopController {
 		g.setColor(color);
 		g.fillRect(xLT, yLT, width, height);
 		
+		if(yLT >= 734) {
+			LandingModule.stop = true;
+		}
 	}
 	
 	public void setX(int x) {
 		this.xLT = x;
 	}
-	
+
 	public void setY(int y) {
 		this.yLT = y;
 	}
