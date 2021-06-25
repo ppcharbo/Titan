@@ -69,7 +69,7 @@ public class LandingModule extends JPanel {
 				if (currentState == landingStatesPerTime.length - 1) {
 					currentState = 0;
 				}
-			displayDistances((State)landingStatesPerTime[currentState]);	
+			//displayDistances((State)landingStatesPerTime[currentState]);
 			}
 			currentState++;
 			

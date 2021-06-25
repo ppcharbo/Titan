@@ -15,6 +15,10 @@ public class ODEFunction implements ODEFunctionInterface {
 	
 	private final boolean DEBUG = false;
 	private final boolean ENGINE_ON_OR_OFF = false;
+	private double oldDistance = 0;
+	private double oldDistanceX = 0;
+	private double oldDistanceY = 0;
+	
 	
 	private static final double G = 6.67300E-11; // universal gravitational constant (m3 kg-1 s-2)
 	private int numberOfPlanet;
@@ -72,6 +76,24 @@ public class ODEFunction implements ODEFunctionInterface {
 				System.out.println("x**: " + xDoubleDot);
 				System.out.println("y**: " + yDoubleDot);
 			}
+			
+			Vector3d positionModule = ((State) y).getPosition()[0];
+			
+			Vector3d positionTitan = ((State) y).getPosition()[1];
+			
+			double deltaX = positionModule.getX()-positionTitan.getX();
+			double deltaY = positionModule.getY()-positionTitan.getY();
+			
+			double deltaRelativeX = deltaX - oldDistanceX;
+			oldDistanceX = deltaX;
+			
+			double deltaRelativeY = deltaY - oldDistanceY;
+			oldDistanceY = deltaY;
+			
+			double distance = ((State) y).getPosition()[0].dist(((State) y).getPosition()[1]);
+			double delta = distance-oldDistance;
+			oldDistance = distance; 
+			System.out.printf("u:%5f v:%5f eta:%5f xDoubleDot:%5f yDoubleDot:%5f delta:%30f deltaX:%30f deltaY:%30f \n", u,v,eta,xDoubleDot,yDoubleDot, delta, deltaRelativeX, deltaRelativeY);
 			
 			Vector3d newAccelLandingModule = new Vector3d(-xDoubleDot, -yDoubleDot, 0);
 			Vector3d newAccelTitan = new Vector3d(0, 0, 0);

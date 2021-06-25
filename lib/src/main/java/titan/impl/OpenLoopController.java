@@ -11,7 +11,7 @@ import titan.StateInterface;
 public class OpenLoopController {
 	
 	private double etaDotZero = 0;
-	private double etaZero = Math.PI/4;
+	private double etaZero = 0;
 	private StateInterface[] landingStatesPerTime;
 	private int xLT = 400;
 	private int yLT = 0;
@@ -25,10 +25,16 @@ public class OpenLoopController {
 		int ship = 0;
 		int titan = 10;
 		Vector3d positionLaunch = ((State)(initialLaunchState)).getPosition()[ship];
-		Vector3d velocityLaunch = ((State)(initialLaunchState)).getVelocity()[ship];
+		
+		//Vector3d velocityLaunch = ((State)(initialLaunchState)).getVelocity()[ship];
 		Vector3d positionTitan = ((State)(initialLaunchState)).getPosition()[titan];
 		//System.out.println("Distance from ship to Titan:");
 		//System.out.println(positionLaunch.dist(positionTitan));
+		
+		Vector3d velocityLaunch = (Vector3d) positionTitan.sub(positionLaunch);
+		velocityLaunch = (Vector3d) velocityLaunch.mul(1/(2.5E10));
+		velocityLaunch.setX(0);
+		//velocityLaunch = velocityLaunch.mul(titan)
 		
 		Vector3d velocityTitan = new Vector3d(0, 0, 0);
 		
@@ -59,7 +65,7 @@ public class OpenLoopController {
 		}
 		*/
 
-		return 5;
+		return 0;
 	}
 	
 	public double calcThetaDoubleDot(StateInterface y) { //this is v (torque in Nm)
@@ -78,7 +84,7 @@ public class OpenLoopController {
 			return 0;
 		}
 		
-		return 5;
+		return 0;
 	}
 	
 	public double calcThetaDot(StateInterface y) {
@@ -97,7 +103,7 @@ public class OpenLoopController {
 			return 0;
 		}
 		
-		return 5;
+		return 0;
 	}
 	
 	public double calcTheta(StateInterface y) {
@@ -128,9 +134,6 @@ public class OpenLoopController {
 		g.setColor(color);
 		g.fillRect(xLT, yLT, width, height);
 		
-		if(yLT >= 734) {
-			LandingModule.stop = true;
-		}
 	}
 	
 	public void setX(int x) {

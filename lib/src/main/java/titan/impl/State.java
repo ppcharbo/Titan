@@ -88,13 +88,17 @@ public class State implements StateInterface {
 		//Vector3d[] newVelocity = new Vector3d[this.velocity.length];
 		
 		for (int i = 0; i < position.length; i++) {
-
+			//4.8320796095395667E11
 			//newVelocity[i] = (Vector3d) newState.getVelocity()[i].addMul(step, ((Rate) rate).getAcceleration()[i]);
 			//newPosition[i] = (Vector3d) newState.getPosition()[i].addMul(step, ((Rate) rate).getVelocity()[i]);
-			
-			Vector3d newVelo = (Vector3d) newState.getVelocity()[i].addMul(step, ((Rate) rate).getAcceleration()[i]);
+			Vector3d accelerationVector = ((Rate) rate).getAcceleration()[i];
+			Vector3d newVelo = (Vector3d) newState.getVelocity()[i].addMul(step, accelerationVector);
 			Vector3d newPosition = (Vector3d) newState.getPosition()[i].addMul(step, ((Rate) rate).getVelocity()[i]);
-			
+			if(i == 0) {
+				double deltaX = this.getPosition()[i].getX() - newPosition.getX();
+				System.out.printf("deltaX:%5s \n", deltaX);
+			}
+
 			newState.getPosition()[i] = newPosition;
 			newState.getVelocity()[i] = newVelo;
 		}
